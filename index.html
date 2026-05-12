@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thay Funnel Builder</title>
+
+  <!-- Styles -->
+  
+  
+  
+  
+  
+<style>
+/* ============================================================
+   THAY FUNNEL BUILDER — BASE STYLES
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f7f8;
+  color: #111;
+  padding: 24px;
+  overflow-x: hidden;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.9);
+  border: 1px solid #dfe5ea;
+  box-shadow: 0 18px 40px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+.group { display: flex; align-items: center; gap: 4px; }
+
+.separator {
+  width: 1px;
+  height: 28px;
+  background: rgba(220,225,230,.9);
+  margin: 0 4px;
+}
+
+.btn {
+  height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 16px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8b929c;
+  font-size: 13px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: .18s ease;
+  white-space: nowrap;
+}
+
+.btn svg { width: 15px; height: 15px; stroke-width: 2.25; }
+.btn:hover { background: rgba(245,247,249,.95); color: #111; }
+
+.active-blue {
+  color: #fff;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  box-shadow: 0 12px 24px rgba(0,119,255,.30);
+}
+
+.icon-btn { width: 42px; padding: 0; }
+
+/* ============================================================
+   THAY FUNNEL BUILDER — DASHBOARD VIEW
+   ============================================================ */
+
+.dashboard-view { display: none; margin-top: 34px; }
+.dashboard-view.active { display: block; }
+
+.dashboard-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 20px;
+  margin-bottom: 26px;
+}
+.dashboard-head h1 { font-size: 34px; font-weight: 950; letter-spacing: -1.2px; }
+.dashboard-head p { margin-top: 8px; color: #9ca1ab; font-size: 12px; font-weight: 900; letter-spacing: 1.4px; }
+
+.dashboard-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  box-shadow: 0 16px 34px rgba(0,0,0,.06);
+}
+
+.filter-pill {
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: #8b929c;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.filter-pill.active {
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0,119,255,.24);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(190px, 1fr));
+  gap: 18px;
+  padding: 0 20px;
+}
+
+.metric-card {
+  min-height: 150px;
+  border-radius: 30px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  box-shadow: 0 18px 38px rgba(0,0,0,.055), inset 0 1px 0 rgba(255,255,255,.95);
+  padding: 24px;
+}
+.metric-card span { color: #8b929c; font-size: 12px; font-weight: 900; letter-spacing: .5px; }
+.metric-card h2 { margin-top: 16px; font-size: 32px; font-weight: 950; letter-spacing: -1px; }
+.metric-card small { display: block; margin-top: 12px; color: #98a0aa; font-size: 11px; font-weight: 800; }
+
+.black-card { background: linear-gradient(180deg, #202428, #050505); color: #fff; }
+.black-card span, .black-card small { color: rgba(255,255,255,.66); }
+
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 20px;
+  padding: 20px;
+}
+
+.sales-chart-card {
+  min-height: 330px;
+  border-radius: 34px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  box-shadow: 0 18px 38px rgba(0,0,0,.055);
+  padding: 26px;
+}
+
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; }
+.card-head h3 { font-size: 20px; font-weight: 950; }
+.card-head p { margin-top: 6px; color: #9ca1ab; font-size: 12px; font-weight: 800; }
+
+.mini-cta {
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 14px;
+  background: #050505;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.chart-bars {
+  height: 210px;
+  margin-top: 36px;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 0 6px;
+  border-bottom: 1px solid #edf1f5;
+}
+.chart-bars span {
+  flex: 1;
+  min-width: 18px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  box-shadow: 0 12px 24px rgba(0,119,255,.18);
+}
+
+.dashboard-side { display: flex; flex-direction: column; gap: 14px; }
+
+.side-stat {
+  min-height: 75px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  box-shadow: 0 14px 30px rgba(0,0,0,.05);
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+}
+.side-stat span { color: #8b929c; font-size: 12px; font-weight: 900; }
+.side-stat strong { font-size: 20px; font-weight: 950; }
+.side-stat button {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  height: 34px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 12px;
+  background: #f2f6fb;
+  color: #0077ff;
+  font-size: 11px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* ============================================================
+   THAY FUNNEL BUILDER — AFFILIATE MARKETPLACE
+   ============================================================ */
+
+.affiliate-market-view { display: none; margin-top: 34px; }
+.affiliate-market-view.active { display: block; }
+
+.affiliate-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 20px;
+  margin-bottom: 28px;
+}
+.affiliate-head h1 { font-size: 34px; font-weight: 950; letter-spacing: -1.2px; }
+.affiliate-head p {
+  margin-top: 8px;
+  color: #9ca1ab;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  max-width: 760px;
+  line-height: 1.7;
+}
+
+.affiliate-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  box-shadow: 0 16px 34px rgba(0,0,0,.06);
+}
+.affiliate-tab {
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: #8b929c;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.affiliate-tab.active {
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0,119,255,.24);
+}
+
+.affiliate-note {
+  margin: 0 20px 24px;
+  border-radius: 30px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  padding: 22px 26px;
+  color: #7e8792;
+  font-size: 13px;
+  line-height: 1.7;
+  font-weight: 750;
+  box-shadow: 0 16px 34px rgba(0,0,0,.045);
+}
+
+.affiliate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 0 20px 28px;
+}
+
+/* Product Card */
+.affiliate-product-card {
+  min-height: 360px;
+  border-radius: 36px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  box-shadow: 0 18px 38px rgba(0,0,0,.055), inset 0 1px 0 rgba(255,255,255,.95);
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  transition: .18s ease;
+}
+.affiliate-product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 54px rgba(0,0,0,.10);
+}
+.affiliate-product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 105px;
+  background: linear-gradient(135deg, rgba(69,173,255,.16), rgba(0,119,255,.03));
+  pointer-events: none;
+}
+
+.affiliate-badge {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 20px;
+  background: #050505;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  box-shadow: 0 16px 32px rgba(0,0,0,.18);
+}
+
+.affiliate-product-card h3 {
+  position: relative;
+  margin-top: 24px;
+  font-size: 21px;
+  font-weight: 950;
+  letter-spacing: -.6px;
+}
+.affiliate-product-card p {
+  position: relative;
+  margin-top: 10px;
+  color: #8e96a1;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.6;
+}
+
+.affiliate-funnel-tag {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(5,5,5,.88);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.affiliate-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.affiliate-rating { display: flex; align-items: center; gap: 6px; color: #ff9800; font-size: 12px; font-weight: 900; }
+.affiliate-fire { color: #ff4d00; }
+.affiliate-heart {
+  width: 36px; height: 36px; border-radius: 12px;
+  border: 1px solid #e7ecf1; background: #fff;
+  display: grid; place-items: center; color: #98a1ab; cursor: pointer;
+}
+
+.affiliate-commission { margin-top: 16px; color: #8f97a1; font-size: 12px; font-weight: 800; }
+.affiliate-price { margin-top: 8px; font-size: 36px; font-weight: 950; color: #03b45e; letter-spacing: -1px; }
+.affiliate-max-price { margin-top: 6px; color: #9ea6b0; font-size: 11px; font-weight: 700; }
+
+.affiliate-actions { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+
+.affiliate-details-btn {
+  height: 46px;
+  border: none;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .9px;
+  cursor: pointer;
+  transition: .18s ease;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(0,119,255,.24);
+}
+.affiliate-details-btn:hover { transform: translateY(-2px); }
+
+.affiliate-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+.affiliate-stat {
+  border-radius: 18px;
+  background: #f7f9fb;
+  border: 1px solid #edf1f5;
+  padding: 12px;
+}
+.affiliate-stat span { display: block; color: #9aa1aa; font-size: 9px; font-weight: 950; letter-spacing: .7px; }
+.affiliate-stat strong { display: block; margin-top: 6px; font-size: 15px; font-weight: 950; }
+
+/* Cover image variant */
+.affiliate-cover {
+  height: 210px;
+  width: 100%;
+  background: #eef3f8;
+  position: relative;
+  overflow: hidden;
+}
+.affiliate-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Product Detail */
+.product-detail-view { display: none; margin-top: 34px; padding: 0 20px 32px; }
+.product-detail-view.active { display: block; }
+
+.product-detail-hero {
+  min-height: 360px;
+  border-radius: 38px;
+  background: linear-gradient(135deg, #101418, #050505);
+  color: #fff;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 28px;
+  overflow: hidden;
+  box-shadow: 0 28px 70px rgba(0,0,0,.20);
+}
+.product-detail-hero h1 { font-size: 42px; font-weight: 950; letter-spacing: -1.4px; line-height: 1.05; }
+.product-detail-hero p {
+  margin-top: 16px;
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.8;
+  max-width: 720px;
+}
+.product-detail-cover {
+  min-height: 290px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #45adff, #0077ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+}
+
+.product-detail-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+.product-affiliate-btn,
+.product-edit-funnel-btn,
+.product-back-btn {
+  height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .8px;
+  cursor: pointer;
+  transition: .18s ease;
+}
+.product-affiliate-btn {
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(0,119,255,.28);
+}
+.product-edit-funnel-btn { background: #fff; color: #050505; }
+.product-back-btn { background: rgba(255,255,255,.10); color: #fff; border: 1px solid rgba(255,255,255,.16); }
+
+.product-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 22px;
+  margin-top: 24px;
+}
+.product-panel {
+  border-radius: 34px;
+  background: #fff;
+  border: 1px solid #e8edf2;
+  padding: 26px;
+  box-shadow: 0 18px 38px rgba(0,0,0,.055);
+}
+.product-panel h3 { font-size: 22px; font-weight: 950; letter-spacing: -.6px; margin-bottom: 14px; }
+.product-panel p,
+.product-panel li { color: #7e8792; font-size: 14px; font-weight: 700; line-height: 1.8; }
+.product-panel ul { padding-left: 20px; display: grid; gap: 8px; }
+
+.product-funnel-preview { display: grid; gap: 12px; }
+.product-funnel-step {
+  min-height: 62px;
+  border-radius: 20px;
+  background: #f7f9fb;
+  border: 1px solid #edf1f5;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 950;
+}
+.product-funnel-step span { color: #0077ff; }
+
+/* ============================================================
+   THAY FUNNEL BUILDER — PROJECTS & FUNNEL DASHBOARD
+   ============================================================ */
+
+/* ── PROJECTS VIEW ── */
+.projects-view { display: none; margin-top: 34px; }
+.projects-view.active { display: block; }
+
+.projects-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 46px;
+  padding: 0 20px;
+}
+.projects-head h1 { font-size: 34px; font-weight: 950; letter-spacing: -1.2px; }
+.projects-head p { margin-top: 8px; color: #9ca1ab; font-size: 12px; font-weight: 900; letter-spacing: 1.4px; }
+
+.new-funnel-btn {
+  height: 50px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 20px;
+  background: #050505;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 18px 38px rgba(0,0,0,.20);
+  cursor: pointer;
+}
+.new-funnel-btn span { font-size: 22px; font-weight: 300; }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 26px;
+  padding: 0 20px;
+}
+
+.project-card {
+  height: 370px;
+  border-radius: 44px;
+  background: #fff;
+  border: 1px solid #eceff2;
+  box-shadow: 0 18px 38px rgba(0,0,0,.055), inset 0 1px 0 rgba(255,255,255,.95);
+  padding: 32px;
+  position: relative;
+  cursor: pointer;
+  transition: .2s ease;
+}
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 26px 54px rgba(0,0,0,.09); }
+
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 17px;
+  background: #f7f7f8;
+  border: 1px solid #edf0f2;
+  display: grid;
+  place-items: center;
+  color: #c3c8cf;
+  font-size: 20px;
+}
+
+.project-toggle {
+  position: absolute; right: 30px; top: 34px;
+  width: 58px; height: 32px;
+  border: none; border-radius: 999px;
+  background: #edf0f3;
+  cursor: pointer; padding: 4px;
+  transition: .2s ease;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.08);
+}
+.project-toggle::after {
+  content: "";
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: block;
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+  transition: .2s ease;
+}
+.project-card.active .project-toggle {
+  background: #03c765;
+  box-shadow: 0 10px 24px rgba(3,199,101,.24);
+}
+.project-card.active .project-toggle::after { transform: translateX(26px); }
+
+.project-card h3 { margin-top: 36px; font-size: 20px; font-weight: 950; letter-spacing: -.5px; }
+.project-card small { display: block; margin-top: 8px; color: #c1c5cc; font-size: 10px; font-weight: 950; letter-spacing: 1.6px; }
+
+.progress {
+  position: absolute; left: 32px; right: 82px; bottom: 36px;
+  height: 4px; border-radius: 99px; background: #f1f3f4; overflow: hidden;
+}
+.progress span { display: block; height: 100%; background: #aeb5bd; }
+.project-card.active .progress span { background: #03c765; }
+
+.project-card b {
+  position: absolute; right: 32px; bottom: 136px;
+  color: #a6abb3; font-size: 10px; font-weight: 950; letter-spacing: 1px;
+}
+
+.project-actions {
+  position: absolute; left: 32px; right: 32px; bottom: 24px;
+  display: grid; gap: 10px;
+}
+.project-action-row {
+  display: grid;
+  grid-template-columns: 1fr 46px;
+  gap: 8px;
+  position: relative;
+}
+
+.project-dashboard-btn,
+.project-edit-btn,
+.project-more-btn,
+.project-delete-menu-btn {
+  height: 42px;
+  border: none;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: .18s ease;
+  white-space: nowrap;
+}
+.project-dashboard-btn {
+  width: 100%;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(0,119,255,.24);
+}
+.project-edit-btn { background: #050505; color: #fff; box-shadow: 0 12px 24px rgba(0,0,0,.16); }
+.project-more-btn {
+  background: #f4f6f8; color: #6f7783;
+  border: 1px solid #e6ebf0;
+  font-size: 18px; letter-spacing: 0;
+}
+.project-more-menu {
+  position: absolute; right: 0; bottom: 50px;
+  width: 170px;
+  display: none;
+  padding: 8px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #e7ecf1;
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+  z-index: 20;
+}
+.project-more-menu.open { display: block; }
+
+.project-delete-menu-btn {
+  width: 100%;
+  background: #fff3f3;
+  color: #ff3b3b;
+  border: 1px solid #ffe0e0;
+}
+
+.project-dashboard-btn:hover,
+.project-edit-btn:hover,
+.project-more-btn:hover,
+.project-delete-menu-btn:hover { transform: translateY(-2px); }
+
+/* ── FUNNEL DASHBOARD MODAL ── */
+.funnel-dashboard-modal { display: none; margin-top: 34px; padding: 0 20px 28px; }
+.funnel-dashboard-modal.open { display: block; }
+
+.funnel-dashboard-content {
+  width: 100%;
+  min-height: 720px;
+  border-radius: 38px;
+  background: #f5f7f8;
+  border: 1px solid #dfe5ea;
+  box-shadow: 0 24px 70px rgba(0,0,0,.10);
+  padding: 28px;
+}
+
+.funnel-dashboard-head {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px; margin-bottom: 24px;
+}
+.funnel-dashboard-head h2 { font-size: 34px; font-weight: 950; letter-spacing: -1px; }
+.funnel-dashboard-head p { margin-top: 8px; color: #8f97a1; font-size: 12px; font-weight: 900; letter-spacing: 1.2px; }
+
+.close-dashboard {
+  width: 52px; height: 52px;
+  border: none; border-radius: 18px;
+  background: #050505; color: #fff;
+  font-size: 20px; cursor: pointer;
+}
+
+.funnel-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(180px, 1fr));
+  gap: 16px; margin-bottom: 22px;
+}
+.funnel-metric {
+  min-height: 130px;
+  border-radius: 28px;
+  background: #fff;
+  border: 1px solid #e5ebf0;
+  box-shadow: 0 18px 38px rgba(0,0,0,.06);
+  padding: 22px;
+}
+.funnel-metric span { color: #9199a3; font-size: 11px; font-weight: 900; letter-spacing: .8px; }
+.funnel-metric strong { display: block; margin-top: 16px; font-size: 30px; font-weight: 950; letter-spacing: -1px; }
+.funnel-metric small { display: block; margin-top: 10px; color: #a1a8b1; font-size: 11px; font-weight: 800; }
+
+.funnel-analysis-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 20px;
+}
+.funnel-chart,
+.funnel-insights {
+  border-radius: 34px;
+  background: #fff;
+  border: 1px solid #e5ebf0;
+  box-shadow: 0 18px 38px rgba(0,0,0,.06);
+  padding: 24px;
+}
+
+.funnel-chart-bars {
+  height: 260px; margin-top: 34px;
+  display: flex; align-items: flex-end; gap: 14px;
+}
+.funnel-chart-bars span {
+  flex: 1;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  box-shadow: 0 12px 24px rgba(0,119,255,.24);
+}
+
+.insight-row {
+  min-height: 74px;
+  border-radius: 20px;
+  background: #f8fafb;
+  border: 1px solid #edf1f5;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  margin-top: 12px;
+}
+.insight-row span { color: #8d95a0; font-size: 12px; font-weight: 900; }
+.insight-row strong { font-size: 20px; font-weight: 950; }
+
+/* ============================================================
+   THAY FUNNEL BUILDER — EDITOR VISUAL & AI FLOATING
+   ============================================================ */
+
+/* ── EDITOR ── */
+.editor { margin-top: 34px; width: 100%; min-height: 620px; position: relative; overflow: visible; }
+
+.editor-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.editor-title { font-size: 22px; font-weight: 900; letter-spacing: -.6px; }
+.editor-sub { margin-top: 6px; color: #8c939d; font-size: 13px; font-weight: 600; }
+
+.publish-btn {
+  height: 48px;
+  padding: 0 18px 0 22px;
+  border: none;
+  border-radius: 18px;
+  background: #050505;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 18px 35px rgba(0,0,0,.22);
+}
+.publish-btn span {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  display: grid;
+  place-items: center;
+}
+
+/* ── CANVAS ── */
+.canvas {
+  height: 520px;
+  border-radius: 28px;
+  background-color: #fff;
+  background-image: radial-gradient(#e8edf2 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 1px dashed #d5dce3;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95);
+  cursor: grab;
+}
+.canvas:active { cursor: grabbing; }
+
+.scenario-world { position: absolute; inset: 0; transform-origin: 0 0; }
+
+.flow-line {
+  position: absolute;
+  top: 50%; left: 8%; width: 84%; height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #45adff, #73c6ff, #0077ff);
+  filter: blur(2px);
+  opacity: .8;
+}
+
+.add-flow-node {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 128px; height: 128px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: linear-gradient(180deg, #f7f9fb, #eef2f6);
+  color: #050505;
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  z-index: 5;
+  box-shadow: 0 22px 44px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.96);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.add-flow-node span { font-size: 64px; font-weight: 300; line-height: 1; }
+.add-flow-node:hover,
+.add-flow-node.active {
+  border-color: #2094ff;
+  box-shadow: 0 26px 54px rgba(32,148,255,.18), inset 0 1px 0 rgba(255,255,255,.98);
+}
+
+/* ── MODULE PICKER ── */
+.module-picker {
+  position: absolute;
+  left: 0; top: 0;
+  transform: none;
+  width: 430px;
+  max-height: 430px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.98);
+  border: 1px solid #e3e8ef;
+  box-shadow: 0 28px 70px rgba(0,0,0,.16);
+  z-index: 20;
+  overflow: hidden;
+  display: none;
+  pointer-events: auto;
+}
+.module-picker::before {
+  content: "";
+  position: absolute; left: -18px; top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 42px;
+  background: rgba(255,255,255,.98);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  border-left: 1px solid #e3e8ef;
+}
+.module-picker.open { display: block; }
+.module-picker.left-side::before {
+  left: auto; right: -18px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.module-search { padding: 18px; border-bottom: 1px solid #edf1f5; }
+.module-search input {
+  width: 100%; height: 44px;
+  border-radius: 12px;
+  border: 1px solid #d8e0e8;
+  background: #fff;
+  padding: 0 14px;
+  font-size: 14px;
+  font-weight: 650;
+  outline: none;
+}
+.module-search input:focus {
+  border-color: #2094ff;
+  box-shadow: 0 0 0 3px rgba(32,148,255,.12);
+}
+
+.module-list-title { padding: 0 18px 10px; color: #39404a; font-size: 14px; font-weight: 900; }
+.module-list {
+  padding: 8px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 310px;
+  overflow-y: auto;
+}
+
+.module-app-item {
+  width: 100%; height: 58px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #edf1f5;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: .18s ease;
+  font-size: 14px;
+  font-weight: 900;
+  color: #20242b;
+  text-align: left;
+}
+.module-app-item:hover { transform: translateX(2px); box-shadow: 0 14px 28px rgba(0,0,0,.08); }
+.module-app-item.active-app { border-color: #2094ff; background: rgba(32,148,255,.08); }
+
+.module-app-icon {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.module-app-icon svg { width: 18px; height: 18px; stroke-width: 2.2; }
+
+.green  { background: #1fb96b; }
+.blue   { background: #2083ff; }
+.purple { background: #7c4dff; }
+.orange { background: #ff7b39; }
+.dark   { background: #050505; }
+
+/* ── BOTTOM ACTIONS ── */
+.bottom-actions { margin-top: 22px; display: flex; justify-content: center; }
+.test-flow-btn {
+  height: 52px;
+  padding: 0 26px;
+  border: 1px solid #e5e9ee;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fff, #f4f6f8);
+  color: #050505;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .6px;
+  cursor: pointer;
+  box-shadow: 0 18px 36px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.95);
+  transition: .18s ease;
+}
+.test-flow-btn:hover { transform: translateY(-1px); box-shadow: 0 22px 44px rgba(0,0,0,.12); }
+
+/* ── AI FLOATING ORBS ── */
+.ai-floating-stack {
+  position: fixed;
+  right: 28px; top: 140px;
+  z-index: 99999999;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.ai-orb {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff, #f4f7fa);
+  border: 1px solid #e5e9ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 24px 48px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.95);
+  transition: transform .18s ease;
+  z-index: 99999999;
+  flex: 0 0 auto;
+}
+.ai-orb:hover { transform: scale(1.05); }
+
+.ai-logo-text { font-size: 16px; font-weight: 950; color: #050505; letter-spacing: -.5px; }
+
+.ai-beta {
+  position: absolute;
+  left: 50%; bottom: -9px;
+  transform: translateX(-50%);
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #050505;
+  color: white;
+  border: 2px solid #fff;
+  font-size: 8px;
+  font-weight: 950;
+  letter-spacing: .8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-status { display: none; }
+
+.ai-tooltip {
+  position: absolute;
+  right: 84px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(10,10,12,.92);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: .18s ease;
+}
+.ai-orb:hover .ai-tooltip { opacity: 1; }
+
+
+</style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════
+       TOPBAR
+  ══════════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="group">
+      <button class="btn" id="projectsTab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="4" y="4" width="7" height="7" rx="1.7"></rect>
+          <rect x="13" y="4" width="7" height="7" rx="1.7"></rect>
+          <rect x="4" y="13" width="7" height="7" rx="1.7"></rect>
+          <rect x="13" y="13" width="7" height="7" rx="1.7"></rect>
+        </svg>
+        Projetos
+      </button>
+      <button class="btn active-blue" id="funnelsTab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 5h16l-6 7v5l-4 2v-7z"></path>
+        </svg>
+        Funis
+      </button>
+      <button class="btn" id="dashboardTab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 19h16"></path><path d="M7 16V10"></path>
+          <path d="M12 16V5"></path><path d="M17 16v-7"></path>
+        </svg>
+        Dashboard
+      </button>
+    </div>
+
+    <span class="separator"></span>
+
+    <div class="group">
+      <button class="btn" id="affiliateMarketTab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+        Marketplace de Afiliados
+      </button>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 6h16v12H4z"></path><path d="M8 10h8"></path><path d="M8 14h5"></path>
+        </svg>
+        Área do Aluno
+      </button>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M4 7.5L12 4l8 3.5"></path>
+          <path d="M6 10v6"></path><path d="M18 10v6"></path>
+          <rect x="7" y="10" width="10" height="8" rx="2"></rect>
+        </svg>
+        Marketplace UGC &amp; VSL
+      </button>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+        Marketplace de Produtos
+      </button>
+    </div>
+
+    <span class="separator"></span>
+
+    <button class="btn icon-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
+        <path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle>
+        <path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle>
+      </svg>
+    </button>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════
+       DASHBOARD VIEW
+  ══════════════════════════════════════════════════ -->
+  <section class="dashboard-view" id="dashboardView">
+    <div class="dashboard-head">
+      <div>
+        <h1>DASHBOARD FINANCEIRO</h1>
+        <p>VISÃO GERAL DO FATURAMENTO TOTAL DA PLATAFORMA E PERFORMANCE FINANCEIRA</p>
+      </div>
+      <div class="dashboard-filters">
+        <button class="filter-pill active">Hoje</button>
+        <button class="filter-pill">7 dias</button>
+        <button class="filter-pill">30 dias</button>
+        <button class="filter-pill">Este mês</button>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <article class="metric-card black-card">
+        <span>Faturamento do mês</span><h2>R$ 27.900</h2>
+        <small>↑ 30% comparado ao mês passado</small>
+      </article>
+      <article class="metric-card">
+        <span>Saldo disponível</span><h2>R$ 12.840</h2>
+        <small>Disponível para saque</small>
+      </article>
+      <article class="metric-card">
+        <span>Recebimentos pendentes</span><h2>R$ 8.420</h2>
+        <small>Próximos 7 dias</small>
+      </article>
+      <article class="metric-card">
+        <span>Assinaturas ativas</span><h2>1.284</h2>
+        <small>Usuários recorrentes</small>
+      </article>
+    </div>
+
+    <div class="dashboard-main">
+      <section class="sales-chart-card">
+        <div class="card-head">
+          <div>
+            <h3>Fluxo financeiro da plataforma</h3>
+            <p>Entrada financeira dos últimos 30 dias</p>
+          </div>
+          <button class="mini-cta">Exportar</button>
+        </div>
+        <div class="chart-bars">
+          <span style="height:42%"></span><span style="height:55%"></span>
+          <span style="height:37%"></span><span style="height:72%"></span>
+          <span style="height:48%"></span><span style="height:64%"></span>
+          <span style="height:78%"></span><span style="height:58%"></span>
+          <span style="height:88%"></span><span style="height:69%"></span>
+          <span style="height:76%"></span><span style="height:92%"></span>
+        </div>
+      </section>
+      <aside class="dashboard-side">
+        <div class="side-stat"><span>Taxas processadas</span><strong>R$ 3.842</strong><button>Ver</button></div>
+        <div class="side-stat"><span>Saques realizados</span><strong>230</strong><button>Abrir</button></div>
+        <div class="side-stat"><span>Assinaturas premium</span><strong>1.580</strong><button>Detalhes</button></div>
+        <div class="side-stat"><span>Usuários ativos</span><strong>32.342</strong><button>Ver</button></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       AFFILIATE MARKETPLACE VIEW
+  ══════════════════════════════════════════════════ -->
+  <section class="affiliate-market-view" id="affiliateMarketView">
+    <div class="affiliate-head">
+      <div>
+        <h1>MARKETPLACE DE AFILIADOS</h1>
+        <p>ENCONTRE PRODUTOS PARA PROMOVER, PEGUE SEU LINK DE AFILIADO E CRIE UM FUNIL PRONTO PARA AQUELE PRODUTO. O CHECKOUT JÁ É DA PLATAFORMA.</p>
+      </div>
+      <div class="affiliate-tabs">
+        <button class="affiliate-tab active">Todos</button>
+        <button class="affiliate-tab">Alta Comissão</button>
+        <button class="affiliate-tab">Assinaturas</button>
+        <button class="affiliate-tab">Produtos Físicos</button>
+      </div>
+    </div>
+
+    <div class="affiliate-note">
+      O afiliado não precisa montar tudo do zero. Ao se afiliar, o produto fica salvo na área de projetos e pode criar um funil pronto com página, checkout integrado, upsell, e-mail e WhatsApp. Ele só personaliza banner, descrição, copy e domínio se quiser.
+    </div>
+
+    <div class="affiliate-grid">
+      <!-- Card 1 -->
+      <article class="affiliate-product-card">
+        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
+        <div class="affiliate-cover">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Produto Fitness">
+        </div>
+        <div class="affiliate-content">
+          <div class="affiliate-top-row">
+            <div class="affiliate-rating">⭐ 4.8 <span style="color:#8f97a1;">(2.493)</span> <span class="affiliate-fire">150° 🔥</span></div>
+            <div class="affiliate-heart">♡</div>
+          </div>
+          <h3>Método Shape em Casa</h3>
+          <div class="affiliate-commission">Comissão de até</div>
+          <div class="affiliate-price">R$ 133,96</div>
+          <div class="affiliate-max-price">Produto já possui funil pronto com VSL, checkout e WhatsApp.</div>
+          <div class="affiliate-actions">
+            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="affiliate-product-card">
+        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
+        <div class="affiliate-cover">
+          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop" alt="Produto Premium">
+        </div>
+        <div class="affiliate-content">
+          <div class="affiliate-top-row">
+            <div class="affiliate-rating">⭐ 4.9 <span style="color:#8f97a1;">(842)</span> <span class="affiliate-fire">98° 🔥</span></div>
+            <div class="affiliate-heart">♡</div>
+          </div>
+          <h3>Clube Premium Recorrente</h3>
+          <div class="affiliate-commission">Comissão recorrente de até</div>
+          <div class="affiliate-price">R$ 297,85</div>
+          <div class="affiliate-max-price">Área do aluno, checkout integrado e automações inclusas.</div>
+          <div class="affiliate-actions">
+            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="affiliate-product-card">
+        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
+        <div class="affiliate-cover">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" alt="Produto Digital">
+        </div>
+        <div class="affiliate-content">
+          <div class="affiliate-top-row">
+            <div class="affiliate-rating">⭐ 4.7 <span style="color:#8f97a1;">(1.284)</span> <span class="affiliate-fire">124° 🔥</span></div>
+            <div class="affiliate-heart">♡</div>
+          </div>
+          <h3>Mentoria High Ticket</h3>
+          <div class="affiliate-commission">Comissão de até</div>
+          <div class="affiliate-price">R$ 3.016,72</div>
+          <div class="affiliate-max-price">Estrutura completa do funil pronta para editar e publicar.</div>
+          <div class="affiliate-actions">
+            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="affiliate-product-card">
+        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
+        <div class="affiliate-cover">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop" alt="Curso Online">
+        </div>
+        <div class="affiliate-content">
+          <div class="affiliate-top-row">
+            <div class="affiliate-rating">⭐ 4.6 <span style="color:#8f97a1;">(598)</span> <span class="affiliate-fire">74° 🔥</span></div>
+            <div class="affiliate-heart">♡</div>
+          </div>
+          <h3>Curso Profissional Online</h3>
+          <div class="affiliate-commission">Comissão de até</div>
+          <div class="affiliate-price">R$ 296,85</div>
+          <div class="affiliate-max-price">O afiliado pode alterar qualquer etapa do funil visual.</div>
+          <div class="affiliate-actions">
+            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PRODUCT DETAIL VIEW
+  ══════════════════════════════════════════════════ -->
+  <section class="product-detail-view" id="productDetailView">
+    <div class="product-detail-hero">
+      <div>
+        <h1>Método Shape em Casa</h1>
+        <p>Esta é a página completa do produto. Aqui o afiliado entende a oferta, vê o que está incluso, analisa o funil disponibilizado pelo produtor e só depois decide se afiliar.</p>
+        <div class="product-detail-actions">
+          <button class="product-affiliate-btn">SE AFILIAR E GERAR LINK</button>
+          <button class="product-edit-funnel-btn">USAR FUNIL NO CENÁRIO</button>
+          <button class="product-back-btn">VOLTAR AO MARKETPLACE</button>
+        </div>
+      </div>
+      <div class="product-detail-cover">🔥</div>
+    </div>
+
+    <div class="product-info-grid">
+      <section class="product-panel">
+        <h3>Sobre o produto</h3>
+        <p>Produto digital com página de vendas, VSL, checkout integrado, recuperação por WhatsApp, e-mail marketing e upsell. O produtor já deixou a estrutura pronta para o afiliado anunciar sem começar do zero.</p>
+        <h3 style="margin-top:24px;">O que vem dentro</h3>
+        <ul>
+          <li>Oferta principal com copy e página de vendas.</li>
+          <li>Checkout integrado da plataforma, sem checkout externo.</li>
+          <li>Sequência de recuperação por WhatsApp e e-mail.</li>
+          <li>Upsell e order bump configurados pelo produtor.</li>
+          <li>Dashboard individual para acompanhar métricas do funil.</li>
+        </ul>
+      </section>
+      <aside class="product-panel">
+        <h3>Funil disponibilizado</h3>
+        <div class="product-funnel-preview">
+          <div class="product-funnel-step">Página de vendas <span>Pronto</span></div>
+          <div class="product-funnel-step">Checkout integrado <span>Pronto</span></div>
+          <div class="product-funnel-step">Upsell / Order bump <span>Pronto</span></div>
+          <div class="product-funnel-step">WhatsApp IA <span>Pronto</span></div>
+          <div class="product-funnel-step">E-mail marketing <span>Pronto</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       PROJECTS VIEW
+  ══════════════════════════════════════════════════ -->
+  <section class="projects-view" id="projectsView">
+    <div class="projects-head">
+      <div>
+        <h1>MEUS FUNIS</h1>
+        <p>CADA PRODUTO JÁ VEM COM UM FUNIL PRONTO • EDITE, PUBLIQUE E ACOMPANHE AS MÉTRICAS</p>
+      </div>
+      <button class="new-funnel-btn"><span>+</span> NOVO FUNIL</button>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card active">
+        <div class="card-icon">▣</div>
+        <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <h3>Lançamento Infoproduto</h3><small>2 HORAS ATRÁS</small>
+        <div class="progress"><span style="width:58%"></span></div><b>ATIVO</b>
+        <div class="project-actions">
+          <div class="project-action-row">
+            <button class="project-edit-btn">EDITAR FUNIL PRONTO</button>
+            <button class="project-more-btn" type="button">•••</button>
+            <div class="project-more-menu">
+              <button class="project-delete-menu-btn" type="button">EXCLUIR FUNIL</button>
+            </div>
+          </div>
+          <button class="project-dashboard-btn">VER MÉTRICAS DO FUNIL ↗</button>
+        </div>
+      </article>
+
+      <article class="project-card active">
+        <div class="card-icon">▣</div>
+        <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <h3>High Ticket Coaching</h3><small>ONTEM ÀS 14:00</small>
+        <div class="progress"><span style="width:60%"></span></div><b>ATIVO</b>
+        <div class="project-actions">
+          <div class="project-action-row">
+            <button class="project-edit-btn">EDITAR FUNIL PRONTO</button>
+            <button class="project-more-btn" type="button">•••</button>
+            <div class="project-more-menu">
+              <button class="project-delete-menu-btn" type="button">EXCLUIR FUNIL</button>
+            </div>
+          </div>
+          <button class="project-dashboard-btn">VER MÉTRICAS DO FUNIL ↗</button>
+        </div>
+      </article>
+
+      <article class="project-card active">
+        <div class="card-icon">▣</div>
+        <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <h3>Clínica Estética Premium</h3><small>PRONTO PARA TESTE</small>
+        <div class="progress"><span style="width:62%"></span></div><b>ATIVO</b>
+        <div class="project-actions">
+          <div class="project-action-row">
+            <button class="project-edit-btn">EDITAR FUNIL PRONTO</button>
+            <button class="project-more-btn" type="button">•••</button>
+            <div class="project-more-menu">
+              <button class="project-delete-menu-btn" type="button">EXCLUIR FUNIL</button>
+            </div>
+          </div>
+          <button class="project-dashboard-btn">VER MÉTRICAS DO FUNIL ↗</button>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-icon">▣</div>
+        <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <h3>Assinatura Recorrente</h3><small>3 DIAS ATRÁS</small>
+        <div class="progress"><span style="width:58%"></span></div><b>PAUSADO</b>
+        <div class="project-actions">
+          <div class="project-action-row">
+            <button class="project-edit-btn">EDITAR FUNIL PRONTO</button>
+            <button class="project-more-btn" type="button">•••</button>
+            <div class="project-more-menu">
+              <button class="project-delete-menu-btn" type="button">EXCLUIR FUNIL</button>
+            </div>
+          </div>
+          <button class="project-dashboard-btn">VER MÉTRICAS DO FUNIL ↗</button>
+        </div>
+      </article>
+
+      <article class="project-card active">
+        <div class="card-icon">▣</div>
+        <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <h3>Produto Afiliado • Método Shape</h3><small>FUNIL PRONTO PARA ANÚNCIOS</small>
+        <div class="progress"><span style="width:60%"></span></div><b>ATIVO</b>
+        <div class="project-actions">
+          <div class="project-action-row">
+            <button class="project-edit-btn">EDITAR FUNIL PRONTO</button>
+            <button class="project-more-btn" type="button">•••</button>
+            <div class="project-more-menu">
+              <button class="project-delete-menu-btn" type="button">EXCLUIR FUNIL</button>
+            </div>
+          </div>
+          <button class="project-dashboard-btn">VER MÉTRICAS DO FUNIL ↗</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       FUNNEL DASHBOARD MODAL
+  ══════════════════════════════════════════════════ -->
+  <div class="funnel-dashboard-modal" id="funnelDashboardModal">
+    <div class="funnel-dashboard-content">
+      <div class="funnel-dashboard-head">
+        <div>
+          <h2>DASHBOARD DO FUNIL</h2>
+          <p>ANÁLISE COMPLETA DE PERFORMANCE, CONVERSÃO E FATURAMENTO</p>
+        </div>
+        <button class="close-dashboard" id="closeDashboard">✕</button>
+      </div>
+
+      <div class="funnel-metrics-grid">
+        <div class="funnel-metric"><span>Faturamento do funil</span><strong>R$ 75.000</strong><small>Últimos 30 dias</small></div>
+        <div class="funnel-metric"><span>Pessoas no site</span><strong>24.320</strong><small>Visitantes totais</small></div>
+        <div class="funnel-metric"><span>Foram ao checkout</span><strong>8.420</strong><small>34% avançaram</small></div>
+        <div class="funnel-metric"><span>Formulários preenchidos</span><strong>4.280</strong><small>Leads capturados</small></div>
+        <div class="funnel-metric"><span>Conversão final</span><strong>5,4%</strong><small>Compradores finais</small></div>
+      </div>
+
+      <div class="funnel-metrics-grid">
+        <div class="funnel-metric"><span>E-mails enviados</span><strong>32.420</strong><small>Campanhas automáticas</small></div>
+        <div class="funnel-metric"><span>Cliques nos e-mails</span><strong>8.240</strong><small>CTR de 25%</small></div>
+        <div class="funnel-metric"><span>Mensagens WhatsApp</span><strong>5.430</strong><small>Automação ativa</small></div>
+        <div class="funnel-metric"><span>Upsells vendidos</span><strong>428</strong><small>Valor extra gerado</small></div>
+        <div class="funnel-metric"><span>Ticket médio</span><strong>R$ 342</strong><small>Valor por cliente</small></div>
+      </div>
+
+      <div class="funnel-analysis-grid">
+        <section class="funnel-chart">
+          <h3>Performance do funil</h3>
+          <p style="margin-top:8px;color:#98a0aa;font-size:12px;font-weight:800;">VISUALIZAÇÃO COMPLETA DAS ETAPAS E CONVERSÃO</p>
+          <div class="funnel-chart-bars">
+            <span style="height:88%"></span><span style="height:74%"></span>
+            <span style="height:62%"></span><span style="height:52%"></span>
+            <span style="height:40%"></span><span style="height:26%"></span>
+          </div>
+        </section>
+        <aside class="funnel-insights">
+          <h3>Insights do funil</h3>
+          <div class="insight-row"><span>Maior origem de tráfego</span><strong>Instagram Ads</strong></div>
+          <div class="insight-row"><span>Melhor etapa de conversão</span><strong>Checkout</strong></div>
+          <div class="insight-row"><span>Horário com mais vendas</span><strong>20:00</strong></div>
+          <div class="insight-row"><span>Melhor campanha</span><strong>Black Friday</strong></div>
+          <div class="insight-row"><span>ROI do funil</span><strong>420%</strong></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       EDITOR VIEW (CANVAS N8N-STYLE)
+  ══════════════════════════════════════════════════ -->
+  <section class="editor" id="editorView">
+    <div class="editor-top">
+      <div>
+        <div class="editor-title">Editor Visual do Funil</div>
+        <div class="editor-sub">O produto já vem com o funil pronto • personalize, aumente ou reduza etapas</div>
+      </div>
+      <button class="publish-btn">PUBLICAR FUNIL <span>↗</span></button>
+    </div>
+
+    <div class="canvas" id="scenarioCanvas">
+      <div class="scenario-world" id="scenarioWorld">
+        <div class="flow-line"></div>
+        <button class="add-flow-node active" id="openModulePicker" type="button">
+          <span>+</span>
+        </button>
+      </div>
+
+      <aside class="module-picker open" id="modulePicker">
+        <div class="module-search">
+          <input type="text" placeholder="Pesquisar etapas do funil">
+        </div>
+        <div class="module-list-title">Adicione ou personalize etapas do funil</div>
+        <div class="module-list">
+          <button class="module-app-item active-app" type="button">
+            <div class="module-app-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
+            </div>
+            <span>Página de Vendas</span>
+          </button>
+          <button class="module-app-item" type="button">
+            <div class="module-app-icon dark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path></svg>
+            </div>
+            <span>Checkout da Plataforma</span>
+          </button>
+          <button class="module-app-item" type="button">
+            <div class="module-app-icon orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19V5"></path><path d="M7 10l5-5 5 5"></path></svg>
+            </div>
+            <span>Upsell &amp; Order Bump</span>
+          </button>
+          <button class="module-app-item" type="button">
+            <div class="module-app-icon purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 12c0 4.4-3.8 8-8.5 8a9 9 0 0 1-4-.9L4 20l1.1-3.2A7.7 7.7 0 0 1 3 12c0-4.4 3.8-8 8.5-8S20 7.6 20 12z"></path><path d="M9 10h6"></path><path d="M9 14h4"></path></svg>
+            </div>
+            <span>Agente de WhatsApp IA</span>
+          </button>
+          <button class="module-app-item" type="button">
+            <div class="module-app-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
+            </div>
+            <span>E-mail Marketing</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="bottom-actions">
+      <button class="test-flow-btn" type="button">▶ Testar Fluxo</button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       AI FLOATING ORBS
+  ══════════════════════════════════════════════════ -->
+  <div class="ai-floating-stack">
+    <div class="ai-orb gpt">
+      <div class="ai-tooltip">GPT DA PLATAFORMA — BETA</div>
+      <div class="ai-logo-text">GPT</div>
+      <div class="ai-status"></div>
+      <div class="ai-beta">BETA</div>
+    </div>
+    <div class="ai-orb claude">
+      <div class="ai-tooltip">CLAUDE DA PLATAFORMA — BETA</div>
+      <div class="ai-logo-text">CL</div>
+      <div class="ai-status"></div>
+      <div class="ai-beta">BETA</div>
+    </div>
+  </div>
+
+  <!-- Scripts (ordem importa) -->
+  
+  
+  
+  
+  
+<script>
+/**
+ * THAY FUNNEL BUILDER — VIEW MANAGER
+ * Controla qual seção está visível e o estado da topbar
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.ViewManager = (function () {
+  const VIEWS = {
+    projects:        { el: null, tabId: 'projectsTab' },
+    funnels:         { el: null, tabId: 'funnelsTab' },
+    dashboard:       { el: null, tabId: 'dashboardTab' },
+    affiliateMarket: { el: null, tabId: 'affiliateMarketTab' },
+    productDetail:   { el: null, tabId: null },
+    funnelDashboard: { el: null, tabId: null },
+  };
+
+  function init() {
+    VIEWS.projects.el        = document.getElementById('projectsView');
+    VIEWS.funnels.el         = document.getElementById('editorView');
+    VIEWS.dashboard.el       = document.getElementById('dashboardView');
+    VIEWS.affiliateMarket.el = document.getElementById('affiliateMarketView');
+    VIEWS.productDetail.el   = document.getElementById('productDetailView');
+    VIEWS.funnelDashboard.el = document.getElementById('funnelDashboardModal');
+
+    // Tab clicks
+    document.getElementById('projectsTab')
+      ?.addEventListener('click', () => setActiveView('projects'));
+    document.getElementById('funnelsTab')
+      ?.addEventListener('click', () => setActiveView('funnels'));
+    document.getElementById('dashboardTab')
+      ?.addEventListener('click', () => setActiveView('dashboard'));
+    document.getElementById('affiliateMarketTab')
+      ?.addEventListener('click', () => setActiveView('affiliateMarket'));
+
+    // Close funnel dashboard
+    document.getElementById('closeDashboard')
+      ?.addEventListener('click', () => setActiveView('projects'));
+
+    // Boot
+    setActiveView('funnels');
+  }
+
+  function setActiveView(viewName) {
+    // Hide all
+    Object.entries(VIEWS).forEach(([key, cfg]) => {
+      if (!cfg.el) return;
+      if (key === 'funnels') {
+        cfg.el.style.display = viewName === 'funnels' ? 'block' : 'none';
+      } else if (key === 'funnelDashboard') {
+        cfg.el.classList.toggle('open', viewName === 'funnelDashboard');
+      } else {
+        cfg.el.classList.toggle('active', viewName === key);
+      }
+    });
+
+    // Highlight tabs
+    ['projectsTab', 'funnelsTab', 'dashboardTab', 'affiliateMarketTab'].forEach(id => {
+      document.getElementById(id)?.classList.remove('active-blue');
+    });
+
+    const activeTabId = VIEWS[viewName]?.tabId;
+    if (activeTabId) {
+      document.getElementById(activeTabId)?.classList.add('active-blue');
+    }
+  }
+
+  return { init, setActiveView };
+})();
+
+/**
+ * THAY FUNNEL BUILDER — CANVAS EDITOR
+ * Lógica do canvas estilo n8n: pan, zoom, drag de nós, module picker
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.CanvasEditor = (function () {
+  let worldScale = 1;
+  let worldX = 0;
+  let worldY = 0;
+
+  let scenarioCanvas, scenarioWorld, openModulePicker, modulePicker;
+
+  function init() {
+    scenarioCanvas    = document.getElementById('scenarioCanvas');
+    scenarioWorld     = document.getElementById('scenarioWorld');
+    openModulePicker  = document.getElementById('openModulePicker');
+    modulePicker      = document.getElementById('modulePicker');
+
+    if (!scenarioCanvas || !scenarioWorld || !openModulePicker || !modulePicker) return;
+
+    _initZoom();
+    _initNodeDrag();
+    _initPickerToggle();
+    updateWorldTransform();
+  }
+
+  /* ── PUBLIC ── */
+  function openPicker() {
+    modulePicker.classList.add('open');
+    openModulePicker.classList.add('active');
+    positionModulePicker();
+  }
+
+  /* ── PRIVATE ── */
+  function positionModulePicker() {
+    if (!openModulePicker || !modulePicker || !scenarioCanvas) return;
+    const canvasRect = scenarioCanvas.getBoundingClientRect();
+    const nodeRect   = openModulePicker.getBoundingClientRect();
+    const pickerW = 430;
+    const pickerH = 430;
+    const gap = 26;
+
+    let left = nodeRect.right - canvasRect.left + gap;
+    let top  = nodeRect.top - canvasRect.top + nodeRect.height / 2 - pickerH / 2;
+
+    const shouldOpenLeft = left + pickerW > canvasRect.width - 18;
+    modulePicker.classList.toggle('left-side', shouldOpenLeft);
+    if (shouldOpenLeft) left = nodeRect.left - canvasRect.left - pickerW - gap;
+
+    left = Math.max(18, Math.min(left, canvasRect.width  - pickerW - 18));
+    top  = Math.max(18, Math.min(top,  canvasRect.height - pickerH - 18));
+
+    modulePicker.style.left = `${left}px`;
+    modulePicker.style.top  = `${top}px`;
+  }
+
+  function updateWorldTransform() {
+    if (!scenarioWorld) return;
+    scenarioWorld.style.transform = `translate(${worldX}px, ${worldY}px) scale(${worldScale})`;
+    positionModulePicker();
+  }
+
+  function _initZoom() {
+    scenarioCanvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const rect   = scenarioCanvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const oldScale = worldScale;
+
+      worldScale += e.deltaY < 0 ? 0.08 : -0.08;
+      worldScale  = Math.max(0.55, Math.min(worldScale, 2.2));
+
+      worldX = mouseX - ((mouseX - worldX) / oldScale) * worldScale;
+      worldY = mouseY - ((mouseY - worldY) / oldScale) * worldScale;
+
+      updateWorldTransform();
+    }, { passive: false });
+  }
+
+  function _initNodeDrag() {
+    let nodeDragging = false;
+    let nodeOffsetX  = 0;
+    let nodeOffsetY  = 0;
+    let nodeMoved    = false;
+
+    openModulePicker.addEventListener('mousedown', (e) => {
+      nodeDragging = true;
+      nodeMoved    = false;
+      const nodeRect = openModulePicker.getBoundingClientRect();
+      nodeOffsetX = e.clientX - nodeRect.left;
+      nodeOffsetY = e.clientY - nodeRect.top;
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!nodeDragging) return;
+      nodeMoved = true;
+      const canvasRect = scenarioCanvas.getBoundingClientRect();
+      const x = (e.clientX - canvasRect.left - worldX - nodeOffsetX + openModulePicker.offsetWidth  / 2) / worldScale;
+      const y = (e.clientY - canvasRect.top  - worldY - nodeOffsetY + openModulePicker.offsetHeight / 2) / worldScale;
+      openModulePicker.style.left = `${x}px`;
+      openModulePicker.style.top  = `${y}px`;
+      positionModulePicker();
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (nodeDragging && nodeMoved) openModulePicker.dataset.dragged = 'true';
+      nodeDragging = false;
+    });
+  }
+
+  function _initPickerToggle() {
+    openModulePicker.addEventListener('click', (e) => {
+      if (openModulePicker.dataset.dragged === 'true') {
+        openModulePicker.dataset.dragged = 'false';
+        return;
+      }
+      openModulePicker.classList.toggle('active');
+      modulePicker.classList.toggle('open');
+      positionModulePicker();
+      e.stopPropagation();
+    });
+  }
+
+  return { init, openPicker };
+})();
+
+/**
+ * THAY FUNNEL BUILDER — PROJECTS & MARKETPLACE EVENTS
+ * Todos os eventos de click dos cards de projeto, afiliados e produto
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.ProjectEvents = (function () {
+  function init() {
+    _initAffiliateDetails();
+    _initProductBack();
+    _initProductAffiliate();
+    _initProductEditFunnel();
+    _initProjectToggles();
+    _initProjectDashboard();
+    _initProjectEdit();
+    _initProjectMoreMenu();
+    _initProjectDelete();
+  }
+
+  /* ── Affiliate marketplace ── */
+  function _initAffiliateDetails() {
+    document.querySelectorAll('.affiliate-details-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('productDetail');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function _initProductBack() {
+    document.querySelectorAll('.product-back-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('affiliateMarket');
+      });
+    });
+  }
+
+  function _initProductAffiliate() {
+    document.querySelectorAll('.product-affiliate-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        btn.textContent = 'AFILIADO • LINK GERADO ✓';
+      });
+    });
+  }
+
+  function _initProductEditFunnel() {
+    document.querySelectorAll('.product-edit-funnel-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('funnels');
+        ThayApp.CanvasEditor.openPicker();
+      });
+    });
+  }
+
+  /* ── Project cards ── */
+  function _initProjectToggles() {
+    document.querySelectorAll('.project-toggle').forEach((toggle) => {
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card   = toggle.closest('.project-card');
+        if (!card) return;
+        const status = card.querySelector('b');
+        card.classList.toggle('active');
+        if (status) status.textContent = card.classList.contains('active') ? 'ATIVO' : 'PAUSADO';
+      });
+    });
+  }
+
+  function _initProjectDashboard() {
+    document.querySelectorAll('.project-dashboard-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('funnelDashboard');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  function _initProjectEdit() {
+    document.querySelectorAll('.project-edit-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('funnels');
+      });
+    });
+  }
+
+  function _initProjectMoreMenu() {
+    document.querySelectorAll('.project-more-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.project-card');
+        const menu = card?.querySelector('.project-more-menu');
+        // Close others
+        document.querySelectorAll('.project-more-menu.open').forEach((m) => {
+          if (m !== menu) m.classList.remove('open');
+        });
+        menu?.classList.toggle('open');
+      });
+    });
+
+    // Click outside closes all menus
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.project-more-menu.open')
+        .forEach((menu) => menu.classList.remove('open'));
+    });
+  }
+
+  function _initProjectDelete() {
+    document.querySelectorAll('.project-delete-menu-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.project-card');
+        if (card) {
+          card.style.transition = 'opacity .3s ease';
+          card.style.opacity    = '0.35';
+          card.style.pointerEvents = 'none';
+        }
+      });
+    });
+  }
+
+  return { init };
+})();
+
+/**
+ * THAY FUNNEL BUILDER — AI FLOATING ORBS
+ * Torna os orbs GPT e Claude arrastáveis pela tela
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.AiOrbs = (function () {
+  function init() {
+    document.querySelectorAll('.ai-orb').forEach(_makeOrbDraggable);
+  }
+
+  function _makeOrbDraggable(orb) {
+    let dragging = false;
+    let offsetX  = 0;
+    let offsetY  = 0;
+
+    orb.addEventListener('mousedown', (e) => {
+      dragging = true;
+      const rect = orb.getBoundingClientRect();
+      offsetX = e.clientX - rect.left;
+      offsetY = e.clientY - rect.top;
+
+      orb.style.position = 'fixed';
+      orb.style.left     = `${rect.left}px`;
+      orb.style.top      = `${rect.top}px`;
+      orb.style.right    = 'auto';
+      orb.style.zIndex   = '999999999';
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      let x = e.clientX - offsetX;
+      let y = e.clientY - offsetY;
+      const maxX = window.innerWidth  - orb.offsetWidth;
+      const maxY = window.innerHeight - orb.offsetHeight;
+      x = Math.max(0, Math.min(x, maxX));
+      y = Math.max(0, Math.min(y, maxY));
+      orb.style.left = `${x}px`;
+      orb.style.top  = `${y}px`;
+    });
+
+    window.addEventListener('mouseup', () => { dragging = false; });
+  }
+
+  return { init };
+})();
+
+/**
+ * THAY FUNNEL BUILDER — BOOTSTRAP
+ * Ponto de entrada: inicializa todos os módulos após DOMContentLoaded
+ */
+
+'use strict';
+
+document.addEventListener('DOMContentLoaded', () => {
+  ThayApp.ViewManager.init();
+  ThayApp.CanvasEditor.init();
+  ThayApp.ProjectEvents.init();
+  ThayApp.AiOrbs.init();
+});
+
+
+</script>
+</body>
+</html>
