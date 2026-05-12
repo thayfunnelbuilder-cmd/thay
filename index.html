@@ -1353,9 +1353,51 @@ body {
   .sp-body { flex-direction: column; overflow-y: auto; }
   .sp-chat  { width: 100%; height: 380px; flex-shrink: 0; }
   .sp-preview { flex: 1; min-height: 400px; height: auto; }
-  .sp-mock-headline { font-size: 24px; }
-  .sp-benefit-grid { grid-template-columns: 1fr; }
 }
+
+/* ── TYPING INDICATOR ── */
+.sp-typing { display: flex; align-items: center; gap: 5px; padding: 12px 14px; background: #f5f7f9; border-radius: 14px 14px 14px 4px; align-self: flex-start; }
+.sp-typing-dot { width: 7px; height: 7px; border-radius: 50%; background: #a0aab4; animation: spBounce .9s ease-in-out infinite; }
+.sp-typing-dot:nth-child(2) { animation-delay: .18s; }
+.sp-typing-dot:nth-child(3) { animation-delay: .36s; }
+@keyframes spBounce { 0%,60%,100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-7px); opacity: 1; } }
+
+/* ── PHASE BANNER ── */
+.sp-phase-banner { display: flex; align-items: center; gap: 9px; padding: 10px 14px; background: rgba(0,119,255,.07); border-radius: 10px; font-size: 12px; font-weight: 800; color: #0066ee; letter-spacing: .2px; align-self: flex-start; }
+.sp-phase-spinner { width: 14px; height: 14px; border: 2px solid rgba(0,119,255,.2); border-top-color: #0077ff; border-radius: 50%; animation: spSpin .7s linear infinite; flex-shrink: 0; }
+@keyframes spSpin { to { transform: rotate(360deg); } }
+
+/* ── BRIEF CARD ── */
+.sp-brief-card { background: #f7f9fb; border: 1px solid #e0e5eb; border-radius: 16px; padding: 18px 20px; align-self: flex-start; max-width: 98%; width: 100%; }
+.sp-brief-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.sp-brief-icon-box { width: 36px; height: 36px; border-radius: 10px; background: rgba(0,119,255,.10); display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+.sp-brief-name { font-size: 13px; font-weight: 900; color: #111; }
+.sp-brief-subtype { font-size: 11px; color: #8c939d; font-weight: 700; margin-top: 2px; }
+.sp-brief-rows { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
+.sp-brief-row { display: flex; gap: 10px; align-items: flex-start; }
+.sp-brief-lbl { font-size: 10px; font-weight: 850; color: #a0aab4; min-width: 56px; padding-top: 2px; letter-spacing: .4px; text-transform: uppercase; flex-shrink: 0; }
+.sp-brief-val { font-size: 12px; font-weight: 600; color: #333; line-height: 1.55; }
+.sp-brief-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ── ACTION BUTTONS ── */
+.sp-action-btn { height: 34px; padding: 0 16px; border-radius: 10px; font-size: 12px; font-weight: 850; cursor: pointer; transition: .15s ease; letter-spacing: .2px; font-family: inherit; }
+.sp-action-primary { background: linear-gradient(180deg, #45adff, #0077ff); color: #fff; border: none; box-shadow: 0 6px 16px rgba(0,119,255,.28); }
+.sp-action-primary:hover { box-shadow: 0 8px 24px rgba(0,119,255,.38); transform: translateY(-1px); }
+.sp-action-secondary { background: #fff; color: #555; border: 1px solid #dde2e8; }
+.sp-action-secondary:hover { background: #f5f7f9; color: #111; }
+
+/* ── API KEY ROW ── */
+.sp-key-row { display: flex; align-items: center; gap: 8px; padding: 10px 22px 0; }
+.sp-key-lbl { font-size: 10px; font-weight: 850; color: #a0aab4; letter-spacing: .5px; white-space: nowrap; text-transform: uppercase; }
+.sp-key-input { flex: 1; height: 28px; padding: 0 10px; border: 1px solid #e0e5eb; border-radius: 8px; font-size: 11px; font-family: inherit; font-weight: 600; outline: none; color: #333; background: #f7f9fb; transition: border-color .15s; }
+.sp-key-input:focus { border-color: #0077ff; background: #fff; }
+
+/* ── PREVIEW IFRAME & EMPTY STATE ── */
+.sp-preview-frame { flex: 1; width: 100%; border: none; background: #fff; display: block; }
+.sp-preview-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+.sp-preview-empty-icon { font-size: 36px; opacity: .25; }
+.sp-preview-empty-title { font-size: 13px; font-weight: 800; color: #b0b8c4; }
+.sp-preview-empty-sub { font-size: 12px; color: #c8cfd7; font-weight: 600; }
 
 /* ── AI FLOATING ORBS ── */
 .ai-floating-stack {
@@ -1838,20 +1880,25 @@ body {
       <div class="sp-chat">
         <div class="sp-chat-header">
           <h3>Criar Página de Vendas</h3>
-          <p>Descreva o que você quer e a IA irá construir para você</p>
+          <p>Descreva seu produto — a THAY analisa o público e monta a página</p>
+        </div>
+
+        <div class="sp-key-row">
+          <span class="sp-key-lbl">Claude API Key</span>
+          <input type="password" class="sp-key-input" id="spApiKey" placeholder="sk-ant-... (opcional — usa mock se vazio)">
         </div>
 
         <div class="sp-messages" id="spMessages">
           <div class="sp-msg bot">
-            Olá! Sou seu assistente de criação de páginas. Descreva seu produto ou escolha uma sugestão abaixo para começar. ✨
+            Olá! Descreva seu produto ou serviço e eu vou analisar o público, criar um briefing estratégico e gerar a página. ✦
           </div>
         </div>
 
         <div class="sp-suggestions">
-          <button class="sp-suggestion-chip" data-msg="Criar página de produto">Criar página de produto</button>
-          <button class="sp-suggestion-chip" data-msg="Melhorar headline">Melhorar headline</button>
-          <button class="sp-suggestion-chip" data-msg="Adicionar prova social">Adicionar prova social</button>
-          <button class="sp-suggestion-chip" data-msg="Criar seção de oferta">Criar seção de oferta</button>
+          <button class="sp-suggestion-chip" data-msg="Clínica de estética em São Paulo">Clínica de estética</button>
+          <button class="sp-suggestion-chip" data-msg="Software de gestão para pequenas empresas">SaaS de gestão</button>
+          <button class="sp-suggestion-chip" data-msg="Suplemento alimentar para atletas">Produto físico</button>
+          <button class="sp-suggestion-chip" data-msg="Consultoria de marketing digital">Consultoria</button>
         </div>
 
         <div class="sp-input-row">
@@ -1872,54 +1919,12 @@ body {
           <span class="sp-preview-label">PREVIEW</span>
         </div>
 
-        <div class="sp-preview-content">
-
-          <!-- hero -->
-          <div class="sp-mock-hero">
-            <div class="sp-mock-badge">OFERTA EXCLUSIVA</div>
-            <h1 class="sp-mock-headline">Transforme Sua Vida com<br>o Método que Já Mudou<br>Milhares de Pessoas</h1>
-            <p class="sp-mock-sub">Descubra o sistema passo a passo que vai te levar de onde você está para onde você quer chegar — em tempo recorde e sem complicações.</p>
-            <button class="sp-mock-cta">QUERO COMEÇAR AGORA →</button>
-          </div>
-
-          <!-- benefits -->
-          <div class="sp-mock-benefits">
-            <div class="sp-mock-section-label">POR QUE ESCOLHER</div>
-            <div class="sp-mock-section-title">Tudo que você precisa<br>em um só lugar</div>
-            <div class="sp-benefit-grid">
-              <div class="sp-benefit-card">
-                <div class="sp-benefit-icon">🚀</div>
-                <h4>Resultados Rápidos</h4>
-                <p>Metodologia comprovada com resultados visíveis nas primeiras semanas.</p>
-              </div>
-              <div class="sp-benefit-card">
-                <div class="sp-benefit-icon">🎯</div>
-                <h4>Suporte Completo</h4>
-                <p>Acesso à comunidade exclusiva e suporte direto com os especialistas.</p>
-              </div>
-              <div class="sp-benefit-card">
-                <div class="sp-benefit-icon">📈</div>
-                <h4>Estratégia Comprovada</h4>
-                <p>Mais de 10.000 alunos transformados com este mesmo método.</p>
-              </div>
-              <div class="sp-benefit-card">
-                <div class="sp-benefit-icon">💡</div>
-                <h4>Conteúdo Exclusivo</h4>
-                <p>Material atualizado constantemente com as últimas tendências do mercado.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- offer -->
-          <div class="sp-mock-offer">
-            <div class="sp-offer-tag">OFERTA ESPECIAL</div>
-            <div class="sp-offer-price-old">De R$ 997,00</div>
-            <div class="sp-offer-price"><sup>R$</sup>297</div>
-            <div class="sp-offer-desc">ou 12x de R$ 29,70 no cartão • Acesso vitalício</div>
-            <button class="sp-offer-cta">GARANTIR MINHA VAGA →</button>
-          </div>
-
+        <div class="sp-preview-empty" id="spPreviewEmpty">
+          <div class="sp-preview-empty-icon">🖥️</div>
+          <div class="sp-preview-empty-title">Preview aparece aqui</div>
+          <div class="sp-preview-empty-sub">Descreva seu produto no chat para começar</div>
         </div>
+        <iframe id="spPreviewFrame" class="sp-preview-frame" style="display:none" title="Preview da página"></iframe>
       </div>
 
     </div>
@@ -2416,24 +2421,289 @@ ThayApp.ProjectEvents = (function () {
 
 window.ThayApp = window.ThayApp || {};
 
+/**
+ * PAGE ENGINE — análise estratégica, copy e renderização
+ */
+ThayApp.PageEngine = (function () {
+  'use strict';
+
+  const state = { phase: 'idle', brief: null, copy: null, html: null };
+
+  /* ─── BRIEF CREATOR (local, sem IA) ─── */
+  function createStrategicBrief(input) {
+    const t = input.toLowerCase();
+    let tipo = 'premium';
+    if (/cl[ií]nica|m[eé]dic|sa[uú]de|tratamento|consult[oó]rio|psicolog|nutri|dentist|dermato|est[eé]tic/.test(t)) tipo = 'clinica';
+    else if (/saas|software|ferramenta|plataforma|sistema|app\b|dashboard|gest[aã]o digital/.test(t)) tipo = 'saas';
+    else if (/produto|loja|f[ií]sico|e-?commerce|kit|suplemento|cosm[eé]tico/.test(t)) tipo = 'produto';
+    else if (/servi[cç]o|consultoria|ag[eê]ncia|assessoria|freelance/.test(t)) tipo = 'servico';
+    else if (/curso|m[eé]todo|mentoria|ebook|infoproduto|treinamento|aula/.test(t)) tipo = 'infoproduto';
+
+    const nome = _extractName(input);
+
+    const MAP = {
+      clinica: {
+        tipo: 'Clínica / Saúde', nome, template: 'clinica',
+        publico: 'Adultos 30–55 anos, renda média-alta',
+        dores: ['Falta de atendimento personalizado', 'Desconfiança em clínicas genéricas', 'Dificuldade de acesso a especialistas'],
+        desejos: ['Atendimento humano e individualizado', 'Resultados visíveis e mensuráveis', 'Conveniência e agilidade'],
+        objecoes: ['Preço alto', 'Não sei se vai funcionar', 'Já tentei outros tratamentos'],
+        tom: 'Profissional, humano, confiante — sem urgência falsa',
+        angulo: 'Autoridade clínica + conveniência + resultado comprovado',
+        cta: 'Agendar consulta gratuita',
+        cores: ['#0a7c59', '#0a0a0a', '#f4f9f7'],
+        evitar: ['Urgência exagerada', 'Promessas milagrosas', 'Stock photos genéricas'],
+      },
+      saas: {
+        tipo: 'SaaS / Ferramenta Digital', nome, template: 'saas',
+        publico: 'Empreendedores e gestores, 25–45 anos',
+        dores: ['Processos manuais que consomem tempo', 'Falta de visibilidade do negócio', 'Ferramentas complexas demais'],
+        desejos: ['Automação real', 'Dashboard claro', 'ROI mensurável'],
+        objecoes: ['Mais uma ferramenta que não vou usar', 'É caro', 'Curva de aprendizado longa'],
+        tom: 'Direto, técnico mas acessível',
+        angulo: 'Economia de tempo + resultado mensurável',
+        cta: 'Começar grátis por 14 dias',
+        cores: ['#0077ff', '#050505', '#f5f7f8'],
+        evitar: ['Marketing inflado', 'Promessas vagas', 'Muitos planos de preço'],
+      },
+      produto: {
+        tipo: 'Produto Físico / E-commerce', nome, template: 'produto',
+        publico: 'Consumidores 20–45 anos, compra qualificada',
+        dores: ['Produtos que não entregam o que prometem', 'Desconfiança na qualidade', 'Frete e prazo incertos'],
+        desejos: ['Produto que realmente funciona', 'Entrega rápida e segura', 'Satisfação garantida'],
+        objecoes: ['E se não gostar?', 'Demora para chegar', 'Já comprei coisa ruim antes'],
+        tom: 'Entusiasmado mas honesto, prova social forte',
+        angulo: 'Qualidade real + garantia + prova social',
+        cta: 'Comprar agora com frete grátis',
+        cores: ['#111111', '#ffffff', '#f0f4f8'],
+        evitar: ['Fake urgency', 'Contadores falsos', 'Texto em maiúsculas excessivo'],
+      },
+      servico: {
+        tipo: 'Serviço / Consultoria', nome, template: 'servico',
+        publico: 'Empresas e profissionais, tomadores de decisão',
+        dores: ['Resultados inconsistentes com fornecedores atuais', 'Falta de especialização', 'Perda de tempo com amadores'],
+        desejos: ['Parceiro confiável', 'Resultados previsíveis', 'Comunicação clara'],
+        objecoes: ['Preço alto', 'Não tenho tempo para onboarding', 'Já me decepcionei antes'],
+        tom: 'Profissional, orientado a resultados, sem hype',
+        angulo: 'Especialização + processo comprovado + cases reais',
+        cta: 'Solicitar proposta',
+        cores: ['#050505', '#ffffff', '#f5f7f8'],
+        evitar: ['Promessas numéricas sem base', 'Linguagem genérica'],
+      },
+      infoproduto: {
+        tipo: 'Infoproduto / Curso Online', nome, template: 'infoproduto',
+        publico: 'Pessoas buscando transformação, 25–45 anos',
+        dores: ['Tentou aprender antes e desistiu', 'Não sabe por onde começar', 'Sem tempo para estudar'],
+        desejos: ['Resultado prático e rápido', 'Método que funciona', 'Suporte e comunidade'],
+        objecoes: ['Mais um curso que não vou terminar', 'É caro', 'Não tenho tempo'],
+        tom: 'Motivacional mas honesto, prova social forte',
+        angulo: 'Método + resultado comprovado + garantia',
+        cta: 'Garantir minha vaga',
+        cores: ['#0077ff', '#050505', '#ffffff'],
+        evitar: ['Urgência falsa', 'Contadores fake', 'Promessas absurdas'],
+      },
+      premium: {
+        tipo: 'Marca Premium', nome, template: 'premium',
+        publico: 'Público qualificado, 28–50 anos, renda média-alta',
+        dores: ['Falta de opções premium', 'Qualidade inconsistente', 'Experiência ruim com concorrentes'],
+        desejos: ['Excelência e exclusividade', 'Experiência end-to-end', 'Produto que represente quem sou'],
+        objecoes: ['O preço não justifica', 'Não conheço a marca', 'Prefiro o que já conheço'],
+        tom: 'Sofisticado, confiante, sem superlativo',
+        angulo: 'Exclusividade + craft + experiência superior',
+        cta: 'Conhecer a experiência',
+        cores: ['#050505', '#ffffff', '#f5f0e8'],
+        evitar: ['Linguagem de vendedor', 'Urgência barata', 'Promessas genéricas'],
+      },
+    };
+
+    return MAP[tipo] || MAP.premium;
+  }
+
+  function _extractName(input) {
+    const m = input.match(/(?:para|para\s+a|de|do|da|chamad[ao])\s+(.+?)(?:\s+(?:que|com|para\b)|$)/i);
+    const raw = m ? m[1].trim() : input.split(' ').slice(0, 5).join(' ');
+    return raw.charAt(0).toUpperCase() + raw.slice(1);
+  }
+
+  /* ─── COPY GENERATOR ─── */
+  async function generateCopy(brief, apiKey, onPhase) {
+    if (apiKey && apiKey.startsWith('sk-ant-')) {
+      return _callClaude(brief, apiKey, onPhase);
+    }
+    onPhase('mock');
+    await _delay(800);
+    return _mockCopy(brief);
+  }
+
+  async function _callClaude(brief, key, onPhase) {
+    onPhase('sending');
+    const prompt = `Você é especialista em copywriting estratégico brasileiro.
+Briefing: produto="${brief.nome}", tipo="${brief.tipo}", público="${brief.publico}", tom="${brief.tom}", ângulo="${brief.angulo}", CTA="${brief.cta}", dores="${brief.dores.join('; ')}", desejos="${brief.desejos.join('; ')}", objeções="${brief.objecoes.join('; ')}", evitar="${brief.evitar.join('; ')}".
+
+Responda SOMENTE com JSON válido (sem markdown, sem explicação):
+{"hero":{"badge":"string","headline":"string","subheadline":"string","cta":"string"},"benefits":[{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"}],"social":{"title":"string","stat1":{"number":"string","label":"string"},"stat2":{"number":"string","label":"string"},"stat3":{"number":"string","label":"string"}},"offer":{"tag":"string","title":"string","description":"string","cta":"string"},"faq":[{"question":"string","answer":"string"},{"question":"string","answer":"string"},{"question":"string","answer":"string"}]}`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({ model: 'claude-opus-4-7', max_tokens: 2048, messages: [{ role: 'user', content: prompt }] }),
+    });
+
+    if (!resp.ok) throw new Error(`Claude API ${resp.status}`);
+    const data = await resp.json();
+    const raw = data.content[0].text.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    return JSON.parse(raw);
+  }
+
+  function _mockCopy(b) {
+    const MOCKS = {
+      clinica: {
+        hero: { badge: 'CLÍNICA ESPECIALIZADA', headline: `${b.nome}: Cuidado que Você Merece`, subheadline: 'Tratamento personalizado com especialistas de verdade. Sem filas, sem impessoalidade — só resultado.', cta: b.cta },
+        benefits: [{ icon: '🩺', title: 'Atendimento Individual', description: 'Protocolo criado exclusivamente para o seu caso.' }, { icon: '📊', title: 'Acompanhamento Real', description: 'Monitoramento contínuo até o resultado final.' }, { icon: '🏅', title: 'Equipe Especializada', description: 'Profissionais com formação e experiência comprovadas.' }, { icon: '📍', title: 'Fácil Acesso', description: 'Atendimento presencial e remoto disponível.' }],
+        social: { title: 'Resultados que falam por si', stat1: { number: '+2.400', label: 'pacientes atendidos' }, stat2: { number: '97%', label: 'de satisfação' }, stat3: { number: '8 anos', label: 'de especialização' } },
+        offer: { tag: 'PRIMEIRA CONSULTA', title: 'Avaliação Inicial Gratuita', description: 'Entenda seu caso sem compromisso antes de iniciar qualquer protocolo.', cta: b.cta },
+        faq: [{ question: 'Como funciona a primeira consulta?', answer: 'É uma avaliação de 30 minutos, sem custo, para entender seu histórico e propor o melhor protocolo.' }, { question: 'Vocês atendem pelo plano de saúde?', answer: 'Trabalhamos com os principais convênios. Entre em contato para verificar a cobertura.' }, { question: 'Quanto tempo leva para ver resultados?', answer: 'A maioria dos pacientes reporta mudanças perceptíveis nas primeiras 3 semanas.' }],
+      },
+      saas: {
+        hero: { badge: 'SOFTWARE INTELIGENTE', headline: `${b.nome}: Menos Tempo, Mais Resultado`, subheadline: 'Automatize processos críticos e tenha visibilidade real do seu negócio em um painel único.', cta: b.cta },
+        benefits: [{ icon: '⚡', title: 'Setup em 5 minutos', description: 'Comece a usar hoje sem instalar nada ou treinar equipe.' }, { icon: '📈', title: 'Relatórios em tempo real', description: 'Dashboards que mostram o que importa, quando importa.' }, { icon: '🔗', title: 'Integra com tudo', description: 'Conecta com as ferramentas que você já usa.' }, { icon: '🔒', title: 'Seguro e confiável', description: 'Dados criptografados e backups automáticos.' }],
+        social: { title: 'Empresas que confiam', stat1: { number: '+5.000', label: 'empresas ativas' }, stat2: { number: '18h', label: 'economizadas/semana' }, stat3: { number: '4.9/5', label: 'avaliação média' } },
+        offer: { tag: 'TRIAL GRATUITO', title: '14 dias sem cartão', description: 'Acesso completo à plataforma. Cancele quando quiser, sem burocracia.', cta: b.cta },
+        faq: [{ question: 'Preciso de cartão para o trial?', answer: 'Não. Você começa grátis e só precisa de cartão se decidir continuar.' }, { question: 'Tem limite de usuários?', answer: 'No trial até 5 usuários. Nos planos pagos não há limite.' }, { question: 'E se eu quiser cancelar?', answer: 'Cancele com 1 clique, sem taxa e sem ligação de retenção.' }],
+      },
+    };
+    const fallback = {
+      hero: { badge: b.tipo.toUpperCase().slice(0, 24), headline: `${b.nome}: ${b.desejos[0]}`, subheadline: `${b.dores[0].replace(/^(Falta|Dificuldade)\s+de\s+/i, 'Chega de ')}. ${b.desejos[1]}.`, cta: b.cta },
+      benefits: b.desejos.slice(0, 4).map((d, i) => ({ icon: ['✅','🎯','🚀','💡'][i], title: d.split(' ').slice(0, 3).join(' '), description: d + '.' })),
+      social: { title: 'Resultados reais', stat1: { number: '+1.000', label: 'clientes satisfeitos' }, stat2: { number: '98%', label: 'de satisfação' }, stat3: { number: '5 anos', label: 'de experiência' } },
+      offer: { tag: 'OFERTA ESPECIAL', title: `Comece com ${b.nome}`, description: b.angulo + '.', cta: b.cta },
+      faq: b.objecoes.slice(0, 3).map(o => ({ question: o + '?', answer: `Entendemos. ${b.angulo}.` })),
+    };
+    return MOCKS[b.template] || fallback;
+  }
+
+  /* ─── PAGE RENDERER ─── */
+  function renderPage(copy, brief) {
+    const accent = brief.cores[0];
+    const dark   = brief.cores[1];
+    const e = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${e(brief.nome)}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--a:${accent};--d:${dark}}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#111;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:0 28px}
+.hero{padding:76px 0 56px;text-align:center;background:linear-gradient(180deg,#f8fafc,#fff)}
+.badge{display:inline-block;padding:5px 16px;border-radius:99px;background:rgba(0,0,0,.06);color:var(--d);font-size:10.5px;font-weight:800;letter-spacing:1.3px;margin-bottom:22px}
+.hero h1{font-size:clamp(26px,4vw,50px);font-weight:950;letter-spacing:-1.5px;line-height:1.1;color:var(--d);max-width:680px;margin:0 auto 18px}
+.hero p{font-size:16px;color:#5a6472;font-weight:500;max-width:500px;margin:0 auto 34px;line-height:1.7}
+.btn{display:inline-flex;align-items:center;height:56px;padding:0 36px;border-radius:18px;background:var(--a);color:#fff;font-size:14px;font-weight:900;letter-spacing:.5px;border:none;cursor:default;box-shadow:0 14px 36px rgba(0,0,0,.18);text-decoration:none}
+.sec{padding:64px 0}
+.sec.alt{background:#f8fafc}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:1.4px;color:var(--a);text-transform:uppercase;text-align:center;margin-bottom:10px}
+.sec-title{font-size:clamp(20px,2.5vw,30px);font-weight:900;letter-spacing:-.7px;text-align:center;margin-bottom:44px;color:var(--d)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.card{padding:22px;border-radius:18px;background:#fff;border:1px solid #eaeef2}
+.crd-icon{width:42px;height:42px;border-radius:12px;background:rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+.card h3{font-size:13.5px;font-weight:900;margin-bottom:5px;color:var(--d)}
+.card p{font-size:12.5px;color:#6b7280;line-height:1.6}
+.dark{background:var(--d);color:#fff}
+.stats{display:flex;justify-content:center;gap:56px;flex-wrap:wrap;margin-top:36px}
+.snum{font-size:40px;font-weight:950;letter-spacing:-1.5px;color:var(--a)}
+.slbl{font-size:12.5px;color:rgba(255,255,255,.5);font-weight:600;margin-top:4px}
+.faq-list{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{padding:18px 22px;border-radius:15px;background:#fff;border:1px solid #eaeef2}
+.faq-item h4{font-size:13.5px;font-weight:800;color:var(--d);margin-bottom:6px}
+.faq-item p{font-size:12.5px;color:#6b7280;line-height:1.6}
+.offer-box{max-width:520px;margin:0 auto;background:var(--d);border-radius:26px;padding:46px;text-align:center;color:#fff}
+.otag{display:inline-block;padding:4px 14px;border-radius:99px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:10px;font-weight:850;letter-spacing:.8px;margin-bottom:18px}
+.otitle{font-size:24px;font-weight:950;letter-spacing:-.7px;margin-bottom:10px}
+.odesc{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:28px}
+@media(max-width:600px){.hero{padding:52px 0 36px}.stats{gap:28px}.offer-box{padding:30px 20px}}
+</style></head><body>
+<section class="hero"><div class="wrap">
+<span class="badge">${e(copy.hero.badge)}</span>
+<h1>${e(copy.hero.headline)}</h1>
+<p>${e(copy.hero.subheadline)}</p>
+<span class="btn">${e(copy.hero.cta)} →</span>
+</div></section>
+<section class="sec"><div class="wrap">
+<div class="eyebrow">POR QUE ESCOLHER</div>
+<h2 class="sec-title">Feito para quem exige mais</h2>
+<div class="grid">${copy.benefits.map(b=>`<div class="card"><div class="crd-icon">${b.icon}</div><h3>${e(b.title)}</h3><p>${e(b.description)}</p></div>`).join('')}</div>
+</div></section>
+<section class="sec alt dark"><div class="wrap">
+<h2 class="sec-title" style="color:#fff">${e(copy.social.title)}</h2>
+<div class="stats">
+<div><div class="snum">${e(copy.social.stat1.number)}</div><div class="slbl">${e(copy.social.stat1.label)}</div></div>
+<div><div class="snum">${e(copy.social.stat2.number)}</div><div class="slbl">${e(copy.social.stat2.label)}</div></div>
+<div><div class="snum">${e(copy.social.stat3.number)}</div><div class="slbl">${e(copy.social.stat3.label)}</div></div>
+</div></div></section>
+<section class="sec"><div class="wrap">
+<div class="eyebrow">DÚVIDAS</div>
+<h2 class="sec-title">Perguntas frequentes</h2>
+<div class="faq-list">${copy.faq.map(f=>`<div class="faq-item"><h4>${e(f.question)}</h4><p>${e(f.answer)}</p></div>`).join('')}</div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+<div class="offer-box">
+<span class="otag">${e(copy.offer.tag)}</span>
+<div class="otitle">${e(copy.offer.title)}</div>
+<div class="odesc">${e(copy.offer.description)}</div>
+<span class="btn">${e(copy.offer.cta)} →</span>
+</div></div></section>
+</body></html>`;
+  }
+
+  function _delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  return { state, createStrategicBrief, generateCopy, renderPage };
+})();
+
+/**
+ * SALES PAGE EDITOR — máquina de estados: idle → briefing → generating → done
+ */
 ThayApp.SalesPageEditor = (function () {
+  'use strict';
+
+  let _msgs, _input, _sendBtn, _frame, _empty, _apiKeyInput;
+  let _locked = false; // previne envio duplo
+
   function init() {
+    _msgs        = document.getElementById('spMessages');
+    _input       = document.getElementById('spInput');
+    _sendBtn     = document.getElementById('spSendBtn');
+    _frame       = document.getElementById('spPreviewFrame');
+    _empty       = document.getElementById('spPreviewEmpty');
+    _apiKeyInput = document.getElementById('spApiKey');
+
+    // Restore key from localStorage
+    const saved = localStorage.getItem('thay_claude_key');
+    if (saved && _apiKeyInput) _apiKeyInput.value = saved;
+    if (_apiKeyInput) {
+      _apiKeyInput.addEventListener('change', () => {
+        localStorage.setItem('thay_claude_key', _apiKeyInput.value.trim());
+      });
+    }
+
     _initOpenButton();
     _initBackButton();
-    _initChat();
+    _initInput();
+    _initChips();
   }
 
-  /* Abre o editor ao clicar em "Página de Vendas" no module picker */
   function _initOpenButton() {
-    const salesBtn = document.querySelector('.module-app-item.active-app');
-    if (!salesBtn) return;
-    salesBtn.addEventListener('click', () => {
-      ThayApp.ViewManager.setActiveView('salesPageEditor');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    document.querySelector('.module-app-item.active-app')
+      ?.addEventListener('click', () => {
+        ThayApp.ViewManager.setActiveView('salesPageEditor');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
   }
 
-  /* Volta para o editor do funil */
   function _initBackButton() {
     document.getElementById('spBackBtn')
       ?.addEventListener('click', () => {
@@ -2442,57 +2712,189 @@ ThayApp.SalesPageEditor = (function () {
       });
   }
 
-  /* Chat: chips de sugestão + envio de mensagem */
-  function _initChat() {
-    const input    = document.getElementById('spInput');
-    const sendBtn  = document.getElementById('spSendBtn');
-    const messages = document.getElementById('spMessages');
-
-    if (!input || !sendBtn || !messages) return;
-
-    function sendMessage(text) {
-      const t = text.trim();
-      if (!t) return;
-
-      const userMsg = document.createElement('div');
-      userMsg.className = 'sp-msg user';
-      userMsg.textContent = t;
-      messages.appendChild(userMsg);
-
-      /* placeholder reply — trocar pela chamada de IA futuramente */
-      setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.className = 'sp-msg bot';
-        botMsg.textContent = 'Entendido! Em breve a IA irá processar seu pedido e atualizar o preview automaticamente.';
-        messages.appendChild(botMsg);
-        messages.scrollTop = messages.scrollHeight;
-      }, 600);
-
-      input.value = '';
-      input.style.height = '';
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    sendBtn.addEventListener('click', () => sendMessage(input.value));
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage(input.value);
-      }
+  function _initInput() {
+    if (!_input || !_sendBtn) return;
+    _sendBtn.addEventListener('click', () => _handleSend());
+    _input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _handleSend(); }
     });
-
-    /* auto-resize textarea */
-    input.addEventListener('input', () => {
-      input.style.height = '';
-      input.style.height = Math.min(input.scrollHeight, 120) + 'px';
-    });
-
-    /* suggestion chips */
-    document.querySelectorAll('.sp-suggestion-chip').forEach((chip) => {
-      chip.addEventListener('click', () => sendMessage(chip.dataset.msg));
+    _input.addEventListener('input', () => {
+      _input.style.height = '';
+      _input.style.height = Math.min(_input.scrollHeight, 120) + 'px';
     });
   }
+
+  function _initChips() {
+    document.querySelectorAll('.sp-suggestion-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (_locked) return;
+        _input.value = chip.dataset.msg;
+        _handleSend();
+      });
+    });
+  }
+
+  /* ─── SEND HANDLER ─── */
+  function _handleSend() {
+    const text = _input.value.trim();
+    if (!text || _locked) return;
+    _input.value = '';
+    _input.style.height = '';
+    _appendUser(text);
+    _runFlow(text);
+  }
+
+  /* ─── MAIN FLOW ─── */
+  async function _runFlow(userText) {
+    _locked = true;
+    const eng = ThayApp.PageEngine;
+
+    try {
+      /* Phase 1 — analyse */
+      const typing1 = _appendTyping();
+      await _delay(900);
+      _remove(typing1);
+
+      _appendBot('Entendido. Estou analisando o produto e o público para montar o briefing estratégico...');
+
+      /* Phase 2 — brief */
+      const phase2 = _appendPhase('Criando briefing estratégico...');
+      await _delay(1100);
+      _remove(phase2);
+
+      const brief = eng.createStrategicBrief(userText);
+      eng.state.brief = brief;
+
+      _appendBriefCard(brief);
+
+    } catch (err) {
+      _appendBot(`Erro ao analisar: ${err.message}`);
+      _locked = false;
+    }
+  }
+
+  /* ─── GENERATE PAGE (called from brief card buttons) ─── */
+  async function _generatePage(brief) {
+    const eng = ThayApp.PageEngine;
+    const apiKey = (_apiKeyInput?.value || '').trim() || localStorage.getItem('thay_claude_key') || '';
+
+    try {
+      /* Phase 3 */
+      const p3 = _appendPhase('Gerando copy com IA...');
+      const copy = await eng.generateCopy(brief, apiKey, phase => {
+        if (phase === 'mock') p3.querySelector('span').textContent = 'Gerando copy (mock inteligente)...';
+      });
+      _remove(p3);
+      eng.state.copy = copy;
+
+      /* Phase 4 */
+      const p4 = _appendPhase('Montando página premium...');
+      await _delay(700);
+      _remove(p4);
+
+      const html = eng.renderPage(copy, brief);
+      eng.state.html = html;
+
+      /* Render */
+      _frame.srcdoc = html;
+      _frame.style.display = 'block';
+      _empty.style.display = 'none';
+
+      _appendBot(`✦ Página gerada! O preview está atualizado ao lado. Cole sua chave Claude para copy personalizada com IA real.`);
+
+    } catch (err) {
+      _appendBot(`Erro ao gerar página: ${err.message}`);
+    } finally {
+      _locked = false;
+    }
+  }
+
+  /* ─── DOM HELPERS ─── */
+  function _appendUser(text) {
+    const d = document.createElement('div');
+    d.className = 'sp-msg user';
+    d.textContent = text;
+    _msgs.appendChild(d);
+    _scroll();
+    return d;
+  }
+
+  function _appendBot(text) {
+    const d = document.createElement('div');
+    d.className = 'sp-msg bot';
+    d.textContent = text;
+    _msgs.appendChild(d);
+    _scroll();
+    return d;
+  }
+
+  function _appendTyping() {
+    const d = document.createElement('div');
+    d.className = 'sp-typing';
+    d.innerHTML = '<span class="sp-typing-dot"></span><span class="sp-typing-dot"></span><span class="sp-typing-dot"></span>';
+    _msgs.appendChild(d);
+    _scroll();
+    return d;
+  }
+
+  function _appendPhase(label) {
+    const d = document.createElement('div');
+    d.className = 'sp-phase-banner';
+    d.innerHTML = `<div class="sp-phase-spinner"></div><span>${label}</span>`;
+    _msgs.appendChild(d);
+    _scroll();
+    return d;
+  }
+
+  function _appendBriefCard(brief) {
+    const card = document.createElement('div');
+    card.className = 'sp-brief-card';
+
+    const rows = [
+      ['Tipo',    brief.tipo],
+      ['Público', brief.publico],
+      ['Tom',     brief.tom],
+      ['Ângulo',  brief.angulo],
+      ['CTA',     brief.cta],
+      ['Evitar',  brief.evitar.slice(0,2).join(', ')],
+    ];
+
+    card.innerHTML = `
+      <div class="sp-brief-head">
+        <div class="sp-brief-icon-box">📋</div>
+        <div>
+          <div class="sp-brief-name">${_esc(brief.nome)}</div>
+          <div class="sp-brief-subtype">${_esc(brief.tipo)}</div>
+        </div>
+      </div>
+      <div class="sp-brief-rows">
+        ${rows.map(([l,v]) => `<div class="sp-brief-row"><span class="sp-brief-lbl">${l}</span><span class="sp-brief-val">${_esc(v)}</span></div>`).join('')}
+      </div>
+      <div class="sp-brief-actions">
+        <button class="sp-action-btn sp-action-primary" data-action="generate">Gerar Página →</button>
+        <button class="sp-action-btn sp-action-secondary" data-action="regenerate">Regenerar briefing</button>
+      </div>`;
+
+    card.querySelector('[data-action="generate"]').addEventListener('click', () => {
+      _locked = true;
+      _appendBot('Ótimo! Iniciando geração da página...');
+      _generatePage(brief);
+    });
+
+    card.querySelector('[data-action="regenerate"]').addEventListener('click', () => {
+      _remove(card);
+      _appendBot('Vou criar um novo briefing. Digite novamente com mais detalhes sobre o produto.');
+      _locked = false;
+    });
+
+    _msgs.appendChild(card);
+    _scroll();
+  }
+
+  function _remove(el) { el?.parentNode?.removeChild(el); }
+  function _scroll()   { if (_msgs) _msgs.scrollTop = _msgs.scrollHeight; }
+  function _delay(ms)  { return new Promise(r => setTimeout(r, ms)); }
+  function _esc(s)     { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   return { init };
 })();
