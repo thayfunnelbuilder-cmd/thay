@@ -1386,11 +1386,6 @@ body {
 .sp-action-secondary { background: #fff; color: #555; border: 1px solid #dde2e8; }
 .sp-action-secondary:hover { background: #f5f7f9; color: #111; }
 
-/* ── API KEY ROW ── */
-.sp-key-row { display: flex; align-items: center; gap: 8px; padding: 10px 22px 0; }
-.sp-key-lbl { font-size: 10px; font-weight: 850; color: #a0aab4; letter-spacing: .5px; white-space: nowrap; text-transform: uppercase; }
-.sp-key-input { flex: 1; height: 28px; padding: 0 10px; border: 1px solid #e0e5eb; border-radius: 8px; font-size: 11px; font-family: inherit; font-weight: 600; outline: none; color: #333; background: #f7f9fb; transition: border-color .15s; }
-.sp-key-input:focus { border-color: #0077ff; background: #fff; }
 
 /* ── PREVIEW IFRAME & EMPTY STATE ── */
 .sp-preview-frame { flex: 1; width: 100%; border: none; background: #fff; display: block; }
@@ -1881,11 +1876,6 @@ body {
         <div class="sp-chat-header">
           <h3>Criar Página de Vendas</h3>
           <p>Descreva seu produto — a THAY analisa o público e monta a página</p>
-        </div>
-
-        <div class="sp-key-row">
-          <span class="sp-key-lbl">Claude API Key</span>
-          <input type="password" class="sp-key-input" id="spApiKey" placeholder="sk-ant-... (opcional — usa mock se vazio)">
         </div>
 
         <div class="sp-messages" id="spMessages">
@@ -2525,66 +2515,19 @@ ThayApp.PageEngine = (function () {
     return raw.charAt(0).toUpperCase() + raw.slice(1);
   }
 
-  /* ─── COPY GENERATOR ─── */
-  async function generateCopy(brief, apiKey, onPhase) {
-    if (apiKey && apiKey.startsWith('sk-ant-')) {
-      return _callClaude(brief, apiKey, onPhase);
-    }
-    onPhase('mock');
-    await _delay(800);
-    return _mockCopy(brief);
-  }
-
-  async function _callClaude(brief, key, onPhase) {
+  /* ─── COPY GENERATOR — chama endpoint interno ─── */
+  async function generateCopy(brief, onPhase) {
     onPhase('sending');
-    const prompt = `Você é especialista em copywriting estratégico brasileiro.
-Briefing: produto="${brief.nome}", tipo="${brief.tipo}", público="${brief.publico}", tom="${brief.tom}", ângulo="${brief.angulo}", CTA="${brief.cta}", dores="${brief.dores.join('; ')}", desejos="${brief.desejos.join('; ')}", objeções="${brief.objecoes.join('; ')}", evitar="${brief.evitar.join('; ')}".
-
-Responda SOMENTE com JSON válido (sem markdown, sem explicação):
-{"hero":{"badge":"string","headline":"string","subheadline":"string","cta":"string"},"benefits":[{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"},{"icon":"emoji","title":"string","description":"string"}],"social":{"title":"string","stat1":{"number":"string","label":"string"},"stat2":{"number":"string","label":"string"},"stat3":{"number":"string","label":"string"}},"offer":{"tag":"string","title":"string","description":"string","cta":"string"},"faq":[{"question":"string","answer":"string"},{"question":"string","answer":"string"},{"question":"string","answer":"string"}]}`;
-
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('/api/generate-page-copy', {
       method: 'POST',
-      headers: {
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({ model: 'claude-opus-4-7', max_tokens: 2048, messages: [{ role: 'user', content: prompt }] }),
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ brief }),
     });
-
-    if (!resp.ok) throw new Error(`Claude API ${resp.status}`);
-    const data = await resp.json();
-    const raw = data.content[0].text.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
-    return JSON.parse(raw);
-  }
-
-  function _mockCopy(b) {
-    const MOCKS = {
-      clinica: {
-        hero: { badge: 'CLÍNICA ESPECIALIZADA', headline: `${b.nome}: Cuidado que Você Merece`, subheadline: 'Tratamento personalizado com especialistas de verdade. Sem filas, sem impessoalidade — só resultado.', cta: b.cta },
-        benefits: [{ icon: '🩺', title: 'Atendimento Individual', description: 'Protocolo criado exclusivamente para o seu caso.' }, { icon: '📊', title: 'Acompanhamento Real', description: 'Monitoramento contínuo até o resultado final.' }, { icon: '🏅', title: 'Equipe Especializada', description: 'Profissionais com formação e experiência comprovadas.' }, { icon: '📍', title: 'Fácil Acesso', description: 'Atendimento presencial e remoto disponível.' }],
-        social: { title: 'Resultados que falam por si', stat1: { number: '+2.400', label: 'pacientes atendidos' }, stat2: { number: '97%', label: 'de satisfação' }, stat3: { number: '8 anos', label: 'de especialização' } },
-        offer: { tag: 'PRIMEIRA CONSULTA', title: 'Avaliação Inicial Gratuita', description: 'Entenda seu caso sem compromisso antes de iniciar qualquer protocolo.', cta: b.cta },
-        faq: [{ question: 'Como funciona a primeira consulta?', answer: 'É uma avaliação de 30 minutos, sem custo, para entender seu histórico e propor o melhor protocolo.' }, { question: 'Vocês atendem pelo plano de saúde?', answer: 'Trabalhamos com os principais convênios. Entre em contato para verificar a cobertura.' }, { question: 'Quanto tempo leva para ver resultados?', answer: 'A maioria dos pacientes reporta mudanças perceptíveis nas primeiras 3 semanas.' }],
-      },
-      saas: {
-        hero: { badge: 'SOFTWARE INTELIGENTE', headline: `${b.nome}: Menos Tempo, Mais Resultado`, subheadline: 'Automatize processos críticos e tenha visibilidade real do seu negócio em um painel único.', cta: b.cta },
-        benefits: [{ icon: '⚡', title: 'Setup em 5 minutos', description: 'Comece a usar hoje sem instalar nada ou treinar equipe.' }, { icon: '📈', title: 'Relatórios em tempo real', description: 'Dashboards que mostram o que importa, quando importa.' }, { icon: '🔗', title: 'Integra com tudo', description: 'Conecta com as ferramentas que você já usa.' }, { icon: '🔒', title: 'Seguro e confiável', description: 'Dados criptografados e backups automáticos.' }],
-        social: { title: 'Empresas que confiam', stat1: { number: '+5.000', label: 'empresas ativas' }, stat2: { number: '18h', label: 'economizadas/semana' }, stat3: { number: '4.9/5', label: 'avaliação média' } },
-        offer: { tag: 'TRIAL GRATUITO', title: '14 dias sem cartão', description: 'Acesso completo à plataforma. Cancele quando quiser, sem burocracia.', cta: b.cta },
-        faq: [{ question: 'Preciso de cartão para o trial?', answer: 'Não. Você começa grátis e só precisa de cartão se decidir continuar.' }, { question: 'Tem limite de usuários?', answer: 'No trial até 5 usuários. Nos planos pagos não há limite.' }, { question: 'E se eu quiser cancelar?', answer: 'Cancele com 1 clique, sem taxa e sem ligação de retenção.' }],
-      },
-    };
-    const fallback = {
-      hero: { badge: b.tipo.toUpperCase().slice(0, 24), headline: `${b.nome}: ${b.desejos[0]}`, subheadline: `${b.dores[0].replace(/^(Falta|Dificuldade)\s+de\s+/i, 'Chega de ')}. ${b.desejos[1]}.`, cta: b.cta },
-      benefits: b.desejos.slice(0, 4).map((d, i) => ({ icon: ['✅','🎯','🚀','💡'][i], title: d.split(' ').slice(0, 3).join(' '), description: d + '.' })),
-      social: { title: 'Resultados reais', stat1: { number: '+1.000', label: 'clientes satisfeitos' }, stat2: { number: '98%', label: 'de satisfação' }, stat3: { number: '5 anos', label: 'de experiência' } },
-      offer: { tag: 'OFERTA ESPECIAL', title: `Comece com ${b.nome}`, description: b.angulo + '.', cta: b.cta },
-      faq: b.objecoes.slice(0, 3).map(o => ({ question: o + '?', answer: `Entendemos. ${b.angulo}.` })),
-    };
-    return MOCKS[b.template] || fallback;
+    if (!resp.ok) {
+      const body = await resp.json().catch(() => ({}));
+      throw new Error(body.message || 'IA ainda não configurada no servidor.');
+    }
+    return resp.json();
   }
 
   /* ─── PAGE RENDERER ─── */
@@ -2670,25 +2613,15 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#f
 ThayApp.SalesPageEditor = (function () {
   'use strict';
 
-  let _msgs, _input, _sendBtn, _frame, _empty, _apiKeyInput;
-  let _locked = false; // previne envio duplo
+  let _msgs, _input, _sendBtn, _frame, _empty;
+  let _locked = false;
 
   function init() {
-    _msgs        = document.getElementById('spMessages');
-    _input       = document.getElementById('spInput');
-    _sendBtn     = document.getElementById('spSendBtn');
-    _frame       = document.getElementById('spPreviewFrame');
-    _empty       = document.getElementById('spPreviewEmpty');
-    _apiKeyInput = document.getElementById('spApiKey');
-
-    // Restore key from localStorage
-    const saved = localStorage.getItem('thay_claude_key');
-    if (saved && _apiKeyInput) _apiKeyInput.value = saved;
-    if (_apiKeyInput) {
-      _apiKeyInput.addEventListener('change', () => {
-        localStorage.setItem('thay_claude_key', _apiKeyInput.value.trim());
-      });
-    }
+    _msgs    = document.getElementById('spMessages');
+    _input   = document.getElementById('spInput');
+    _sendBtn = document.getElementById('spSendBtn');
+    _frame   = document.getElementById('spPreviewFrame');
+    _empty   = document.getElementById('spPreviewEmpty');
 
     _initOpenButton();
     _initBackButton();
@@ -2776,20 +2709,19 @@ ThayApp.SalesPageEditor = (function () {
   /* ─── GENERATE PAGE (called from brief card buttons) ─── */
   async function _generatePage(brief) {
     const eng = ThayApp.PageEngine;
-    const apiKey = (_apiKeyInput?.value || '').trim() || localStorage.getItem('thay_claude_key') || '';
 
     try {
       /* Phase 3 */
       const p3 = _appendPhase('Gerando copy com IA...');
-      const copy = await eng.generateCopy(brief, apiKey, phase => {
-        if (phase === 'mock') p3.querySelector('span').textContent = 'Gerando copy (mock inteligente)...';
+      const copy = await eng.generateCopy(brief, phase => {
+        if (phase === 'sending') p3.querySelector('span').textContent = 'Aguardando resposta da IA...';
       });
       _remove(p3);
       eng.state.copy = copy;
 
       /* Phase 4 */
-      const p4 = _appendPhase('Montando página premium...');
-      await _delay(700);
+      const p4 = _appendPhase('Montando página...');
+      await _delay(400);
       _remove(p4);
 
       const html = eng.renderPage(copy, brief);
@@ -2800,7 +2732,7 @@ ThayApp.SalesPageEditor = (function () {
       _frame.style.display = 'block';
       _empty.style.display = 'none';
 
-      _appendBot(`✦ Página gerada! O preview está atualizado ao lado. Cole sua chave Claude para copy personalizada com IA real.`);
+      _appendBot('✦ Página gerada! O preview está atualizado ao lado.');
 
     } catch (err) {
       _appendBot(`Erro ao gerar página: ${err.message}`);
