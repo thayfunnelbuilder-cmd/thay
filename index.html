@@ -976,6 +976,369 @@ body {
 }
 .test-flow-btn:hover { transform: translateY(-1px); box-shadow: 0 22px 44px rgba(0,0,0,.12); }
 
+/* ============================================================
+   SALES PAGE EDITOR — split layout (chat | preview)
+   ============================================================ */
+
+.sp-editor {
+  display: none;
+  margin-top: 34px;
+  height: calc(100vh - 230px);
+  min-height: 500px;
+}
+.sp-editor.active { display: flex; flex-direction: column; gap: 0; }
+
+/* back bar */
+.sp-back-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.sp-back-btn {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid #e5e9ee;
+  border-radius: 14px;
+  background: #fff;
+  color: #111;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  transition: .15s ease;
+}
+.sp-back-btn:hover { background: #f5f7f8; box-shadow: 0 6px 18px rgba(0,0,0,.10); }
+.sp-back-btn svg { width: 14px; height: 14px; }
+.sp-page-title { font-size: 20px; font-weight: 900; letter-spacing: -.5px; }
+
+/* split body */
+.sp-body {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  min-height: 0;
+}
+
+/* ── LEFT: chat panel ── */
+.sp-chat {
+  width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 22px;
+  border: 1px solid #e5e9ee;
+  box-shadow: 0 8px 28px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.sp-chat-header {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid #f0f3f6;
+}
+.sp-chat-header h3 { font-size: 15px; font-weight: 900; letter-spacing: -.3px; }
+.sp-chat-header p  { margin-top: 4px; color: #8c939d; font-size: 12px; font-weight: 600; }
+
+.sp-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sp-msg {
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 94%;
+}
+.sp-msg.bot {
+  background: #f5f7f9;
+  color: #111;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.sp-msg.user {
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.sp-suggestions {
+  padding: 0 22px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sp-suggestion-chip {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid #dfe5ea;
+  border-radius: 99px;
+  background: #fff;
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .15s ease;
+  white-space: nowrap;
+}
+.sp-suggestion-chip:hover {
+  border-color: #0077ff;
+  color: #0077ff;
+  background: rgba(0,119,255,.06);
+}
+
+.sp-input-row {
+  padding: 14px 22px 18px;
+  border-top: 1px solid #f0f3f6;
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.sp-input {
+  flex: 1;
+  min-height: 42px;
+  max-height: 120px;
+  padding: 10px 14px;
+  border: 1px solid #dfe5ea;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  transition: border-color .15s;
+  overflow-y: auto;
+}
+.sp-input:focus { border-color: #0077ff; }
+.sp-send-btn {
+  width: 42px; height: 42px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(0,119,255,.30);
+  transition: .15s ease;
+}
+.sp-send-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0,119,255,.35); }
+.sp-send-btn svg { width: 16px; height: 16px; }
+
+/* ── RIGHT: preview panel ── */
+.sp-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 22px;
+  border: 1px solid #e5e9ee;
+  box-shadow: 0 8px 28px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.sp-preview-bar {
+  height: 44px;
+  padding: 0 18px;
+  border-bottom: 1px solid #f0f3f6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.sp-preview-dots { display: flex; gap: 6px; }
+.sp-preview-dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.sp-preview-dots span:nth-child(1) { background: #ff5f57; }
+.sp-preview-dots span:nth-child(2) { background: #ffbd2e; }
+.sp-preview-dots span:nth-child(3) { background: #28c941; }
+.sp-preview-url {
+  flex: 1;
+  height: 26px;
+  border: 1px solid #e5e9ee;
+  border-radius: 8px;
+  background: #f5f7f9;
+  padding: 0 10px;
+  font-size: 11px;
+  color: #8c939d;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.sp-preview-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #8c939d;
+  letter-spacing: .5px;
+}
+
+.sp-preview-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  background: linear-gradient(180deg, #fafbfc 0%, #fff 40%);
+}
+
+/* mockup sections */
+.sp-mock-hero { text-align: center; }
+.sp-mock-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 99px;
+  background: rgba(0,119,255,.10);
+  color: #0077ff;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .6px;
+  margin-bottom: 20px;
+}
+.sp-mock-headline {
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  color: #0a0a0a;
+  margin-bottom: 16px;
+}
+.sp-mock-sub {
+  font-size: 16px;
+  font-weight: 600;
+  color: #5a6472;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto 28px;
+}
+.sp-mock-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 32px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  box-shadow: 0 16px 36px rgba(0,119,255,.32);
+  border: none;
+  cursor: default;
+}
+
+.sp-mock-benefits { }
+.sp-mock-section-label {
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+  color: #0077ff;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.sp-mock-section-title {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.5px;
+  margin-bottom: 22px;
+  color: #0a0a0a;
+}
+.sp-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.sp-benefit-card {
+  padding: 18px;
+  border-radius: 16px;
+  background: #f5f7f9;
+  border: 1px solid #e8ecf0;
+}
+.sp-benefit-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #45adff22, #0077ff22);
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.sp-benefit-card h4 { font-size: 13px; font-weight: 900; margin-bottom: 4px; }
+.sp-benefit-card p  { font-size: 12px; color: #8c939d; font-weight: 600; line-height: 1.5; }
+
+.sp-mock-offer {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a2030 100%);
+  border-radius: 22px;
+  padding: 36px;
+  color: #fff;
+  text-align: center;
+}
+.sp-offer-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 99px;
+  background: rgba(0,119,255,.30);
+  color: #45adff;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .6px;
+  margin-bottom: 16px;
+}
+.sp-offer-price-old {
+  font-size: 14px;
+  color: rgba(255,255,255,.4);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.sp-offer-price {
+  font-size: 48px;
+  font-weight: 950;
+  letter-spacing: -2px;
+  margin-bottom: 6px;
+}
+.sp-offer-price sup { font-size: 22px; vertical-align: super; letter-spacing: 0; }
+.sp-offer-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,.55);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.sp-offer-cta {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 32px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #45adff, #0077ff);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  box-shadow: 0 14px 32px rgba(0,119,255,.40);
+  border: none;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .sp-body { flex-direction: column; }
+  .sp-chat  { width: 100%; flex: none; height: 380px; }
+  .sp-preview { flex: 1; min-height: 400px; }
+  .sp-mock-headline { font-size: 24px; }
+  .sp-benefit-grid { grid-template-columns: 1fr; }
+}
+
 /* ── AI FLOATING ORBS ── */
 .ai-floating-stack {
   position: fixed;
@@ -1437,6 +1800,114 @@ body {
   </section>
 
   <!-- ══════════════════════════════════════════════════
+       SALES PAGE EDITOR
+  ══════════════════════════════════════════════════ -->
+  <section class="sp-editor" id="salesPageEditorView">
+
+    <!-- back bar -->
+    <div class="sp-back-bar">
+      <button class="sp-back-btn" id="spBackBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
+        Voltar ao Funil
+      </button>
+      <span class="sp-page-title">Editor da Página de Vendas</span>
+    </div>
+
+    <!-- split body -->
+    <div class="sp-body">
+
+      <!-- LEFT: chat -->
+      <div class="sp-chat">
+        <div class="sp-chat-header">
+          <h3>Criar Página de Vendas</h3>
+          <p>Descreva o que você quer e a IA irá construir para você</p>
+        </div>
+
+        <div class="sp-messages" id="spMessages">
+          <div class="sp-msg bot">
+            Olá! Sou seu assistente de criação de páginas. Descreva seu produto ou escolha uma sugestão abaixo para começar. ✨
+          </div>
+        </div>
+
+        <div class="sp-suggestions">
+          <button class="sp-suggestion-chip" data-msg="Criar página de produto">Criar página de produto</button>
+          <button class="sp-suggestion-chip" data-msg="Melhorar headline">Melhorar headline</button>
+          <button class="sp-suggestion-chip" data-msg="Adicionar prova social">Adicionar prova social</button>
+          <button class="sp-suggestion-chip" data-msg="Criar seção de oferta">Criar seção de oferta</button>
+        </div>
+
+        <div class="sp-input-row">
+          <textarea class="sp-input" id="spInput" rows="1" placeholder="Descreva o que você quer criar..."></textarea>
+          <button class="sp-send-btn" id="spSendBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: preview -->
+      <div class="sp-preview">
+        <div class="sp-preview-bar">
+          <div class="sp-preview-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="sp-preview-url">sualoja.thay.com/pagina-de-vendas</div>
+          <span class="sp-preview-label">PREVIEW</span>
+        </div>
+
+        <div class="sp-preview-content">
+
+          <!-- hero -->
+          <div class="sp-mock-hero">
+            <div class="sp-mock-badge">OFERTA EXCLUSIVA</div>
+            <h1 class="sp-mock-headline">Transforme Sua Vida com<br>o Método que Já Mudou<br>Milhares de Pessoas</h1>
+            <p class="sp-mock-sub">Descubra o sistema passo a passo que vai te levar de onde você está para onde você quer chegar — em tempo recorde e sem complicações.</p>
+            <button class="sp-mock-cta">QUERO COMEÇAR AGORA →</button>
+          </div>
+
+          <!-- benefits -->
+          <div class="sp-mock-benefits">
+            <div class="sp-mock-section-label">POR QUE ESCOLHER</div>
+            <div class="sp-mock-section-title">Tudo que você precisa<br>em um só lugar</div>
+            <div class="sp-benefit-grid">
+              <div class="sp-benefit-card">
+                <div class="sp-benefit-icon">🚀</div>
+                <h4>Resultados Rápidos</h4>
+                <p>Metodologia comprovada com resultados visíveis nas primeiras semanas.</p>
+              </div>
+              <div class="sp-benefit-card">
+                <div class="sp-benefit-icon">🎯</div>
+                <h4>Suporte Completo</h4>
+                <p>Acesso à comunidade exclusiva e suporte direto com os especialistas.</p>
+              </div>
+              <div class="sp-benefit-card">
+                <div class="sp-benefit-icon">📈</div>
+                <h4>Estratégia Comprovada</h4>
+                <p>Mais de 10.000 alunos transformados com este mesmo método.</p>
+              </div>
+              <div class="sp-benefit-card">
+                <div class="sp-benefit-icon">💡</div>
+                <h4>Conteúdo Exclusivo</h4>
+                <p>Material atualizado constantemente com as últimas tendências do mercado.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- offer -->
+          <div class="sp-mock-offer">
+            <div class="sp-offer-tag">OFERTA ESPECIAL</div>
+            <div class="sp-offer-price-old">De R$ 997,00</div>
+            <div class="sp-offer-price"><sup>R$</sup>297</div>
+            <div class="sp-offer-desc">ou 12x de R$ 29,70 no cartão • Acesso vitalício</div>
+            <button class="sp-offer-cta">GARANTIR MINHA VAGA →</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
        FUNNEL DASHBOARD MODAL
   ══════════════════════════════════════════════════ -->
   <div class="funnel-dashboard-modal" id="funnelDashboardModal">
@@ -1592,8 +2063,9 @@ ThayApp.ViewManager = (function () {
     funnels:         { el: null, tabId: 'funnelsTab' },
     dashboard:       { el: null, tabId: 'dashboardTab' },
     affiliateMarket: { el: null, tabId: 'affiliateMarketTab' },
-    productDetail:   { el: null, tabId: null },
-    funnelDashboard: { el: null, tabId: null },
+    productDetail:    { el: null, tabId: null },
+    funnelDashboard:  { el: null, tabId: null },
+    salesPageEditor:  { el: null, tabId: null },
   };
 
   function init() {
@@ -1603,6 +2075,7 @@ ThayApp.ViewManager = (function () {
     VIEWS.affiliateMarket.el = document.getElementById('affiliateMarketView');
     VIEWS.productDetail.el   = document.getElementById('productDetailView');
     VIEWS.funnelDashboard.el = document.getElementById('funnelDashboardModal');
+    VIEWS.salesPageEditor.el = document.getElementById('salesPageEditorView');
 
     // Tab clicks
     document.getElementById('projectsTab')
@@ -1630,6 +2103,8 @@ ThayApp.ViewManager = (function () {
         cfg.el.style.display = viewName === 'funnels' ? 'block' : 'none';
       } else if (key === 'funnelDashboard') {
         cfg.el.classList.toggle('open', viewName === 'funnelDashboard');
+      } else if (key === 'salesPageEditor') {
+        cfg.el.classList.toggle('active', viewName === 'salesPageEditor');
       } else {
         cfg.el.classList.toggle('active', viewName === key);
       }
@@ -1915,6 +2390,96 @@ ThayApp.ProjectEvents = (function () {
 })();
 
 /**
+ * THAY FUNNEL BUILDER — SALES PAGE EDITOR
+ * Interface split: chat de criação | preview da página de vendas
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.SalesPageEditor = (function () {
+  function init() {
+    _initOpenButton();
+    _initBackButton();
+    _initChat();
+  }
+
+  /* Abre o editor ao clicar em "Página de Vendas" no module picker */
+  function _initOpenButton() {
+    const salesBtn = document.querySelector('.module-app-item.active-app');
+    if (!salesBtn) return;
+    salesBtn.addEventListener('click', () => {
+      ThayApp.ViewManager.setActiveView('salesPageEditor');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* Volta para o editor do funil */
+  function _initBackButton() {
+    document.getElementById('spBackBtn')
+      ?.addEventListener('click', () => {
+        ThayApp.ViewManager.setActiveView('funnels');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+  }
+
+  /* Chat: chips de sugestão + envio de mensagem */
+  function _initChat() {
+    const input    = document.getElementById('spInput');
+    const sendBtn  = document.getElementById('spSendBtn');
+    const messages = document.getElementById('spMessages');
+
+    if (!input || !sendBtn || !messages) return;
+
+    function sendMessage(text) {
+      const t = text.trim();
+      if (!t) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'sp-msg user';
+      userMsg.textContent = t;
+      messages.appendChild(userMsg);
+
+      /* placeholder reply — trocar pela chamada de IA futuramente */
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'sp-msg bot';
+        botMsg.textContent = 'Entendido! Em breve a IA irá processar seu pedido e atualizar o preview automaticamente.';
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+      }, 600);
+
+      input.value = '';
+      input.style.height = '';
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => sendMessage(input.value));
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage(input.value);
+      }
+    });
+
+    /* auto-resize textarea */
+    input.addEventListener('input', () => {
+      input.style.height = '';
+      input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+    });
+
+    /* suggestion chips */
+    document.querySelectorAll('.sp-suggestion-chip').forEach((chip) => {
+      chip.addEventListener('click', () => sendMessage(chip.dataset.msg));
+    });
+  }
+
+  return { init };
+})();
+
+/**
  * THAY FUNNEL BUILDER — AI FLOATING ORBS
  * Torna os orbs GPT e Claude arrastáveis pela tela
  */
@@ -1977,6 +2542,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.CanvasEditor.init();
   ThayApp.ProjectEvents.init();
   ThayApp.AiOrbs.init();
+  ThayApp.SalesPageEditor.init();
 });
 
 
