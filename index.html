@@ -457,6 +457,65 @@ body {
 .mkt-chip.active { background: #050505; color: #fff; border-color: #050505; }
 .mkt-chip.active-blue { background: linear-gradient(180deg, #45adff, #0077ff); color: #fff; border-color: transparent; box-shadow: 0 5px 14px rgba(0,119,255,.24); }
 
+/* ── ACTIVE CHIPS BAR ── */
+.mkt-active-bar { display: flex; align-items: center; gap: 8px; padding: 0 20px; margin-bottom: 16px; flex-wrap: wrap; min-height: 0; }
+.mkt-active-bar:empty { margin-bottom: 0; }
+.mkt-active-chip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 14px; border-radius: 99px; background: #050505; color: #fff; font-size: 11.5px; font-weight: 800; animation: mktChipIn .16s ease-out; }
+@keyframes mktChipIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+.mkt-chip-remove { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 13px; line-height: 1; display: grid; place-items: center; cursor: pointer; padding: 0; font-family: inherit; transition: background .12s; }
+.mkt-chip-remove:hover { background: rgba(255,255,255,.32); }
+
+/* ── PROGRESSIVE STEP PANEL ── */
+.mkt-step-panel {
+  margin: 0 20px 20px;
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 20px;
+  box-shadow: 0 14px 44px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.04);
+  overflow: hidden;
+  animation: mktPanelIn .2s cubic-bezier(.22,1,.36,1);
+}
+@keyframes mktPanelIn { from { opacity: 0; transform: translateY(-8px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.mkt-sp-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid #f0f3f6;
+}
+.mkt-sp-step {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #050505; color: #fff;
+  font-size: 11px; font-weight: 950;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.mkt-sp-label { font-size: 13px; font-weight: 900; color: #111; flex: 1; }
+.mkt-sp-sub   { font-size: 11px; font-weight: 700; color: #a0aab4; }
+.mkt-sp-back  {
+  height: 26px; padding: 0 10px; border-radius: 8px;
+  border: 1px solid #e5eaef; background: transparent;
+  font-size: 11px; font-weight: 800; color: #6b7280;
+  cursor: pointer; font-family: inherit; transition: .12s ease; flex-shrink: 0;
+}
+.mkt-sp-back:hover { background: #f5f7f9; color: #111; }
+.mkt-sp-skip { font-size: 11px; font-weight: 800; color: #0077ff; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.mkt-sp-skip:hover { text-decoration: underline; }
+
+.mkt-sp-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px 16px; }
+.mkt-sp-chip {
+  height: 32px; padding: 0 16px;
+  border: 1px solid #e5eaef; border-radius: 99px;
+  background: #fff; font-size: 12px; font-weight: 800; color: #555;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: .13s ease;
+}
+.mkt-sp-chip:hover { border-color: #0077ff; color: #0077ff; background: rgba(0,119,255,.04); }
+.mkt-sp-chip.selected { background: #050505; color: #fff; border-color: #050505; }
+
+/* Grid prompt (antes de nicho selecionado) */
+.mkt-grid-prompt { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 72px 0; color: #c0c8d0; }
+.mkt-grid-prompt-icon { font-size: 44px; opacity: .25; }
+.mkt-grid-prompt-text { font-size: 13px; font-weight: 800; color: #b0b8c4; }
+.mkt-grid-prompt-sub  { font-size: 12px; font-weight: 600; color: #c8cfd7; }
+
 /* ── ADAPTIVE CARDS GRID ── */
 .mkt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 20px; padding: 0 20px 32px; }
 
@@ -1695,7 +1754,7 @@ body {
 
     <!-- Tipo de monetização -->
     <div class="mkt-type-bar" id="mktTypeBar">
-      <button class="mkt-type-btn active" data-type="info">
+      <button class="mkt-type-btn" data-type="info">
         <div class="mkt-type-icon">📚</div>
         <div>
           <div class="mkt-type-name">Infoprodutos</div>
@@ -1718,11 +1777,11 @@ body {
       </button>
     </div>
 
-    <!-- Nichos (renderizado via JS) -->
-    <div class="mkt-chip-row" id="mktNicheBar"></div>
+    <!-- Chips ativos (renderizado via JS) -->
+    <div class="mkt-active-bar" id="mktActiveBar"></div>
 
-    <!-- Filtros inteligentes (renderizado via JS) -->
-    <div class="mkt-chip-row" id="mktFilterBar"></div>
+    <!-- Painel de filtros progressivos (renderizado via JS) -->
+    <div class="mkt-step-panel" id="mktStepPanel" style="display:none"></div>
 
     <!-- Cards adaptativos (renderizado via JS) -->
     <div class="mkt-grid" id="mktGrid"></div>
@@ -2302,16 +2361,30 @@ ThayApp.AffiliateMarket = (function () {
 
   /* ─── NICHOS POR TIPO ─── */
   const NICHOS = {
-    info:   ['Todos','Relacionamento','Psicologia','Emagrecimento','Renda Extra','Marketing','Dev. Pessoal','Saúde','Espiritualidade','Business','Idiomas'],
-    fisico: ['Todos','Agro','Mecânico','Ferramentas','Automotivo','Pet','Fitness','Casa','Tecnologia','Cozinha'],
-    clips:  ['Todos','Humor','Motivacional','Fitness','Podcast','Cortes Dark','Notícias','Games','Futebol','Luxo','Lifestyle'],
+    info:   ['Relacionamento','Psicologia','Emagrecimento','Renda Extra','Marketing','Dev. Pessoal','Saúde','Espiritualidade','Business','Idiomas'],
+    fisico: ['Agro','Mecânico','Ferramentas','Automotivo','Pet','Fitness','Casa','Tecnologia','Cozinha'],
+    clips:  ['Humor','Motivacional','Fitness','Podcast','Cortes Dark','Notícias','Games','Futebol','Luxo','Lifestyle'],
   };
 
   /* ─── FILTROS POR TIPO ─── */
   const FILTROS = {
-    info:   ['Todos','Alta Comissão','Alta Conversão','Recorrência','EPC Alto','Ticket Alto','Baixa Concorrência','Funil Incluso'],
-    fisico: ['Todos','Comissão Fixa','Alta Conversão','Produto Viral','Ticket Alto','Pouca Concorrência'],
-    clips:  ['Todos','Quem Paga Mais','Valor por Views','Valor por Lead','Valor por Venda','Campanha Viral','Mais Ativa','Viralizando Agora'],
+    info:   ['Alta Comissão','Alta Conversão','Recorrência','EPC Alto','Ticket Alto','Baixa Concorrência','Funil Incluso'],
+    fisico: ['Comissão Fixa','Alta Conversão','Produto Viral','Ticket Alto','Pouca Concorrência'],
+    clips:  ['Quem Paga Mais','Valor por Views','Valor por Lead','Valor por Venda','Campanha Viral','Mais Ativa','Viralizando Agora'],
+  };
+
+  /* ─── LABELS DOS PASSOS POR TIPO ─── */
+  const STEP_LABELS = {
+    info:   { niche: 'Nicho', filter: 'Estratégia' },
+    fisico: { niche: 'Nicho', filter: 'Ticket / Logística' },
+    clips:  { niche: 'Nicho', filter: 'Modelo de Pagamento' },
+  };
+
+  /* ─── NOMES EXIBIDOS DOS TIPOS ─── */
+  const TYPE_NAMES = {
+    info:   'Infoprodutos',
+    fisico: 'Produtos Físicos',
+    clips:  'Campanhas de Clips',
   };
 
   /* ─── DADOS ─── */
@@ -2338,41 +2411,89 @@ ThayApp.AffiliateMarket = (function () {
     ],
   };
 
-  let _state = { type: 'info', niche: 'Todos', filter: 'Todos' };
-  let _typeBar, _nicheBar, _filterBar, _grid;
+  /* _state.panelStep: null | 'niche' | 'filter' */
+  let _state = { type: null, typeName: null, niche: null, filter: null, panelStep: null };
+  let _typeBar, _activeBar, _stepPanel, _grid;
 
   /* ─── INIT ─── */
   function init() {
     _typeBar   = document.getElementById('mktTypeBar');
-    _nicheBar  = document.getElementById('mktNicheBar');
-    _filterBar = document.getElementById('mktFilterBar');
+    _activeBar = document.getElementById('mktActiveBar');
+    _stepPanel = document.getElementById('mktStepPanel');
     _grid      = document.getElementById('mktGrid');
     if (!_typeBar) return;
 
+    /* Type selection */
     _typeBar.addEventListener('click', e => {
       const btn = e.target.closest('[data-type]');
       if (!btn) return;
       _typeBar.querySelectorAll('.mkt-type-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      _state = { type: btn.dataset.type, niche: 'Todos', filter: 'Todos' };
-      _render();
-    });
-
-    _nicheBar.addEventListener('click', e => {
-      const chip = e.target.closest('.mkt-chip');
-      if (!chip) return;
-      _nicheBar.querySelectorAll('.mkt-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      _state.niche = chip.dataset.v;
+      _state = { type: btn.dataset.type, typeName: TYPE_NAMES[btn.dataset.type], niche: null, filter: null, panelStep: 'niche' };
+      _renderActiveBar();
+      _renderStepPanel();
       _renderGrid();
     });
 
-    _filterBar.addEventListener('click', e => {
-      const chip = e.target.closest('.mkt-chip');
-      if (!chip) return;
-      _filterBar.querySelectorAll('.mkt-chip').forEach(c => c.classList.remove('active', 'active-blue'));
-      chip.classList.add('active-blue');
-      _state.filter = chip.dataset.v;
+    /* Step panel clicks */
+    _stepPanel.addEventListener('click', e => {
+      /* Chip selection */
+      const chip = e.target.closest('.mkt-sp-chip');
+      if (chip) {
+        const v = chip.dataset.v;
+        if (_state.panelStep === 'niche') {
+          _state.niche = v;
+          _state.panelStep = 'filter';
+        } else if (_state.panelStep === 'filter') {
+          _state.filter = v;
+          _state.panelStep = null;
+          _stepPanel.style.display = 'none';
+        }
+        _renderActiveBar();
+        _renderStepPanel();
+        _renderGrid();
+        return;
+      }
+      /* Back button */
+      if (e.target.closest('[data-action="back"]')) {
+        if (_state.panelStep === 'filter') {
+          _state.filter = null;
+          _state.panelStep = 'niche';
+          _renderActiveBar();
+          _renderStepPanel();
+          _renderGrid();
+        }
+        return;
+      }
+      /* Skip button */
+      if (e.target.closest('[data-action="skip"]')) {
+        _state.panelStep = null;
+        _stepPanel.style.display = 'none';
+        _renderGrid();
+        return;
+      }
+    });
+
+    /* Active chip × removal */
+    _activeBar.addEventListener('click', e => {
+      const btn = e.target.closest('.mkt-chip-remove');
+      if (!btn) return;
+      const field = btn.dataset.field;
+      if (field === 'type') {
+        _state = { type: null, typeName: null, niche: null, filter: null, panelStep: null };
+        _typeBar.querySelectorAll('.mkt-type-btn').forEach(b => b.classList.remove('active'));
+        _stepPanel.style.display = 'none';
+      } else if (field === 'niche') {
+        _state.niche = null;
+        _state.filter = null;
+        _state.panelStep = 'niche';
+        _renderStepPanel();
+      } else if (field === 'filter') {
+        _state.filter = null;
+        _state.panelStep = 'filter';
+        _renderStepPanel();
+      }
+      _renderActiveBar();
       _renderGrid();
     });
 
@@ -2385,20 +2506,47 @@ ThayApp.AffiliateMarket = (function () {
       }
     });
 
-    _render();
-  }
-
-  /* ─── RENDER ─── */
-  function _render() {
-    _nicheBar.innerHTML  = NICHOS[_state.type].map(n => `<button class="mkt-chip${n === _state.niche ? ' active' : ''}" data-v="${n}">${n}</button>`).join('');
-    _filterBar.innerHTML = FILTROS[_state.type].map(f => `<button class="mkt-chip${f === _state.filter ? ' active-blue' : ''}" data-v="${f}">${f}</button>`).join('');
     _renderGrid();
   }
 
+  /* ─── ACTIVE CHIPS BAR ─── */
+  function _renderActiveBar() {
+    const chips = [];
+    if (_state.typeName) chips.push(`<span class="mkt-active-chip">${_e(_state.typeName)}<button class="mkt-chip-remove" data-field="type" title="Remover">×</button></span>`);
+    if (_state.niche)    chips.push(`<span class="mkt-active-chip">${_e(_state.niche)}<button class="mkt-chip-remove" data-field="niche" title="Remover">×</button></span>`);
+    if (_state.filter)   chips.push(`<span class="mkt-active-chip">${_e(_state.filter)}<button class="mkt-chip-remove" data-field="filter" title="Remover">×</button></span>`);
+    _activeBar.innerHTML = chips.join('');
+  }
+
+  /* ─── STEP PANEL ─── */
+  function _renderStepPanel() {
+    if (!_state.type || !_state.panelStep) { _stepPanel.style.display = 'none'; return; }
+    const step  = _state.panelStep;
+    const label = STEP_LABELS[_state.type][step];
+    const items = step === 'niche' ? NICHOS[_state.type] : FILTROS[_state.type];
+    const isFilter = step === 'filter';
+    _stepPanel.innerHTML = `
+      <div class="mkt-sp-header">
+        ${isFilter ? `<button class="mkt-sp-back" data-action="back">← Voltar</button>` : ''}
+        <span class="mkt-sp-step">${isFilter ? 2 : 1}</span>
+        <span class="mkt-sp-label">${_e(label)}</span>
+        <button class="mkt-sp-skip" data-action="skip">Pular</button>
+      </div>
+      <div class="mkt-sp-chips">
+        ${items.map(v => `<button class="mkt-sp-chip" data-v="${_e(v)}">${_e(v)}</button>`).join('')}
+      </div>`;
+    _stepPanel.style.display = 'block';
+  }
+
+  /* ─── GRID ─── */
   function _renderGrid() {
-    const list = (PRODUTOS[_state.type] || []).filter(p => _state.niche === 'Todos' || p.nicho === _state.niche);
+    if (!_state.type || !_state.niche) {
+      _grid.innerHTML = `<div class="mkt-grid-prompt"><div class="mkt-grid-prompt-icon">🎯</div><div class="mkt-grid-prompt-text">Escolha o tipo e o nicho</div><div class="mkt-grid-prompt-sub">Os produtos aparecerão aqui após a seleção</div></div>`;
+      return;
+    }
+    const list = (PRODUTOS[_state.type] || []).filter(p => p.nicho === _state.niche);
     if (!list.length) {
-      _grid.innerHTML = `<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste filtro</div></div>`;
+      _grid.innerHTML = `<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste nicho</div></div>`;
       return;
     }
     const builders = { info: _cardInfo, fisico: _cardFisico, clips: _cardClips };
