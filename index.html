@@ -829,6 +829,267 @@ body {
 }
 .ugc-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
+/* ══════════════════════════════════════════
+   MARKETPLACE PRL
+══════════════════════════════════════════ */
+.prl-market-view { display: none; margin-top: 0; }
+.prl-market-view.active { display: block; }
+
+/* Sub-navigation */
+.prl-subnav {
+  display: flex; align-items: center; gap: 0;
+  padding: 0 20px; border-bottom: 2px solid #f0f3f6;
+  overflow-x: auto; scrollbar-width: none; margin-bottom: 0;
+}
+.prl-subnav::-webkit-scrollbar { display: none; }
+.prl-snav-btn {
+  height: 46px; padding: 0 18px; border: none; background: transparent;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  font-size: 12.5px; font-weight: 900; color: #6b7280;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .12s;
+}
+.prl-snav-btn:hover { color: #111; }
+.prl-snav-btn.active { color: #0077ff; border-bottom-color: #0077ff; }
+
+/* Hero */
+.prl-hero-block { padding: 26px 20px 16px; }
+.prl-hero-block h1 { font-size: 34px; font-weight: 950; letter-spacing: -1.2px; color: #050505; margin: 0 0 6px; }
+.prl-hero-block p  { font-size: 13.5px; color: #6b7280; max-width: 600px; line-height: 1.6; margin: 0; }
+
+/* Trust bar */
+.prl-trust-bar { display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 20px 0; }
+.prl-trust-item {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 13px; border-radius: 99px;
+  background: #f8fafb; border: 1px solid #e8edf3;
+  font-size: 11.5px; font-weight: 800; color: #374151; white-space: nowrap;
+}
+
+/* Filter bar */
+.prl-fbar { display: flex; gap: 8px; flex-wrap: wrap; padding: 20px 20px 0; margin-bottom: 4px; }
+.prl-fc {
+  height: 34px; padding: 0 16px; border-radius: 99px;
+  border: 1px solid #e5eaef; background: #fff;
+  font-size: 12px; font-weight: 800; color: #555;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: .13s ease;
+}
+.prl-fc:hover { border-color: #0077ff; color: #0077ff; }
+.prl-fc.active { background: #050505; color: #fff; border-color: #050505; }
+
+/* Grid */
+.prl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(276px, 1fr)); gap: 20px; padding: 20px 20px 48px; }
+
+/* Card */
+.prl-card {
+  background: #fff; border: 1px solid #edf0f5; border-radius: 20px;
+  overflow: hidden; transition: box-shadow .18s, border-color .18s; display: flex; flex-direction: column;
+}
+.prl-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.09); border-color: #d8dfe8; }
+.prl-cover { position: relative; aspect-ratio: 2/1; background: #0d0d0d; overflow: hidden; }
+.prl-cover img { width: 100%; height: 100%; object-fit: cover; opacity: .88; }
+.prl-cover-tags { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; }
+.prl-cover-status { position: absolute; top: 9px; right: 9px; }
+.prl-garantia-pill {
+  position: absolute; bottom: 8px; right: 8px;
+  background: rgba(16,185,129,.92); color: #fff;
+  font-size: 9.5px; font-weight: 950; height: 20px; padding: 0 8px;
+  border-radius: 99px; display: flex; align-items: center;
+}
+.prl-excl-badge {
+  display: inline-flex; align-items: center;
+  height: 21px; padding: 0 9px; border-radius: 99px;
+  font-size: 9.5px; font-weight: 950; white-space: nowrap;
+}
+.prl-excl-comum     { background: rgba(255,255,255,.88); color: #374151; }
+.prl-excl-limitado  { background: rgba(245,158,11,.92);  color: #fff; }
+.prl-excl-exclusivo { background: rgba(99,102,241,.92);  color: #fff; }
+.prl-tipo-pill {
+  display: inline-flex; align-items: center;
+  height: 21px; padding: 0 9px; border-radius: 99px;
+  background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+  font-size: 9.5px; font-weight: 900; color: #fff; white-space: nowrap;
+}
+.prl-card-body { padding: 14px 16px 12px; flex: 1; display: flex; flex-direction: column; gap: 0; }
+.prl-card-nome  { font-size: 13.5px; font-weight: 900; color: #111; line-height: 1.35; margin-bottom: 3px; }
+.prl-card-nicho { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 10px; }
+.prl-card-price { font-size: 22px; font-weight: 950; color: #059669; margin-bottom: 8px; }
+.prl-card-price small { font-size: 12px; color: #9ca3af; font-weight: 700; }
+.prl-lic-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.prl-lic-badge {
+  height: 22px; padding: 0 9px; border-radius: 99px;
+  font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px;
+}
+.prl-lic-completa { background: rgba(16,185,129,.1);   color: #059669; }
+.prl-lic-revenda  { background: rgba(99,102,241,.1);   color: #4f46e5; }
+.prl-lic-uso      { background: rgba(107,114,128,.12); color: #374151; }
+.prl-vagas-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.prl-vagas-lbl { font-size: 10px; font-weight: 700; color: #9ca3af; white-space: nowrap; }
+.prl-vagas-track { flex: 1; height: 5px; background: #f0f3f6; border-radius: 99px; overflow: hidden; }
+.prl-vagas-fill  { height: 100%; border-radius: 99px; background: #0077ff; transition: width .4s; }
+.prl-vagas-val   { font-size: 11px; font-weight: 900; color: #374151; white-space: nowrap; }
+.prl-score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.prl-sbar-mini  { flex: 1; height: 5px; border-radius: 99px; background: #f0f3f6; overflow: hidden; }
+.prl-sbar-fill  { height: 100%; border-radius: 99px; }
+.prl-sbar-fill.high { background: #10b981; }
+.prl-sbar-fill.mid  { background: #f59e0b; }
+.prl-sbar-fill.low  { background: #ef4444; }
+.prl-score-lbl { font-size: 10px; font-weight: 800; color: #9ca3af; }
+.prl-score-num { font-size: 12px; font-weight: 950; color: #111; }
+.prl-card-compradores { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 12px; }
+.prl-card-ctas { display: flex; gap: 8px; padding: 0 16px 16px; margin-top: auto; }
+.prl-btn-preview {
+  flex: 1; height: 38px; border-radius: 10px;
+  border: 1px solid #e5eaef; background: #fff;
+  font-size: 11.5px; font-weight: 900; color: #374151; font-family: inherit; cursor: pointer; transition: .12s;
+}
+.prl-btn-preview:hover { border-color: #0077ff; color: #0077ff; }
+.prl-btn-comprar {
+  flex: 1; height: 38px; border-radius: 10px; border: none;
+  background: #0077ff; color: #fff;
+  font-size: 11.5px; font-weight: 900; font-family: inherit; cursor: pointer; transition: opacity .15s;
+}
+.prl-btn-comprar:hover { opacity: .85; }
+
+/* Product detail overlay */
+.prl-detail {
+  position: fixed; inset: 0; z-index: 200; background: #fff; overflow-y: auto;
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.22,.68,0,1.2);
+}
+.prl-detail.open { transform: translateX(0); }
+.prl-detail-head {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #f0f3f6;
+  display: flex; align-items: center; gap: 12px; padding: 14px 24px;
+}
+.prl-detail-back {
+  height: 36px; padding: 0 16px; border-radius: 10px;
+  border: 1px solid #e5eaef; background: transparent;
+  font-size: 12px; font-weight: 800; color: #444; cursor: pointer; font-family: inherit; transition: .12s;
+}
+.prl-detail-back:hover { background: #f5f7f9; }
+.prl-detail-title { font-size: 16px; font-weight: 950; color: #111; flex: 1; }
+.prl-detail-body { max-width: 920px; margin: 0 auto; padding: 28px 24px 80px; display: flex; flex-direction: column; gap: 28px; }
+.prl-ds-title { font-size: 12px; font-weight: 950; color: #050505; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px; }
+
+/* License toggles */
+.prl-lic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(198px, 1fr)); gap: 8px; }
+.prl-lic-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; border-radius: 12px; border: 1px solid #e5eaef;
+}
+.prl-lic-item.yes { border-color: #d1fae5; background: #f0fdf4; }
+.prl-lic-item.no  { border-color: #fee2e2; background: #fff5f5; }
+.prl-lic-icon { font-size: 14px; flex-shrink: 0; }
+.prl-lic-text { font-size: 12px; font-weight: 800; color: #374151; }
+
+/* Preview modal */
+.prl-preview-warn {
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px;
+  padding: 12px 14px; font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 16px;
+}
+.prl-preview-section { border: 1px solid #e5eaef; border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
+.prl-preview-sec-head {
+  padding: 10px 14px; background: #f9fafb; border-bottom: 1px solid #e5eaef;
+  font-size: 12px; font-weight: 900; color: #374151;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.prl-preview-locked {
+  padding: 14px 16px; min-height: 56px;
+  background: repeating-linear-gradient(45deg,#f9fafb,#f9fafb 10px,#f4f5f7 10px,#f4f5f7 20px);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 12px; font-weight: 800; color: #9ca3af;
+}
+.prl-watermark {
+  font-size: 10px; font-weight: 900; color: rgba(0,0,0,.07);
+  text-align: center; letter-spacing: 3px; padding: 8px 14px; line-height: 2.2;
+  pointer-events: none; background: #f9fafb; border-top: 1px solid #f0f3f6;
+}
+
+/* Checkout steps */
+.prl-checkout-steps { display: flex; align-items: center; margin-bottom: 22px; }
+.prl-co-step { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; color: #9ca3af; }
+.prl-co-step.done   { color: #059669; }
+.prl-co-step.active { color: #0077ff; font-weight: 950; }
+.prl-co-num {
+  width: 22px; height: 22px; border-radius: 50%; background: #e5e7eb;
+  font-size: 10.5px; font-weight: 950; display: grid; place-items: center; flex-shrink: 0;
+}
+.prl-co-step.done  .prl-co-num { background: #10b981; color: #fff; }
+.prl-co-step.active .prl-co-num { background: #0077ff; color: #fff; }
+.prl-co-sep { flex: 1; height: 1px; background: #e5e7eb; min-width: 16px; max-width: 32px; }
+
+/* Buyer/seller dashboard */
+.prl-dash-pad { padding: 24px 20px; }
+.prl-dash-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.prl-stat-card { background: #f9fafb; border-radius: 16px; padding: 16px; border: 1px solid #edf0f5; }
+.prl-stat-lbl { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 4px; }
+.prl-stat-val { font-size: 22px; font-weight: 950; color: #111; }
+.prl-stat-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
+.prl-section-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.prl-section-title { font-size: 14px; font-weight: 950; color: #111; }
+.prl-section-btn {
+  height: 34px; padding: 0 16px; border-radius: 9px;
+  border: none; background: #0077ff; color: #fff;
+  font-size: 11.5px; font-weight: 900; font-family: inherit; cursor: pointer;
+}
+.prl-orders-list { display: flex; flex-direction: column; gap: 10px; }
+.prl-order-card { background: #fff; border: 1px solid #edf0f5; border-radius: 16px; padding: 16px 18px; }
+.prl-order-top  { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.prl-order-emoji { font-size: 24px; flex-shrink: 0; width: 44px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.prl-order-info { flex: 1; }
+.prl-order-nome { font-size: 14px; font-weight: 900; color: #111; }
+.prl-order-sub  { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.prl-order-price { font-size: 15px; font-weight: 950; color: #059669; white-space: nowrap; }
+.prl-order-status-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.prl-ostatus {
+  display: inline-flex; align-items: center;
+  height: 22px; padding: 0 10px; border-radius: 99px;
+  font-size: 10px; font-weight: 950; white-space: nowrap;
+}
+.prl-os-garantia  { background: rgba(16,185,129,.1);   color: #059669; }
+.prl-os-pendente  { background: rgba(245,158,11,.1);   color: #d97706; }
+.prl-os-disponivel{ background: rgba(5,150,105,.12);   color: #065f46; }
+.prl-os-disputa   { background: rgba(239,68,68,.1);    color: #dc2626; }
+.prl-os-reembolso { background: rgba(107,114,128,.1);  color: #374151; }
+.prl-os-aprovado  { background: rgba(99,102,241,.1);   color: #4f46e5; }
+.prl-os-analise   { background: rgba(245,158,11,.1);   color: #d97706; }
+.prl-order-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.prl-obtn { height: 32px; padding: 0 14px; border-radius: 8px; font-size: 11px; font-weight: 800; font-family: inherit; cursor: pointer; transition: .12s; }
+.prl-obtn-primary { border: none; background: #0077ff; color: #fff; }
+.prl-obtn-primary:hover { opacity: .85; }
+.prl-obtn-danger { border: 1px solid #fca5a5; background: #fff5f5; color: #dc2626; }
+.prl-obtn-danger:hover { background: #fee2e2; }
+.prl-obtn-ghost { border: 1px solid #e5eaef; background: #fff; color: #374151; }
+.prl-obtn-ghost:hover { background: #f5f7f9; }
+
+/* Admin */
+.prl-admin-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: #f9fafb; border-radius: 12px;
+  border: 1px solid #e5eaef; margin-bottom: 8px;
+}
+.prl-admin-emoji { font-size: 20px; flex-shrink: 0; }
+.prl-admin-nome  { font-size: 13px; font-weight: 900; color: #111; flex: 1; }
+.prl-admin-sub   { font-size: 11px; color: #9ca3af; }
+.prl-admin-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.prl-admin-btn { height: 28px; padding: 0 12px; border-radius: 7px; font-size: 11px; font-weight: 800; font-family: inherit; cursor: pointer; }
+.prl-admin-btn-ok  { border: none; background: #059669; color: #fff; }
+.prl-admin-btn-blk { border: 1px solid #fca5a5; background: #fff5f5; color: #dc2626; }
+
+/* Security notice */
+.prl-security-notice {
+  background: #f0f7ff; border: 1px solid #bfdbfe; border-radius: 14px;
+  padding: 14px 18px; font-size: 12.5px; color: #1e40af; line-height: 1.65;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+
+/* Wallet */
+.prl-wallet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.prl-wallet-card { border-radius: 16px; padding: 16px; border: 1px solid #e5eaef; }
+.prl-wallet-lbl { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+.prl-wallet-val { font-size: 20px; font-weight: 950; }
+
 .product-detail-hero {
   min-height: 360px;
   border-radius: 38px;
@@ -1915,6 +2176,13 @@ body {
         </svg>
         Marketplace UGC &amp; VSL
       </button>
+      <button class="btn" id="prlMarketTab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <path d="M9 12l2 2 4-4"></path>
+        </svg>
+        Marketplace PRL
+      </button>
       <button class="btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"></path>
@@ -2227,6 +2495,219 @@ body {
 
     <!-- Toast notification -->
     <div class="ugc-toast" id="ugcToast"></div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       MARKETPLACE PRL
+  ══════════════════════════════════════════════════ -->
+  <section class="prl-market-view" id="prlMarketView">
+
+    <!-- Sub navigation -->
+    <nav class="prl-subnav" id="prlSubnav">
+      <button class="prl-snav-btn active" data-tab="main">🛒 Marketplace</button>
+      <button class="prl-snav-btn" data-tab="buyer">📦 Meus PRLs</button>
+      <button class="prl-snav-btn" data-tab="seller">📤 Meus Produtos</button>
+      <button class="prl-snav-btn" data-tab="admin">🔑 Admin THAY</button>
+    </nav>
+
+    <!-- Tab: Main marketplace -->
+    <div id="prlTabMain">
+      <div class="prl-hero-block">
+        <h1>Marketplace PRL</h1>
+        <p>Compre produtos digitais prontos com licença clara, preview protegido e pagamento seguro pela THAY.</p>
+      </div>
+      <div class="prl-trust-bar">
+        <span class="prl-trust-item">🔒 Preview protegido</span>
+        <span class="prl-trust-item">📜 Licença verificada</span>
+        <span class="prl-trust-item">💳 Pagamento seguro</span>
+        <span class="prl-trust-item">✅ Garantia 7 dias</span>
+        <span class="prl-trust-item">⭐ Score do vendedor</span>
+        <span class="prl-trust-item">🏦 Entrega pela THAY</span>
+      </div>
+      <div class="prl-fbar" id="prlFilterBar"></div>
+      <div class="prl-grid" id="prlGrid"></div>
+    </div>
+
+    <!-- Tab: Buyer -->
+    <div id="prlTabBuyer" style="display:none">
+      <div id="prlBuyerContent" class="prl-dash-pad"></div>
+    </div>
+
+    <!-- Tab: Seller -->
+    <div id="prlTabSeller" style="display:none">
+      <div id="prlSellerContent" class="prl-dash-pad"></div>
+    </div>
+
+    <!-- Tab: Admin -->
+    <div id="prlTabAdmin" style="display:none">
+      <div id="prlAdminContent" class="prl-dash-pad"></div>
+    </div>
+
+    <!-- Product detail overlay -->
+    <div class="prl-detail" id="prlDetail">
+      <div class="prl-detail-head">
+        <button class="prl-detail-back" id="prlDetailBack">← Voltar</button>
+        <span class="prl-detail-title" id="prlDetailTitle"></span>
+      </div>
+      <div class="prl-detail-body" id="prlDetailBody"></div>
+    </div>
+
+    <!-- Preview modal -->
+    <div class="ugc-modal-backdrop" id="prlPreviewModal" style="display:none">
+      <div class="ugc-modal" style="max-width:640px">
+        <h3>👁 Preview Protegido</h3>
+        <p class="ugc-modal-sub">Visualize o produto antes de comprar. Arquivos completos disponíveis somente após pagamento.</p>
+        <div id="prlPreviewContent"></div>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="prlPreviewClose">Fechar</button>
+          <button class="ugc-modal-submit" id="prlPreviewBuy">Comprar pela THAY →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout modal -->
+    <div class="ugc-modal-backdrop" id="prlCheckoutModal" style="display:none">
+      <div class="ugc-modal" style="max-width:520px">
+        <div class="prl-checkout-steps" id="prlCheckoutSteps"></div>
+        <div id="prlCheckoutContent"></div>
+      </div>
+    </div>
+
+    <!-- WhatsApp warning modal -->
+    <div class="ugc-modal-backdrop" id="prlWaModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>💬 Conversar com o vendedor</h3>
+        <div class="ugc-modal-warn">
+          ⚠️ A conversa pode acontecer no WhatsApp, mas para sua segurança a <strong>compra deve ser feita pela THAY</strong>. Pagamentos fora da plataforma não têm garantia.
+        </div>
+        <p class="ugc-modal-sub">Ao continuar, você será direcionado ao WhatsApp do vendedor.</p>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="prlWaCancel">Cancelar</button>
+          <button class="ugc-modal-submit" id="prlWaConfirm">Entendi, abrir WhatsApp →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dispute modal -->
+    <div class="ugc-modal-backdrop" id="prlDisputeModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>⚠ Reportar problema</h3>
+        <p class="ugc-modal-sub">O valor da compra ficará congelado até a resolução pela THAY.</p>
+        <div class="ugc-modal-field">
+          <label>Motivo *</label>
+          <select id="prlDisputeMotivo">
+            <option value="">Selecione o motivo</option>
+            <option>Produto diferente do anunciado</option>
+            <option>Licença enganosa</option>
+            <option>Arquivos incompletos</option>
+            <option>Não consegui acessar</option>
+            <option>Vendedor prometeu algo no WhatsApp e não cumpriu</option>
+            <option>Produto copiado/irregular</option>
+            <option>Outro motivo</option>
+          </select>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Descrição detalhada *</label>
+          <textarea id="prlDisputeDesc" placeholder="Descreva o problema com detalhes..."></textarea>
+        </div>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="prlDisputeCancel">Cancelar</button>
+          <button class="ugc-modal-submit danger" id="prlDisputeSubmit">Abrir disputa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refund modal -->
+    <div class="ugc-modal-backdrop" id="prlRefundModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>↩ Solicitar reembolso</h3>
+        <div class="ugc-modal-warn">Você tem garantia de 7 dias. Seu acesso ao produto será suspenso após aprovação.</div>
+        <div class="ugc-modal-field">
+          <label>Motivo do reembolso *</label>
+          <textarea id="prlRefundMotivo" placeholder="Por que deseja o reembolso?"></textarea>
+        </div>
+        <label class="ugc-modal-check">
+          <input type="checkbox" id="prlRefundConfirm">
+          <span>Confirmo que quero cancelar e abrir mão do acesso ao produto.</span>
+        </label>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="prlRefundCancel">Cancelar</button>
+          <button class="ugc-modal-submit danger" id="prlRefundSubmit">Solicitar reembolso</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register product modal -->
+    <div class="ugc-modal-backdrop" id="prlRegModal" style="display:none">
+      <div class="ugc-modal" style="max-width:580px">
+        <h3>📦 Cadastrar produto PRL</h3>
+        <p class="ugc-modal-sub">Todos os campos obrigatórios. Seu produto entrará como "em análise" antes de ser publicado.</p>
+        <div class="ugc-modal-field">
+          <label>Nome do produto *</label>
+          <input type="text" id="prlRegNome" placeholder="Ex: Método Shape em Casa — PRL Completo">
+        </div>
+        <div class="ugc-modal-field" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Nicho *</label>
+            <input type="text" id="prlRegNicho" placeholder="Ex: Saúde & Emagrecimento">
+          </div>
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Tipo *</label>
+            <select id="prlRegTipo">
+              <option value="">Selecione</option>
+              <option>Ebook</option><option>Curso</option><option>VSL</option>
+              <option>Pack de Criativos</option><option>Copy</option>
+              <option>Funil Pronto</option><option>Área de Membros</option>
+              <option>Templates</option><option>Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="ugc-modal-field" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Preço (R$) *</label>
+            <input type="number" id="prlRegPreco" placeholder="497">
+          </div>
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Exclusividade *</label>
+            <select id="prlRegExcl">
+              <option value="">Selecione</option>
+              <option value="comum">Comum (sem limite)</option>
+              <option value="limitado">Limitado (N vagas)</option>
+              <option value="exclusivo">Exclusivo (1 comprador)</option>
+            </select>
+          </div>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Nível de licença *</label>
+          <select id="prlRegLic">
+            <option value="">Selecione</option>
+            <option value="completa">Revenda Completa — pode revender, editar, trocar marca</option>
+            <option value="revenda">Revenda Simples — pode revender, não pode editar</option>
+            <option value="uso">Licença de Uso — uso pessoal/próprio negócio apenas</option>
+          </select>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Descrição curta *</label>
+          <input type="text" id="prlRegDescCurta" placeholder="Uma frase descrevendo o produto">
+        </div>
+        <div class="ugc-modal-field">
+          <label>Descrição completa *</label>
+          <textarea id="prlRegDescLonga" placeholder="Descreva o produto, o que está incluso, para quem é, resultados esperados..."></textarea>
+        </div>
+        <div class="ugc-modal-field">
+          <label>WhatsApp de contato *</label>
+          <input type="text" id="prlRegWa" placeholder="+55 11 99999-0000">
+        </div>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="prlRegCancel">Cancelar</button>
+          <button class="ugc-modal-submit" id="prlRegSubmit">Enviar para análise</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="ugc-toast" id="prlToast"></div>
 
   </section>
 
@@ -2553,6 +3034,7 @@ ThayApp.ViewManager = (function () {
     dashboard:       { el: null, tabId: 'dashboardTab' },
     affiliateMarket: { el: null, tabId: 'affiliateMarketTab' },
     ugcMarket:       { el: null, tabId: 'ugcMarketTab' },
+    prlMarket:       { el: null, tabId: 'prlMarketTab' },
     productDetail:    { el: null, tabId: null },
     funnelDashboard:  { el: null, tabId: null },
     salesPageEditor:  { el: null, tabId: null },
@@ -2564,6 +3046,7 @@ ThayApp.ViewManager = (function () {
     VIEWS.dashboard.el       = document.getElementById('dashboardView');
     VIEWS.affiliateMarket.el = document.getElementById('affiliateMarketView');
     VIEWS.ugcMarket.el       = document.getElementById('ugcMarketView');
+    VIEWS.prlMarket.el       = document.getElementById('prlMarketView');
     VIEWS.productDetail.el   = document.getElementById('productDetailView');
     VIEWS.funnelDashboard.el = document.getElementById('funnelDashboardModal');
     VIEWS.salesPageEditor.el = document.getElementById('salesPageEditorView');
@@ -2579,6 +3062,8 @@ ThayApp.ViewManager = (function () {
       ?.addEventListener('click', () => setActiveView('affiliateMarket'));
     document.getElementById('ugcMarketTab')
       ?.addEventListener('click', () => setActiveView('ugcMarket'));
+    document.getElementById('prlMarketTab')
+      ?.addEventListener('click', () => setActiveView('prlMarket'));
 
     // Close funnel dashboard
     document.getElementById('closeDashboard')
@@ -2604,7 +3089,7 @@ ThayApp.ViewManager = (function () {
     });
 
     // Highlight tabs
-    ['projectsTab', 'funnelsTab', 'dashboardTab', 'affiliateMarketTab', 'ugcMarketTab'].forEach(id => {
+    ['projectsTab', 'funnelsTab', 'dashboardTab', 'affiliateMarketTab', 'ugcMarketTab', 'prlMarketTab'].forEach(id => {
       document.getElementById(id)?.classList.remove('active-blue');
     });
 
@@ -4143,6 +4628,734 @@ ThayApp.UgcMarket = (function () {
 })();
 
 /**
+ * THAY FUNNEL BUILDER — MARKETPLACE PRL
+ * Marketplace seguro de compra e venda de produtos PRL com licença,
+ * preview protegido, pagamento retido 7 dias e controle total pela THAY.
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.PrlMarket = (function () {
+  'use strict';
+
+  /* ─── FILTROS ─── */
+  const FILTERS = ['Todos','Ebook','Curso','VSL','Pack de Criativos','Copy','Funil Pronto',
+    'Área de Membros','Produto Exclusivo','Produto Limitado',
+    'Melhor Score','Menor Preço','Mais Vendidos','Novos'];
+
+  /* ─── PRODUTOS ─── */
+  const PRODUCTS = [
+    {
+      id: 'shape-prl', emoji: '🏋️',
+      nome: 'Método Shape em Casa — PRL Completo',
+      nicho: 'Saúde & Emagrecimento', tipo: 'Curso',
+      preco: 497, exclusividade: 'limitado', maxVagas: 50, vagas: 23,
+      licenca: 'completa', status: 'ativo', vendas: 23,
+      vendedor: { nome: 'Marco Digital', score: 94, status: 'verificado', wa: '+55 11 99999-0001', tempo: '1 ano e 8 meses' },
+      descCurta: 'Curso completo com 15 módulos para emagrecer sem sair de casa. PRL com revenda e troca de marca.',
+      descLonga: 'Produto de alta conversão no nicho de emagrecimento. Curso com 15 módulos em vídeo, e-book de cardápio incluso, copy de vendas pronta, 3 criativos para Meta Ads e área do aluno configurável. Mais de 2.300 alunos na versão original.',
+      incluso: ['15 módulos em vídeo HD','E-book de cardápio (82 págs.)','Copy de vendas completa','3 criativos Meta Ads','Estrutura de área do aluno','Funil de vendas pronto'],
+      licTermos: { podeEditar:true, podeTrocarMarca:true, podeRevender:true, podeTrafPago:true, podeBonus:true, podeTraduzir:false, podeAreaAluno:true, podeCheckout:true, podeCopyOrig:true, podeCriativos:true, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':96, 'Clareza da licença':95, 'Taxa de reclamação':98, 'Avaliações':94, 'Tempo ativo':90 },
+      avaliacoes: [
+        { autor:'Mariana R.', nota:5, texto:'Produto incrível, revendi 18 cópias no primeiro mês. Funil já vem pronto.', rec:'sim' },
+        { autor:'Carlos M.', nota:5, texto:'Copy de alta qualidade, troquei a marca em 2 horas. Muito fácil.', rec:'sim' },
+        { autor:'Beatriz F.', nota:4, texto:'Ótimo produto, só faltou um tutorial de como configurar a área do aluno.', rec:'sim' },
+      ],
+      reclamacoes: [],
+    },
+    {
+      id: 'funil-lancamento', emoji: '🚀',
+      nome: 'Funil de Lançamento Perfeito',
+      nicho: 'Marketing Digital', tipo: 'Funil Pronto',
+      preco: 297, exclusividade: 'comum', maxVagas: null, vagas: null,
+      licenca: 'revenda', status: 'ativo', vendas: 67,
+      vendedor: { nome: 'Digital Pro', score: 88, status: 'verificado', wa: '+55 21 98888-0002', tempo: '2 anos e 1 mês' },
+      descCurta: 'Funil de lançamento completo com sequência de e-mail, página de captura e VSL de fundo.',
+      descLonga: 'Estrutura completa para lançamento digital: página de captura otimizada, sequência de 12 e-mails, VSL de fundo de 22 minutos, página de vendas e checkout configurado. Fácil de duplicar e adaptar para qualquer nicho.',
+      incluso: ['Página de captura (2 versões)','Sequência 12 e-mails','VSL fundo 22 min','Página de vendas','Checkout configurado','Manual de uso'],
+      licTermos: { podeEditar:true, podeTrocarMarca:true, podeRevender:true, podeTrafPago:true, podeBonus:true, podeTraduzir:true, podeAreaAluno:false, podeCheckout:true, podeCopyOrig:true, podeCriativos:false, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':90, 'Clareza da licença':88, 'Taxa de reclamação':95, 'Avaliações':87, 'Tempo ativo':92 },
+      avaliacoes: [
+        { autor:'Rodrigo T.', nota:5, texto:'Funil testado e validado. Adaptei para meu nicho em 3 dias e já tive retorno.', rec:'sim' },
+        { autor:'Ana P.', nota:4, texto:'Muito bem estruturado, VSL de alta qualidade. A sequência de email poderia ser maior.', rec:'sim' },
+      ],
+      reclamacoes: [],
+    },
+    {
+      id: 'vsl-alta-conv', emoji: '🎥',
+      nome: 'Pack VSL Alta Conversão — 3 Modelos',
+      nicho: 'Marketing Digital', tipo: 'VSL',
+      preco: 1497, exclusividade: 'exclusivo', maxVagas: 10, vagas: 4,
+      licenca: 'completa', status: 'ativo', vendas: 4,
+      vendedor: { nome: 'VSL Masters', score: 91, status: 'destaque', wa: '+55 11 97777-0003', tempo: '1 ano e 4 meses' },
+      descCurta: '3 VSLs completas de alta conversão para nichos de saúde, financeiro e relacionamento. Revenda total.',
+      descLonga: 'Três VSLs completas com roteiro, edição profissional e locução. Média de conversão testada de 7–9%. Cada VSL com duração de 20–28 minutos. Inclui todos os arquivos editáveis (DaVinci Resolve e Premiere).',
+      incluso: ['3 VSLs editadas (HD)','Roteiros em .docx','Arquivos editáveis Premiere/DaVinci','Locução profissional','Copy de copy-writing','Miniatura premium'],
+      licTermos: { podeEditar:true, podeTrocarMarca:true, podeRevender:true, podeTrafPago:true, podeBonus:true, podeTraduzir:true, podeAreaAluno:true, podeCheckout:true, podeCopyOrig:true, podeCriativos:true, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':93, 'Clareza da licença':92, 'Taxa de reclamação':98, 'Avaliações':91, 'Tempo ativo':88 },
+      avaliacoes: [
+        { autor:'Luís G.', nota:5, texto:'VSL de saúde converteu 8.4% no frio. Melhor investimento que fiz.', rec:'sim' },
+        { autor:'Fernanda C.', nota:5, texto:'Qualidade de produção impecável. Arquivos editáveis facilitaram muito a personalização.', rec:'sim' },
+      ],
+      reclamacoes: [],
+    },
+    {
+      id: 'ebook-copy', emoji: '📖',
+      nome: 'E-book Copywriting Mastery',
+      nicho: 'Copywriting', tipo: 'Ebook',
+      preco: 97, exclusividade: 'comum', maxVagas: null, vagas: null,
+      licenca: 'revenda', status: 'ativo', vendas: 148,
+      vendedor: { nome: 'Copy Pro BR', score: 79, status: 'verificado', wa: '+55 41 96666-0004', tempo: '11 meses' },
+      descCurta: 'E-book de 190 páginas sobre copywriting estratégico. Revenda com direito de marca.',
+      descLonga: 'Material completo de copywriting com 190 páginas, exemplos reais, templates de e-mail, scripts de anúncio e copy de VSL. Baseado nos frameworks mais usados por grandes lançamentos do Brasil.',
+      incluso: ['E-book 190 páginas (PDF)','10 templates de e-mail','5 scripts de anúncio','3 frameworks de VSL','Checklist de copy','Versão editável .docx'],
+      licTermos: { podeEditar:true, podeTrocarMarca:true, podeRevender:true, podeTrafPago:true, podeBonus:true, podeTraduzir:true, podeAreaAluno:true, podeCheckout:false, podeCopyOrig:true, podeCriativos:false, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':82, 'Clareza da licença':78, 'Taxa de reclamação':88, 'Avaliações':76, 'Tempo ativo':72 },
+      avaliacoes: [
+        { autor:'Paulo H.', nota:4, texto:'Conteúdo sólido, bem estruturado. Ótimo para complementar ofertas de marketing.', rec:'sim' },
+        { autor:'Camila V.', nota:3, texto:'Bom conteúdo mas alguns templates estavam desatualizados.', rec:'sim' },
+      ],
+      reclamacoes: [{ motivo:'Arquivos incompletos', status:'resolvido', data:'2024-12', desc:'Faltava 1 template. Vendedor enviou na hora.' }],
+    },
+    {
+      id: 'pack-criativos', emoji: '🎯',
+      nome: 'Pack Criativos Meta Ads Pro — 50 peças',
+      nicho: 'Tráfego Pago', tipo: 'Pack de Criativos',
+      preco: 347, exclusividade: 'limitado', maxVagas: 20, vagas: 12,
+      licenca: 'completa', status: 'ativo', vendas: 12,
+      vendedor: { nome: 'Anúncio Lab', score: 86, status: 'verificado', wa: '+55 11 95555-0005', tempo: '1 ano e 2 meses' },
+      descCurta: '50 criativos editáveis para Meta Ads em Canva e Figma. Revenda total com troca de marca.',
+      descLonga: 'Pack com 50 criativos validados para Meta Ads: 20 estáticos (feed), 15 stories e 15 carrossel. Todos com CTR médio acima de 3% em campanhas reais. Arquivo Canva editável e Figma incluso.',
+      incluso: ['20 criativos feed (Canva + Figma)','15 stories editáveis','15 carrossel','Guia de edição','Copy para 20 anúncios','Paletas de cores'],
+      licTermos: { podeEditar:true, podeTrocarMarca:true, podeRevender:true, podeTrafPago:true, podeBonus:true, podeTraduzir:false, podeAreaAluno:false, podeCheckout:false, podeCopyOrig:true, podeCriativos:true, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':88, 'Clareza da licença':86, 'Taxa de reclamação':92, 'Avaliações':84, 'Tempo ativo':80 },
+      avaliacoes: [
+        { autor:'Renata K.', nota:5, texto:'CTR médio de 4.1% com os criativos. Melhor pack que já usei.', rec:'sim' },
+        { autor:'Thiago M.', nota:4, texto:'Qualidade excelente. Só faltava um template para produto físico.', rec:'sim' },
+      ],
+      reclamacoes: [],
+    },
+    {
+      id: 'area-membros-kit', emoji: '🎓',
+      nome: 'Kit Área de Membros Pronto — Em análise',
+      nicho: 'Infoprodutos', tipo: 'Área de Membros',
+      preco: 697, exclusividade: 'limitado', maxVagas: 15, vagas: 0,
+      licenca: 'uso', status: 'analise', vendas: 0,
+      vendedor: { nome: 'InfoKit', score: 65, status: 'novo', wa: '+55 31 94444-0006', tempo: '2 meses' },
+      descCurta: 'Kit completo de área de membros com módulos, aulas e integração com plataformas. Em análise.',
+      descLonga: 'Estrutura pronta de área de membros com 8 módulos, aulas em vídeo e texto, quizzes e certificado. Compatível com Hotmart, Kiwify e Memberkit.',
+      incluso: ['Estrutura 8 módulos','Aulas modelo (vídeo + texto)','Sistema de quiz','Template certificado','Manual de importação'],
+      licTermos: { podeEditar:true, podeTrocarMarca:false, podeRevender:false, podeTrafPago:true, podeBonus:false, podeTraduzir:false, podeAreaAluno:true, podeCheckout:false, podeCopyOrig:false, podeCriativos:false, podeSublicenciar:false },
+      scoreDetalhe: { 'Produtos entregues':70, 'Clareza da licença':65, 'Taxa de reclamação':80, 'Avaliações':60, 'Tempo ativo':50 },
+      avaliacoes: [],
+      reclamacoes: [],
+    },
+  ];
+
+  /* ─── DADOS DO COMPRADOR (mock) ─── */
+  const PURCHASES = [
+    { prodId:'shape-prl', dataCompra:'2025-04-15', garantiaAte:'2025-04-22', status:'garantia', valor:497 },
+    { prodId:'ebook-copy', dataCompra:'2025-03-02', garantiaAte:'2025-03-09', status:'disponivel', valor:97 },
+  ];
+
+  /* ─── DADOS DO VENDEDOR (mock) ─── */
+  const MY_PRODUCTS_SELLER = [
+    { prodId:'funil-lancamento', dataEnvio:'2024-12-10', status:'ativo', vendas:67, pendente:891, disponivel:4461, emDisputa:0 },
+    { prodId:'pack-criativos',   dataEnvio:'2025-01-22', status:'ativo', vendas:12, pendente:347, disponivel:3476, emDisputa:0 },
+  ];
+
+  /* ─── ESTADO ─── */
+  let _state = { tab:'main', filter:'Todos', openId:null, checkoutId:null, checkoutStep:1, licAceita:false };
+  let _filterBar, _grid, _detail, _detailTitle, _detailBody;
+  let _previewModal, _checkoutModal, _waModal, _disputeModal, _refundModal, _regModal;
+  let _toast, _toastTimer;
+
+  /* ─── INIT ─── */
+  function init() {
+    _filterBar    = document.getElementById('prlFilterBar');
+    _grid         = document.getElementById('prlGrid');
+    _detail       = document.getElementById('prlDetail');
+    _detailTitle  = document.getElementById('prlDetailTitle');
+    _detailBody   = document.getElementById('prlDetailBody');
+    _previewModal = document.getElementById('prlPreviewModal');
+    _checkoutModal= document.getElementById('prlCheckoutModal');
+    _waModal      = document.getElementById('prlWaModal');
+    _disputeModal = document.getElementById('prlDisputeModal');
+    _refundModal  = document.getElementById('prlRefundModal');
+    _regModal     = document.getElementById('prlRegModal');
+    _toast        = document.getElementById('prlToast');
+    if (!_filterBar) return;
+
+    _renderFilterBar();
+    _renderGrid();
+
+    /* Sub-nav */
+    document.getElementById('prlSubnav')?.addEventListener('click', e => {
+      const btn = e.target.closest('[data-tab]');
+      if (!btn) return;
+      document.querySelectorAll('#prlSubnav .prl-snav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      _showTab(btn.dataset.tab);
+    });
+
+    /* Filter */
+    _filterBar.addEventListener('click', e => {
+      const chip = e.target.closest('.prl-fc');
+      if (!chip) return;
+      _filterBar.querySelectorAll('.prl-fc').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _state.filter = chip.dataset.v;
+      _renderGrid();
+    });
+
+    /* Grid: buttons */
+    _grid.addEventListener('click', e => {
+      const pvBtn = e.target.closest('[data-preview]');
+      const byBtn = e.target.closest('[data-buy]');
+      if (pvBtn) _openDetail(pvBtn.dataset.preview, 'preview');
+      if (byBtn) _openDetail(byBtn.dataset.buy,     'buy');
+    });
+
+    /* Detail back */
+    document.getElementById('prlDetailBack')?.addEventListener('click', _closeDetail);
+
+    /* Detail body: delegated */
+    _detailBody.addEventListener('click', e => {
+      if (e.target.closest('#prlDtlBtnPreview'))   _openPreviewModal();
+      if (e.target.closest('#prlDtlBtnBuy'))        _startCheckout();
+      if (e.target.closest('#prlDtlBtnWa'))         _openWaModal();
+    });
+
+    /* Preview modal */
+    document.getElementById('prlPreviewClose')?.addEventListener('click', () => _previewModal.style.display='none');
+    document.getElementById('prlPreviewBuy')?.addEventListener('click', () => { _previewModal.style.display='none'; _startCheckout(); });
+
+    /* Checkout modal — delegated */
+    _checkoutModal.addEventListener('click', e => {
+      if (e.target.closest('#prlCoNext'))    _nextCheckoutStep();
+      if (e.target.closest('#prlCoClose'))   _checkoutModal.style.display='none';
+      if (e.target.closest('#prlCoBuyerArea')) { _checkoutModal.style.display='none'; _showTab('buyer'); document.querySelector('#prlSubnav [data-tab="buyer"]')?.classList.add('active'); document.querySelector('#prlSubnav [data-tab="main"]')?.classList.remove('active'); }
+    });
+
+    /* WhatsApp modal */
+    document.getElementById('prlWaCancel')?.addEventListener('click',  () => _waModal.style.display='none');
+    document.getElementById('prlWaConfirm')?.addEventListener('click', () => {
+      _waModal.style.display='none';
+      const p = PRODUCTS.find(x => x.id === _state.openId);
+      _showToast('🔗 Abrindo WhatsApp — lembre-se: pague sempre pela THAY.');
+    });
+
+    /* Dispute modal */
+    document.getElementById('prlDisputeCancel')?.addEventListener('click', () => _disputeModal.style.display='none');
+    document.getElementById('prlDisputeSubmit')?.addEventListener('click', () => {
+      const mot = document.getElementById('prlDisputeMotivo').value;
+      const desc= document.getElementById('prlDisputeDesc').value.trim();
+      if (!mot||!desc) { _showToast('⚠️ Preencha todos os campos.'); return; }
+      _disputeModal.style.display='none';
+      _showToast('📋 Disputa aberta. Valor congelado até resolução pela THAY.');
+    });
+
+    /* Refund modal */
+    document.getElementById('prlRefundCancel')?.addEventListener('click', () => _refundModal.style.display='none');
+    document.getElementById('prlRefundSubmit')?.addEventListener('click', () => {
+      const mot  = document.getElementById('prlRefundMotivo').value.trim();
+      const conf = document.getElementById('prlRefundConfirm').checked;
+      if (!mot)  { _showToast('⚠️ Descreva o motivo do reembolso.'); return; }
+      if (!conf) { _showToast('⚠️ Confirme que aceita perder o acesso.'); return; }
+      _refundModal.style.display='none';
+      _showToast('↩ Reembolso solicitado. Análise em até 2 dias úteis.');
+    });
+
+    /* Register modal */
+    document.getElementById('prlRegCancel')?.addEventListener('click', () => _regModal.style.display='none');
+    document.getElementById('prlRegSubmit')?.addEventListener('click', () => {
+      const nome = document.getElementById('prlRegNome').value.trim();
+      const tipo = document.getElementById('prlRegTipo').value;
+      const preco= document.getElementById('prlRegPreco').value;
+      const lic  = document.getElementById('prlRegLic').value;
+      const wa   = document.getElementById('prlRegWa').value.trim();
+      if (!nome||!tipo||!preco||!lic||!wa) { _showToast('⚠️ Preencha todos os campos obrigatórios.'); return; }
+      _regModal.style.display='none';
+      _showToast('✅ Produto enviado para análise. Publicação em até 3 dias úteis.');
+    });
+
+    /* Close modals on backdrop */
+    [_previewModal,_checkoutModal,_waModal,_disputeModal,_refundModal,_regModal].forEach(m => {
+      m?.addEventListener('click', e => { if (e.target===m) m.style.display='none'; });
+    });
+
+    /* Buyer/seller action delegation */
+    document.getElementById('prlBuyerContent')?.addEventListener('click', _handleBuyerActions);
+    document.getElementById('prlSellerContent')?.addEventListener('click', _handleSellerActions);
+    document.getElementById('prlAdminContent')?.addEventListener('click', _handleAdminActions);
+  }
+
+  /* ─── TABS ─── */
+  function _showTab(tab) {
+    _state.tab = tab;
+    ['main','buyer','seller','admin'].forEach(t => {
+      const el = document.getElementById('prlTab' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (el) el.style.display = t===tab ? 'block' : 'none';
+    });
+    if (tab==='buyer')  _renderBuyerTab();
+    if (tab==='seller') _renderSellerTab();
+    if (tab==='admin')  _renderAdminTab();
+  }
+
+  /* ─── FILTER BAR ─── */
+  function _renderFilterBar() {
+    _filterBar.innerHTML = FILTERS.map(f =>
+      `<button class="prl-fc${f===_state.filter?' active':''}" data-v="${_e(f)}">${_e(f)}</button>`
+    ).join('');
+  }
+
+  /* ─── GRID ─── */
+  function _renderGrid() {
+    const f = _state.filter;
+    let list = [...PRODUCTS];
+    if      (f==='Todos')           { /* all */ }
+    else if (f==='Melhor Score')    list.sort((a,b)=>b.vendedor.score - a.vendedor.score);
+    else if (f==='Menor Preço')     list.sort((a,b)=>a.preco-b.preco);
+    else if (f==='Mais Vendidos')   list.sort((a,b)=>b.vendas-a.vendas);
+    else if (f==='Novos')           list = list.filter(p=>p.vendas===0||p.vendedor.status==='novo');
+    else if (f==='Produto Exclusivo') list = list.filter(p=>p.exclusividade==='exclusivo');
+    else if (f==='Produto Limitado')  list = list.filter(p=>p.exclusividade==='limitado');
+    else list = list.filter(p=>p.tipo===f);
+
+    if (!list.length) {
+      _grid.innerHTML=`<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste filtro</div></div>`;
+      return;
+    }
+    _grid.innerHTML = list.map(_buildCard).join('');
+  }
+
+  /* ─── CARD ─── */
+  function _buildCard(p) {
+    const blocked = p.status==='analise';
+    const scoreClass = p.vendedor.score>=80?'high':p.vendedor.score>=60?'mid':'low';
+    const vagasPct = p.maxVagas ? Math.round((p.vagas/p.maxVagas)*100) : 0;
+    const licClass = p.licenca==='completa'?'prl-lic-completa':p.licenca==='revenda'?'prl-lic-revenda':'prl-lic-uso';
+    const licLabel = p.licenca==='completa'?'✅ Revenda Completa':p.licenca==='revenda'?'↗ Revenda Simples':'🔒 Uso Pessoal';
+    const exclClass= `prl-excl-${p.exclusividade}`;
+    const exclLabel= p.exclusividade==='exclusivo'?'★ Exclusivo':p.exclusividade==='limitado'?'◆ Limitado':'· Comum';
+    return `<div class="prl-card">
+      <div class="prl-cover">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d0d14,#1a1a2e);display:flex;align-items:center;justify-content:center;font-size:52px">${p.emoji}</div>
+        <div class="prl-cover-tags">
+          <span class="prl-tipo-pill">${_e(p.tipo)}</span>
+          <span class="prl-excl-badge ${exclClass}">${exclLabel}</span>
+        </div>
+        ${blocked?'<div class="prl-cover-status"><span class="ugc-badge ugc-badge-analise">⚠ Em análise</span></div>':''}
+        <div class="prl-garantia-pill">✅ Garantia 7 dias</div>
+      </div>
+      <div class="prl-card-body">
+        <div class="prl-card-nome">${_e(p.nome)}</div>
+        <div class="prl-card-nicho">${_e(p.nicho)}</div>
+        <div class="prl-card-price">R$ ${p.preco.toLocaleString('pt-BR')}<small> /compra única</small></div>
+        <div class="prl-lic-row"><span class="prl-lic-badge ${licClass}">${licLabel}</span></div>
+        ${p.maxVagas?`<div class="prl-vagas-row"><span class="prl-vagas-lbl">VAGAS</span><div class="prl-vagas-track"><div class="prl-vagas-fill" style="width:${vagasPct}%"></div></div><span class="prl-vagas-val">${p.vagas}/${p.maxVagas}</span></div>`:''}
+        <div class="prl-score-row"><span class="prl-score-lbl">SCORE VENDEDOR</span><div class="prl-sbar-mini"><div class="prl-sbar-fill ${scoreClass}" style="width:${p.vendedor.score}%"></div></div><span class="prl-score-num">${p.vendedor.score}</span></div>
+        <div class="prl-card-compradores">👥 ${p.vendas} compradores</div>
+      </div>
+      <div class="prl-card-ctas">
+        <button class="prl-btn-preview" data-preview="${_e(p.id)}">👁 Ver por dentro</button>
+        <button class="prl-btn-comprar" data-buy="${_e(p.id)}"${blocked?' disabled style="opacity:.4;cursor:not-allowed"':''}>Comprar</button>
+      </div>
+    </div>`;
+  }
+
+  /* ─── DETAIL OVERLAY ─── */
+  function _openDetail(id, mode) {
+    const p = PRODUCTS.find(x=>x.id===id);
+    if (!p) return;
+    _state.openId    = id;
+    _state.checkoutId= id;
+    _state.licAceita = false;
+    _detailTitle.textContent = p.nome;
+    _detailBody.innerHTML    = _buildDetailBody(p);
+    _detail.classList.add('open');
+    _detail.scrollTop = 0;
+    if (mode==='buy') setTimeout(_startCheckout, 350);
+  }
+
+  function _closeDetail() {
+    _detail.classList.remove('open');
+    _state.openId = null;
+  }
+
+  function _buildDetailBody(p) {
+    const scoreClass = p.vendedor.score>=80?'high':p.vendedor.score>=60?'mid':'low';
+    const scoreColor = p.vendedor.score>=80?'#059669':p.vendedor.score>=60?'#d97706':'#dc2626';
+    const licClass = p.licenca==='completa'?'prl-lic-completa':p.licenca==='revenda'?'prl-lic-revenda':'prl-lic-uso';
+    const licLabel = p.licenca==='completa'?'✅ Revenda Completa':p.licenca==='revenda'?'↗ Revenda Simples':'🔒 Uso Pessoal';
+    return `
+      <!-- Hero -->
+      <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+        <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#0d0d14,#1a1a2e);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0">${p.emoji}</div>
+        <div style="flex:1;min-width:200px">
+          <h2 style="font-size:22px;font-weight:950;margin:0 0 6px">${_e(p.nome)}</h2>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="prl-lic-badge ${licClass}">${licLabel}</span>
+            ${_vendorBadge(p.vendedor.status)}
+          </div>
+          <p style="font-size:13.5px;color:#444;line-height:1.65;margin:0">${_e(p.descLonga)}</p>
+          <div style="margin-top:8px;font-size:12px;color:#9ca3af">📦 ${_e(p.nicho)} · ${_e(p.tipo)} · 👥 ${p.vendas} compradores · ⏱ Vendedor ativo há ${_e(p.vendedor.tempo)}</div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="prl-btn-comprar" id="prlDtlBtnBuy" style="height:44px;padding:0 28px;border-radius:12px;font-size:13px;border:none;background:#0077ff;color:#fff;font-family:inherit;cursor:pointer;font-weight:900">💳 Comprar pela THAY — R$ ${p.preco.toLocaleString('pt-BR')}</button>
+        <button class="prl-btn-preview" id="prlDtlBtnPreview" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px">👁 Ver preview protegido</button>
+        <button class="ugc-btn-avaliar" id="prlDtlBtnWa" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px;border:1px solid #e5eaef;background:#fff;font-family:inherit;cursor:pointer;font-weight:900">💬 WhatsApp</button>
+      </div>
+
+      <!-- Security notice -->
+      <div class="prl-security-notice">🔒 <span>Para manter sua compra protegida, pague apenas pela THAY. A plataforma só libera o produto após pagamento aprovado e registra sua licença de uso.</span></div>
+
+      <!-- Price & guarantee -->
+      <div style="background:#f9fafb;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:4px">VALOR</div>
+          <div style="font-size:28px;font-weight:950;color:#059669">R$ ${p.preco.toLocaleString('pt-BR')}</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:4px">GARANTIA</div>
+          <div style="font-size:18px;font-weight:950;color:#111">7 dias</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:4px">DINHEIRO BLOQUEADO</div>
+          <div style="font-size:13px;font-weight:900;color:#d97706">7 dias após compra</div>
+        </div>
+      </div>
+
+      <!-- What's included -->
+      <div>
+        <div class="prl-ds-title">O que vem incluso</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          ${p.incluso.map(i=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f9fafb;border-radius:10px"><span style="color:#059669;font-size:14px">✓</span><span style="font-size:13px;font-weight:800;color:#374151">${_e(i)}</span></div>`).join('')}
+        </div>
+      </div>
+
+      <!-- License -->
+      <div>
+        <div class="prl-ds-title">Termos da licença</div>
+        <div class="prl-lic-grid">${_buildLicToggles(p.licTermos)}</div>
+        ${p.licenca==='uso'?`<div style="margin-top:12px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;font-size:12px;color:#92400e">⚠️ Esta é uma Licença de Uso Pessoal. A revenda não é permitida.</div>`:''}
+      </div>
+
+      <!-- Vendor score -->
+      <div>
+        <div class="prl-ds-title">Score do vendedor</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+          <div style="font-size:44px;font-weight:950;color:${scoreColor}">${p.vendedor.score}</div>
+          <div style="flex:1">
+            <div style="height:10px;background:#f0f3f6;border-radius:99px;overflow:hidden"><div class="prl-sbar-fill ${scoreClass}" style="width:${p.vendedor.score}%"></div></div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:4px">${_scoreLevel(p.vendedor.score)}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
+          ${Object.entries(p.scoreDetalhe).map(([k,v])=>{
+            const fc=v>=80?'#10b981':v>=60?'#f59e0b':'#ef4444';
+            return `<div style="background:#f9fafb;border-radius:12px;padding:12px 16px"><div style="font-size:11px;font-weight:700;color:#6b7280;margin-bottom:4px">${_e(k)}</div><div style="height:5px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-bottom:3px"><div style="width:${v}%;height:100%;background:${fc};border-radius:99px"></div></div><div style="font-size:13px;font-weight:950;color:#111">${v}</div></div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      ${p.avaliacoes.length?`<div>
+        <div class="prl-ds-title">Avaliações (${p.avaliacoes.length})</div>
+        <div class="ugc-reviews-list">
+          ${p.avaliacoes.map(av=>`<div class="ugc-review-item"><div class="ugc-review-top"><span class="ugc-review-author">${_e(av.autor)}</span><span>${'⭐'.repeat(av.nota)}</span></div><p class="ugc-review-text">${_e(av.texto)}</p><div class="ugc-review-rec ${av.rec==='nao'?'no':''}">${av.rec==='sim'?'👍 Recomenda':'👎 Não recomenda'}</div></div>`).join('')}
+        </div>
+      </div>`:''}
+
+      <!-- Complaints -->
+      ${p.reclamacoes.length?`<div>
+        <div class="prl-ds-title">Histórico de reclamações</div>
+        <div class="ugc-complaint-list">
+          ${p.reclamacoes.map(r=>`<div class="ugc-complaint-item ${r.status==='resolvido'?'resolved':''}"><div class="ugc-complaint-top"><span class="ugc-complaint-motivo ${r.status==='resolvido'?'resolved':''}">${_e(r.motivo)}</span><span class="ugc-complaint-status" style="background:${r.status==='resolvido'?'#d1fae5':'#fee2e2'};color:${r.status==='resolvido'?'#059669':'#dc2626'}">${_e(r.status)}</span></div><p class="ugc-complaint-desc">${_e(r.desc)} <span style="color:#b0b8c4;font-size:11px">${_e(r.data)}</span></p></div>`).join('')}
+        </div>
+      </div>`:''}
+    `;
+  }
+
+  function _buildLicToggles(t) {
+    const items = [
+      ['podeEditar','Pode editar o conteúdo'],['podeTrocarMarca','Pode trocar a marca'],['podeRevender','Pode revender'],
+      ['podeTrafPago','Pode usar com tráfego pago'],['podeBonus','Pode usar como bônus'],['podeTraduzir','Pode traduzir'],
+      ['podeAreaAluno','Pode colocar na área do aluno'],['podeCheckout','Pode criar checkout próprio'],
+      ['podeCopyOrig','Pode usar copy original'],['podeCriativos','Pode usar criativos inclusos'],
+      ['podeSublicenciar','Pode sublicenciar para outros'],
+    ];
+    return items.map(([k,label]) => {
+      const ok = t[k];
+      return `<div class="prl-lic-item ${ok?'yes':'no'}"><span class="prl-lic-icon">${ok?'✅':'❌'}</span><span class="prl-lic-text">${_e(label)}</span></div>`;
+    }).join('');
+  }
+
+  /* ─── PREVIEW MODAL ─── */
+  function _openPreviewModal() {
+    const p = PRODUCTS.find(x=>x.id===_state.openId);
+    if (!p) return;
+    document.getElementById('prlPreviewContent').innerHTML = `
+      <div class="prl-preview-warn">🔒 <strong>Prévia protegida.</strong> Os arquivos completos são liberados apenas após o pagamento aprovado. Esta visualização é registrada.</div>
+      <div class="prl-preview-section">
+        <div class="prl-preview-sec-head"><span>📋 Índice / módulos</span><span style="font-size:11px;color:#9ca3af">PRÉVIA</span></div>
+        <div style="padding:12px 16px">
+          ${p.incluso.map((inc,i)=>`<div style="padding:6px 0;border-bottom:1px solid #f4f5f7;font-size:13px;color:#374151;font-weight:700">${i+1}. ${_e(inc)}</div>`).join('')}
+        </div>
+      </div>
+      <div class="prl-preview-section">
+        <div class="prl-preview-sec-head"><span>📄 Amostra de conteúdo</span><span style="font-size:11px;color:#9ca3af">3 de ${p.incluso.length} itens</span></div>
+        <div style="padding:12px 16px;font-size:13px;color:#444;line-height:1.65">${_e(p.descCurta)}</div>
+        <div class="prl-preview-locked">🔒 Conteúdo completo disponível após compra</div>
+      </div>
+      <div class="prl-preview-section">
+        <div class="prl-preview-sec-head"><span>📜 Licença resumida</span></div>
+        <div style="padding:12px 16px">
+          <div class="prl-lic-grid">${_buildLicToggles(p.licTermos)}</div>
+        </div>
+      </div>
+      <div class="prl-watermark">PRÉVIA PROTEGIDA · THAY.COM · usuário@demo · ${new Date().toLocaleDateString('pt-BR')}</div>
+    `;
+    _previewModal.style.display='flex';
+  }
+
+  /* ─── CHECKOUT ─── */
+  function _startCheckout() {
+    const p = PRODUCTS.find(x=>x.id===_state.openId);
+    if (!p) return;
+    _state.checkoutStep=1;
+    _state.licAceita=false;
+    _renderCheckoutStep(p);
+    _checkoutModal.style.display='flex';
+  }
+
+  function _nextCheckoutStep() {
+    const p = PRODUCTS.find(x=>x.id===_state.openId);
+    if (!p) return;
+    if (_state.checkoutStep===1) {
+      const cb = document.getElementById('prlCoLicCb');
+      if (!cb?.checked) { _showToast('⚠️ Você precisa aceitar os termos da licença para continuar.'); return; }
+      _state.licAceita=true;
+      _state.checkoutStep=2;
+    } else if (_state.checkoutStep===2) {
+      _state.checkoutStep=3;
+    }
+    _renderCheckoutStep(p);
+  }
+
+  function _renderCheckoutStep(p) {
+    const steps=[{num:1,label:'Licença'},{num:2,label:'Pagamento'},{num:3,label:'Confirmação'}];
+    document.getElementById('prlCheckoutSteps').innerHTML = steps.map((s,i)=>`
+      <div class="prl-co-step ${_state.checkoutStep>s.num?'done':_state.checkoutStep===s.num?'active':''}">
+        <span class="prl-co-num">${_state.checkoutStep>s.num?'✓':s.num}</span>${s.label}
+      </div>${i<steps.length-1?'<div class="prl-co-sep"></div>':''}`).join('');
+
+    let html='';
+    if (_state.checkoutStep===1) {
+      html=`<h3 style="margin:0 0 6px">${_e(p.nome)}</h3>
+        <p style="font-size:13px;color:#6b7280;margin:0 0 16px">Antes de comprar, leia e aceite os termos da licença.</p>
+        <div class="prl-lic-grid" style="margin-bottom:16px">${_buildLicToggles(p.licTermos)}</div>
+        <label class="ugc-modal-check">
+          <input type="checkbox" id="prlCoLicCb">
+          <span>Li e aceito os termos da licença deste PRL.</span>
+        </label>
+        <div class="ugc-modal-footer"><button class="ugc-modal-cancel" id="prlCoClose">Cancelar</button><button class="ugc-modal-submit" id="prlCoNext">Aceitar e prosseguir →</button></div>`;
+    } else if (_state.checkoutStep===2) {
+      html=`<h3 style="margin:0 0 6px">Confirmar pagamento</h3>
+        <div style="background:#f9fafb;border-radius:14px;padding:16px;margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:800;color:#374151">${_e(p.nome)}</span><span style="font-size:13px;font-weight:950;color:#111">R$ ${p.preco.toLocaleString('pt-BR')}</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#9ca3af">Licença</span><span style="font-size:12px;font-weight:800;color:#374151">${p.licenca==='completa'?'Revenda Completa':p.licenca==='revenda'?'Revenda Simples':'Uso Pessoal'}</span></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid #e5eaef;padding-top:8px;margin-top:4px"><span style="font-size:12px;color:#9ca3af">Garantia</span><span style="font-size:12px;font-weight:800;color:#059669">7 dias</span></div>
+        </div>
+        <div class="ugc-modal-warn" style="margin-bottom:16px">💳 O pagamento é processado pela THAY. O dinheiro fica retido por 7 dias antes de ser liberado ao vendedor.</div>
+        <div class="ugc-modal-footer"><button class="ugc-modal-cancel" id="prlCoClose">Cancelar</button><button class="ugc-modal-submit" id="prlCoNext">Confirmar pagamento →</button></div>`;
+    } else {
+      html=`<div style="text-align:center;padding:8px 0 4px">
+        <div style="font-size:48px;margin-bottom:8px">🎉</div>
+        <h3 style="margin:0 0 8px;font-size:20px">Compra realizada!</h3>
+        <p style="font-size:13px;color:#6b7280;line-height:1.65;margin:0 0 18px">Seu produto foi desbloqueado. O dinheiro ficará retido por 7 dias. Você pode solicitar reembolso até <strong>${_guaranteeDate(7)}</strong>.</p>
+        <div style="background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:14px;font-size:12.5px;color:#059669;margin-bottom:18px">✅ Licença registrada · 📦 Produto liberado · 🔒 Pagamento seguro pela THAY</div>
+        <div class="ugc-modal-footer" style="justify-content:center">
+          <button class="ugc-modal-submit" id="prlCoBuyerArea">Acessar meus PRLs →</button>
+          <button class="ugc-modal-cancel" id="prlCoClose">Fechar</button>
+        </div>
+      </div>`;
+    }
+    document.getElementById('prlCheckoutContent').innerHTML=html;
+  }
+
+  /* ─── WHATSAPP ─── */
+  function _openWaModal() { _waModal.style.display='flex'; }
+
+  /* ─── BUYER TAB ─── */
+  function _renderBuyerTab() {
+    const container=document.getElementById('prlBuyerContent');
+    if (!container) return;
+    const total=PURCHASES.reduce((s,x)=>s+x.valor,0);
+    container.innerHTML=`
+      <div class="prl-dash-stats">
+        <div class="prl-stat-card"><div class="prl-stat-lbl">PRODUTOS COMPRADOS</div><div class="prl-stat-val">${PURCHASES.length}</div></div>
+        <div class="prl-stat-card"><div class="prl-stat-lbl">VALOR TOTAL</div><div class="prl-stat-val" style="color:#059669">R$ ${total.toLocaleString('pt-BR')}</div></div>
+        <div class="prl-stat-card"><div class="prl-stat-lbl">EM GARANTIA</div><div class="prl-stat-val">${PURCHASES.filter(x=>x.status==='garantia').length}</div></div>
+      </div>
+      <div class="prl-section-hdr"><span class="prl-section-title">Meus PRLs</span></div>
+      <div class="prl-orders-list">
+        ${PURCHASES.map(pu=>{
+          const p=PRODUCTS.find(x=>x.id===pu.prodId)||{nome:'Produto',emoji:'📦'};
+          const statusCls=pu.status==='garantia'?'prl-os-garantia':pu.status==='disponivel'?'prl-os-disponivel':'prl-os-disputa';
+          const statusLabel=pu.status==='garantia'?'Em garantia':pu.status==='disponivel'?'Garantia encerrada':'Em disputa';
+          return `<div class="prl-order-card">
+            <div class="prl-order-top">
+              <div class="prl-order-emoji">${p.emoji||'📦'}</div>
+              <div class="prl-order-info"><div class="prl-order-nome">${_e(p.nome||'')}</div><div class="prl-order-sub">Comprado em ${pu.dataCompra}</div></div>
+              <div class="prl-order-price">R$ ${pu.valor.toLocaleString('pt-BR')}</div>
+            </div>
+            <div class="prl-order-status-row"><span class="prl-ostatus ${statusCls}">${statusLabel}</span>${pu.status==='garantia'?`<span style="font-size:11px;color:#d97706">⏱ Garantia até ${pu.garantiaAte}</span>`:''}</div>
+            <div class="prl-order-actions">
+              <button class="prl-obtn prl-obtn-primary" data-action="access" data-prod="${_e(pu.prodId)}">Acessar produto</button>
+              ${pu.status==='garantia'?`<button class="prl-obtn prl-obtn-danger" data-action="refund" data-prod="${_e(pu.prodId)}">Solicitar reembolso</button><button class="prl-obtn prl-obtn-ghost" data-action="dispute" data-prod="${_e(pu.prodId)}">Reportar problema</button>`:''}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+  }
+
+  function _handleBuyerActions(e) {
+    const btn=e.target.closest('[data-action]');
+    if (!btn) return;
+    _state.openId=btn.dataset.prod||_state.openId;
+    if (btn.dataset.action==='access')  _showToast('📦 Produto acessado. Verifique seus arquivos.');
+    if (btn.dataset.action==='refund')  _refundModal.style.display='flex';
+    if (btn.dataset.action==='dispute') _disputeModal.style.display='flex';
+  }
+
+  /* ─── SELLER TAB ─── */
+  function _renderSellerTab() {
+    const container=document.getElementById('prlSellerContent');
+    if (!container) return;
+    const totalPendente=MY_PRODUCTS_SELLER.reduce((s,x)=>s+x.pendente,0);
+    const totalDisponivel=MY_PRODUCTS_SELLER.reduce((s,x)=>s+x.disponivel,0);
+    const totalVendas=MY_PRODUCTS_SELLER.reduce((s,x)=>s+x.vendas,0);
+    container.innerHTML=`
+      <div class="prl-wallet-grid">
+        <div class="prl-wallet-card" style="background:#f0fdf4;border-color:#d1fae5"><div class="prl-wallet-lbl" style="color:#059669">DISPONÍVEL PARA SAQUE</div><div class="prl-wallet-val" style="color:#059669">R$ ${totalDisponivel.toLocaleString('pt-BR')}</div></div>
+        <div class="prl-wallet-card" style="background:#fffbeb;border-color:#fde68a"><div class="prl-wallet-lbl" style="color:#d97706">SALDO PENDENTE (7 dias)</div><div class="prl-wallet-val" style="color:#d97706">R$ ${totalPendente.toLocaleString('pt-BR')}</div></div>
+        <div class="prl-wallet-card"><div class="prl-wallet-lbl" style="color:#9ca3af">TOTAL DE VENDAS</div><div class="prl-wallet-val">${totalVendas}</div></div>
+      </div>
+      <div class="ugc-modal-warn" style="margin-bottom:24px">💡 O saldo fica retido 7 dias após cada venda. Taxa da THAY descontada automaticamente antes do repasse.</div>
+      <div class="prl-section-hdr">
+        <span class="prl-section-title">Meus produtos à venda</span>
+        <button class="prl-section-btn" id="prlSellerAddBtn">+ Cadastrar PRL</button>
+      </div>
+      <div class="prl-orders-list">
+        ${MY_PRODUCTS_SELLER.map(sp=>{
+          const p=PRODUCTS.find(x=>x.id===sp.prodId)||{nome:'Produto',emoji:'📦'};
+          const stCls=sp.status==='ativo'?'prl-os-disponivel':'prl-os-analise';
+          return `<div class="prl-order-card">
+            <div class="prl-order-top">
+              <div class="prl-order-emoji">${p.emoji||'📦'}</div>
+              <div class="prl-order-info"><div class="prl-order-nome">${_e(p.nome||'')}</div><div class="prl-order-sub">Desde ${sp.dataEnvio} · ${sp.vendas} vendas</div></div>
+            </div>
+            <div class="prl-order-status-row"><span class="prl-ostatus ${stCls}">${sp.status==='ativo'?'Ativo':'Em análise'}</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+              <div style="background:#fffbeb;border-radius:10px;padding:10px 14px"><div style="font-size:10px;font-weight:700;color:#9ca3af">PENDENTE</div><div style="font-size:16px;font-weight:950;color:#d97706">R$ ${sp.pendente.toLocaleString('pt-BR')}</div></div>
+              <div style="background:#f0fdf4;border-radius:10px;padding:10px 14px"><div style="font-size:10px;font-weight:700;color:#9ca3af">DISPONÍVEL</div><div style="font-size:16px;font-weight:950;color:#059669">R$ ${sp.disponivel.toLocaleString('pt-BR')}</div></div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+    document.getElementById('prlSellerAddBtn')?.addEventListener('click', ()=>_regModal.style.display='flex');
+  }
+
+  function _handleSellerActions(e) {
+    if (e.target.closest('#prlSellerAddBtn')) _regModal.style.display='flex';
+  }
+
+  /* ─── ADMIN TAB ─── */
+  function _renderAdminTab() {
+    const container=document.getElementById('prlAdminContent');
+    if (!container) return;
+    const pendentes=PRODUCTS.filter(p=>p.status==='analise');
+    container.innerHTML=`
+      <div class="prl-dash-stats">
+        <div class="prl-stat-card"><div class="prl-stat-lbl">PRODUTOS ATIVOS</div><div class="prl-stat-val">${PRODUCTS.filter(p=>p.status==='ativo').length}</div></div>
+        <div class="prl-stat-card"><div class="prl-stat-lbl">EM ANÁLISE</div><div class="prl-stat-val" style="color:#d97706">${pendentes.length}</div></div>
+        <div class="prl-stat-card"><div class="prl-stat-lbl">TOTAL VENDAS</div><div class="prl-stat-val">${PRODUCTS.reduce((s,p)=>s+p.vendas,0)}</div></div>
+        <div class="prl-stat-card"><div class="prl-stat-lbl">RECLAMAÇÕES ABERTAS</div><div class="prl-stat-val" style="color:#dc2626">0</div></div>
+      </div>
+      <div class="prl-section-hdr"><span class="prl-section-title">Produtos aguardando aprovação</span></div>
+      ${pendentes.length?pendentes.map(p=>`
+        <div class="prl-admin-row">
+          <div class="prl-admin-emoji">${p.emoji}</div>
+          <div>
+            <div class="prl-admin-nome">${_e(p.nome)}</div>
+            <div class="prl-admin-sub">${_e(p.tipo)} · ${_e(p.nicho)} · R$ ${p.preco}</div>
+          </div>
+          <div class="prl-admin-actions">
+            <button class="prl-admin-btn prl-admin-btn-ok"  data-admin-action="approve" data-id="${_e(p.id)}">✓ Aprovar</button>
+            <button class="prl-admin-btn prl-admin-btn-blk" data-admin-action="block"   data-id="${_e(p.id)}">✕ Reprovar</button>
+          </div>
+        </div>`).join(''):`<div style="padding:32px;text-align:center;color:#9ca3af;font-weight:800;font-size:13px">✅ Nenhum produto aguardando análise</div>`}
+      <div class="prl-section-hdr" style="margin-top:24px"><span class="prl-section-title">Todos os produtos</span></div>
+      ${PRODUCTS.map(p=>`
+        <div class="prl-admin-row">
+          <div class="prl-admin-emoji">${p.emoji}</div>
+          <div style="flex:1">
+            <div class="prl-admin-nome">${_e(p.nome)}</div>
+            <div class="prl-admin-sub">${_e(p.tipo)} · Score vendedor: ${p.vendedor.score} · ${p.vendas} vendas</div>
+          </div>
+          <span class="prl-ostatus ${p.status==='ativo'?'prl-os-disponivel':p.status==='analise'?'prl-os-analise':'prl-os-reembolso'}">${p.status}</span>
+        </div>`).join('')}`;
+  }
+
+  function _handleAdminActions(e) {
+    const btn=e.target.closest('[data-admin-action]');
+    if (!btn) return;
+    const action=btn.dataset.adminAction;
+    const id=btn.dataset.id;
+    if (action==='approve') _showToast(`✅ Produto aprovado e publicado.`);
+    if (action==='block')   _showToast(`✕ Produto reprovado.`);
+    setTimeout(()=>_renderAdminTab(), 400);
+  }
+
+  /* ─── HELPERS ─── */
+  function _vendorBadge(status) {
+    const map={verificado:['ugc-badge-verificado','✔ Verificado'],destaque:['ugc-badge-destaque','★ Destaque'],novo:['ugc-badge-novo','✦ Novo'],analise:['ugc-badge-analise','⚠ Em análise']};
+    const [cls,label]=map[status]||map.verificado;
+    return `<span class="ugc-badge ${cls}">${label}</span>`;
+  }
+
+  function _scoreLevel(score) {
+    if (score>=90) return '🟢 Alta confiança (90–100)';
+    if (score>=70) return '🟡 Bom (70–89)';
+    if (score>=50) return '🟠 Atenção (50–69)';
+    return '🔴 Risco alto (abaixo de 50)';
+  }
+
+  function _guaranteeDate(days) {
+    const d=new Date(); d.setDate(d.getDate()+days);
+    return d.toLocaleDateString('pt-BR');
+  }
+
+  function _showToast(msg) {
+    _toast.textContent=msg;
+    _toast.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer=setTimeout(()=>_toast.classList.remove('show'),3500);
+  }
+
+  function _e(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  return { init };
+})();
+
+/**
  * THAY FUNNEL BUILDER — BOOTSTRAP
  * Ponto de entrada: inicializa todos os módulos após DOMContentLoaded
  */
@@ -4157,6 +5370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.SalesPageEditor.init();
   ThayApp.AffiliateMarket.init();
   ThayApp.UgcMarket.init();
+  ThayApp.PrlMarket.init();
 });
 
 
