@@ -2330,7 +2330,7 @@ body {
 
     <span class="separator"></span>
 
-    <button class="btn icon-btn">
+    <button class="btn icon-btn" id="acctSettingsBtn" title="Configurações da conta" aria-label="Configurações da conta">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
         <path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle>
         <path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle>
@@ -2978,6 +2978,25 @@ body {
     </div>
     <div class="fsp-save-bar">
       <button class="fsp-save-btn" id="fspSaveBtn">Salvar configurações</button>
+    </div>
+  </div>
+
+  <!-- Account settings panel (global — independent from funnel gear) -->
+  <div class="fsp-overlay" id="acpOverlay"></div>
+  <div class="fsp-panel" id="acpPanel">
+    <div class="fsp-head">
+      <button class="fsp-close" id="acpClose" aria-label="Fechar">✕</button>
+      <div class="fsp-head-info">
+        <div class="fsp-fname">Configurações da conta</div>
+        <div class="fsp-fsub">THAY Funnel Builder</div>
+      </div>
+    </div>
+    <div class="fsp-body">
+      <nav class="fsp-nav" id="acpNav"></nav>
+      <div class="fsp-content" id="acpContent"></div>
+    </div>
+    <div class="fsp-save-bar">
+      <button class="fsp-save-btn" id="acpSaveBtn">Salvar alterações</button>
     </div>
   </div>
 
@@ -5956,6 +5975,273 @@ ThayApp.FunnelSettings = (function () {
   return { init };
 })();
 
+ThayApp.AccountSettings = (function () {
+  const SECTIONS = [
+    { id: 'conta',        icon: '👤', label: 'Conta' },
+    { id: 'empresa',      icon: '🏢', label: 'Empresa' },
+    { id: 'plano',        icon: '💳', label: 'Plano e Cobrança' },
+    { id: 'seguranca',    icon: '🔒', label: 'Segurança' },
+    { id: 'equipe',       icon: '👥', label: 'Equipe' },
+    { id: 'politicas',    icon: '📄', label: 'Políticas' },
+    { id: 'integracoes',  icon: '🔌', label: 'Integrações Globais' },
+    { id: 'notificacoes', icon: '🔔', label: 'Notificações' },
+  ];
+
+  let _activeSection = 'conta';
+  let _overlay, _panel, _navEl, _contentEl, _saveBtn, _triggerBtn, _closeBtn;
+
+  function init() {
+    _overlay   = document.getElementById('acpOverlay');
+    _panel     = document.getElementById('acpPanel');
+    _navEl     = document.getElementById('acpNav');
+    _contentEl = document.getElementById('acpContent');
+    _saveBtn   = document.getElementById('acpSaveBtn');
+    _closeBtn  = document.getElementById('acpClose');
+    _triggerBtn = document.getElementById('acctSettingsBtn');
+
+    if (!_overlay || !_panel || !_triggerBtn) return;
+
+    _triggerBtn.addEventListener('click', _open);
+    _closeBtn.addEventListener('click', _close);
+    _overlay.addEventListener('click', _close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') _close(); });
+    _saveBtn.addEventListener('click', _handleSave);
+  }
+
+  function _open() {
+    _renderNav();
+    _renderContent();
+    _overlay.classList.add('open');
+    _panel.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function _close() {
+    _overlay.classList.remove('open');
+    _panel.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function _renderNav() {
+    _navEl.innerHTML = SECTIONS.map(s => `
+      <button class="fsp-nav-btn${s.id === _activeSection ? ' active' : ''}" data-acp-section="${s.id}">
+        <span>${s.icon}</span> ${s.label}
+      </button>
+    `).join('');
+    _navEl.querySelectorAll('.fsp-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        _activeSection = btn.dataset.acpSection;
+        _renderNav();
+        _renderContent();
+      });
+    });
+  }
+
+  function _renderContent() {
+    const map = {
+      conta:        _sectionConta,
+      empresa:      _sectionEmpresa,
+      plano:        _sectionPlano,
+      seguranca:    _sectionSeguranca,
+      equipe:       _sectionEquipe,
+      politicas:    _sectionPoliticas,
+      integracoes:  _sectionIntegracoes,
+      notificacoes: _sectionNotificacoes,
+    };
+    _contentEl.innerHTML = (map[_activeSection] || (() => ''))();
+    _bindToggles();
+  }
+
+  function _bindToggles() {
+    _contentEl.querySelectorAll('.fsp-mini-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => toggle.classList.toggle('on'));
+    });
+  }
+
+  function _handleSave() {
+    _saveBtn.textContent = 'Salvo ✓';
+    _saveBtn.style.background = '#22c55e';
+    setTimeout(() => {
+      _saveBtn.textContent = 'Salvar alterações';
+      _saveBtn.style.background = '';
+    }, 2000);
+  }
+
+  function _field(label, type, placeholder, value) {
+    return `
+      <div class="fsp-field">
+        <label>${label}</label>
+        <input type="${type}" placeholder="${placeholder}" value="${value || ''}" />
+      </div>`;
+  }
+
+  function _toggleRow(label, sub, isOn) {
+    return `
+      <div class="fsp-toggle-row">
+        <div>
+          <div style="font-weight:600;font-size:13px">${label}</div>
+          ${sub ? `<div style="font-size:11px;color:#94a3b8;margin-top:2px">${sub}</div>` : ''}
+        </div>
+        <div class="fsp-mini-toggle${isOn ? ' on' : ''}"></div>
+      </div>`;
+  }
+
+  function _sectionConta() {
+    return `
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <div style="width:72px;height:72px;border-radius:50%;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px solid #334155">👤</div>
+        <div>
+          <div style="font-weight:700;font-size:15px">Foto de perfil</div>
+          <div style="font-size:11px;color:#94a3b8;margin:4px 0 8px">JPG ou PNG, máx. 2 MB</div>
+          <button class="fsp-connect-btn" style="font-size:11px;padding:5px 12px">Alterar foto</button>
+        </div>
+      </div>
+      ${_field('Nome completo', 'text', 'Seu nome', '')}
+      ${_field('E-mail', 'email', 'seu@email.com', '')}
+      ${_field('Telefone / WhatsApp', 'tel', '+55 11 9 0000-0000', '')}
+      <div class="fsp-field"><label>Nova senha</label><input type="password" placeholder="••••••••" /></div>
+      <div class="fsp-field"><label>Confirmar nova senha</label><input type="password" placeholder="••••••••" /></div>`;
+  }
+
+  function _sectionEmpresa() {
+    return `
+      ${_field('Nome da empresa', 'text', 'Sua empresa Ltda.', '')}
+      ${_field('CNPJ / CPF', 'text', '00.000.000/0001-00', '')}
+      ${_field('Razão social', 'text', 'Razão social completa', '')}
+      ${_field('Endereço', 'text', 'Rua, número, bairro', '')}
+      ${_field('Cidade', 'text', 'Cidade', '')}
+      ${_field('Estado', 'text', 'SP', '')}
+      ${_field('CEP', 'text', '00000-000', '')}
+      ${_field('País', 'text', 'Brasil', '')}`;
+  }
+
+  function _sectionPlano() {
+    return `
+      <div class="fsp-integ-row" style="margin-bottom:16px">
+        <div>
+          <div style="font-weight:700;font-size:14px">Plano atual: <span style="color:#a78bfa">Pro</span></div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:4px">Renova em 15/06/2026 · R$ 197/mês</div>
+        </div>
+        <button class="fsp-connect-btn">Fazer upgrade</button>
+      </div>
+      <div class="fsp-field"><label>Método de pagamento</label>
+        <div style="display:flex;align-items:center;gap:10px;background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px 14px;font-size:13px">
+          💳 Visa terminando em 4242 &nbsp;·&nbsp;
+          <button class="fsp-connect-btn" style="font-size:11px;padding:4px 10px">Trocar</button>
+        </div>
+      </div>
+      <div class="fsp-field"><label>Histórico de cobranças</label>
+        <table class="fsp-log-table">
+          <thead><tr><th>Data</th><th>Plano</th><th>Valor</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>15/05/2026</td><td>Pro mensal</td><td>R$ 197</td><td><span class="fsp-badge-ok">Pago</span></td></tr>
+            <tr><td>15/04/2026</td><td>Pro mensal</td><td>R$ 197</td><td><span class="fsp-badge-ok">Pago</span></td></tr>
+            <tr><td>15/03/2026</td><td>Pro mensal</td><td>R$ 197</td><td><span class="fsp-badge-ok">Pago</span></td></tr>
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  function _sectionSeguranca() {
+    return `
+      ${_toggleRow('Autenticação em dois fatores (2FA)', 'Proteja sua conta com um segundo fator via app autenticador', false)}
+      <div class="fsp-field" style="margin-top:8px"><label>Sessões ativas</label>
+        <table class="fsp-log-table">
+          <thead><tr><th>Dispositivo</th><th>Local</th><th>Último acesso</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Chrome / Windows</td><td>São Paulo, BR</td><td>agora</td><td><span class="fsp-badge-ok">Este</span></td></tr>
+            <tr><td>Safari / iPhone</td><td>São Paulo, BR</td><td>2h atrás</td><td><button class="fsp-connect-btn" style="font-size:10px;padding:3px 8px;background:#ef4444;border-color:#ef4444">Encerrar</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fsp-field"><label>Histórico de login</label>
+        <table class="fsp-log-table">
+          <thead><tr><th>Data</th><th>IP</th><th>Dispositivo</th><th>Resultado</th></tr></thead>
+          <tbody>
+            <tr><td>13/05/2026 09:12</td><td>187.0.0.1</td><td>Chrome</td><td><span class="fsp-badge-ok">OK</span></td></tr>
+            <tr><td>12/05/2026 22:44</td><td>187.0.0.1</td><td>iPhone</td><td><span class="fsp-badge-ok">OK</span></td></tr>
+            <tr><td>11/05/2026 14:01</td><td>200.0.0.2</td><td>Firefox</td><td><span class="fsp-badge-off">Falhou</span></td></tr>
+          </tbody>
+        </table>
+      </div>`;
+  }
+
+  function _sectionEquipe() {
+    return `
+      <div class="fsp-integ-row" style="margin-bottom:16px">
+        <div style="font-weight:600;font-size:13px">Membros da equipe (2/5)</div>
+        <button class="fsp-connect-btn">+ Convidar</button>
+      </div>
+      <table class="fsp-log-table" style="margin-bottom:16px">
+        <thead><tr><th>Nome</th><th>E-mail</th><th>Função</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Você</td><td>admin@thay.com</td><td>Admin</td><td><span class="fsp-badge-ok">Ativo</span></td><td>—</td></tr>
+          <tr><td>Ana Lima</td><td>ana@agencia.com</td><td>Editor</td><td><span class="fsp-badge-ok">Ativo</span></td><td><button class="fsp-connect-btn" style="font-size:10px;padding:3px 8px;background:#ef4444;border-color:#ef4444">Remover</button></td></tr>
+        </tbody>
+      </table>
+      <div class="fsp-field"><label>Convites pendentes</label>
+        <div style="font-size:13px;color:#94a3b8;padding:10px 0">Nenhum convite pendente.</div>
+      </div>`;
+  }
+
+  function _sectionPoliticas() {
+    const link = (label, url) =>
+      `<div class="fsp-toggle-row"><div style="font-weight:600;font-size:13px">${label}</div>
+       <button class="fsp-connect-btn" style="font-size:11px;padding:4px 12px">Ver →</button></div>`;
+    return `
+      ${link('Termos de uso')}
+      ${link('Política de privacidade')}
+      ${link('Regras da plataforma')}
+      ${link('Política de reembolso')}
+      ${link('Política do marketplace PRL')}
+      <div style="margin-top:16px;font-size:11px;color:#64748b">Ao usar a THAY você concorda com os termos acima. Última atualização: 01/05/2026.</div>`;
+  }
+
+  function _sectionIntegracoes() {
+    const row = (icon, label, status) => `
+      <div class="fsp-integ-row">
+        <div>
+          <div style="font-weight:600;font-size:13px">${icon} ${label}</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">${status ? 'Conectado' : 'Não conectado'}</div>
+        </div>
+        <button class="fsp-connect-btn">${status ? 'Gerenciar' : 'Conectar'}</button>
+      </div>`;
+    return `
+      ${row('📧', 'E-mail (SMTP / SendGrid)', false)}
+      ${row('💬', 'WhatsApp Business API', false)}
+      ${row('📡', 'Meta Pixel (Facebook)', true)}
+      ${row('📡', 'Google Tag Manager', false)}
+      ${row('🔗', 'Webhooks globais', false)}
+      ${row('💳', 'Stripe / Hotmart / Kiwify', false)}
+      <div class="fsp-field" style="margin-top:8px"><label>Chave de API pública THAY</label>
+        <div style="display:flex;gap:8px">
+          <input type="text" value="thay_pk_••••••••••••••••" readonly style="flex:1;font-family:monospace;font-size:12px" />
+          <button class="fsp-connect-btn" style="padding:0 12px">Copiar</button>
+        </div>
+      </div>`;
+  }
+
+  function _sectionNotificacoes() {
+    return `
+      <div style="font-size:12px;color:#64748b;margin-bottom:12px;text-transform:uppercase;letter-spacing:.08em">E-mail</div>
+      ${_toggleRow('Novos leads e conversões', null, true)}
+      ${_toggleRow('Relatório semanal de desempenho', null, true)}
+      ${_toggleRow('Alertas de cobrança e pagamentos', null, true)}
+      ${_toggleRow('Novidades e atualizações da plataforma', null, false)}
+      <div style="font-size:12px;color:#64748b;margin:16px 0 12px;text-transform:uppercase;letter-spacing:.08em">WhatsApp</div>
+      ${_toggleRow('Alertas de leads em tempo real', null, false)}
+      ${_toggleRow('Resumo diário', null, false)}
+      <div style="font-size:12px;color:#64748b;margin:16px 0 12px;text-transform:uppercase;letter-spacing:.08em">Plataforma</div>
+      ${_toggleRow('Notificações no painel', null, true)}
+      ${_toggleRow('Sons de notificação', null, false)}
+      <div style="font-size:12px;color:#64748b;margin:16px 0 12px;text-transform:uppercase;letter-spacing:.08em">Segurança</div>
+      ${_toggleRow('Alertas de login em novo dispositivo', null, true)}
+      ${_toggleRow('Tentativas de acesso suspeito', null, true)}`;
+  }
+
+  return { init };
+})();
+
 /**
  * THAY FUNNEL BUILDER — BOOTSTRAP
  * Ponto de entrada: inicializa todos os módulos após DOMContentLoaded
@@ -5973,6 +6259,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.UgcMarket.init();
   ThayApp.PrlMarket.init();
   ThayApp.FunnelSettings.init();
+  ThayApp.AccountSettings.init();
 });
 
 
