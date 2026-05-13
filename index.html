@@ -571,6 +571,264 @@ body {
 .product-detail-view { display: none; margin-top: 34px; padding: 0 20px 32px; }
 .product-detail-view.active { display: block; }
 
+/* ══════════════════════════════════════════
+   UGC & VSL MARKETPLACE
+══════════════════════════════════════════ */
+.ugc-market-view { display: none; margin-top: 34px; }
+.ugc-market-view.active { display: block; }
+
+.ugc-hero { padding: 0 20px 28px; border-bottom: 1px solid #f0f3f6; margin-bottom: 24px; display: flex; flex-direction: column; gap: 0; }
+.ugc-hero h1 { font-size: 34px; font-weight: 950; letter-spacing: -1.2px; color: #050505; margin: 0 0 6px; }
+.ugc-hero p { font-size: 13.5px; color: #6b7280; max-width: 580px; line-height: 1.6; margin: 0 0 22px; }
+
+/* Filter bar */
+.ugc-fbar { display: flex; gap: 8px; flex-wrap: wrap; }
+.ugc-fc {
+  height: 34px; padding: 0 16px; border-radius: 99px;
+  border: 1px solid #e5eaef; background: #fff;
+  font-size: 12px; font-weight: 800; color: #555;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: .13s ease;
+}
+.ugc-fc:hover { border-color: #0077ff; color: #0077ff; }
+.ugc-fc.active { background: #050505; color: #fff; border-color: #050505; }
+
+/* Provider grid */
+.ugc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr)); gap: 20px; padding: 0 20px 48px; }
+
+/* Provider card */
+.ugc-card {
+  background: #fff; border: 1px solid #edf0f5; border-radius: 20px;
+  overflow: hidden; transition: box-shadow .18s, border-color .18s;
+  display: flex; flex-direction: column;
+}
+.ugc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.09); border-color: #d8dfe8; }
+.ugc-card-top { display: flex; align-items: center; gap: 12px; padding: 18px 18px 12px; }
+.ugc-logo {
+  width: 48px; height: 48px; border-radius: 14px; overflow: hidden; flex-shrink: 0;
+  background: #f3f4f6; display: grid; place-items: center; font-size: 22px;
+}
+.ugc-logo img { width: 100%; height: 100%; object-fit: cover; }
+.ugc-card-info { flex: 1; min-width: 0; }
+.ugc-card-name { font-size: 14px; font-weight: 900; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ugc-card-type { font-size: 11px; font-weight: 700; color: #8892a0; margin-top: 2px; }
+
+/* Status badges */
+.ugc-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 9px; border-radius: 99px;
+  font-size: 10px; font-weight: 950; letter-spacing: .4px; white-space: nowrap;
+}
+.ugc-badge-verificado  { background: rgba(16,185,129,.1);  color: #059669; }
+.ugc-badge-destaque    { background: rgba(245,158,11,.12); color: #d97706; }
+.ugc-badge-novo        { background: rgba(99,102,241,.1);  color: #4f46e5; }
+.ugc-badge-analise     { background: rgba(239,68,68,.1);   color: #dc2626; }
+.ugc-badge-suspenso    { background: rgba(107,114,128,.1); color: #374151; }
+
+/* Score bar inside card */
+.ugc-card-score { padding: 0 18px 12px; display: flex; align-items: center; gap: 8px; }
+.ugc-sbar-track { flex: 1; height: 6px; border-radius: 99px; background: #f0f3f6; overflow: hidden; }
+.ugc-sbar-fill { height: 100%; border-radius: 99px; transition: width .4s ease; }
+.ugc-sbar-fill.high   { background: linear-gradient(90deg, #10b981, #34d399); }
+.ugc-sbar-fill.mid    { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.ugc-sbar-fill.low    { background: linear-gradient(90deg, #ef4444, #f87171); }
+.ugc-sbar-num { font-size: 12px; font-weight: 900; color: #111; flex-shrink: 0; min-width: 28px; text-align: right; }
+.ugc-sbar-label { font-size: 10px; font-weight: 800; color: #9ca3af; }
+
+/* Card meta */
+.ugc-card-meta { display: flex; gap: 0; padding: 0 18px 14px; }
+.ugc-meta-item { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.ugc-meta-lbl { font-size: 10px; font-weight: 700; color: #9ca3af; }
+.ugc-meta-val { font-size: 13px; font-weight: 900; color: #111; }
+
+/* Card rating row */
+.ugc-card-rating { padding: 10px 18px 0; border-top: 1px solid #f4f5f7; display: flex; align-items: center; gap: 8px; }
+.ugc-stars { font-size: 12px; }
+.ugc-nota { font-size: 13px; font-weight: 900; color: #111; }
+.ugc-rev-count { font-size: 11px; font-weight: 700; color: #9ca3af; }
+
+/* Card CTA */
+.ugc-card-cta { padding: 14px 18px 18px; margin-top: auto; }
+.ugc-btn-saib {
+  width: 100%; height: 40px; border-radius: 10px;
+  background: #050505; color: #fff; border: none;
+  font-size: 12px; font-weight: 900; font-family: inherit; cursor: pointer;
+  transition: opacity .15s;
+}
+.ugc-btn-saib:hover { opacity: .82; }
+
+/* ─── DETAIL OVERLAY ─── */
+.ugc-detail {
+  position: fixed; inset: 0; z-index: 200;
+  background: #fff; overflow-y: auto;
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.22,.68,0,1.2);
+}
+.ugc-detail.open { transform: translateX(0); }
+.ugc-detail-head {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #f0f3f6;
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 24px;
+}
+.ugc-back-btn {
+  height: 36px; padding: 0 16px; border-radius: 10px;
+  border: 1px solid #e5eaef; background: transparent;
+  font-size: 12px; font-weight: 800; color: #444; cursor: pointer; font-family: inherit;
+  transition: .12s;
+}
+.ugc-back-btn:hover { background: #f5f7f9; }
+.ugc-detail-name { font-size: 16px; font-weight: 950; color: #111; flex: 1; }
+.ugc-detail-body { max-width: 900px; margin: 0 auto; padding: 28px 24px 64px; display: flex; flex-direction: column; gap: 28px; }
+.ugc-detail-hero-row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.ugc-detail-logo { width: 72px; height: 72px; border-radius: 20px; overflow: hidden; background: #f3f4f6; display: grid; place-items: center; font-size: 32px; flex-shrink: 0; }
+.ugc-detail-logo img { width: 100%; height: 100%; object-fit: cover; }
+.ugc-detail-intro { flex: 1; min-width: 200px; }
+.ugc-detail-intro h2 { font-size: 22px; font-weight: 950; margin: 0 0 4px; }
+.ugc-detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
+.ugc-detail-desc { font-size: 13.5px; color: #444; line-height: 1.65; }
+
+/* Detail sections */
+.ugc-ds-title { font-size: 13px; font-weight: 950; color: #050505; letter-spacing: .4px; text-transform: uppercase; margin-bottom: 14px; }
+.ugc-score-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.ugc-score-item { background: #f9fafb; border-radius: 12px; padding: 12px 16px; }
+.ugc-score-item-lbl { font-size: 11px; font-weight: 700; color: #6b7280; margin-bottom: 6px; }
+.ugc-score-item-bar { height: 6px; border-radius: 99px; background: #e5e7eb; overflow: hidden; margin-bottom: 4px; }
+.ugc-score-item-fill { height: 100%; border-radius: 99px; }
+.ugc-score-item-val { font-size: 13px; font-weight: 950; color: #111; }
+
+.ugc-servicos-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.ugc-servico-chip {
+  height: 32px; padding: 0 14px; border-radius: 99px;
+  background: #f3f4f6; font-size: 12px; font-weight: 800; color: #374151;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Portfolio thumbnails */
+.ugc-portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.ugc-portfolio-thumb {
+  aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #0d0d0d;
+  display: grid; place-items: center; cursor: pointer; position: relative;
+}
+.ugc-portfolio-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+.ugc-portfolio-thumb-play {
+  position: absolute; font-size: 22px; opacity: .9;
+  background: rgba(0,0,0,.4); border-radius: 50%; width: 38px; height: 38px;
+  display: grid; place-items: center;
+}
+
+/* Reviews */
+.ugc-reviews-list { display: flex; flex-direction: column; gap: 14px; }
+.ugc-review-item { background: #f9fafb; border-radius: 14px; padding: 16px; }
+.ugc-review-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ugc-review-author { font-size: 13px; font-weight: 900; color: #111; flex: 1; }
+.ugc-review-nota { font-size: 12px; }
+.ugc-review-servico { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 6px; }
+.ugc-review-text { font-size: 12.5px; color: #444; line-height: 1.6; }
+.ugc-review-prazo { font-size: 11px; color: #6b7280; margin-top: 6px; }
+.ugc-review-rec { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 800; color: #059669; margin-top: 4px; }
+.ugc-review-rec.no { color: #dc2626; }
+
+/* Complaint history */
+.ugc-complaint-list { display: flex; flex-direction: column; gap: 10px; }
+.ugc-complaint-item { border: 1px solid #fecaca; border-radius: 12px; padding: 14px; background: #fff5f5; }
+.ugc-complaint-item.resolved { border-color: #d1fae5; background: #f0fdf4; }
+.ugc-complaint-top { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.ugc-complaint-motivo { font-size: 12px; font-weight: 900; color: #dc2626; flex: 1; }
+.ugc-complaint-motivo.resolved { color: #059669; }
+.ugc-complaint-status { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; }
+.ugc-complaint-desc { font-size: 12px; color: #555; line-height: 1.5; }
+
+/* Detail action buttons */
+.ugc-detail-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.ugc-btn-conversar {
+  height: 44px; padding: 0 28px; border-radius: 12px;
+  background: #0077ff; color: #fff; border: none;
+  font-size: 13px; font-weight: 900; font-family: inherit; cursor: pointer; transition: opacity .15s;
+}
+.ugc-btn-conversar:hover { opacity: .85; }
+.ugc-btn-denunciar {
+  height: 44px; padding: 0 20px; border-radius: 12px;
+  border: 1px solid #fca5a5; background: #fff5f5;
+  font-size: 12px; font-weight: 900; color: #dc2626; font-family: inherit; cursor: pointer; transition: .12s;
+}
+.ugc-btn-denunciar:hover { background: #fee2e2; }
+.ugc-btn-avaliar {
+  height: 44px; padding: 0 20px; border-radius: 12px;
+  border: 1px solid #e5eaef; background: #fff;
+  font-size: 12px; font-weight: 900; color: #374151; font-family: inherit; cursor: pointer; transition: .12s;
+}
+.ugc-btn-avaliar:hover { background: #f5f7f9; }
+
+/* ─── MODALS ─── */
+.ugc-modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 400;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.ugc-modal {
+  background: #fff; border-radius: 22px; padding: 28px;
+  max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,.18);
+}
+.ugc-modal h3 { font-size: 18px; font-weight: 950; color: #111; margin: 0 0 6px; }
+.ugc-modal-sub { font-size: 13px; color: #6b7280; line-height: 1.6; margin: 0 0 22px; }
+.ugc-modal-warn {
+  background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px;
+  padding: 14px 16px; font-size: 12.5px; color: #92400e; line-height: 1.6;
+  margin-bottom: 22px;
+}
+.ugc-modal-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.ugc-modal-field label { font-size: 12px; font-weight: 800; color: #374151; }
+.ugc-modal-field select,
+.ugc-modal-field textarea,
+.ugc-modal-field input[type=text],
+.ugc-modal-field input[type=date],
+.ugc-modal-field input[type=number] {
+  border: 1px solid #e5eaef; border-radius: 10px; padding: 10px 12px;
+  font-size: 13px; font-family: inherit; color: #111; outline: none; resize: vertical;
+  transition: border-color .12s;
+}
+.ugc-modal-field select:focus,
+.ugc-modal-field textarea:focus,
+.ugc-modal-field input:focus { border-color: #0077ff; }
+.ugc-modal-field textarea { min-height: 80px; }
+.ugc-modal-check { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 18px; cursor: pointer; }
+.ugc-modal-check input { margin-top: 2px; flex-shrink: 0; }
+.ugc-modal-check span { font-size: 12px; color: #555; line-height: 1.55; }
+.ugc-modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 4px; }
+.ugc-modal-cancel {
+  height: 40px; padding: 0 18px; border-radius: 10px;
+  border: 1px solid #e5eaef; background: #fff; color: #555;
+  font-size: 12px; font-weight: 800; font-family: inherit; cursor: pointer;
+}
+.ugc-modal-submit {
+  height: 40px; padding: 0 22px; border-radius: 10px;
+  background: #050505; color: #fff; border: none;
+  font-size: 12px; font-weight: 900; font-family: inherit; cursor: pointer; transition: opacity .15s;
+}
+.ugc-modal-submit:hover { opacity: .82; }
+.ugc-modal-submit.danger { background: #dc2626; }
+
+/* Star rating input */
+.ugc-star-input { display: flex; gap: 6px; }
+.ugc-star-input button {
+  background: none; border: none; font-size: 24px; cursor: pointer; padding: 0;
+  opacity: .35; transition: opacity .12s, transform .1s;
+}
+.ugc-star-input button.active,
+.ugc-star-input button:hover ~ button { opacity: .35; }
+.ugc-star-input button.active { opacity: 1; transform: scale(1.1); }
+
+/* Toast */
+.ugc-toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: #050505; color: #fff; padding: 14px 22px; border-radius: 14px;
+  font-size: 13px; font-weight: 800; z-index: 500;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  opacity: 0; pointer-events: none;
+}
+.ugc-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
 .product-detail-hero {
   min-height: 360px;
   border-radius: 38px;
@@ -1649,7 +1907,7 @@ body {
         </svg>
         Área do Aluno
       </button>
-      <button class="btn">
+      <button class="btn" id="ugcMarketTab">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M4 7.5L12 4l8 3.5"></path>
           <path d="M6 10v6"></path><path d="M18 10v6"></path>
@@ -1829,6 +2087,147 @@ body {
         </div>
       </aside>
     </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       UGC & VSL MARKETPLACE VIEW
+  ══════════════════════════════════════════════════ -->
+  <section class="ugc-market-view" id="ugcMarketView">
+
+    <!-- Hero + filters -->
+    <div class="ugc-hero">
+      <h1>Marketplace UGC &amp; VSL</h1>
+      <p>Encontre empresas criativas para produzir vídeos, VSLs e criativos com portfólio, avaliações públicas e score de confiança.</p>
+      <div class="ugc-fbar" id="ugcFilterBar"></div>
+    </div>
+
+    <!-- Provider grid (rendered by JS) -->
+    <div class="ugc-grid" id="ugcGrid"></div>
+
+    <!-- Detail overlay (rendered by JS) -->
+    <div class="ugc-detail" id="ugcDetail">
+      <div class="ugc-detail-head">
+        <button class="ugc-back-btn" id="ugcBackBtn">← Voltar</button>
+        <span class="ugc-detail-name" id="ugcDetailName"></span>
+      </div>
+      <div class="ugc-detail-body" id="ugcDetailBody"></div>
+    </div>
+
+    <!-- Contact warning modal -->
+    <div class="ugc-modal-backdrop" id="ugcContactModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>Conversar com a empresa</h3>
+        <div class="ugc-modal-warn">
+          ⚠️ A negociação é feita diretamente entre cliente e empresa. A THAY exibe reputação, avaliações, denúncias e histórico para ajudar na decisão, mas <strong>não se responsabiliza por acordos feitos fora da plataforma</strong>.
+        </div>
+        <p class="ugc-modal-sub">Ao continuar, você será direcionado ao canal de contato da empresa.</p>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="ugcContactCancel">Cancelar</button>
+          <button class="ugc-modal-submit" id="ugcContactConfirm">Entendi, continuar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report modal -->
+    <div class="ugc-modal-backdrop" id="ugcReportModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>Denunciar empresa</h3>
+        <p class="ugc-modal-sub">Preencha com atenção. Denúncias falsas podem resultar em suspensão da sua conta.</p>
+        <div class="ugc-modal-field">
+          <label>Motivo da denúncia *</label>
+          <select id="ugcReportMotivo">
+            <option value="">Selecione o motivo</option>
+            <option>Entregou fora do prazo</option>
+            <option>Não entregou</option>
+            <option>Recebeu e sumiu</option>
+            <option>Prometeu uma coisa e entregou outra</option>
+            <option>Material de baixa qualidade</option>
+            <option>Uso indevido de imagem/conteúdo</option>
+            <option>Golpe ou tentativa de golpe</option>
+            <option>Atendimento abusivo</option>
+            <option>Outro motivo</option>
+          </select>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Descrição do ocorrido *</label>
+          <textarea id="ugcReportDesc" placeholder="Descreva detalhadamente o que aconteceu..."></textarea>
+        </div>
+        <div class="ugc-modal-field" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Data do ocorrido</label>
+            <input type="date" id="ugcReportData">
+          </div>
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Valor pago (se houver)</label>
+            <input type="text" id="ugcReportValor" placeholder="R$ 0,00">
+          </div>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Prazo combinado</label>
+          <input type="text" id="ugcReportPrazo" placeholder="Ex: 5 dias úteis">
+        </div>
+        <label class="ugc-modal-check">
+          <input type="checkbox" id="ugcReportConfirm">
+          <span>Confirmo que as informações acima são verídicas e que tenho provas do ocorrido.</span>
+        </label>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="ugcReportCancel">Cancelar</button>
+          <button class="ugc-modal-submit danger" id="ugcReportSubmit">Enviar denúncia</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rate modal -->
+    <div class="ugc-modal-backdrop" id="ugcRateModal" style="display:none">
+      <div class="ugc-modal">
+        <h3>Avaliar empresa</h3>
+        <p class="ugc-modal-sub">Sua avaliação é pública e ajuda outros profissionais a tomar decisões.</p>
+        <div class="ugc-modal-field">
+          <label>Nota *</label>
+          <div class="ugc-star-input" id="ugcStarInput">
+            <button type="button" data-v="1">⭐</button>
+            <button type="button" data-v="2">⭐</button>
+            <button type="button" data-v="3">⭐</button>
+            <button type="button" data-v="4">⭐</button>
+            <button type="button" data-v="5">⭐</button>
+          </div>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Serviço contratado *</label>
+          <input type="text" id="ugcRateServico" placeholder="Ex: UGC 3 vídeos, VSL 60s...">
+        </div>
+        <div class="ugc-modal-field" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Prazo prometido</label>
+            <input type="text" id="ugcRatePrazoP" placeholder="Ex: 5 dias">
+          </div>
+          <div class="ugc-modal-field" style="margin:0">
+            <label>Prazo entregue</label>
+            <input type="text" id="ugcRatePrazoE" placeholder="Ex: 7 dias">
+          </div>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Comentário *</label>
+          <textarea id="ugcRateComent" placeholder="Descreva sua experiência..."></textarea>
+        </div>
+        <div class="ugc-modal-field">
+          <label>Recomendaria esta empresa?</label>
+          <select id="ugcRateRec">
+            <option value="">Selecione</option>
+            <option value="sim">Sim, recomendo</option>
+            <option value="nao">Não recomendo</option>
+          </select>
+        </div>
+        <div class="ugc-modal-footer">
+          <button class="ugc-modal-cancel" id="ugcRateCancel">Cancelar</button>
+          <button class="ugc-modal-submit" id="ugcRateSubmit">Publicar avaliação</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="ugc-toast" id="ugcToast"></div>
+
   </section>
 
   <!-- ══════════════════════════════════════════════════
@@ -2153,6 +2552,7 @@ ThayApp.ViewManager = (function () {
     funnels:         { el: null, tabId: 'funnelsTab' },
     dashboard:       { el: null, tabId: 'dashboardTab' },
     affiliateMarket: { el: null, tabId: 'affiliateMarketTab' },
+    ugcMarket:       { el: null, tabId: 'ugcMarketTab' },
     productDetail:    { el: null, tabId: null },
     funnelDashboard:  { el: null, tabId: null },
     salesPageEditor:  { el: null, tabId: null },
@@ -2163,6 +2563,7 @@ ThayApp.ViewManager = (function () {
     VIEWS.funnels.el         = document.getElementById('editorView');
     VIEWS.dashboard.el       = document.getElementById('dashboardView');
     VIEWS.affiliateMarket.el = document.getElementById('affiliateMarketView');
+    VIEWS.ugcMarket.el       = document.getElementById('ugcMarketView');
     VIEWS.productDetail.el   = document.getElementById('productDetailView');
     VIEWS.funnelDashboard.el = document.getElementById('funnelDashboardModal');
     VIEWS.salesPageEditor.el = document.getElementById('salesPageEditorView');
@@ -2176,6 +2577,8 @@ ThayApp.ViewManager = (function () {
       ?.addEventListener('click', () => setActiveView('dashboard'));
     document.getElementById('affiliateMarketTab')
       ?.addEventListener('click', () => setActiveView('affiliateMarket'));
+    document.getElementById('ugcMarketTab')
+      ?.addEventListener('click', () => setActiveView('ugcMarket'));
 
     // Close funnel dashboard
     document.getElementById('closeDashboard')
@@ -2201,7 +2604,7 @@ ThayApp.ViewManager = (function () {
     });
 
     // Highlight tabs
-    ['projectsTab', 'funnelsTab', 'dashboardTab', 'affiliateMarketTab'].forEach(id => {
+    ['projectsTab', 'funnelsTab', 'dashboardTab', 'affiliateMarketTab', 'ugcMarketTab'].forEach(id => {
       document.getElementById(id)?.classList.remove('active-blue');
     });
 
@@ -3229,6 +3632,517 @@ ThayApp.AiOrbs = (function () {
 })();
 
 /**
+ * THAY FUNNEL BUILDER — UGC & VSL MARKETPLACE
+ * Área separada de prestadores de serviço criativo (UGC, VSL, editores, roteiristas)
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.UgcMarket = (function () {
+  'use strict';
+
+  /* ─── FILTROS ─── */
+  const FILTERS = ['Todos','UGC','VSL','Criativos para anúncios','Roteiro','Edição de vídeo',
+    'Melhor score','Melhor avaliado','Menor prazo','Verificados'];
+
+  /* ─── DADOS DOS PRESTADORES ─── */
+  const PROVIDERS = [
+    {
+      id: 'studioalpha',
+      nome: 'Studio Alpha Creative',
+      emoji: '🎬',
+      tipo: 'UGC',
+      status: 'destaque',
+      nota: 4.9, avaliacoes: 247, prazo: '3–5 dias', precoInicial: 'R$ 497',
+      score: 94, tempoPlataforma: '2 anos',
+      descricao: 'Especialistas em UGC autêntico para e-commerce e infoprodutos. Criamos vídeos que convertem porque parecem orgânicos. Equipe de 8 creators internos e rede de 30+ parceiros validados.',
+      scoreDetalhe: { 'Entrega no prazo': 96, 'Qualidade': 95, 'Comunicação': 92, 'Cumpriu o combinado': 94, 'Reclamações resolvidas': 100 },
+      servicos: [
+        { nome: 'UGC 1 vídeo (60s)', preco: 'R$ 497', prazo: '3 dias' },
+        { nome: 'UGC Pack 3 vídeos', preco: 'R$ 1.297', prazo: '5 dias' },
+        { nome: 'UGC Pack 10 vídeos', preco: 'R$ 3.900', prazo: '10 dias' },
+        { nome: 'UGC + Legenda + Hook', preco: 'R$ 690', prazo: '4 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=400&auto=format', label: 'UGC Ecommerce' },
+        { thumb: 'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0?w=400&auto=format', label: 'UGC Skincare' },
+        { thumb: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622?w=400&auto=format', label: 'UGC Fitness' },
+        { thumb: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=400&auto=format', label: 'UGC Infoproduto' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Mariana R.', nota: 5, servico: 'UGC Pack 3 vídeos', prazoP: '5 dias', prazoE: '4 dias', texto: 'Superou as expectativas. Os vídeos ficaram naturais demais, ROAS de 3.2 no primeiro dia.', rec: 'sim' },
+        { autor: 'Carlos M.', nota: 5, servico: 'UGC 1 vídeo', prazoP: '3 dias', prazoE: '3 dias', texto: 'Briefing respeitado 100%. Entregaram antes do prazo e com revisão incluída.', rec: 'sim' },
+        { autor: 'Beatriz F.', nota: 4, servico: 'UGC Pack 10 vídeos', prazoP: '10 dias', prazoE: '11 dias', texto: 'Qualidade ótima, atrasou um dia mas comunicaram com antecedência.', rec: 'sim' },
+      ],
+      denuncias: [],
+    },
+    {
+      id: 'vslmasters',
+      nome: 'VSL Masters BR',
+      emoji: '📹',
+      tipo: 'VSL',
+      status: 'verificado',
+      nota: 4.7, avaliacoes: 183, prazo: '7–10 dias', precoInicial: 'R$ 1.800',
+      score: 88, tempoPlataforma: '1 ano e 8 meses',
+      descricao: 'Produzimos VSLs de alta conversão para lançamentos, perpétuos e afiliados. Do roteiro ao corte final, com copy estratégica integrada. +R$ 2M em produtos vendidos com nossas VSLs.',
+      scoreDetalhe: { 'Entrega no prazo': 87, 'Qualidade': 92, 'Comunicação': 88, 'Cumpriu o combinado': 86, 'Reclamações resolvidas': 80 },
+      servicos: [
+        { nome: 'VSL Básica (10–15 min)', preco: 'R$ 1.800', prazo: '7 dias' },
+        { nome: 'VSL Completa (20–30 min)', preco: 'R$ 3.200', prazo: '10 dias' },
+        { nome: 'VSL + Roteiro Estratégico', preco: 'R$ 4.500', prazo: '12 dias' },
+        { nome: 'Revisão / Re-edição VSL', preco: 'R$ 680', prazo: '3 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1536240478700-b869ad10a2ab?w=400&auto=format', label: 'VSL Lançamento' },
+        { thumb: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&auto=format', label: 'VSL Perpétuo' },
+        { thumb: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&auto=format', label: 'VSL Afiliado' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Rodrigo T.', nota: 5, servico: 'VSL Completa', prazoP: '10 dias', prazoE: '10 dias', texto: 'VSL que converteu 9% no frio. Trabalho impecável.', rec: 'sim' },
+        { autor: 'Ana P.', nota: 4, servico: 'VSL Básica', prazoP: '7 dias', prazoE: '9 dias', texto: 'Qualidade boa, mas atrasou 2 dias sem aviso prévio.', rec: 'sim' },
+        { autor: 'Luís G.', nota: 4, servico: 'VSL + Roteiro', prazoP: '12 dias', prazoE: '12 dias', texto: 'Roteiro muito bem construído, edição profissional.', rec: 'sim' },
+      ],
+      denuncias: [
+        { motivo: 'Entregou fora do prazo', desc: 'Atrasou 3 dias sem comunicação prévia.', status: 'resolvido', data: '2024-11' },
+      ],
+    },
+    {
+      id: 'creativcuts',
+      nome: 'Creative Cuts Studio',
+      emoji: '✂️',
+      tipo: 'Edição de vídeo',
+      status: 'verificado',
+      nota: 4.8, avaliacoes: 312, prazo: '2–4 dias', precoInicial: 'R$ 280',
+      score: 91, tempoPlataforma: '2 anos e 3 meses',
+      descricao: 'Edição profissional para YouTube, Reels, Shorts e criativos para tráfego. Especialistas em reels com alta retenção e cortes virais para contas de influenciadores e empresas de conteúdo.',
+      scoreDetalhe: { 'Entrega no prazo': 94, 'Qualidade': 91, 'Comunicação': 93, 'Cumpriu o combinado': 90, 'Reclamações resolvidas': 100 },
+      servicos: [
+        { nome: 'Edição Reels / Short (até 60s)', preco: 'R$ 280', prazo: '2 dias' },
+        { nome: 'Edição YouTube (até 20 min)', preco: 'R$ 550', prazo: '3 dias' },
+        { nome: 'Pack 10 Reels', preco: 'R$ 2.400', prazo: '7 dias' },
+        { nome: 'Edição VSL / Long Form', preco: 'R$ 890', prazo: '4 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&auto=format', label: 'Reels Pack' },
+        { thumb: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&auto=format', label: 'YouTube Edit' },
+        { thumb: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=400&auto=format', label: 'Criativos Tráfego' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Fernanda C.', nota: 5, servico: 'Pack 10 Reels', prazoP: '7 dias', prazoE: '6 dias', texto: 'Entregaram antes, todos os vídeos com retenção acima de 70%. Incrível.', rec: 'sim' },
+        { autor: 'Diego S.', nota: 5, servico: 'Edição YouTube', prazoP: '3 dias', prazoE: '3 dias', texto: 'Qualidade de edição muito acima do preço cobrado.', rec: 'sim' },
+      ],
+      denuncias: [],
+    },
+    {
+      id: 'roteirosao',
+      nome: 'Roteiros & Copy AO',
+      emoji: '📝',
+      tipo: 'Roteiro',
+      status: 'novo',
+      nota: 4.5, avaliacoes: 34, prazo: '2–3 dias', precoInicial: 'R$ 350',
+      score: 72, tempoPlataforma: '4 meses',
+      descricao: 'Roteiros estratégicos para VSL, UGC e criativos. Copy baseada em neurociência do consumidor e gatilhos de autoridade. Cada roteiro entregue com análise de objeções e mapa de emoção.',
+      scoreDetalhe: { 'Entrega no prazo': 78, 'Qualidade': 80, 'Comunicação': 72, 'Cumpriu o combinado': 70, 'Reclamações resolvidas': 50 },
+      servicos: [
+        { nome: 'Roteiro UGC (60s)', preco: 'R$ 350', prazo: '2 dias' },
+        { nome: 'Roteiro VSL (15 min)', preco: 'R$ 1.100', prazo: '3 dias' },
+        { nome: 'Pack 5 Roteiros UGC', preco: 'R$ 1.500', prazo: '5 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400&auto=format', label: 'Roteiro VSL' },
+        { thumb: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=400&auto=format', label: 'Roteiro UGC' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Paulo H.', nota: 5, servico: 'Roteiro VSL', prazoP: '3 dias', prazoE: '3 dias', texto: 'Roteiro muito bem estruturado, clareza total na copy.', rec: 'sim' },
+        { autor: 'Camila V.', nota: 3, servico: 'Pack 5 Roteiros', prazoP: '5 dias', prazoE: '7 dias', texto: 'Qualidade ok mas atrasou e a comunicação foi fraca.', rec: 'nao' },
+      ],
+      denuncias: [
+        { motivo: 'Entregou fora do prazo', desc: 'Atrasou 2 dias e não avisou.', status: 'em análise', data: '2025-01' },
+      ],
+    },
+    {
+      id: 'anunciolab',
+      nome: 'Anúncio Lab',
+      emoji: '🎯',
+      tipo: 'Criativos para anúncios',
+      status: 'verificado',
+      nota: 4.6, avaliacoes: 198, prazo: '3–6 dias', precoInicial: 'R$ 390',
+      score: 85, tempoPlataforma: '1 ano e 2 meses',
+      descricao: 'Criativos estáticos e em vídeo para Meta Ads, Google Ads e TikTok Ads. Cada criativo produzido com análise do avatar, copy persuasiva e teste A/B incluso. Foco em CTR acima de 3%.',
+      scoreDetalhe: { 'Entrega no prazo': 88, 'Qualidade': 87, 'Comunicação': 85, 'Cumpriu o combinado': 84, 'Reclamações resolvidas': 75 },
+      servicos: [
+        { nome: 'Pack 5 criativos estáticos', preco: 'R$ 390', prazo: '3 dias' },
+        { nome: 'Pack 3 vídeos criativos (30s)', preco: 'R$ 890', prazo: '5 dias' },
+        { nome: 'Criativo + Copy Meta Ads', preco: 'R$ 580', prazo: '4 dias' },
+        { nome: 'Pack completo (10 criativos)', preco: 'R$ 1.800', prazo: '6 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format', label: 'Meta Ads Pack' },
+        { thumb: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=400&auto=format', label: 'TikTok Criativos' },
+        { thumb: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format', label: 'Google Ads' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Renata K.', nota: 5, servico: 'Pack completo', prazoP: '6 dias', prazoE: '5 dias', texto: 'CTR médio de 4.1%. Melhor investimento que fiz em criativos.', rec: 'sim' },
+        { autor: 'Thiago M.', nota: 4, servico: 'Pack 5 estáticos', prazoP: '3 dias', prazoE: '3 dias', texto: 'Bom trabalho, copy poderia ser mais agressiva mas design excelente.', rec: 'sim' },
+        { autor: 'Juliana R.', nota: 4, servico: 'Criativo + Copy', prazoP: '4 dias', prazoE: '4 dias', texto: 'Entrega pontual e comunicação proativa.', rec: 'sim' },
+      ],
+      denuncias: [],
+    },
+    {
+      id: 'videomakersplus',
+      nome: 'VideoMakers Plus',
+      emoji: '🎥',
+      tipo: 'UGC',
+      status: 'analise',
+      nota: 3.2, avaliacoes: 67, prazo: '5–8 dias', precoInicial: 'R$ 320',
+      score: 41, tempoPlataforma: '10 meses',
+      descricao: 'Produção de vídeos UGC e edição para redes sociais. Em processo de análise por denúncias recentes.',
+      scoreDetalhe: { 'Entrega no prazo': 42, 'Qualidade': 55, 'Comunicação': 38, 'Cumpriu o combinado': 40, 'Reclamações resolvidas': 30 },
+      servicos: [
+        { nome: 'UGC 1 vídeo', preco: 'R$ 320', prazo: '5 dias' },
+        { nome: 'Pack 3 vídeos', preco: 'R$ 870', prazo: '8 dias' },
+      ],
+      portfolio: [
+        { thumb: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&auto=format', label: 'UGC Produto' },
+      ],
+      avaliacoesLista: [
+        { autor: 'Marcos L.', nota: 2, servico: 'Pack 3 vídeos', prazoP: '8 dias', prazoE: '15 dias', texto: 'Atrasou muito e qualidade bem abaixo do prometido.', rec: 'nao' },
+        { autor: 'Sofia B.', nota: 4, servico: 'UGC 1 vídeo', prazoP: '5 dias', prazoE: '5 dias', texto: 'Entregou no prazo mas revisões foram difíceis.', rec: 'sim' },
+        { autor: 'Igor P.', nota: 2, servico: 'Pack 3 vídeos', prazoP: '8 dias', prazoE: '14 dias', texto: 'Não cumprido o briefing. Produto foi entregue errado.', rec: 'nao' },
+      ],
+      denuncias: [
+        { motivo: 'Entregou fora do prazo', desc: 'Atrasou 7 dias sem comunicação.', status: 'confirmada', data: '2025-01' },
+        { motivo: 'Prometeu uma coisa e entregou outra', desc: 'Material entregue não seguiu o briefing acordado.', status: 'confirmada', data: '2025-02' },
+        { motivo: 'Recebeu e sumiu', desc: 'Sumiu após receber 50% do pagamento por 10 dias.', status: 'em análise', data: '2025-03' },
+      ],
+    },
+  ];
+
+  let _state  = { filter: 'Todos', openId: null, starRating: 0 };
+  let _filterBar, _grid, _detail, _detailName, _detailBody;
+  let _contactModal, _reportModal, _rateModal, _toast, _toastTimer;
+
+  /* ─── INIT ─── */
+  function init() {
+    _filterBar   = document.getElementById('ugcFilterBar');
+    _grid        = document.getElementById('ugcGrid');
+    _detail      = document.getElementById('ugcDetail');
+    _detailName  = document.getElementById('ugcDetailName');
+    _detailBody  = document.getElementById('ugcDetailBody');
+    _contactModal = document.getElementById('ugcContactModal');
+    _reportModal  = document.getElementById('ugcReportModal');
+    _rateModal    = document.getElementById('ugcRateModal');
+    _toast        = document.getElementById('ugcToast');
+    if (!_filterBar) return;
+
+    _renderFilterBar();
+    _renderGrid();
+
+    /* Filter clicks */
+    _filterBar.addEventListener('click', e => {
+      const chip = e.target.closest('.ugc-fc');
+      if (!chip) return;
+      _filterBar.querySelectorAll('.ugc-fc').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _state.filter = chip.dataset.v;
+      _renderGrid();
+    });
+
+    /* Grid: "Saiba Mais" */
+    _grid.addEventListener('click', e => {
+      const btn = e.target.closest('[data-open]');
+      if (btn) _openDetail(btn.dataset.open);
+    });
+
+    /* Back button */
+    document.getElementById('ugcBackBtn')?.addEventListener('click', _closeDetail);
+
+    /* Detail body: delegated clicks */
+    _detailBody.addEventListener('click', e => {
+      if (e.target.closest('#ugcBtnConversar')) { _openContact(); return; }
+      if (e.target.closest('#ugcBtnDenunciar')) { _openReport(); return; }
+      if (e.target.closest('#ugcBtnAvaliar'))   { _openRate();   return; }
+    });
+
+    /* Contact modal */
+    document.getElementById('ugcContactCancel')?.addEventListener('click',  () => _contactModal.style.display = 'none');
+    document.getElementById('ugcContactConfirm')?.addEventListener('click', () => {
+      _contactModal.style.display = 'none';
+      _showToast('✅ Redirecionando para o canal de contato da empresa...');
+    });
+
+    /* Report modal */
+    document.getElementById('ugcReportCancel')?.addEventListener('click', () => _reportModal.style.display = 'none');
+    document.getElementById('ugcReportSubmit')?.addEventListener('click', () => {
+      const motivo = document.getElementById('ugcReportMotivo').value;
+      const desc   = document.getElementById('ugcReportDesc').value.trim();
+      const conf   = document.getElementById('ugcReportConfirm').checked;
+      if (!motivo) { _showToast('⚠️ Selecione o motivo da denúncia.'); return; }
+      if (!desc)   { _showToast('⚠️ Descreva o que aconteceu.'); return; }
+      if (!conf)   { _showToast('⚠️ Confirme a veracidade das informações.'); return; }
+      _reportModal.style.display = 'none';
+      _showToast('📋 Denúncia recebida. Será analisada em até 5 dias úteis.');
+    });
+
+    /* Rate modal — star input */
+    document.getElementById('ugcStarInput')?.addEventListener('click', e => {
+      const btn = e.target.closest('[data-v]');
+      if (!btn) return;
+      _state.starRating = parseInt(btn.dataset.v, 10);
+      document.querySelectorAll('#ugcStarInput [data-v]').forEach(b => {
+        b.classList.toggle('active', parseInt(b.dataset.v, 10) <= _state.starRating);
+      });
+    });
+    document.getElementById('ugcRateCancel')?.addEventListener('click', () => _rateModal.style.display = 'none');
+    document.getElementById('ugcRateSubmit')?.addEventListener('click', () => {
+      const coment  = document.getElementById('ugcRateComent').value.trim();
+      const servico = document.getElementById('ugcRateServico').value.trim();
+      if (!_state.starRating) { _showToast('⚠️ Selecione uma nota de 1 a 5.'); return; }
+      if (!servico) { _showToast('⚠️ Informe o serviço contratado.'); return; }
+      if (!coment)  { _showToast('⚠️ Escreva um comentário.'); return; }
+      _rateModal.style.display = 'none';
+      _showToast('⭐ Avaliação publicada. Obrigado pelo feedback!');
+    });
+
+    /* Close modals on backdrop click */
+    [_contactModal, _reportModal, _rateModal].forEach(m => {
+      m?.addEventListener('click', e => { if (e.target === m) m.style.display = 'none'; });
+    });
+  }
+
+  /* ─── FILTER BAR ─── */
+  function _renderFilterBar() {
+    _filterBar.innerHTML = FILTERS.map(f =>
+      `<button class="ugc-fc${f === _state.filter ? ' active' : ''}" data-v="${_e(f)}">${_e(f)}</button>`
+    ).join('');
+  }
+
+  /* ─── GRID ─── */
+  function _renderGrid() {
+    const f = _state.filter;
+    let list = [...PROVIDERS].filter(p => p.status !== 'suspenso' && p.status !== 'banido');
+    if (f === 'Todos') { /* all */ }
+    else if (f === 'Melhor score')    list.sort((a,b) => b.score - a.score);
+    else if (f === 'Melhor avaliado') list.sort((a,b) => b.nota - a.nota);
+    else if (f === 'Menor prazo')     list.sort((a,b) => _minDays(a.prazo) - _minDays(b.prazo));
+    else if (f === 'Verificados')     list = list.filter(p => p.status === 'verificado' || p.status === 'destaque');
+    else list = list.filter(p => p.tipo.toLowerCase() === f.toLowerCase() || p.tipo === f);
+
+    if (!list.length) {
+      _grid.innerHTML = `<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum prestador neste filtro</div></div>`;
+      return;
+    }
+    _grid.innerHTML = list.map(_buildCard).join('');
+  }
+
+  function _minDays(prazo) {
+    const m = prazo.match(/\d+/);
+    return m ? parseInt(m[0], 10) : 999;
+  }
+
+  /* ─── CARD ─── */
+  function _buildCard(p) {
+    const scoreClass = p.score >= 80 ? 'high' : p.score >= 60 ? 'mid' : 'low';
+    return `<div class="ugc-card">
+      <div class="ugc-card-top">
+        <div class="ugc-logo">${p.emoji}</div>
+        <div class="ugc-card-info">
+          <div class="ugc-card-name">${_e(p.nome)}</div>
+          <div class="ugc-card-type">${_e(p.tipo)}</div>
+        </div>
+        ${_badgeHtml(p.status)}
+      </div>
+      <div class="ugc-card-score">
+        <span class="ugc-sbar-label">SCORE</span>
+        <div class="ugc-sbar-track"><div class="ugc-sbar-fill ${scoreClass}" style="width:${p.score}%"></div></div>
+        <span class="ugc-sbar-num">${p.score}</span>
+      </div>
+      <div class="ugc-card-meta">
+        <div class="ugc-meta-item"><span class="ugc-meta-lbl">A PARTIR DE</span><span class="ugc-meta-val">${_e(p.precoInicial)}</span></div>
+        <div class="ugc-meta-item"><span class="ugc-meta-lbl">PRAZO MÉD.</span><span class="ugc-meta-val">${_e(p.prazo)}</span></div>
+      </div>
+      <div class="ugc-card-rating">
+        <span class="ugc-stars">${_starsHtml(p.nota)}</span>
+        <span class="ugc-nota">${p.nota.toFixed(1)}</span>
+        <span class="ugc-rev-count">(${p.avaliacoes} avaliações)</span>
+      </div>
+      <div class="ugc-card-cta">
+        <button class="ugc-btn-saib" data-open="${_e(p.id)}">Saiba Mais</button>
+      </div>
+    </div>`;
+  }
+
+  function _badgeHtml(status) {
+    const map = {
+      verificado: ['ugc-badge-verificado', '✔ Verificado'],
+      destaque:   ['ugc-badge-destaque',   '★ Destaque'],
+      novo:       ['ugc-badge-novo',        '✦ Novo'],
+      analise:    ['ugc-badge-analise',     '⚠ Em análise'],
+      suspenso:   ['ugc-badge-suspenso',    '✕ Suspenso'],
+    };
+    const [cls, label] = map[status] || map.verificado;
+    return `<span class="ugc-badge ${cls}">${label}</span>`;
+  }
+
+  function _starsHtml(nota) {
+    const full  = Math.floor(nota);
+    const half  = nota - full >= 0.5 ? 1 : 0;
+    return '⭐'.repeat(full) + (half ? '✨' : '') ;
+  }
+
+  /* ─── DETAIL ─── */
+  function _openDetail(id) {
+    const p = PROVIDERS.find(x => x.id === id);
+    if (!p) return;
+    _state.openId = id;
+    _detailName.textContent = p.nome;
+    _detailBody.innerHTML   = _buildDetailBody(p);
+    _detail.classList.add('open');
+    _detail.scrollTop = 0;
+  }
+
+  function _closeDetail() {
+    _detail.classList.remove('open');
+    _state.openId = null;
+  }
+
+  function _buildDetailBody(p) {
+    const scoreClass = p.score >= 80 ? 'high' : p.score >= 60 ? 'mid' : 'low';
+    return `
+      <!-- Hero row -->
+      <div class="ugc-detail-hero-row">
+        <div class="ugc-detail-logo">${p.emoji}</div>
+        <div class="ugc-detail-intro">
+          <h2>${_e(p.nome)}</h2>
+          <div class="ugc-detail-badges">${_badgeHtml(p.status)}</div>
+          <p class="ugc-detail-desc">${_e(p.descricao)}</p>
+          <div style="font-size:12px;color:#9ca3af;margin-top:8px">⏱ ${_e(p.tempoPlataforma)} na plataforma</div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="ugc-detail-actions">
+        <button class="ugc-btn-conversar" id="ugcBtnConversar">💬 Conversar com a empresa</button>
+        <button class="ugc-btn-avaliar"   id="ugcBtnAvaliar">⭐ Avaliar</button>
+        <button class="ugc-btn-denunciar" id="ugcBtnDenunciar">⚠ Denunciar</button>
+      </div>
+
+      <!-- Score global -->
+      <div>
+        <div class="ugc-ds-title">Score de confiança</div>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          <div style="font-size:44px;font-weight:950;color:${p.score>=80?'#059669':p.score>=60?'#d97706':'#dc2626'}">${p.score}</div>
+          <div style="flex:1">
+            <div class="ugc-sbar-track" style="height:10px"><div class="ugc-sbar-fill ${scoreClass}" style="width:${p.score}%"></div></div>
+            <div style="font-size:11px;color:#9ca3af;margin-top:4px">0–100 · Baseado em entregas, avaliações e denúncias</div>
+          </div>
+        </div>
+        <div class="ugc-score-grid">
+          ${Object.entries(p.scoreDetalhe).map(([k,v]) => {
+            const fc = v>=80?'#10b981':v>=60?'#f59e0b':'#ef4444';
+            return `<div class="ugc-score-item">
+              <div class="ugc-score-item-lbl">${_e(k)}</div>
+              <div class="ugc-score-item-bar"><div class="ugc-score-item-fill" style="width:${v}%;background:${fc}"></div></div>
+              <div class="ugc-score-item-val">${v}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Serviços -->
+      <div>
+        <div class="ugc-ds-title">Serviços & preços</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          ${p.servicos.map(s => `
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#f9fafb;border-radius:12px;padding:12px 16px">
+              <div>
+                <div style="font-size:13px;font-weight:900;color:#111">${_e(s.nome)}</div>
+                <div style="font-size:11px;color:#9ca3af;margin-top:2px">⏱ Prazo: ${_e(s.prazo)}</div>
+              </div>
+              <div style="font-size:15px;font-weight:950;color:#059669">${_e(s.preco)}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Portfolio -->
+      <div>
+        <div class="ugc-ds-title">Portfólio</div>
+        <div class="ugc-portfolio-grid">
+          ${p.portfolio.map(item => `
+            <div class="ugc-portfolio-thumb">
+              <img src="${_e(item.thumb)}" alt="${_e(item.label)}" loading="lazy">
+              <div class="ugc-portfolio-thumb-play">▶</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Avaliações -->
+      <div>
+        <div class="ugc-ds-title">Avaliações (${p.avaliacoesLista.length})</div>
+        <div class="ugc-reviews-list">
+          ${p.avaliacoesLista.map(av => `
+            <div class="ugc-review-item">
+              <div class="ugc-review-top">
+                <span class="ugc-review-author">${_e(av.autor)}</span>
+                <span class="ugc-review-nota">${'⭐'.repeat(av.nota)}</span>
+              </div>
+              <div class="ugc-review-servico">Serviço: ${_e(av.servico)}</div>
+              <p class="ugc-review-text">${_e(av.texto)}</p>
+              <div class="ugc-review-prazo">Prazo prometido: ${_e(av.prazoP)} · Entregue em: ${_e(av.prazoE)}</div>
+              <div class="ugc-review-rec ${av.rec === 'nao' ? 'no' : ''}">${av.rec === 'sim' ? '👍 Recomenda' : '👎 Não recomenda'}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Histórico de denúncias -->
+      ${p.denuncias.length ? `
+      <div>
+        <div class="ugc-ds-title">Histórico de denúncias (${p.denuncias.length})</div>
+        <div class="ugc-complaint-list">
+          ${p.denuncias.map(d => `
+            <div class="ugc-complaint-item ${d.status === 'resolvido' ? 'resolved' : ''}">
+              <div class="ugc-complaint-top">
+                <span class="ugc-complaint-motivo ${d.status === 'resolvido' ? 'resolved' : ''}">${_e(d.motivo)}</span>
+                <span class="ugc-complaint-status" style="background:${d.status==='confirmada'?'#fee2e2':d.status==='resolvido'?'#d1fae5':'#fef3c7'};color:${d.status==='confirmada'?'#dc2626':d.status==='resolvido'?'#059669':'#d97706'}">${_e(d.status)}</span>
+              </div>
+              <p class="ugc-complaint-desc">${_e(d.desc)} <span style="color:#b0b8c4;font-size:11px">${_e(d.data)}</span></p>
+            </div>`).join('')}
+        </div>
+      </div>` : ''}
+    `;
+  }
+
+  /* ─── MODALS ─── */
+  function _openContact() { _contactModal.style.display = 'flex'; }
+  function _openReport()  { _reportModal.style.display  = 'flex'; }
+  function _openRate() {
+    _state.starRating = 0;
+    document.querySelectorAll('#ugcStarInput [data-v]').forEach(b => b.classList.remove('active'));
+    ['ugcRateServico','ugcRatePrazoP','ugcRatePrazoE','ugcRateComent'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('ugcRateRec').value = '';
+    _rateModal.style.display = 'flex';
+  }
+
+  /* ─── TOAST ─── */
+  function _showToast(msg) {
+    _toast.textContent = msg;
+    _toast.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => _toast.classList.remove('show'), 3500);
+  }
+
+  /* ─── HELPERS ─── */
+  function _e(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  return { init };
+})();
+
+/**
  * THAY FUNNEL BUILDER — BOOTSTRAP
  * Ponto de entrada: inicializa todos os módulos após DOMContentLoaded
  */
@@ -3242,6 +4156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.AiOrbs.init();
   ThayApp.SalesPageEditor.init();
   ThayApp.AffiliateMarket.init();
+  ThayApp.UgcMarket.init();
 });
 
 
