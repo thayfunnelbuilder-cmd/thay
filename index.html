@@ -1350,6 +1350,142 @@ body {
 .project-more-btn:hover,
 .project-delete-menu-btn:hover { transform: translateY(-2px); }
 
+/* ── FUNNEL GEAR BUTTON ── */
+.project-gear-btn {
+  position: absolute; right: 30px; top: 76px;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid #e8ecf0;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  cursor: pointer; display: grid; place-items: center;
+  color: #9ca3af; z-index: 2; padding: 0;
+  transition: border-color .15s, box-shadow .15s, background .15s, color .15s;
+}
+.project-gear-btn:hover {
+  border-color: #bfdbfe;
+  background: rgba(239,246,255,.96);
+  box-shadow: 0 4px 14px rgba(0,119,255,.13);
+  color: #0077ff;
+}
+.project-gear-btn svg { display: block; transition: transform .45s ease; }
+.project-gear-btn:hover svg { transform: rotate(65deg); }
+
+/* ── FUNNEL SETTINGS PANEL ── */
+.fsp-overlay {
+  position: fixed; inset: 0; z-index: 250;
+  background: rgba(5,5,5,.22); backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .22s;
+}
+.fsp-overlay.open { opacity: 1; pointer-events: auto; }
+
+.fsp-panel {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(520px, 100vw); background: #fff; z-index: 251;
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 48px rgba(0,0,0,.11);
+  transform: translateX(100%); transition: transform .28s cubic-bezier(.22,.68,0,1.2);
+}
+.fsp-panel.open { transform: translateX(0); }
+
+.fsp-head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; border-bottom: 1px solid #f0f3f6; flex-shrink: 0;
+}
+.fsp-close {
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid #e5eaef; background: transparent;
+  font-size: 18px; cursor: pointer; display: grid; place-items: center;
+  color: #6b7280; transition: .12s; flex-shrink: 0;
+}
+.fsp-close:hover { background: #f5f7f9; color: #111; }
+.fsp-head-info { flex: 1; min-width: 0; }
+.fsp-fname { font-size: 15px; font-weight: 950; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fsp-fsub  { font-size: 11px; font-weight: 700; color: #9ca3af; margin-top: 1px; }
+
+.fsp-body { display: flex; flex: 1; overflow: hidden; }
+
+.fsp-nav {
+  width: 168px; flex-shrink: 0; padding: 12px 0;
+  border-right: 1px solid #f0f3f6; overflow-y: auto;
+}
+.fsp-nav-btn {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 9px 18px; border: none; background: transparent;
+  font-size: 11.5px; font-weight: 800; color: #6b7280;
+  cursor: pointer; font-family: inherit; text-align: left;
+  border-left: 3px solid transparent; transition: .1s;
+}
+.fsp-nav-btn:hover { background: #f9fafb; color: #111; }
+.fsp-nav-btn.active { background: #f0f7ff; color: #0077ff; border-left-color: #0077ff; }
+
+.fsp-content { flex: 1; overflow-y: auto; padding: 22px 22px 32px; }
+.fsp-sec-title { font-size: 14px; font-weight: 950; color: #111; margin: 0 0 16px; }
+.fsp-field { margin-bottom: 14px; }
+.fsp-field label { display: block; font-size: 11.5px; font-weight: 800; color: #374151; margin-bottom: 5px; }
+.fsp-field input[type=text],
+.fsp-field input[type=url],
+.fsp-field input[type=email],
+.fsp-field select,
+.fsp-field textarea {
+  width: 100%; padding: 9px 12px; border: 1px solid #e5eaef; border-radius: 10px;
+  font-size: 13px; font-family: inherit; color: #111; outline: none;
+  transition: border-color .12s; box-sizing: border-box; background: #fff;
+}
+.fsp-field input:focus, .fsp-field select:focus, .fsp-field textarea:focus { border-color: #0077ff; }
+.fsp-field textarea { resize: vertical; min-height: 68px; }
+.fsp-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fsp-row2 .fsp-field { margin-bottom: 0; }
+
+.fsp-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-bottom: 1px solid #f4f5f7; gap: 12px;
+}
+.fsp-toggle-row:last-child { border-bottom: none; }
+.fsp-trow-info { flex: 1; }
+.fsp-trow-lbl { font-size: 12.5px; font-weight: 800; color: #111; }
+.fsp-trow-sub { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.fsp-mini-toggle {
+  width: 40px; height: 22px; border-radius: 99px;
+  background: #e5e7eb; border: none; cursor: pointer; padding: 2px;
+  transition: background .2s; flex-shrink: 0; position: relative;
+}
+.fsp-mini-toggle::after {
+  content: ''; width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; display: block;
+  box-shadow: 0 2px 5px rgba(0,0,0,.15); transition: transform .2s;
+}
+.fsp-mini-toggle.on { background: #0077ff; }
+.fsp-mini-toggle.on::after { transform: translateX(18px); }
+
+.fsp-badge-ok  { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 99px; background: #d1fae5; color: #059669; font-size: 10px; font-weight: 800; }
+.fsp-badge-off { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 99px; background: #fee2e2; color: #dc2626; font-size: 10px; font-weight: 800; }
+
+.fsp-log-table { width: 100%; border-collapse: collapse; }
+.fsp-log-table th { font-size: 10px; font-weight: 800; color: #9ca3af; text-align: left; padding: 5px 8px; border-bottom: 1px solid #f0f3f6; letter-spacing: .4px; text-transform: uppercase; }
+.fsp-log-table td { font-size: 11.5px; color: #374151; padding: 8px 8px; border-bottom: 1px solid #f9fafb; vertical-align: top; }
+.fsp-log-table tr:last-child td { border-bottom: none; }
+.fsp-log-event { font-weight: 800; color: #111; }
+
+.fsp-integ-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f4f5f7; gap: 12px; }
+.fsp-integ-row:last-child { border-bottom: none; }
+.fsp-integ-info { flex: 1; }
+.fsp-integ-name { font-size: 13px; font-weight: 900; color: #111; }
+.fsp-integ-sub  { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+.fsp-connect-btn { height: 30px; padding: 0 14px; border-radius: 8px; font-size: 11px; font-weight: 800; font-family: inherit; cursor: pointer; transition: .12s; }
+.fsp-connect-btn.connected { border: 1px solid #d1fae5; background: #f0fdf4; color: #059669; }
+.fsp-connect-btn.disconnected { border: none; background: #0077ff; color: #fff; }
+.fsp-connect-btn.disconnected:hover { opacity: .85; }
+
+.fsp-save-bar { padding: 14px 22px; border-top: 1px solid #f0f3f6; flex-shrink: 0; }
+.fsp-save-btn {
+  width: 100%; height: 40px; border-radius: 10px;
+  border: none; background: #050505; color: #fff;
+  font-size: 12.5px; font-weight: 900; font-family: inherit; cursor: pointer;
+  transition: opacity .15s;
+}
+.fsp-save-btn:hover { opacity: .82; }
+
 /* ── FUNNEL DASHBOARD MODAL ── */
 .funnel-dashboard-modal { display: none; margin-top: 34px; padding: 0 20px 28px; }
 .funnel-dashboard-modal.open { display: block; }
@@ -2727,6 +2863,9 @@ body {
       <article class="project-card active">
         <div class="card-icon">▣</div>
         <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <button class="project-gear-btn" type="button" aria-label="Configurações do funil" data-funnel="Lançamento Infoproduto">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
         <h3>Lançamento Infoproduto</h3><small>2 HORAS ATRÁS</small>
         <div class="progress"><span style="width:58%"></span></div><b>ATIVO</b>
         <div class="project-actions">
@@ -2744,6 +2883,9 @@ body {
       <article class="project-card active">
         <div class="card-icon">▣</div>
         <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <button class="project-gear-btn" type="button" aria-label="Configurações do funil" data-funnel="High Ticket Coaching">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
         <h3>High Ticket Coaching</h3><small>ONTEM ÀS 14:00</small>
         <div class="progress"><span style="width:60%"></span></div><b>ATIVO</b>
         <div class="project-actions">
@@ -2761,6 +2903,9 @@ body {
       <article class="project-card active">
         <div class="card-icon">▣</div>
         <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <button class="project-gear-btn" type="button" aria-label="Configurações do funil" data-funnel="Clínica Estética Premium">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
         <h3>Clínica Estética Premium</h3><small>PRONTO PARA TESTE</small>
         <div class="progress"><span style="width:62%"></span></div><b>ATIVO</b>
         <div class="project-actions">
@@ -2778,6 +2923,9 @@ body {
       <article class="project-card">
         <div class="card-icon">▣</div>
         <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <button class="project-gear-btn" type="button" aria-label="Configurações do funil" data-funnel="Assinatura Recorrente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
         <h3>Assinatura Recorrente</h3><small>3 DIAS ATRÁS</small>
         <div class="progress"><span style="width:58%"></span></div><b>PAUSADO</b>
         <div class="project-actions">
@@ -2795,6 +2943,9 @@ body {
       <article class="project-card active">
         <div class="card-icon">▣</div>
         <button class="project-toggle" type="button" aria-label="Ativar ou pausar funil"></button>
+        <button class="project-gear-btn" type="button" aria-label="Configurações do funil" data-funnel="Produto Afiliado • Método Shape">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
         <h3>Produto Afiliado • Método Shape</h3><small>FUNIL PRONTO PARA ANÚNCIOS</small>
         <div class="progress"><span style="width:60%"></span></div><b>ATIVO</b>
         <div class="project-actions">
@@ -2810,6 +2961,25 @@ body {
       </article>
     </div>
   </section>
+
+  <!-- Funnel settings panel (shared, one per session) -->
+  <div class="fsp-overlay" id="fspOverlay"></div>
+  <div class="fsp-panel" id="fspPanel">
+    <div class="fsp-head">
+      <button class="fsp-close" id="fspClose" aria-label="Fechar">✕</button>
+      <div class="fsp-head-info">
+        <div class="fsp-fname" id="fspFunnelName">Funil</div>
+        <div class="fsp-fsub">Configurações do funil</div>
+      </div>
+    </div>
+    <div class="fsp-body">
+      <nav class="fsp-nav" id="fspNav"></nav>
+      <div class="fsp-content" id="fspContent"></div>
+    </div>
+    <div class="fsp-save-bar">
+      <button class="fsp-save-btn" id="fspSaveBtn">Salvar configurações</button>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════
        SALES PAGE EDITOR
@@ -5356,6 +5526,437 @@ ThayApp.PrlMarket = (function () {
 })();
 
 /**
+ * THAY FUNNEL BUILDER — FUNNEL SETTINGS
+ * Engrenagem discreta por card → painel lateral com 12 seções de configuração.
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.FunnelSettings = (function () {
+  'use strict';
+
+  const SECTIONS = [
+    { id: 'dominio',     icon: '🌐', label: 'Domínio' },
+    { id: 'checkout',    icon: '💳', label: 'Checkout' },
+    { id: 'pixel',       icon: '📡', label: 'Pixel' },
+    { id: 'email',       icon: '✉️',  label: 'E-mail' },
+    { id: 'whatsapp',    icon: '💬', label: 'WhatsApp / API' },
+    { id: 'webhooks',    icon: '🔗', label: 'Webhooks' },
+    { id: 'automacoes',  icon: '⚡', label: 'Automações' },
+    { id: 'seo',         icon: '🔍', label: 'SEO' },
+    { id: 'publicacao',  icon: '🚀', label: 'Publicação' },
+    { id: 'integracoes', icon: '🔌', label: 'Integrações' },
+    { id: 'permissoes',  icon: '🔑', label: 'Permissões' },
+    { id: 'logs',        icon: '📋', label: 'Logs' },
+  ];
+
+  let _overlay, _panel, _nav, _content, _funnelName, _saveBtn;
+  let _currentFunnel = '';
+  let _activeSection = 'dominio';
+
+  function init() {
+    _overlay    = document.getElementById('fspOverlay');
+    _panel      = document.getElementById('fspPanel');
+    _nav        = document.getElementById('fspNav');
+    _content    = document.getElementById('fspContent');
+    _funnelName = document.getElementById('fspFunnelName');
+    _saveBtn    = document.getElementById('fspSaveBtn');
+    if (!_panel) return;
+
+    /* Open panel via gear button (event delegation on whole document) */
+    document.addEventListener('click', e => {
+      const gear = e.target.closest('.project-gear-btn');
+      if (gear) {
+        e.stopPropagation();
+        _open(gear.dataset.funnel || 'Funil');
+      }
+    });
+
+    /* Close */
+    document.getElementById('fspClose')?.addEventListener('click', _close);
+    _overlay.addEventListener('click', _close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && _panel.classList.contains('open')) _close(); });
+
+    /* Nav clicks */
+    _nav.addEventListener('click', e => {
+      const btn = e.target.closest('[data-sec]');
+      if (!btn) return;
+      _activeSection = btn.dataset.sec;
+      _nav.querySelectorAll('.fsp-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.sec === _activeSection));
+      _renderContent();
+    });
+
+    /* Toggle clicks inside content */
+    _content.addEventListener('click', e => {
+      const toggle = e.target.closest('.fsp-mini-toggle');
+      if (toggle) toggle.classList.toggle('on');
+    });
+
+    /* Integration connect/disconnect */
+    _content.addEventListener('click', e => {
+      const btn = e.target.closest('.fsp-connect-btn');
+      if (!btn) return;
+      if (btn.classList.contains('connected')) {
+        btn.classList.replace('connected', 'disconnected');
+        btn.textContent = 'Conectar';
+        const badge = btn.closest('.fsp-integ-row')?.querySelector('.fsp-badge-ok');
+        if (badge) { badge.className = 'fsp-badge-off'; badge.textContent = '✕ Desconectado'; }
+      } else {
+        btn.classList.replace('disconnected', 'connected');
+        btn.textContent = 'Desconectar';
+        const badge = btn.closest('.fsp-integ-row')?.querySelector('.fsp-badge-off');
+        if (badge) { badge.className = 'fsp-badge-ok'; badge.textContent = '✔ Conectado'; }
+      }
+    });
+
+    /* Save */
+    _saveBtn?.addEventListener('click', () => {
+      _saveBtn.textContent = '✓ Salvo!';
+      _saveBtn.style.background = '#059669';
+      setTimeout(() => { _saveBtn.textContent = 'Salvar configurações'; _saveBtn.style.background = ''; }, 1800);
+    });
+  }
+
+  function _open(funnelName) {
+    _currentFunnel = funnelName;
+    _funnelName.textContent = funnelName;
+    _activeSection = 'dominio';
+    _renderNav();
+    _renderContent();
+    _overlay.classList.add('open');
+    _panel.classList.add('open');
+  }
+
+  function _close() {
+    _overlay.classList.remove('open');
+    _panel.classList.remove('open');
+  }
+
+  function _renderNav() {
+    _nav.innerHTML = SECTIONS.map(s =>
+      `<button class="fsp-nav-btn${s.id === _activeSection ? ' active' : ''}" data-sec="${s.id}">
+        <span>${s.icon}</span>${s.label}
+      </button>`
+    ).join('');
+  }
+
+  function _renderContent() {
+    const fn = _sections[_activeSection];
+    _content.innerHTML = fn ? fn(_currentFunnel) : '';
+  }
+
+  /* ─── SECTION RENDERERS ─── */
+  const _sections = {
+    dominio: () => `
+      <h2 class="fsp-sec-title">🌐 Domínio</h2>
+      <div class="fsp-field">
+        <label>Domínio personalizado</label>
+        <input type="url" placeholder="ex: meusite.com.br" value="">
+      </div>
+      <div class="fsp-field">
+        <label>Subdomínio THAY (padrão)</label>
+        <input type="text" value="funil-${_slug(_currentFunnel)}.thay.io" readonly style="background:#f9fafb;color:#9ca3af">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info">
+          <div class="fsp-trow-lbl">SSL ativo</div>
+          <div class="fsp-trow-sub">Certificado HTTPS automático</div>
+        </div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info">
+          <div class="fsp-trow-lbl">Redirecionar www → raiz</div>
+          <div class="fsp-trow-sub">ex: www.meusite.com → meusite.com</div>
+        </div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>`,
+
+    checkout: () => `
+      <h2 class="fsp-sec-title">💳 Checkout</h2>
+      <div class="fsp-field">
+        <label>Plataforma de pagamento</label>
+        <select>
+          <option>Hotmart</option><option>Kiwify</option><option>Eduzz</option>
+          <option>Monetizze</option><option>Checkout próprio</option>
+        </select>
+      </div>
+      <div class="fsp-field">
+        <label>URL do checkout</label>
+        <input type="url" placeholder="https://pay.hotmart.com/...">
+      </div>
+      <div class="fsp-field">
+        <label>Produto ID / SKU</label>
+        <input type="text" placeholder="ex: HOT_12345">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Order bump ativo</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Upsell pós-compra</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Pix habilitado</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Boleto habilitado</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>`,
+
+    pixel: () => `
+      <h2 class="fsp-sec-title">📡 Pixel</h2>
+      <div class="fsp-field">
+        <label>Meta Pixel ID</label>
+        <input type="text" placeholder="ex: 1234567890123">
+      </div>
+      <div class="fsp-field">
+        <label>API de Conversões (token)</label>
+        <input type="text" placeholder="EAAxxxxx...">
+      </div>
+      <div class="fsp-field">
+        <label>Google Analytics (GA4)</label>
+        <input type="text" placeholder="G-XXXXXXXXXX">
+      </div>
+      <div class="fsp-field">
+        <label>TikTok Pixel ID</label>
+        <input type="text" placeholder="CXXXXXXXXXXXXXXX">
+      </div>
+      <div class="fsp-field">
+        <label>Google Tag Manager</label>
+        <input type="text" placeholder="GTM-XXXXXXX">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Disparar evento ViewContent</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Disparar evento Purchase</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>`,
+
+    email: () => `
+      <h2 class="fsp-sec-title">✉️ E-mail / Remetente</h2>
+      <div class="fsp-row2">
+        <div class="fsp-field"><label>Nome do remetente</label><input type="text" placeholder="ex: João da Silva"></div>
+        <div class="fsp-field"><label>E-mail remetente</label><input type="email" placeholder="joao@meusite.com"></div>
+      </div>
+      <div class="fsp-field">
+        <label>E-mail de reply-to</label>
+        <input type="email" placeholder="suporte@meusite.com">
+      </div>
+      <div class="fsp-field">
+        <label>Provedor SMTP</label>
+        <select><option>ActiveCampaign</option><option>Mailchimp</option><option>Brevo</option><option>SMTP próprio</option><option>SendGrid</option></select>
+      </div>
+      <div class="fsp-field">
+        <label>Chave de API / SMTP</label>
+        <input type="text" placeholder="sk_live_...">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">E-mail de boas-vindas automático</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Sequência de abandono de carrinho</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>`,
+
+    whatsapp: () => `
+      <h2 class="fsp-sec-title">💬 WhatsApp / API</h2>
+      <div class="fsp-field">
+        <label>Número de WhatsApp</label>
+        <input type="text" placeholder="+55 11 99999-0000">
+      </div>
+      <div class="fsp-field">
+        <label>Provedor de API</label>
+        <select><option>Evolution API</option><option>Whaticket</option><option>Z-API</option><option>Wapi</option></select>
+      </div>
+      <div class="fsp-field">
+        <label>Instance ID</label>
+        <input type="text" placeholder="inst_xxxxx">
+      </div>
+      <div class="fsp-field">
+        <label>Token de autenticação</label>
+        <input type="text" placeholder="Bearer xxx...">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Enviar confirmação de compra via WhatsApp</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Notificação de abandono de funil</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>`,
+
+    webhooks: () => `
+      <h2 class="fsp-sec-title">🔗 Webhooks</h2>
+      <div class="fsp-field">
+        <label>URL do webhook</label>
+        <input type="url" placeholder="https://meu-servidor.com/webhook">
+      </div>
+      <div class="fsp-field">
+        <label>Segredo (secret key)</label>
+        <input type="text" placeholder="sk_webhook_...">
+      </div>
+      <p style="font-size:12px;font-weight:800;color:#374151;margin:0 0 10px">Eventos a disparar:</p>
+      ${[['lead_captured','Lead capturado'],['purchase_approved','Compra aprovada'],['purchase_refunded','Reembolso solicitado'],['page_visited','Página visitada'],['funnel_completed','Funil concluído']].map(([id,lbl])=>`
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">${lbl}</div><div class="fsp-trow-sub">event: <code style="font-size:10px;background:#f3f4f6;padding:1px 5px;border-radius:4px">${id}</code></div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>`).join('')}`,
+
+    automacoes: () => `
+      <h2 class="fsp-sec-title">⚡ Automações</h2>
+      ${[
+        ['Ao capturar lead → enviar e-mail de boas-vindas', true],
+        ['Ao capturar lead → adicionar tag no provedor', true],
+        ['Ao aprovar compra → liberar acesso ao produto', true],
+        ['Ao aprovar compra → enviar mensagem WhatsApp', false],
+        ['Após 1h sem compra → disparar sequência de abandono', false],
+        ['Após 3 dias → enviar e-mail de follow-up', true],
+        ['Ao reembolso → remover acesso e notificar', true],
+        ['Ao atingir meta de vendas → notificar por e-mail', false],
+      ].map(([lbl,on])=>`
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">${lbl}</div></div>
+        <button class="fsp-mini-toggle${on?' on':''}" type="button"></button>
+      </div>`).join('')}`,
+
+    seo: () => `
+      <h2 class="fsp-sec-title">🔍 SEO</h2>
+      <div class="fsp-field">
+        <label>Título da página (Title tag)</label>
+        <input type="text" placeholder="ex: Método Shape em Casa | Resultado em 30 dias" maxlength="60">
+      </div>
+      <div class="fsp-field">
+        <label>Meta description</label>
+        <textarea placeholder="Descrição curta exibida nos resultados do Google (máx 160 caracteres)..." maxlength="160"></textarea>
+      </div>
+      <div class="fsp-field">
+        <label>URL canônica</label>
+        <input type="url" placeholder="https://meusite.com/pagina">
+      </div>
+      <div class="fsp-field">
+        <label>Imagem OG (Open Graph)</label>
+        <input type="url" placeholder="https://meusite.com/og-image.jpg">
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Indexar pelo Google</div><div class="fsp-trow-sub">robots: index, follow</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Sitemap automático</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>`,
+
+    publicacao: () => `
+      <h2 class="fsp-sec-title">🚀 Status de publicação</h2>
+      <div style="background:#f9fafb;border-radius:14px;padding:16px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:900;color:#111">Status atual</span>
+          <span class="fsp-badge-ok">✔ Publicado</span>
+        </div>
+        <div style="font-size:11px;color:#9ca3af">Última publicação: há 2 horas</div>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Funil ativo (visível ao público)</div></div>
+        <button class="fsp-mini-toggle on" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Modo manutenção</div><div class="fsp-trow-sub">Exibe página de aviso enquanto edita</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>
+      <div class="fsp-toggle-row">
+        <div class="fsp-trow-info"><div class="fsp-trow-lbl">Senha de acesso (área restrita)</div></div>
+        <button class="fsp-mini-toggle" type="button"></button>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px">
+        <button style="flex:1;height:38px;border-radius:10px;border:none;background:#0077ff;color:#fff;font-size:12px;font-weight:900;font-family:inherit;cursor:pointer">Publicar agora</button>
+        <button style="flex:1;height:38px;border-radius:10px;border:1px solid #e5eaef;background:#fff;font-size:12px;font-weight:900;font-family:inherit;cursor:pointer;color:#dc2626">Despublicar</button>
+      </div>`,
+
+    integracoes: () => `
+      <h2 class="fsp-sec-title">🔌 Integrações</h2>
+      ${[
+        { nome:'Hotmart',         sub:'Plataforma de vendas', ok:true  },
+        { nome:'ActiveCampaign',  sub:'E-mail marketing',     ok:true  },
+        { nome:'Meta Ads',        sub:'API de Conversões',    ok:true  },
+        { nome:'Google Ads',      sub:'Google Tag Manager',   ok:false },
+        { nome:'RD Station',      sub:'CRM e automação',      ok:false },
+        { nome:'Zapier',          sub:'Automações externas',  ok:false },
+        { nome:'Slack',           sub:'Notificações internas',ok:false },
+      ].map(i=>`
+      <div class="fsp-integ-row">
+        <div class="fsp-integ-info">
+          <div class="fsp-integ-name">${i.nome}</div>
+          <div class="fsp-integ-sub">${i.sub}</div>
+        </div>
+        <span class="${i.ok?'fsp-badge-ok':'fsp-badge-off'}">${i.ok?'✔ Conectado':'✕ Desconectado'}</span>
+        <button class="fsp-connect-btn ${i.ok?'connected':'disconnected'}">${i.ok?'Desconectar':'Conectar'}</button>
+      </div>`).join('')}`,
+
+    permissoes: () => `
+      <h2 class="fsp-sec-title">🔑 Permissões</h2>
+      <div class="fsp-field">
+        <label>Nível de acesso padrão</label>
+        <select>
+          <option>Somente leitura</option>
+          <option selected>Editor</option>
+          <option>Administrador</option>
+        </select>
+      </div>
+      <p style="font-size:12px;font-weight:800;color:#374151;margin:16px 0 10px">Membros com acesso:</p>
+      ${[
+        { nome:'Você (proprietário)', email:'voce@thay.io', role:'Proprietário' },
+        { nome:'Ana Lima',            email:'ana@agencia.com', role:'Editor' },
+        { nome:'Carlos Souza',        email:'cs@marca.com',    role:'Leitura' },
+      ].map(m=>`
+      <div class="fsp-integ-row">
+        <div class="fsp-integ-info">
+          <div class="fsp-integ-name">${m.nome}</div>
+          <div class="fsp-integ-sub">${m.email}</div>
+        </div>
+        <select style="height:28px;border:1px solid #e5eaef;border-radius:8px;font-size:11px;font-family:inherit;padding:0 8px;background:#fff">
+          <option${m.role==='Proprietário'?' selected':''}>Proprietário</option>
+          <option${m.role==='Administrador'?' selected':''}>Administrador</option>
+          <option${m.role==='Editor'?' selected':''}>Editor</option>
+          <option${m.role==='Leitura'?' selected':''}>Leitura</option>
+        </select>
+      </div>`).join('')}
+      <button style="margin-top:14px;height:34px;padding:0 16px;border-radius:9px;border:1px dashed #e5eaef;background:transparent;font-size:12px;font-weight:800;color:#0077ff;cursor:pointer;font-family:inherit">+ Convidar membro</button>`,
+
+    logs: () => `
+      <h2 class="fsp-sec-title">📋 Logs de atividade</h2>
+      <table class="fsp-log-table">
+        <thead><tr><th>Data</th><th>Evento</th><th>Origem</th></tr></thead>
+        <tbody>
+          ${[
+            ['Hoje 14:32','Funil publicado','Você'],
+            ['Hoje 13:10','Pixel Meta atualizado','Você'],
+            ['Hoje 11:48','Lead capturado','Visitante #4821'],
+            ['Ontem 18:22','Compra aprovada · R$ 497','Checkout'],
+            ['Ontem 16:05','Webhook disparado → compra','Automação'],
+            ['Ontem 09:33','Domínio verificado','Sistema'],
+            ['Há 3 dias 20:15','Sequência e-mail iniciada','Automação'],
+            ['Há 3 dias 10:00','Funil criado','Você'],
+          ].map(([dt,ev,or])=>`<tr><td style="color:#9ca3af;white-space:nowrap">${dt}</td><td><span class="fsp-log-event">${ev}</span></td><td>${or}</td></tr>`).join('')}
+        </tbody>
+      </table>`,
+  };
+
+  function _slug(name) {
+    return (name||'funil').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
+  return { init };
+})();
+
+/**
  * THAY FUNNEL BUILDER — BOOTSTRAP
  * Ponto de entrada: inicializa todos os módulos após DOMContentLoaded
  */
@@ -5371,6 +5972,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.AffiliateMarket.init();
   ThayApp.UgcMarket.init();
   ThayApp.PrlMarket.init();
+  ThayApp.FunnelSettings.init();
 });
 
 
