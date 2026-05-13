@@ -431,6 +431,83 @@ body {
 }
 .affiliate-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* ── MARKETPLACE TYPE SELECTOR ── */
+.mkt-type-bar { display: flex; gap: 12px; padding: 0 20px; margin-bottom: 24px; }
+.mkt-type-btn {
+  flex: 1; height: 68px; border-radius: 20px; border: 2px solid #e5eaef;
+  background: #fff; display: flex; align-items: center; gap: 14px; padding: 0 20px;
+  cursor: pointer; transition: .18s ease; font-family: inherit; text-align: left;
+}
+.mkt-type-btn:hover { border-color: #b0c8e8; box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.mkt-type-btn.active { border-color: #0077ff; background: rgba(0,119,255,.05); box-shadow: 0 8px 28px rgba(0,119,255,.14); }
+.mkt-type-icon { width: 40px; height: 40px; border-radius: 12px; background: #f5f7f9; display: grid; place-items: center; font-size: 20px; flex-shrink: 0; transition: background .18s; }
+.mkt-type-btn.active .mkt-type-icon { background: rgba(0,119,255,.12); }
+.mkt-type-name { font-size: 13.5px; font-weight: 900; color: #111; letter-spacing: -.3px; line-height: 1.2; }
+.mkt-type-desc { font-size: 11px; color: #9ca1ab; font-weight: 700; margin-top: 2px; }
+
+/* ── CHIP ROWS (nichos + filtros) ── */
+.mkt-chip-row { display: flex; gap: 8px; padding: 0 20px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+.mkt-chip-row::-webkit-scrollbar { display: none; }
+.mkt-chip {
+  height: 32px; padding: 0 14px; border-radius: 99px; border: 1px solid #e5eaef;
+  background: #fff; font-size: 11.5px; font-weight: 800; color: #6b7280;
+  cursor: pointer; white-space: nowrap; transition: .14s ease; font-family: inherit; flex-shrink: 0;
+}
+.mkt-chip:hover { border-color: #0077ff; color: #0077ff; }
+.mkt-chip.active { background: #050505; color: #fff; border-color: #050505; }
+.mkt-chip.active-blue { background: linear-gradient(180deg, #45adff, #0077ff); color: #fff; border-color: transparent; box-shadow: 0 5px 14px rgba(0,119,255,.24); }
+
+/* ── ADAPTIVE CARDS GRID ── */
+.mkt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 20px; padding: 0 20px 32px; }
+
+.mkt-card {
+  border-radius: 26px; background: #fff; border: 1px solid #e8edf2;
+  box-shadow: 0 12px 32px rgba(0,0,0,.05); overflow: hidden; transition: .18s ease; position: relative;
+}
+.mkt-card:hover { transform: translateY(-3px); box-shadow: 0 22px 48px rgba(0,0,0,.09); }
+
+.mkt-card-cover { height: 186px; position: relative; overflow: hidden; background: #eef3f8; }
+.mkt-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mkt-card-tag {
+  position: absolute; top: 14px; left: 14px; height: 27px; padding: 0 12px; border-radius: 999px;
+  background: rgba(5,5,5,.85); backdrop-filter: blur(8px); color: #fff;
+  font-size: 9.5px; font-weight: 950; letter-spacing: .7px; display: flex; align-items: center; z-index: 2;
+}
+.mkt-card-body { padding: 18px 20px 20px; }
+.mkt-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.mkt-card-rating { display: flex; align-items: center; gap: 5px; color: #ff9800; font-size: 12px; font-weight: 850; }
+.mkt-card-heat { color: #ff4d00; font-size: 12px; font-weight: 850; }
+.mkt-card-title { font-size: 16px; font-weight: 950; letter-spacing: -.4px; color: #0a0a0a; margin-bottom: 3px; }
+.mkt-card-niche { font-size: 11px; font-weight: 800; color: #9ca1ab; margin-bottom: 14px; }
+
+/* Metrics grid */
+.mkt-metrics { display: grid; gap: 8px; margin-bottom: 14px; }
+.mkt-metrics-2 { grid-template-columns: 1fr 1fr; }
+.mkt-metrics-3 { grid-template-columns: repeat(3, 1fr); }
+.mkt-metric { background: #f7f9fb; border-radius: 11px; padding: 9px 11px; border: 1px solid #edf1f5; }
+.mkt-metric-lbl { font-size: 9px; font-weight: 850; color: #a0aab4; letter-spacing: .5px; text-transform: uppercase; display: block; margin-bottom: 4px; }
+.mkt-metric-val { font-size: 13.5px; font-weight: 950; color: #0a0a0a; display: block; line-height: 1.1; }
+.mkt-metric-val.green { color: #03b45e; }
+.mkt-metric-val.blue  { color: #0077ff; }
+
+/* CTA buttons */
+.mkt-cta { width: 100%; height: 44px; border: none; border-radius: 14px; font-size: 10.5px; font-weight: 950; letter-spacing: .8px; cursor: pointer; transition: .15s ease; font-family: inherit; }
+.mkt-cta:hover { transform: translateY(-1px); }
+.mkt-cta-blue  { background: linear-gradient(180deg, #45adff, #0077ff); color: #fff; box-shadow: 0 8px 22px rgba(0,119,255,.24); }
+.mkt-cta-dark  { background: #050505; color: #fff; box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+.mkt-cta-clip  { background: linear-gradient(135deg, #ff416c, #c0392b); color: #fff; box-shadow: 0 8px 22px rgba(192,57,43,.24); }
+
+/* Score bar (clips) */
+.mkt-card-score { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.mkt-score-bar  { flex: 1; height: 5px; border-radius: 99px; background: #eef1f5; overflow: hidden; }
+.mkt-score-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0077ff, #45adff); }
+.mkt-score-num  { font-size: 12px; font-weight: 900; color: #0077ff; min-width: 24px; text-align: right; }
+
+/* Empty state */
+.mkt-empty { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 64px 0; color: #b0b8c4; }
+.mkt-empty-icon { font-size: 40px; opacity: .3; }
+.mkt-empty-text { font-size: 13.5px; font-weight: 800; }
+
 /* Product Detail */
 .product-detail-view { display: none; margin-top: 34px; padding: 0 20px 32px; }
 .product-detail-view.active { display: block; }
@@ -1607,108 +1684,49 @@ body {
        AFFILIATE MARKETPLACE VIEW
   ══════════════════════════════════════════════════ -->
   <section class="affiliate-market-view" id="affiliateMarketView">
+
+    <!-- Header -->
     <div class="affiliate-head">
       <div>
         <h1>MARKETPLACE DE AFILIADOS</h1>
-        <p>ENCONTRE PRODUTOS PARA PROMOVER, PEGUE SEU LINK DE AFILIADO E CRIE UM FUNIL PRONTO PARA AQUELE PRODUTO. O CHECKOUT JÁ É DA PLATAFORMA.</p>
-      </div>
-      <div class="affiliate-tabs">
-        <button class="affiliate-tab active">Todos</button>
-        <button class="affiliate-tab">Alta Comissão</button>
-        <button class="affiliate-tab">Assinaturas</button>
-        <button class="affiliate-tab">Produtos Físicos</button>
+        <p>ESCOLHA O TIPO DE MONETIZAÇÃO E ENCONTRE OS MELHORES PRODUTOS PARA PROMOVER.</p>
       </div>
     </div>
 
-    <div class="affiliate-note">
-      O afiliado não precisa montar tudo do zero. Ao se afiliar, o produto fica salvo na área de projetos e pode criar um funil pronto com página, checkout integrado, upsell, e-mail e WhatsApp. Ele só personaliza banner, descrição, copy e domínio se quiser.
+    <!-- Tipo de monetização -->
+    <div class="mkt-type-bar" id="mktTypeBar">
+      <button class="mkt-type-btn active" data-type="info">
+        <div class="mkt-type-icon">📚</div>
+        <div>
+          <div class="mkt-type-name">Infoprodutos</div>
+          <div class="mkt-type-desc">Cursos, mentorias, ebooks</div>
+        </div>
+      </button>
+      <button class="mkt-type-btn" data-type="fisico">
+        <div class="mkt-type-icon">📦</div>
+        <div>
+          <div class="mkt-type-name">Produtos Físicos</div>
+          <div class="mkt-type-desc">Comissão fixa, entrega real</div>
+        </div>
+      </button>
+      <button class="mkt-type-btn" data-type="clips">
+        <div class="mkt-type-icon">🎬</div>
+        <div>
+          <div class="mkt-type-name">Campanhas de Clips</div>
+          <div class="mkt-type-desc">Pago por views, leads e vendas</div>
+        </div>
+      </button>
     </div>
 
-    <div class="affiliate-grid">
-      <!-- Card 1 -->
-      <article class="affiliate-product-card">
-        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
-        <div class="affiliate-cover">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop" alt="Produto Fitness">
-        </div>
-        <div class="affiliate-content">
-          <div class="affiliate-top-row">
-            <div class="affiliate-rating">⭐ 4.8 <span style="color:#8f97a1;">(2.493)</span> <span class="affiliate-fire">150° 🔥</span></div>
-            <div class="affiliate-heart">♡</div>
-          </div>
-          <h3>Método Shape em Casa</h3>
-          <div class="affiliate-commission">Comissão de até</div>
-          <div class="affiliate-price">R$ 133,96</div>
-          <div class="affiliate-max-price">Produto já possui funil pronto com VSL, checkout e WhatsApp.</div>
-          <div class="affiliate-actions">
-            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
-          </div>
-        </div>
-      </article>
+    <!-- Nichos (renderizado via JS) -->
+    <div class="mkt-chip-row" id="mktNicheBar"></div>
 
-      <!-- Card 2 -->
-      <article class="affiliate-product-card">
-        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
-        <div class="affiliate-cover">
-          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1200&auto=format&fit=crop" alt="Produto Premium">
-        </div>
-        <div class="affiliate-content">
-          <div class="affiliate-top-row">
-            <div class="affiliate-rating">⭐ 4.9 <span style="color:#8f97a1;">(842)</span> <span class="affiliate-fire">98° 🔥</span></div>
-            <div class="affiliate-heart">♡</div>
-          </div>
-          <h3>Clube Premium Recorrente</h3>
-          <div class="affiliate-commission">Comissão recorrente de até</div>
-          <div class="affiliate-price">R$ 297,85</div>
-          <div class="affiliate-max-price">Área do aluno, checkout integrado e automações inclusas.</div>
-          <div class="affiliate-actions">
-            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
-          </div>
-        </div>
-      </article>
+    <!-- Filtros inteligentes (renderizado via JS) -->
+    <div class="mkt-chip-row" id="mktFilterBar"></div>
 
-      <!-- Card 3 -->
-      <article class="affiliate-product-card">
-        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
-        <div class="affiliate-cover">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" alt="Produto Digital">
-        </div>
-        <div class="affiliate-content">
-          <div class="affiliate-top-row">
-            <div class="affiliate-rating">⭐ 4.7 <span style="color:#8f97a1;">(1.284)</span> <span class="affiliate-fire">124° 🔥</span></div>
-            <div class="affiliate-heart">♡</div>
-          </div>
-          <h3>Mentoria High Ticket</h3>
-          <div class="affiliate-commission">Comissão de até</div>
-          <div class="affiliate-price">R$ 3.016,72</div>
-          <div class="affiliate-max-price">Estrutura completa do funil pronta para editar e publicar.</div>
-          <div class="affiliate-actions">
-            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
-          </div>
-        </div>
-      </article>
+    <!-- Cards adaptativos (renderizado via JS) -->
+    <div class="mkt-grid" id="mktGrid"></div>
 
-      <!-- Card 4 -->
-      <article class="affiliate-product-card">
-        <div class="affiliate-funnel-tag">FUNIL PRONTO INCLUSO</div>
-        <div class="affiliate-cover">
-          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop" alt="Curso Online">
-        </div>
-        <div class="affiliate-content">
-          <div class="affiliate-top-row">
-            <div class="affiliate-rating">⭐ 4.6 <span style="color:#8f97a1;">(598)</span> <span class="affiliate-fire">74° 🔥</span></div>
-            <div class="affiliate-heart">♡</div>
-          </div>
-          <h3>Curso Profissional Online</h3>
-          <div class="affiliate-commission">Comissão de até</div>
-          <div class="affiliate-price">R$ 296,85</div>
-          <div class="affiliate-max-price">O afiliado pode alterar qualquer etapa do funil visual.</div>
-          <div class="affiliate-actions">
-            <button class="affiliate-details-btn">SAIBA MAIS SOBRE O PRODUTO</button>
-          </div>
-        </div>
-      </article>
-    </div>
   </section>
 
   <!-- ══════════════════════════════════════════════════
@@ -2268,6 +2286,186 @@ ThayApp.CanvasEditor = (function () {
   }
 
   return { init, openPicker };
+})();
+
+/**
+ * THAY FUNNEL BUILDER — AFFILIATE MARKETPLACE INTELIGENTE
+ * Renderização adaptativa por tipo (info | fisico | clips)
+ */
+
+'use strict';
+
+window.ThayApp = window.ThayApp || {};
+
+ThayApp.AffiliateMarket = (function () {
+  'use strict';
+
+  /* ─── NICHOS POR TIPO ─── */
+  const NICHOS = {
+    info:   ['Todos','Relacionamento','Psicologia','Emagrecimento','Renda Extra','Marketing','Dev. Pessoal','Saúde','Espiritualidade','Business','Idiomas'],
+    fisico: ['Todos','Agro','Mecânico','Ferramentas','Automotivo','Pet','Fitness','Casa','Tecnologia','Cozinha'],
+    clips:  ['Todos','Humor','Motivacional','Fitness','Podcast','Cortes Dark','Notícias','Games','Futebol','Luxo','Lifestyle'],
+  };
+
+  /* ─── FILTROS POR TIPO ─── */
+  const FILTROS = {
+    info:   ['Todos','Alta Comissão','Alta Conversão','Recorrência','EPC Alto','Ticket Alto','Baixa Concorrência','Funil Incluso'],
+    fisico: ['Todos','Comissão Fixa','Alta Conversão','Produto Viral','Ticket Alto','Pouca Concorrência'],
+    clips:  ['Todos','Quem Paga Mais','Valor por Views','Valor por Lead','Valor por Venda','Campanha Viral','Mais Ativa','Viralizando Agora'],
+  };
+
+  /* ─── DADOS ─── */
+  const PRODUTOS = {
+    info: [
+      { nome: 'Método Shape em Casa',     nicho: 'Saúde',          img: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop', rating: 4.8, reviews: 2493, heat: 150, comissao: '60%',  valor: 'R$ 133,96',     epc: 'R$ 4,20',  conversao: '8,4%',  recorrencia: false, funil: true  },
+      { nome: 'Clube Premium Recorrente', nicho: 'Business',       img: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=800&auto=format&fit=crop', rating: 4.9, reviews: 842,  heat: 98,  comissao: '40%',  valor: 'R$ 297,85/mês', epc: 'R$ 7,10',  conversao: '5,2%',  recorrencia: true,  funil: true  },
+      { nome: 'Mentoria High Ticket',     nicho: 'Marketing',      img: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop', rating: 4.7, reviews: 1284, heat: 124, comissao: '30%',  valor: 'R$ 3.016,72',   epc: 'R$ 12,80', conversao: '2,8%',  recorrencia: false, funil: true  },
+      { nome: 'Curso Profissional Online',nicho: 'Marketing',      img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop', rating: 4.6, reviews: 598,  heat: 74,  comissao: '50%',  valor: 'R$ 296,85',     epc: 'R$ 3,90',  conversao: '6,1%',  recorrencia: false, funil: true  },
+      { nome: 'Despertar Financeiro',     nicho: 'Renda Extra',    img: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=800&auto=format&fit=crop', rating: 4.5, reviews: 3102, heat: 186, comissao: '70%',  valor: 'R$ 97,00',      epc: 'R$ 2,80',  conversao: '11,2%', recorrencia: false, funil: true  },
+      { nome: 'Psicologia da Atração',    nicho: 'Relacionamento', img: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop', rating: 4.8, reviews: 1876, heat: 140, comissao: '55%',  valor: 'R$ 167,00',     epc: 'R$ 5,40',  conversao: '7,6%',  recorrencia: false, funil: false },
+    ],
+    fisico: [
+      { nome: 'Kit Ferramentas Pro 72pc',   nicho: 'Ferramentas', img: 'https://images.unsplash.com/photo-1581244277943-fe4a9c777189?q=80&w=800&auto=format&fit=crop', rating: 4.6, reviews: 1042, heat: 88,  comissaoFixa: 'R$ 47,00', ticket: 'R$ 189,90', cpa: 'R$ 22,00', conversao: '4,2%' },
+      { nome: 'Suplemento Colágeno Premium',nicho: 'Fitness',     img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=800&auto=format&fit=crop', rating: 4.7, reviews: 2318, heat: 112, comissaoFixa: 'R$ 34,80', ticket: 'R$ 116,00', cpa: 'R$ 18,50', conversao: '6,8%' },
+      { nome: 'Comedouro Automático Pet',   nicho: 'Pet',         img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800&auto=format&fit=crop', rating: 4.8, reviews: 856,  heat: 96,  comissaoFixa: 'R$ 29,50', ticket: 'R$ 98,00',  cpa: 'R$ 14,00', conversao: '5,4%' },
+      { nome: 'Filtro de Água Alcalina',    nicho: 'Casa',        img: 'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?q=80&w=800&auto=format&fit=crop', rating: 4.5, reviews: 734,  heat: 68,  comissaoFixa: 'R$ 68,00', ticket: 'R$ 272,00', cpa: 'R$ 32,00', conversao: '3,8%' },
+    ],
+    clips: [
+      { nome: 'Imersão Empreendimento 2025', nicho: 'Motivacional', img: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', score: 94, payout: 'R$ 0,008/view', payLead: 'R$ 3,50', payVenda: 'R$ 180,00', videos: 42,  retencao: '68%', ativo: true  },
+      { nome: 'Canal Cortes Dark Premium',   nicho: 'Cortes Dark',  img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop', score: 88, payout: 'R$ 0,012/view', payLead: 'R$ 2,80', payVenda: 'R$ 95,00',  videos: 128, retencao: '74%', ativo: true  },
+      { nome: 'Podcast Finanças & Liberdade',nicho: 'Podcast',      img: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop', score: 91, payout: 'R$ 0,006/view', payLead: 'R$ 4,20', payVenda: 'R$ 260,00', videos: 67,  retencao: '82%', ativo: true  },
+      { nome: 'Games & Entretenimento BR',   nicho: 'Games',        img: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800&auto=format&fit=crop', score: 79, payout: 'R$ 0,005/view', payLead: 'R$ 1,90', payVenda: 'R$ 48,00',  videos: 234, retencao: '61%', ativo: false },
+    ],
+  };
+
+  let _state = { type: 'info', niche: 'Todos', filter: 'Todos' };
+  let _typeBar, _nicheBar, _filterBar, _grid;
+
+  /* ─── INIT ─── */
+  function init() {
+    _typeBar   = document.getElementById('mktTypeBar');
+    _nicheBar  = document.getElementById('mktNicheBar');
+    _filterBar = document.getElementById('mktFilterBar');
+    _grid      = document.getElementById('mktGrid');
+    if (!_typeBar) return;
+
+    _typeBar.addEventListener('click', e => {
+      const btn = e.target.closest('[data-type]');
+      if (!btn) return;
+      _typeBar.querySelectorAll('.mkt-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      _state = { type: btn.dataset.type, niche: 'Todos', filter: 'Todos' };
+      _render();
+    });
+
+    _nicheBar.addEventListener('click', e => {
+      const chip = e.target.closest('.mkt-chip');
+      if (!chip) return;
+      _nicheBar.querySelectorAll('.mkt-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      _state.niche = chip.dataset.v;
+      _renderGrid();
+    });
+
+    _filterBar.addEventListener('click', e => {
+      const chip = e.target.closest('.mkt-chip');
+      if (!chip) return;
+      _filterBar.querySelectorAll('.mkt-chip').forEach(c => c.classList.remove('active', 'active-blue'));
+      chip.classList.add('active-blue');
+      _state.filter = chip.dataset.v;
+      _renderGrid();
+    });
+
+    /* CTA delegation — navega para productDetail */
+    _grid.addEventListener('click', e => {
+      if (e.target.closest('.mkt-cta')) {
+        e.stopPropagation();
+        ThayApp.ViewManager.setActiveView('productDetail');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+
+    _render();
+  }
+
+  /* ─── RENDER ─── */
+  function _render() {
+    _nicheBar.innerHTML  = NICHOS[_state.type].map(n => `<button class="mkt-chip${n === _state.niche ? ' active' : ''}" data-v="${n}">${n}</button>`).join('');
+    _filterBar.innerHTML = FILTROS[_state.type].map(f => `<button class="mkt-chip${f === _state.filter ? ' active-blue' : ''}" data-v="${f}">${f}</button>`).join('');
+    _renderGrid();
+  }
+
+  function _renderGrid() {
+    const list = (PRODUTOS[_state.type] || []).filter(p => _state.niche === 'Todos' || p.nicho === _state.niche);
+    if (!list.length) {
+      _grid.innerHTML = `<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste filtro</div></div>`;
+      return;
+    }
+    const builders = { info: _cardInfo, fisico: _cardFisico, clips: _cardClips };
+    _grid.innerHTML = list.map(builders[_state.type] || (() => '')).join('');
+  }
+
+  /* ─── CARD BUILDERS ─── */
+  function _cardInfo(p) {
+    return `<article class="mkt-card">
+      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy">${p.funil ? '<span class="mkt-card-tag">FUNIL INCLUSO</span>' : ''}</div>
+      <div class="mkt-card-body">
+        <div class="mkt-card-top"><span class="mkt-card-rating">⭐ ${p.rating} <span style="color:#9ca1ab">(${p.reviews.toLocaleString('pt-BR')})</span></span><span class="mkt-card-heat">${p.heat}° 🔥</span></div>
+        <div class="mkt-card-title">${_e(p.nome)}</div>
+        <div class="mkt-card-niche">${_e(p.nicho)}${p.recorrencia ? ' · Recorrente' : ''}</div>
+        <div class="mkt-metrics mkt-metrics-2">
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Comissão</span><span class="mkt-metric-val green">${p.comissao}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Valor est.</span><span class="mkt-metric-val">${_e(p.valor)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">EPC</span><span class="mkt-metric-val blue">${p.epc}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${p.conversao}</span></div>
+        </div>
+        <button class="mkt-cta mkt-cta-blue">SE AFILIAR</button>
+      </div></article>`;
+  }
+
+  function _cardFisico(p) {
+    return `<article class="mkt-card">
+      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy"></div>
+      <div class="mkt-card-body">
+        <div class="mkt-card-top"><span class="mkt-card-rating">⭐ ${p.rating} <span style="color:#9ca1ab">(${p.reviews.toLocaleString('pt-BR')})</span></span><span class="mkt-card-heat">${p.heat}° 🔥</span></div>
+        <div class="mkt-card-title">${_e(p.nome)}</div>
+        <div class="mkt-card-niche">${_e(p.nicho)}</div>
+        <div class="mkt-metrics mkt-metrics-3">
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Comissão</span><span class="mkt-metric-val green">${_e(p.comissaoFixa)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Ticket</span><span class="mkt-metric-val">${_e(p.ticket)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${p.conversao}</span></div>
+        </div>
+        <button class="mkt-cta mkt-cta-dark">PROMOVER PRODUTO</button>
+      </div></article>`;
+  }
+
+  function _cardClips(p) {
+    return `<article class="mkt-card">
+      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy"><span class="mkt-card-tag" style="${p.ativo ? '' : 'background:rgba(80,80,80,.85)'}">${p.ativo ? '🟢 ATIVA' : 'PAUSADA'}</span></div>
+      <div class="mkt-card-body">
+        <div class="mkt-card-title">${_e(p.nome)}</div>
+        <div class="mkt-card-niche">${_e(p.nicho)}</div>
+        <div class="mkt-card-score">
+          <span style="font-size:10px;font-weight:850;color:#a0aab4;">SCORE</span>
+          <div class="mkt-score-bar"><div class="mkt-score-fill" style="width:${p.score}%"></div></div>
+          <span class="mkt-score-num">${p.score}</span>
+        </div>
+        <div class="mkt-metrics mkt-metrics-3">
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Por view</span><span class="mkt-metric-val blue">${_e(p.payout)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Por lead</span><span class="mkt-metric-val">${_e(p.payLead)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Por venda</span><span class="mkt-metric-val green">${_e(p.payVenda)}</span></div>
+        </div>
+        <div class="mkt-metrics mkt-metrics-2" style="margin-top:0;margin-bottom:14px">
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Vídeos disp.</span><span class="mkt-metric-val">${p.videos}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Retenção</span><span class="mkt-metric-val">${p.retencao}</span></div>
+        </div>
+        <button class="mkt-cta mkt-cta-clip">PARTICIPAR DA CAMPANHA</button>
+      </div></article>`;
+  }
+
+  function _e(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  return { init };
 })();
 
 /**
@@ -2895,6 +3093,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.ProjectEvents.init();
   ThayApp.AiOrbs.init();
   ThayApp.SalesPageEditor.init();
+  ThayApp.AffiliateMarket.init();
 });
 
 
