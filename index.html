@@ -352,14 +352,18 @@ body {
   background: radial-gradient(circle, rgba(0,119,255,.06) 0%, transparent 70%);
   pointer-events: none;
 }
-.affiliate-head h1 { font-size: 28px; font-weight: 950; letter-spacing: -.9px; color: #0a0a0a; }
+.affiliate-head h1 { font-size: 26px; font-weight: 950; letter-spacing: -.8px; color: #0a0a0a; }
 .affiliate-head p {
   margin-top: 7px;
   color: var(--text-muted);
-  font-size: 12.5px;
-  font-weight: 750;
-  max-width: 620px;
+  font-size: 13px;
+  font-weight: 650;
+  max-width: 480px;
   line-height: 1.7;
+}
+.aff-head-visual {
+  flex-shrink: 0; opacity: .72;
+  position: relative; z-index: 1;
 }
 
 .affiliate-tabs {
@@ -493,8 +497,8 @@ body {
   gap: 10px;
   margin-bottom: 10px;
 }
-.affiliate-rating { display: flex; align-items: center; gap: 6px; color: #ff9800; font-size: 12px; font-weight: 900; }
-.affiliate-fire { color: #ff4d00; }
+.affiliate-rating { display: flex; align-items: center; gap: 6px; color: #374151; font-size: 12px; font-weight: 900; }
+.affiliate-fire { color: #d97706; }
 .affiliate-heart {
   width: 36px; height: 36px; border-radius: 12px;
   border: 1px solid #e7ecf1; background: #fff;
@@ -551,28 +555,62 @@ body {
 .affiliate-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ── MARKETPLACE TYPE SELECTOR ── */
-.mkt-type-bar { display: flex; gap: 10px; padding: 0; margin-bottom: 20px; }
+.mkt-type-bar { display: flex; gap: 12px; padding: 0; margin-bottom: 24px; }
+
 .mkt-type-btn {
-  flex: 1; height: 66px; border-radius: var(--radius-md); border: 1.5px solid var(--border);
-  background: var(--surface); display: flex; align-items: center; gap: 14px; padding: 0 18px;
-  cursor: pointer; transition: border-color .18s, box-shadow .18s, background .18s;
-  font-family: inherit; text-align: left;
+  flex: 1; min-height: 110px; border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border); background: var(--surface);
+  display: flex; flex-direction: column; gap: 0; padding: 20px 22px 20px;
+  cursor: pointer; transition: border-color .2s, box-shadow .2s, background .2s, transform .18s var(--ease-spring);
+  font-family: inherit; text-align: left; position: relative; overflow: hidden;
 }
-.mkt-type-btn:hover { border-color: #a8c8e8; box-shadow: var(--shadow-md); }
+.mkt-type-btn::after {
+  content: '';
+  position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue-light), var(--blue));
+  opacity: 0; transition: opacity .18s;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.mkt-type-btn:hover { border-color: #b8d0e8; box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.mkt-type-btn:hover::after { opacity: .5; }
 .mkt-type-btn.active {
-  border-color: var(--blue); background: var(--blue-subtle);
-  box-shadow: 0 4px 20px var(--blue-glow);
+  border-color: var(--blue);
+  background: linear-gradient(160deg, #f8fbff 0%, #eef5ff 100%);
+  box-shadow: 0 6px 24px var(--blue-glow), 0 1px 4px rgba(0,0,0,.04);
+  transform: translateY(-2px);
 }
+.mkt-type-btn.active::after { opacity: 1; }
+
 .mkt-type-icon {
-  width: 38px; height: 38px; border-radius: 11px; background: #f5f7f9;
-  display: grid; place-items: center; font-size: 19px; flex-shrink: 0; transition: background .18s;
+  width: 44px; height: 44px; border-radius: 13px;
+  background: #f0f4f8;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .18s; margin-bottom: 14px;
+  border: 1px solid var(--border-light);
 }
-.mkt-type-btn.active .mkt-type-icon { background: rgba(0,119,255,.12); }
-.mkt-type-name { font-size: 13px; font-weight: 900; color: #111; letter-spacing: -.3px; line-height: 1.2; }
-.mkt-type-desc { font-size: 11px; color: #9ca1ab; font-weight: 700; margin-top: 2px; }
+.mkt-type-btn.active .mkt-type-icon {
+  background: rgba(0,119,255,.1);
+  border-color: rgba(0,119,255,.2);
+}
+.mkt-type-btn.active .mkt-type-icon svg { stroke: var(--blue); }
+.mkt-type-icon svg { display: block; }
+
+.mkt-type-name {
+  font-size: 14px; font-weight: 950; color: #0a0a0a;
+  letter-spacing: -.4px; line-height: 1.2; margin-bottom: 5px;
+}
+.mkt-type-desc { font-size: 12px; color: #8c939d; font-weight: 650; line-height: 1.5; }
+
+.mkt-type-check {
+  position: absolute; top: 16px; right: 16px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--blue); display: none; align-items: center; justify-content: center;
+  box-shadow: 0 3px 8px var(--blue-glow);
+}
+.mkt-type-btn.active .mkt-type-check { display: flex; }
 
 /* ── CHIP ROWS (nichos + filtros) ── */
-.mkt-chip-row { display: flex; gap: 8px; padding: 0 20px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+.mkt-chip-row { display: flex; gap: 8px; padding: 0; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
 .mkt-chip-row::-webkit-scrollbar { display: none; }
 .mkt-chip {
   height: 32px; padding: 0 14px; border-radius: 99px; border: 1px solid var(--border);
@@ -585,63 +623,87 @@ body {
 .mkt-chip.active-blue { background: linear-gradient(160deg, var(--blue-light), var(--blue)); color: #fff; border-color: transparent; box-shadow: 0 4px 12px var(--blue-glow); }
 
 /* ── ACTIVE CHIPS BAR ── */
-.mkt-active-bar { display: flex; align-items: center; gap: 8px; padding: 0 20px; margin-bottom: 16px; flex-wrap: wrap; min-height: 0; }
+.mkt-active-bar { display: flex; align-items: center; gap: 8px; padding: 0; margin-bottom: 16px; flex-wrap: wrap; min-height: 0; }
 .mkt-active-bar:empty { margin-bottom: 0; }
-.mkt-active-chip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 14px; border-radius: 99px; background: #050505; color: #fff; font-size: 11.5px; font-weight: 800; animation: mktChipIn .16s ease-out; }
+.mkt-active-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 30px; padding: 0 10px 0 14px; border-radius: 99px;
+  background: #111; color: #fff; font-size: 11.5px; font-weight: 800;
+  animation: mktChipIn .16s ease-out; letter-spacing: .1px;
+}
 @keyframes mktChipIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
-.mkt-chip-remove { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 13px; line-height: 1; display: grid; place-items: center; cursor: pointer; padding: 0; font-family: inherit; transition: background .12s; }
-.mkt-chip-remove:hover { background: rgba(255,255,255,.32); }
+.mkt-chip-remove {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(255,255,255,.14); border: none; color: rgba(255,255,255,.8);
+  font-size: 12px; line-height: 1; display: grid; place-items: center;
+  cursor: pointer; padding: 0; font-family: inherit; transition: background .12s;
+}
+.mkt-chip-remove:hover { background: rgba(255,255,255,.30); }
 
 /* ── PROGRESSIVE STEP PANEL ── */
 .mkt-step-panel {
-  margin: 0 20px 20px;
-  background: #fff;
-  border: 1px solid #e3e8ef;
-  border-radius: 20px;
-  box-shadow: 0 14px 44px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.04);
+  margin: 0 0 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   overflow: hidden;
-  animation: mktPanelIn .2s cubic-bezier(.22,1,.36,1);
+  animation: mktPanelIn .22s var(--ease-out);
 }
-@keyframes mktPanelIn { from { opacity: 0; transform: translateY(-8px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes mktPanelIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
 .mkt-sp-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 18px 12px;
-  border-bottom: 1px solid #f0f3f6;
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border-light);
+  background: #fafbfc;
 }
 .mkt-sp-step {
-  width: 22px; height: 22px; border-radius: 50%;
-  background: #050505; color: #fff;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #111; color: #fff;
   font-size: 11px; font-weight: 950;
   display: grid; place-items: center; flex-shrink: 0;
+  letter-spacing: 0;
 }
-.mkt-sp-label { font-size: 13px; font-weight: 900; color: #111; flex: 1; }
+.mkt-sp-label { font-size: 13px; font-weight: 900; color: #0a0a0a; flex: 1; letter-spacing: -.2px; }
 .mkt-sp-sub   { font-size: 11px; font-weight: 700; color: #a0aab4; }
 .mkt-sp-back  {
-  height: 26px; padding: 0 10px; border-radius: 8px;
-  border: 1px solid #e5eaef; background: transparent;
-  font-size: 11px; font-weight: 800; color: #6b7280;
-  cursor: pointer; font-family: inherit; transition: .12s ease; flex-shrink: 0;
+  height: 28px; padding: 0 12px; border-radius: 9px;
+  border: 1px solid var(--border); background: transparent;
+  font-size: 11.5px; font-weight: 800; color: #6b7280;
+  cursor: pointer; font-family: inherit; transition: background .12s, color .12s; flex-shrink: 0;
 }
-.mkt-sp-back:hover { background: #f5f7f9; color: #111; }
-.mkt-sp-skip { font-size: 11px; font-weight: 800; color: #0077ff; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.mkt-sp-back:hover { background: #f2f4f7; color: #111; }
+.mkt-sp-skip {
+  font-size: 11.5px; font-weight: 800; color: var(--blue);
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  background: none; border: none; font-family: inherit; padding: 0;
+}
 .mkt-sp-skip:hover { text-decoration: underline; }
 
-.mkt-sp-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 18px 16px; }
+.mkt-sp-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px 18px; }
 .mkt-sp-chip {
-  height: 32px; padding: 0 16px;
-  border: 1px solid #e5eaef; border-radius: 99px;
-  background: #fff; font-size: 12px; font-weight: 800; color: #555;
-  cursor: pointer; font-family: inherit; white-space: nowrap; transition: .13s ease;
+  height: 33px; padding: 0 16px;
+  border: 1px solid var(--border); border-radius: 99px;
+  background: var(--surface); font-size: 12px; font-weight: 800; color: #555;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+  transition: border-color .12s, color .12s, background .12s, transform .12s;
 }
-.mkt-sp-chip:hover { border-color: #0077ff; color: #0077ff; background: rgba(0,119,255,.04); }
-.mkt-sp-chip.selected { background: #050505; color: #fff; border-color: #050505; }
+.mkt-sp-chip:hover {
+  border-color: var(--blue); color: var(--blue);
+  background: var(--blue-subtle); transform: translateY(-1px);
+}
+.mkt-sp-chip.selected { background: #111; color: #fff; border-color: #111; }
 
-/* Grid prompt (antes de nicho selecionado) */
-.mkt-grid-prompt { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 72px 0; color: #c0c8d0; }
-.mkt-grid-prompt-icon { font-size: 44px; opacity: .25; }
-.mkt-grid-prompt-text { font-size: 13px; font-weight: 800; color: #b0b8c4; }
-.mkt-grid-prompt-sub  { font-size: 12px; font-weight: 600; color: #c8cfd7; }
+/* Grid prompt — premium empty state, no emoji */
+.mkt-grid-prompt {
+  grid-column: 1/-1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 20px; padding: 80px 24px;
+}
+.mkt-grid-prompt-svg { opacity: .55; }
+.mkt-grid-prompt-text { font-size: 15px; font-weight: 900; color: #8895a4; letter-spacing: -.3px; }
+.mkt-grid-prompt-sub  { font-size: 13px; font-weight: 600; color: #a8b4be; text-align: center; max-width: 360px; line-height: 1.6; margin-top: -8px; }
 
 /* ── ADAPTIVE CARDS GRID ── */
 .mkt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 18px; padding: 0 0 32px; }
@@ -657,19 +719,39 @@ body {
 }
 .mkt-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); border-color: #ccd8e8; }
 
-.mkt-card-cover { height: 186px; position: relative; overflow: hidden; background: #eef3f8; }
-.mkt-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mkt-card-cover { height: 186px; position: relative; overflow: hidden; background: #e8eef4; }
+.mkt-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+.mkt-card:hover .mkt-card-cover img { transform: scale(1.04); }
 .mkt-card-tag {
-  position: absolute; top: 14px; left: 14px; height: 27px; padding: 0 12px; border-radius: 999px;
-  background: rgba(5,5,5,.85); backdrop-filter: blur(8px); color: #fff;
-  font-size: 9.5px; font-weight: 950; letter-spacing: .7px; display: flex; align-items: center; z-index: 2;
+  position: absolute; top: 14px; left: 14px; height: 26px; padding: 0 11px; border-radius: 999px;
+  background: rgba(5,5,5,.82); backdrop-filter: blur(8px); color: #fff;
+  font-size: 9.5px; font-weight: 950; letter-spacing: .6px; display: flex; align-items: center; z-index: 2;
+}
+.mkt-card-tag-green {
+  position: absolute; top: 14px; left: 14px; height: 26px; padding: 0 11px; border-radius: 999px;
+  background: rgba(3,199,101,.88); backdrop-filter: blur(8px); color: #fff;
+  font-size: 9px; font-weight: 950; letter-spacing: .6px; display: flex; align-items: center; z-index: 2;
+}
+.mkt-card-tag-pause {
+  position: absolute; top: 14px; left: 14px; height: 26px; padding: 0 11px; border-radius: 999px;
+  background: rgba(80,80,90,.82); backdrop-filter: blur(8px); color: #fff;
+  font-size: 9px; font-weight: 950; letter-spacing: .6px; display: flex; align-items: center; z-index: 2;
 }
 .mkt-card-body { padding: 18px 20px 20px; }
-.mkt-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.mkt-card-rating { display: flex; align-items: center; gap: 5px; color: #ff9800; font-size: 12px; font-weight: 850; }
-.mkt-card-heat { color: #ff4d00; font-size: 12px; font-weight: 850; }
-.mkt-card-title { font-size: 16px; font-weight: 950; letter-spacing: -.4px; color: #0a0a0a; margin-bottom: 3px; }
-.mkt-card-niche { font-size: 11px; font-weight: 800; color: #9ca1ab; margin-bottom: 14px; }
+.mkt-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+.mkt-card-rating {
+  display: flex; align-items: center; gap: 5px;
+  color: #374151; font-size: 12px; font-weight: 850;
+}
+.mkt-card-rating svg { flex-shrink: 0; }
+.mkt-card-rating-count { color: #9ca1ab; font-weight: 700; }
+.mkt-card-trend {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 900; color: #d97706; letter-spacing: .2px;
+}
+.mkt-card-trend svg { flex-shrink: 0; }
+.mkt-card-title { font-size: 15.5px; font-weight: 950; letter-spacing: -.4px; color: #0a0a0a; margin-bottom: 3px; line-height: 1.3; }
+.mkt-card-niche { font-size: 11px; font-weight: 800; color: #9ca1ab; margin-bottom: 14px; letter-spacing: .2px; }
 
 /* Metrics grid */
 .mkt-metrics { display: grid; gap: 8px; margin-bottom: 14px; }
@@ -695,10 +777,26 @@ body {
 .mkt-cta-clip  { background: linear-gradient(135deg, #ff416c, #c0392b); color: #fff; box-shadow: 0 6px 18px rgba(192,57,43,.24); }
 
 /* Score bar (clips) */
-.mkt-card-score { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.mkt-card-score { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
 .mkt-score-bar  { flex: 1; height: 5px; border-radius: 99px; background: #eef1f5; overflow: hidden; }
-.mkt-score-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #0077ff, #45adff); }
-.mkt-score-num  { font-size: 12px; font-weight: 900; color: #0077ff; min-width: 24px; text-align: right; }
+.mkt-score-fill { height: 100%; border-radius: 99px; }
+.mkt-score-num  { font-size: 12px; font-weight: 950; min-width: 24px; text-align: right; }
+
+/* Badges on card cover */
+.mkt-card-badges-top { position: absolute; bottom: 12px; left: 12px; display: flex; flex-wrap: wrap; gap: 5px; z-index: 2; }
+.mkt-card-badge {
+  height: 22px; padding: 0 9px; border-radius: 99px;
+  font-size: 9px; font-weight: 950; letter-spacing: .3px;
+  display: inline-flex; align-items: center; gap: 4px;
+  backdrop-filter: blur(6px);
+}
+.mkt-badge-funil {
+  background: rgba(0,119,255,.82); color: #fff;
+}
+.mkt-badge-funil svg { opacity: .9; }
+.mkt-badge-rec {
+  background: rgba(3,199,101,.82); color: #fff;
+}
 
 /* Empty state */
 .mkt-empty { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 64px 0; color: #b0b8c4; }
@@ -2958,35 +3056,105 @@ body {
 
     <!-- Header -->
     <div class="affiliate-head">
-      <div>
+      <div style="position:relative;z-index:1;flex:1">
         <h1>Marketplace de Afiliados</h1>
-        <p>Escolha o tipo de monetização e encontre os melhores produtos para promover com funis prontos.</p>
+        <p>Escolha o modelo de monetização, selecione um nicho e encontre oportunidades prontas para promover.</p>
+      </div>
+      <!-- Abstract vector illustration -->
+      <div class="aff-head-visual" aria-hidden="true">
+        <svg width="260" height="120" viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mini card 1 -->
+          <rect x="0" y="18" width="76" height="52" rx="10" fill="#fff" stroke="#dde5f0" stroke-width="1.2"/>
+          <rect x="10" y="28" width="32" height="6" rx="3" fill="#c8d8f0"/>
+          <rect x="10" y="39" width="56" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="10" y="47" width="44" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="10" y="57" width="20" height="5" rx="2.5" fill="#0077ff" fill-opacity=".18"/>
+          <!-- Mini card 2 -->
+          <rect x="90" y="0" width="80" height="56" rx="10" fill="#fff" stroke="#dde5f0" stroke-width="1.2"/>
+          <rect x="100" y="10" width="28" height="6" rx="3" fill="#0077ff" fill-opacity=".22"/>
+          <rect x="100" y="21" width="60" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="100" y="29" width="48" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="100" y="37" width="36" height="5" rx="2.5" fill="#0077ff" fill-opacity=".1"/>
+          <rect x="140" y="37" width="16" height="5" rx="2.5" fill="#03c765" fill-opacity=".25"/>
+          <!-- Mini card 3 -->
+          <rect x="184" y="14" width="72" height="50" rx="10" fill="#fff" stroke="#dde5f0" stroke-width="1.2"/>
+          <rect x="194" y="24" width="24" height="6" rx="3" fill="#c8d8f0"/>
+          <rect x="194" y="35" width="52" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="194" y="43" width="38" height="4" rx="2" fill="#e8eef6"/>
+          <rect x="194" y="53" width="24" height="5" rx="2.5" fill="#0077ff" fill-opacity=".15"/>
+          <!-- Connecting lines -->
+          <path d="M76 44 L90 28" stroke="#0077ff" stroke-opacity=".18" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <path d="M170 28 L184 39" stroke="#0077ff" stroke-opacity=".18" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <!-- Mini funnel below left card -->
+          <path d="M8 88 L24 88 L20 100 L12 100 Z" fill="none" stroke="#0077ff" stroke-opacity=".25" stroke-width="1.4"/>
+          <rect x="14" y="100" width="4" height="10" rx="1.5" fill="#0077ff" fill-opacity=".2"/>
+          <!-- Mini chart bars -->
+          <rect x="46" y="100" width="6" height="14" rx="2" fill="#0077ff" fill-opacity=".14"/>
+          <rect x="55" y="93" width="6" height="21" rx="2" fill="#0077ff" fill-opacity=".22"/>
+          <rect x="64" y="96" width="6" height="18" rx="2" fill="#0077ff" fill-opacity=".18"/>
+          <!-- Mini wallet -->
+          <rect x="100" y="76" width="48" height="30" rx="7" fill="none" stroke="#8eb4e0" stroke-width="1.3"/>
+          <rect x="112" y="72" width="24" height="8" rx="4" fill="none" stroke="#8eb4e0" stroke-width="1.3"/>
+          <circle cx="136" cy="91" r="5" fill="#0077ff" fill-opacity=".12" stroke="#0077ff" stroke-opacity=".25" stroke-width="1.2"/>
+          <!-- Mini vitrine -->
+          <rect x="168" y="80" width="56" height="32" rx="7" fill="none" stroke="#8eb4e0" stroke-width="1.3"/>
+          <rect x="174" y="74" width="44" height="10" rx="4" fill="none" stroke="#8eb4e0" stroke-width="1.3"/>
+          <rect x="176" y="88" width="14" height="14" rx="3" fill="#e8eef6"/>
+          <rect x="194" y="88" width="10" height="6" rx="2" fill="#d4e4f6"/>
+          <rect x="194" y="97" width="18" height="3" rx="1.5" fill="#e0e8f2"/>
+        </svg>
       </div>
     </div>
 
     <!-- Tipo de monetização -->
     <div class="mkt-type-bar" id="mktTypeBar">
+
       <button class="mkt-type-btn" data-type="info">
-        <div class="mkt-type-icon">📚</div>
-        <div>
-          <div class="mkt-type-name">Infoprodutos</div>
-          <div class="mkt-type-desc">Cursos, mentorias, ebooks</div>
+        <div class="mkt-type-icon">
+          <!-- Graduation cap / digital course icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a80c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/>
+            <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>
+          </svg>
+        </div>
+        <div class="mkt-type-name">Infoprodutos</div>
+        <div class="mkt-type-desc">Cursos, mentorias, ebooks e produtos digitais com comissão por venda.</div>
+        <div class="mkt-type-check">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
         </div>
       </button>
+
       <button class="mkt-type-btn" data-type="fisico">
-        <div class="mkt-type-icon">📦</div>
-        <div>
-          <div class="mkt-type-name">Produtos Físicos</div>
-          <div class="mkt-type-desc">Comissão fixa, entrega real</div>
+        <div class="mkt-type-icon">
+          <!-- Package / box icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a80c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div class="mkt-type-name">Produtos Físicos</div>
+        <div class="mkt-type-desc">Produtos reais com comissão fixa, logística e entrega controlada.</div>
+        <div class="mkt-type-check">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
         </div>
       </button>
+
       <button class="mkt-type-btn" data-type="clips">
-        <div class="mkt-type-icon">🎬</div>
-        <div>
-          <div class="mkt-type-name">Campanhas de Clips</div>
-          <div class="mkt-type-desc">Pago por views, leads e vendas</div>
+        <div class="mkt-type-icon">
+          <!-- Video play / clip icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4a80c4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <div class="mkt-type-name">Campanhas de Clips</div>
+        <div class="mkt-type-desc">Ganhe por views, leads ou vendas divulgando campanhas em vídeo.</div>
+        <div class="mkt-type-check">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-5"/></svg>
         </div>
       </button>
+
     </div>
 
     <!-- Chips ativos (renderizado via JS) -->
@@ -3014,7 +3182,13 @@ body {
           <button class="product-back-btn">VOLTAR AO MARKETPLACE</button>
         </div>
       </div>
-      <div class="product-detail-cover">🔥</div>
+      <div class="product-detail-cover">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="36" fill="rgba(0,119,255,.08)" stroke="rgba(0,119,255,.16)" stroke-width="1.5"/>
+          <path d="M28 52 C28 38 40 36 40 24 C40 36 52 38 52 52 C52 58 46 62 40 62 C34 62 28 58 28 52Z" fill="none" stroke="rgba(0,119,255,.4)" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="40" cy="50" r="5" fill="rgba(0,119,255,.25)"/>
+        </svg>
+      </div>
     </div>
 
     <div class="product-info-grid">
@@ -5058,64 +5232,99 @@ ThayApp.AffiliateMarket = (function () {
   }
 
   /* ─── GRID ─── */
+  const _EMPTY_SVG = `<svg class="mkt-grid-prompt-svg" width="120" height="96" viewBox="0 0 120 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Funnel shape -->
+    <path d="M24 20 L96 20 L72 48 L72 76 L48 84 L48 48 Z" fill="none" stroke="#b0c4d8" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Dots on funnel -->
+    <circle cx="60" cy="20" r="3" fill="#c8d8e8"/>
+    <circle cx="60" cy="48" r="3" fill="#b0c4d8"/>
+    <!-- Magnifying glass -->
+    <circle cx="88" cy="72" r="12" fill="none" stroke="#b0c4d8" stroke-width="2"/>
+    <line x1="96.5" y1="80.5" x2="106" y2="90" stroke="#b0c4d8" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- Inner sparkle -->
+    <circle cx="84" cy="68" r="3" fill="#d0dde8" opacity=".7"/>
+  </svg>`;
+
   function _renderGrid() {
     if (!_state.type || !_state.niche) {
-      _grid.innerHTML = `<div class="mkt-grid-prompt"><div class="mkt-grid-prompt-icon">🎯</div><div class="mkt-grid-prompt-text">Escolha o tipo e o nicho</div><div class="mkt-grid-prompt-sub">Os produtos aparecerão aqui após a seleção</div></div>`;
+      _grid.innerHTML = `<div class="mkt-grid-prompt">${_EMPTY_SVG}<div class="mkt-grid-prompt-text">Escolha um tipo de monetização para começar</div><div class="mkt-grid-prompt-sub">Depois selecione o nicho e os filtros inteligentes aparecerão automaticamente.</div></div>`;
       return;
     }
     const list = (PRODUTOS[_state.type] || []).filter(p => p.nicho === _state.niche);
     if (!list.length) {
-      _grid.innerHTML = `<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste nicho</div></div>`;
+      _grid.innerHTML = `<div class="mkt-grid-prompt">${_EMPTY_SVG}<div class="mkt-grid-prompt-text">Nenhum produto neste nicho</div><div class="mkt-grid-prompt-sub">Tente outro nicho ou remova os filtros ativos.</div></div>`;
       return;
     }
     const builders = { info: _cardInfo, fisico: _cardFisico, clips: _cardClips };
     _grid.innerHTML = list.map(builders[_state.type] || (() => '')).join('');
   }
 
+  /* ─── SVG ICONS FOR CARDS ─── */
+  const _SVG_STAR = `<svg width="12" height="12" viewBox="0 0 12 12" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg"><path d="M6 1l1.39 2.82L10.5 4.24l-2.25 2.2.53 3.1L6 8.02 3.22 9.54l.53-3.1L1.5 4.24l3.11-.42z"/></svg>`;
+  const _SVG_TREND = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#d97706" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,9 4.5,5 7,7 10.5,3"/><polyline points="8.5,3 10.5,3 10.5,5"/></svg>`;
+  const _SVG_FUNIL = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M1 2h8L6.5 5.5v3l-3-1V5.5Z"/></svg>`;
+  const _SVG_REC = `<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 1.5A3.5 3.5 0 1 1 1.5 5"/><polyline points="1.5,2 1.5,5 4,5"/></svg>`;
+
   /* ─── CARD BUILDERS ─── */
   function _cardInfo(p) {
+    const badges = [];
+    if (p.funil) badges.push(`<span class="mkt-card-badge mkt-badge-funil">${_SVG_FUNIL} Funil incluso</span>`);
+    if (p.recorrencia) badges.push(`<span class="mkt-card-badge mkt-badge-rec">${_SVG_REC} Recorrente</span>`);
     return `<article class="mkt-card">
-      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy">${p.funil ? '<span class="mkt-card-tag">FUNIL INCLUSO</span>' : ''}</div>
+      <div class="mkt-card-cover">
+        <img src="${_e(p.img)}" alt="${_e(p.nome)}" loading="lazy">
+        <div class="mkt-card-badges-top">${badges.join('')}</div>
+      </div>
       <div class="mkt-card-body">
-        <div class="mkt-card-top"><span class="mkt-card-rating">⭐ ${p.rating} <span style="color:#9ca1ab">(${p.reviews.toLocaleString('pt-BR')})</span></span><span class="mkt-card-heat">${p.heat}° 🔥</span></div>
-        <div class="mkt-card-title">${_e(p.nome)}</div>
-        <div class="mkt-card-niche">${_e(p.nicho)}${p.recorrencia ? ' · Recorrente' : ''}</div>
-        <div class="mkt-metrics mkt-metrics-2">
-          <div class="mkt-metric"><span class="mkt-metric-lbl">Comissão</span><span class="mkt-metric-val green">${p.comissao}</span></div>
-          <div class="mkt-metric"><span class="mkt-metric-lbl">Valor est.</span><span class="mkt-metric-val">${_e(p.valor)}</span></div>
-          <div class="mkt-metric"><span class="mkt-metric-lbl">EPC</span><span class="mkt-metric-val blue">${p.epc}</span></div>
-          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${p.conversao}</span></div>
+        <div class="mkt-card-top">
+          <span class="mkt-card-rating">${_SVG_STAR} ${p.rating} <span class="mkt-card-rating-count">(${p.reviews.toLocaleString('pt-BR')})</span></span>
+          <span class="mkt-card-trend">${_SVG_TREND} ${p.heat}</span>
         </div>
-        <button class="mkt-cta mkt-cta-blue">SE AFILIAR</button>
+        <div class="mkt-card-title">${_e(p.nome)}</div>
+        <div class="mkt-card-niche">${_e(p.nicho)}</div>
+        <div class="mkt-metrics mkt-metrics-2">
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Comissão</span><span class="mkt-metric-val green">${_e(p.comissao)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Valor est.</span><span class="mkt-metric-val">${_e(p.valor)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">EPC</span><span class="mkt-metric-val blue">${_e(p.epc)}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${_e(p.conversao)}</span></div>
+        </div>
+        <button class="mkt-cta mkt-cta-blue">Se afiliar</button>
       </div></article>`;
   }
 
   function _cardFisico(p) {
     return `<article class="mkt-card">
-      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy"></div>
+      <div class="mkt-card-cover"><img src="${_e(p.img)}" alt="${_e(p.nome)}" loading="lazy"></div>
       <div class="mkt-card-body">
-        <div class="mkt-card-top"><span class="mkt-card-rating">⭐ ${p.rating} <span style="color:#9ca1ab">(${p.reviews.toLocaleString('pt-BR')})</span></span><span class="mkt-card-heat">${p.heat}° 🔥</span></div>
+        <div class="mkt-card-top">
+          <span class="mkt-card-rating">${_SVG_STAR} ${p.rating} <span class="mkt-card-rating-count">(${p.reviews.toLocaleString('pt-BR')})</span></span>
+          <span class="mkt-card-trend">${_SVG_TREND} ${p.heat}</span>
+        </div>
         <div class="mkt-card-title">${_e(p.nome)}</div>
         <div class="mkt-card-niche">${_e(p.nicho)}</div>
         <div class="mkt-metrics mkt-metrics-3">
           <div class="mkt-metric"><span class="mkt-metric-lbl">Comissão</span><span class="mkt-metric-val green">${_e(p.comissaoFixa)}</span></div>
           <div class="mkt-metric"><span class="mkt-metric-lbl">Ticket</span><span class="mkt-metric-val">${_e(p.ticket)}</span></div>
-          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${p.conversao}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Conversão</span><span class="mkt-metric-val">${_e(p.conversao)}</span></div>
         </div>
-        <button class="mkt-cta mkt-cta-dark">PROMOVER PRODUTO</button>
+        <button class="mkt-cta mkt-cta-dark">Promover produto</button>
       </div></article>`;
   }
 
   function _cardClips(p) {
+    const scoreColor = p.score >= 90 ? '#10b981' : p.score >= 75 ? '#f59e0b' : '#ef4444';
+    const statusTag = p.ativo
+      ? `<span class="mkt-card-tag-green">Ativa</span>`
+      : `<span class="mkt-card-tag-pause">Pausada</span>`;
     return `<article class="mkt-card">
-      <div class="mkt-card-cover"><img src="${p.img}" alt="${_e(p.nome)}" loading="lazy"><span class="mkt-card-tag" style="${p.ativo ? '' : 'background:rgba(80,80,80,.85)'}">${p.ativo ? '🟢 ATIVA' : 'PAUSADA'}</span></div>
+      <div class="mkt-card-cover"><img src="${_e(p.img)}" alt="${_e(p.nome)}" loading="lazy">${statusTag}</div>
       <div class="mkt-card-body">
         <div class="mkt-card-title">${_e(p.nome)}</div>
         <div class="mkt-card-niche">${_e(p.nicho)}</div>
         <div class="mkt-card-score">
-          <span style="font-size:10px;font-weight:850;color:#a0aab4;">SCORE</span>
-          <div class="mkt-score-bar"><div class="mkt-score-fill" style="width:${p.score}%"></div></div>
-          <span class="mkt-score-num">${p.score}</span>
+          <span style="font-size:9.5px;font-weight:950;color:#a0aab4;letter-spacing:.5px;text-transform:uppercase">Score</span>
+          <div class="mkt-score-bar"><div class="mkt-score-fill" style="width:${p.score}%;background:${scoreColor}"></div></div>
+          <span class="mkt-score-num" style="color:${scoreColor}">${p.score}</span>
         </div>
         <div class="mkt-metrics mkt-metrics-3">
           <div class="mkt-metric"><span class="mkt-metric-lbl">Por view</span><span class="mkt-metric-val blue">${_e(p.payout)}</span></div>
@@ -5124,9 +5333,9 @@ ThayApp.AffiliateMarket = (function () {
         </div>
         <div class="mkt-metrics mkt-metrics-2" style="margin-top:0;margin-bottom:14px">
           <div class="mkt-metric"><span class="mkt-metric-lbl">Vídeos disp.</span><span class="mkt-metric-val">${p.videos}</span></div>
-          <div class="mkt-metric"><span class="mkt-metric-lbl">Retenção</span><span class="mkt-metric-val">${p.retencao}</span></div>
+          <div class="mkt-metric"><span class="mkt-metric-lbl">Retenção</span><span class="mkt-metric-val">${_e(p.retencao)}</span></div>
         </div>
-        <button class="mkt-cta mkt-cta-clip">PARTICIPAR DA CAMPANHA</button>
+        <button class="mkt-cta mkt-cta-clip">Participar da campanha</button>
       </div></article>`;
   }
 
