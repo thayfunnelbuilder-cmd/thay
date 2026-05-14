@@ -1622,74 +1622,55 @@ body {
 .cv-picker-modal {
   position: fixed; top: 50%; left: 50%;
   transform: translate(-50%,-50%) scale(.96);
-  width: 860px; max-width: calc(100vw - 32px);
-  height: 560px; max-height: calc(100vh - 60px);
+  width: 580px; max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 60px);
   background: #fff; border-radius: 22px;
   box-shadow: 0 48px 120px rgba(0,0,0,.28), 0 0 0 1px rgba(0,0,0,.06);
-  z-index: 401; display: flex; overflow: hidden;
+  z-index: 401; display: flex; flex-direction: column; overflow: hidden;
   opacity: 0; pointer-events: none;
   transition: opacity .2s ease, transform .22s cubic-bezier(.22,.68,0,1.2);
 }
 .cv-picker-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
 
-/* Left sidebar inside modal */
-.cv-picker-sidebar {
-  width: 188px; flex-shrink: 0;
-  background: #f8fafc; border-right: 1px solid #edf1f5;
-  padding: 20px 0 16px; display: flex; flex-direction: column;
-  overflow-y: auto;
-}
-.cv-picker-sidebar-title {
-  padding: 0 16px 12px; font-size: 11px; font-weight: 900;
-  color: #94a3b8; text-transform: uppercase; letter-spacing: .08em;
-}
-.cv-picker-cat {
-  display: flex; align-items: center; gap: 9px;
-  padding: 9px 16px; cursor: pointer; font-size: 13px; font-weight: 700;
-  color: #475569; border: none; border-left: 3px solid transparent;
-  background: none; width: 100%; text-align: left; transition: .12s;
-}
-.cv-picker-cat:hover { background: #f1f5f9; color: #1e293b; }
-.cv-picker-cat.active { border-left-color: #2094ff; background: rgba(32,148,255,.07); color: #2094ff; font-weight: 800; }
-.cv-picker-cat-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+/* No sidebar — full-width layout */
+.cv-picker-sidebar { display: none; }
 
-/* Right main area */
-.cv-picker-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-.cv-picker-top { padding: 18px 22px 14px; border-bottom: 1px solid #f0f2f5; flex-shrink: 0; }
-.cv-picker-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.cv-picker-top-title { font-size: 16px; font-weight: 900; color: #0f172a; }
-.cv-picker-close { width: 30px; height: 30px; border-radius: 8px; border: 1px solid #e5e9ee; background: #fff; font-size: 16px; cursor: pointer; color: #94a3b8; display: flex; align-items: center; justify-content: center; }
+.cv-picker-main { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; }
+.cv-picker-top { padding: 20px 22px 14px; border-bottom: 1px solid #f0f2f5; flex-shrink: 0; }
+.cv-picker-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.cv-picker-top-title { font-size: 17px; font-weight: 900; color: #0f172a; }
+.cv-picker-close { width: 32px; height: 32px; border-radius: 9px; border: 1px solid #e5e9ee; background: #fff; font-size: 16px; cursor: pointer; color: #94a3b8; display: flex; align-items: center; justify-content: center; }
 .cv-picker-close:hover { background: #f8fafc; color: #1e293b; }
 .cv-picker-search-wrap { position: relative; }
 .cv-picker-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
 .cv-picker-search {
-  width: 100%; height: 42px; border-radius: 12px; border: 1.5px solid #e2e8f0;
-  padding: 0 14px 0 36px; font-size: 13px; font-weight: 600; outline: none; box-sizing: border-box;
+  width: 100%; height: 44px; border-radius: 12px; border: 1.5px solid #e2e8f0;
+  padding: 0 14px 0 38px; font-size: 13px; font-weight: 600; outline: none; box-sizing: border-box;
 }
 .cv-picker-search:focus { border-color: #2094ff; box-shadow: 0 0 0 3px rgba(32,148,255,.1); }
 
-/* Module grid */
-.cv-picker-body { flex: 1; overflow-y: auto; padding: 14px 22px 22px; }
+/* Module grid — single column */
+.cv-picker-body { flex: 1; overflow-y: auto; padding: 14px 20px 20px; }
 .cv-picker-section-label {
   font-size: 11px; font-weight: 900; color: #94a3b8; text-transform: uppercase;
   letter-spacing: .08em; margin-bottom: 10px; padding-top: 4px;
 }
-.cv-picker-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+.cv-picker-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
 .cv-picker-item {
-  display: flex; align-items: center; gap: 13px; padding: 13px 14px;
+  display: flex; align-items: center; gap: 14px; padding: 13px 16px;
   border-radius: 14px; border: 1.5px solid #edf1f5; cursor: pointer;
-  transition: .14s; background: #fff; position: relative; text-align: left;
+  transition: .14s; background: #fff; position: relative; text-align: left; width: 100%;
 }
-.cv-picker-item:hover { border-color: #2094ff; background: #f8fbff; box-shadow: 0 4px 16px rgba(32,148,255,.1); transform: translateY(-1px); }
+.cv-picker-item:hover { border-color: #2094ff; background: #f8fbff; box-shadow: 0 4px 16px rgba(32,148,255,.1); transform: translateX(2px); }
 .cv-picker-item.cv-recommended { border-color: #bfdbfe; background: #f0f7ff; }
-.cv-picker-item-icon { width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 23px; }
+.cv-picker-item-icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
 .cv-picker-item-name { font-size: 13px; font-weight: 800; color: #1e293b; line-height: 1.3; }
-.cv-picker-item-desc { font-size: 11px; color: #94a3b8; margin-top: 3px; line-height: 1.4; }
+.cv-picker-item-desc { font-size: 12px; color: #94a3b8; margin-top: 3px; line-height: 1.4; }
 .cv-picker-item-reason { font-size: 11px; color: #2563eb; margin-top: 3px; font-weight: 700; }
 .cv-picker-badge {
-  position: absolute; top: 9px; right: 9px;
-  font-size: 9px; font-weight: 900; padding: 2px 7px; border-radius: 999px;
-  background: #2094ff; color: #fff; text-transform: uppercase; letter-spacing: .06em;
+  position: absolute; top: 50%; right: 14px; transform: translateY(-50%);
+  font-size: 10px; font-weight: 900; padding: 3px 9px; border-radius: 999px;
+  background: #eff6ff; color: #2094ff; border: 1px solid #bfdbfe;
 }
 .cv-picker-no-results { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 14px; }
 
@@ -3306,7 +3287,6 @@ body {
     <!-- Make-style module picker modal -->
     <div class="cv-picker-overlay" id="cvPickerOverlay"></div>
     <div class="cv-picker-modal" id="cvPickerModal">
-      <div class="cv-picker-sidebar" id="cvPickerSidebar"></div>
       <div class="cv-picker-main">
         <div class="cv-picker-top">
           <div class="cv-picker-top-row">
@@ -3589,7 +3569,7 @@ ThayApp.CanvasEditor = (function () {
 
   /* ── DOM REFS ── */
   let _canvas, _world, _svg, _empty, _addFloat;
-  let _pickerOverlay, _pickerModal, _pickerSidebar, _pickerTitle, _pickerSearch, _pickerBody, _pickerClose;
+  let _pickerOverlay, _pickerModal, _pickerTitle, _pickerSearch, _pickerBody, _pickerClose;
   let _cfgOverlay, _cfgPanel, _cfgClose, _cfgIcon, _cfgTitle, _cfgSub, _cfgNav, _cfgContent, _cfgSave;
   let _presetsOverlay, _presetsPanel, _presetsClose, _presetsList;
   let _testOverlay, _testPanel, _testClose, _testContent;
@@ -3619,7 +3599,6 @@ ThayApp.CanvasEditor = (function () {
     _addFloat       = document.getElementById('cvAddFloat');
     _pickerOverlay  = document.getElementById('cvPickerOverlay');
     _pickerModal    = document.getElementById('cvPickerModal');
-    _pickerSidebar  = document.getElementById('cvPickerSidebar');
     _pickerTitle    = document.getElementById('cvPickerTitle');
     _pickerSearch   = document.getElementById('cvPickerSearch');
     _pickerBody     = document.getElementById('cvPickerBody');
@@ -3671,7 +3650,6 @@ ThayApp.CanvasEditor = (function () {
       ? 'Escolha o próximo módulo'
       : _nodes.length === 0 ? 'Como seu funil começa?' : 'Adicionar módulo';
 
-    _renderPickerSidebar();
     _renderPickerBody();
     _pickerOverlay.classList.add('open');
     _pickerModal.classList.add('open');
@@ -3684,61 +3662,16 @@ ThayApp.CanvasEditor = (function () {
     _pickerFromId = null;
   }
 
-  function _renderPickerSidebar() {
-    _pickerSidebar.innerHTML = `<div class="cv-picker-sidebar-title">Categorias</div>`
-      + PICKER_CATS.map(c =>
-        `<button class="cv-picker-cat${_pickerCat === c.id ? ' active' : ''}" data-pcat="${c.id}">
-           <span class="cv-picker-cat-icon">${c.icon}</span>${c.id}
-         </button>`).join('');
-
-    _pickerSidebar.querySelectorAll('.cv-picker-cat').forEach(btn => {
-      btn.addEventListener('click', () => {
-        _pickerCat = btn.dataset.pcat;
-        _pickerSearch.value = '';
-        _renderPickerSidebar();
-        _renderPickerBody();
-      });
-    });
-  }
-
   function _renderPickerBody() {
-    const txt    = _pickerSearch.value.toLowerCase();
-    const cat    = _pickerCat;
+    const txt      = _pickerSearch.value.toLowerCase();
     const fromNode = _pickerFromId ? _nodes.find(n => n.id === _pickerFromId) : null;
     const fromMod  = fromNode ? MODULES.find(m => m.id === fromNode.moduleId) : null;
     const nextSteps = fromMod ? (NEXT_STEPS[fromMod.id] || []) : [];
     const recIds    = nextSteps.map(s => s.id);
 
-    // Handle special categories
-    if (cat === 'Presets') {
-      _pickerBody.innerHTML = `<div class="cv-picker-section-label">Automações prontas</div>`
-        + `<div style="display:flex;flex-direction:column;gap:8px">`
-        + PRESETS.map((p, i) => `
-          <div class="cv-picker-item" style="border-radius:12px" data-preset="${i}">
-            <div class="cv-picker-item-icon" style="background:#f1f5f9;font-size:24px">${p.icon}</div>
-            <div>
-              <div class="cv-picker-item-name">${p.name}</div>
-              <div class="cv-picker-item-desc">${p.desc}</div>
-            </div>
-          </div>`).join('') + `</div>`;
-
-      _pickerBody.querySelectorAll('[data-preset]').forEach(el => {
-        el.addEventListener('click', () => {
-          _closePicker();
-          _loadPreset(PRESETS[+el.dataset.preset]);
-        });
-      });
-      return;
-    }
-
-    // Filter modules
-    let mods = MODULES;
-    if (cat === 'Mais usados') {
-      mods = MOST_USED.map(id => MODULES.find(m => m.id === id)).filter(Boolean);
-    } else if (cat !== 'Todos') {
-      mods = MODULES.filter(m => m.cat === cat);
-    }
-    if (txt) mods = mods.filter(m => m.name.toLowerCase().includes(txt) || m.desc.toLowerCase().includes(txt));
+    let mods = txt
+      ? MODULES.filter(m => m.name.toLowerCase().includes(txt) || m.desc.toLowerCase().includes(txt))
+      : MODULES;
 
     if (!mods.length) {
       _pickerBody.innerHTML = `<div class="cv-picker-no-results">Nenhum módulo encontrado para "${_pickerSearch.value}"</div>`;
@@ -3747,11 +3680,11 @@ ThayApp.CanvasEditor = (function () {
 
     let html = '';
 
-    // Recommended section (only if opened from a node and not searching and cat is Todos)
-    if (recIds.length && !txt && cat === 'Todos') {
+    // Recommended section when opened from a node (not searching)
+    if (recIds.length && !txt) {
       const recMods = recIds.map(id => MODULES.find(m => m.id === id)).filter(Boolean);
       const rest    = mods.filter(m => !recIds.includes(m.id));
-      html += `<div class="cv-picker-section-label">⭐ Recomendado para este módulo</div>`
+      html += `<div class="cv-picker-section-label">⭐ Recomendado</div>`
              + `<div class="cv-picker-grid">${recMods.map(m => _pickerItemHTML(m, nextSteps.find(s=>s.id===m.id)?.reason, true)).join('')}</div>`;
       if (rest.length) {
         html += `<div class="cv-picker-section-label">Todos os módulos</div>`
@@ -3759,19 +3692,14 @@ ThayApp.CanvasEditor = (function () {
       }
     } else {
       html += `<div class="cv-picker-grid">${mods.map(m => {
-        const reason = recIds.includes(m.id) && nextSteps.find(s=>s.id===m.id)?.reason;
-        return _pickerItemHTML(m, reason || '', recIds.includes(m.id));
+        const reason = recIds.includes(m.id) ? nextSteps.find(s=>s.id===m.id)?.reason : '';
+        return _pickerItemHTML(m, reason||'', recIds.includes(m.id));
       }).join('')}</div>`;
     }
 
     _pickerBody.innerHTML = html;
-
     _pickerBody.querySelectorAll('.cv-picker-item').forEach(el => {
-      el.addEventListener('click', () => {
-        const id = el.dataset.pick;
-        _closePicker();
-        _addNode(id, _pickerFromId || null);
-      });
+      el.addEventListener('click', () => { _closePicker(); _addNode(el.dataset.pick, _pickerFromId||null); });
     });
   }
 
