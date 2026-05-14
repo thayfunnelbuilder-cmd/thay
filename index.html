@@ -1607,147 +1607,152 @@ body {
 }
 
 /* ── CANVAS ── */
-.canvas {
-  height: calc(100vh - 280px);
-  min-height: 400px;
-  border-radius: 28px;
-  background-color: #fff;
-  background-image: radial-gradient(#e8edf2 1px, transparent 1px);
-  background-size: 24px 24px;
-  border: 1px dashed #d5dce3;
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.95);
-  cursor: grab;
-}
-.canvas:active { cursor: grabbing; }
 
-.scenario-world { position: absolute; inset: 0; transform-origin: 0 0; }
+/* Library sidebar */
+.cv-layout { display: flex; flex-direction: row; gap: 16px; height: calc(100vh - 200px); min-height: 520px; }
+.cv-library { width: 272px; flex-shrink: 0; border-radius: 20px; background: #fff; border: 1px solid #e8ecf0; overflow: hidden; display: flex; flex-direction: column; }
+.cv-lib-head { padding: 16px 16px 12px; border-bottom: 1px solid #f0f2f5; }
+.cv-lib-search input { width: 100%; height: 40px; border-radius: 10px; border: 1px solid #dde2e8; padding: 0 12px; font-size: 13px; font-weight: 650; outline: none; box-sizing: border-box; }
+.cv-lib-search input:focus { border-color: #2094ff; }
+.cv-lib-cats { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 8px; border-bottom: 1px solid #f0f2f5; }
+.cv-lib-cat { height: 26px; padding: 0 10px; border-radius: 999px; border: 1px solid #e5e9ee; font-size: 11px; font-weight: 800; color: #64748b; cursor: pointer; background: #fff; }
+.cv-lib-cat.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+.cv-lib-list { flex: 1; overflow-y: auto; padding: 10px 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+.cv-lib-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1px solid #edf1f5; cursor: pointer; transition: .16s; }
+.cv-lib-item:hover { transform: translateX(2px); box-shadow: 0 8px 20px rgba(0,0,0,.07); }
+.cv-lib-icon { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.cv-lib-info { flex: 1; min-width: 0; }
+.cv-lib-name { font-size: 13px; font-weight: 800; color: #1e293b; }
+.cv-lib-desc { font-size: 11px; color: #94a3b8; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv-lib-add { width: 26px; height: 26px; border-radius: 8px; background: #2094ff; color: #fff; border: none; font-size: 18px; line-height: 1; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.cv-lib-add:hover { background: #0077ef; }
 
-.flow-line {
-  position: absolute;
-  top: 50%; left: 8%; width: 84%; height: 16px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #45adff, #73c6ff, #0077ff);
-  filter: blur(2px);
-  opacity: .8;
-}
+/* Canvas area */
+.canvas.cv-canvas { flex: 1; position: relative; overflow: hidden; border-radius: 20px; background-color: #f8fafc; background-image: radial-gradient(#dde4ec 1px, transparent 1px); background-size: 24px 24px; border: 1px solid #e8ecf0; cursor: grab; height: auto; min-height: unset; box-shadow: none; }
+.canvas.cv-canvas:active { cursor: grabbing; }
+.cv-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
+.scenario-world { position: absolute; inset: 0; transform-origin: 0 0; z-index: 2; }
 
-.add-flow-node {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: 128px; height: 128px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  background: linear-gradient(180deg, #f7f9fb, #eef2f6);
-  color: #050505;
-  display: grid;
-  place-items: center;
-  cursor: grab;
-  z-index: 5;
-  box-shadow: 0 22px 44px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.96);
-  transition: border-color .18s ease, box-shadow .18s ease;
-}
-.add-flow-node span { font-size: 64px; font-weight: 300; line-height: 1; }
-.add-flow-node:hover,
-.add-flow-node.active {
-  border-color: #2094ff;
-  box-shadow: 0 26px 54px rgba(32,148,255,.18), inset 0 1px 0 rgba(255,255,255,.98);
-}
+/* Nodes */
+.cv-node { position: absolute; width: 240px; background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 16px rgba(0,0,0,.08); cursor: grab; user-select: none; transition: border-color .15s; }
+.cv-node.selected { border-color: #2094ff; box-shadow: 0 0 0 3px rgba(32,148,255,.15); }
+.cv-node:active { cursor: grabbing; }
+.cv-node-head { padding: 12px 14px; border-radius: 15px 15px 0 0; display: flex; align-items: center; gap: 10px; }
+.cv-node-icon { font-size: 20px; flex-shrink: 0; }
+.cv-node-name { font-size: 13px; font-weight: 900; color: #fff; flex: 1; }
+.cv-node-status { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; }
+.cv-status-ok  { background: rgba(255,255,255,.25); color: #fff; }
+.cv-status-cfg { background: rgba(255,200,0,.3); color: #fff; }
+.cv-status-off { background: rgba(255,255,255,.15); color: rgba(255,255,255,.7); }
+.cv-node-body { padding: 10px 14px; border-bottom: 1px solid #f0f4f8; }
+.cv-node-row { font-size: 11px; line-height: 1.5; color: #64748b; }
+.cv-node-row span { font-weight: 700; color: #1e293b; }
+.cv-node-footer { padding: 10px 14px; display: flex; gap: 8px; }
+.cv-btn { height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 11px; font-weight: 800; cursor: pointer; background: #fff; color: #1e293b; transition: .15s; }
+.cv-btn:hover { background: #f1f5f9; }
+.cv-btn-primary { background: #2094ff; border-color: #2094ff; color: #fff; }
+.cv-btn-primary:hover { background: #0077ef; }
+.cv-btn-danger { color: #ef4444; }
+.cv-btn-danger:hover { background: #fef2f2; border-color: #fecaca; }
+.cv-port { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid #c8d0da; cursor: crosshair; z-index: 10; }
+.cv-port-in  { right: auto; left: -7px; top: 50%; transform: translateY(-50%); }
+.cv-port-out { left: auto; right: -7px; top: 50%; transform: translateY(-50%); }
+.cv-port:hover { border-color: #2094ff; background: #e8f2ff; }
 
-/* ── MODULE PICKER ── */
-.module-picker {
-  position: absolute;
-  left: 0; top: 0;
-  transform: none;
-  width: 430px;
-  max-height: 430px;
-  border-radius: 22px;
-  background: rgba(255,255,255,.98);
-  border: 1px solid #e3e8ef;
-  box-shadow: 0 28px 70px rgba(0,0,0,.16);
-  z-index: 20;
-  overflow: hidden;
-  display: none;
-  pointer-events: auto;
-}
-.module-picker::before {
-  content: "";
-  position: absolute; left: -18px; top: 50%;
-  transform: translateY(-50%);
-  width: 18px; height: 42px;
-  background: rgba(255,255,255,.98);
-  clip-path: polygon(100% 0, 0 50%, 100% 100%);
-  border-left: 1px solid #e3e8ef;
-}
-.module-picker.open { display: block; }
-.module-picker.left-side::before {
-  left: auto; right: -18px;
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
-}
+/* Empty state */
+.cv-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: .6; }
+.cv-empty-icon { font-size: 48px; margin-bottom: 12px; }
+.cv-empty-title { font-size: 16px; font-weight: 800; color: #64748b; }
+.cv-empty-sub { font-size: 13px; color: #94a3b8; margin-top: 6px; text-align: center; max-width: 280px; }
 
-.module-search { padding: 18px; border-bottom: 1px solid #edf1f5; }
-.module-search input {
-  width: 100%; height: 44px;
-  border-radius: 12px;
-  border: 1px solid #d8e0e8;
-  background: #fff;
-  padding: 0 14px;
-  font-size: 14px;
-  font-weight: 650;
-  outline: none;
-}
-.module-search input:focus {
-  border-color: #2094ff;
-  box-shadow: 0 0 0 3px rgba(32,148,255,.12);
-}
+/* Zoom bar */
+.cv-zoom-bar { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 6px; z-index: 10; }
+.cv-zoom-bar button { width: 34px; height: 34px; border-radius: 10px; border: 1px solid #e2e8f0; background: #fff; font-size: 18px; cursor: pointer; font-weight: 700; color: #475569; }
+.cv-zoom-bar button:hover { background: #f1f5f9; }
 
-.module-list-title { padding: 0 18px 10px; color: #39404a; font-size: 14px; font-weight: 900; }
-.module-list {
-  padding: 8px 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 310px;
-  overflow-y: auto;
-}
+/* Suggestion bar */
+.cv-suggest-bar { margin-top: 12px; padding: 10px 16px; border-radius: 12px; background: linear-gradient(135deg, #eff6ff, #f0fdf4); border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cv-suggest-label { font-size: 12px; font-weight: 800; color: #1d4ed8; flex-shrink: 0; }
+.cv-suggest-chip { height: 28px; padding: 0 12px; border-radius: 999px; border: 1px solid #93c5fd; background: #fff; font-size: 12px; font-weight: 700; color: #1d4ed8; cursor: pointer; }
+.cv-suggest-chip:hover { background: #eff6ff; }
+.cv-suggest-dismiss { margin-left: auto; font-size: 18px; color: #94a3b8; background: none; border: none; cursor: pointer; }
 
-.module-app-item {
-  width: 100%; height: 58px;
-  border-radius: 18px;
-  background: #fff;
-  border: 1px solid #edf1f5;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 16px;
+/* Config panel */
+.cv-cfg-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 480px; background: #fff; border-left: 1px solid #e2e8f0; box-shadow: -20px 0 60px rgba(0,0,0,.12); z-index: 200; transform: translateX(100%); transition: transform .3s cubic-bezier(.22,.68,0,1.2); display: flex; flex-direction: column; }
+.cv-cfg-panel.open { transform: translateX(0); }
+.cv-cfg-head { padding: 20px 24px 16px; border-bottom: 1px solid #f0f2f5; display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.cv-cfg-icon { width: 44px; height: 44px; border-radius: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.cv-cfg-title { font-size: 16px; font-weight: 900; color: #0f172a; }
+.cv-cfg-sub { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+.cv-cfg-nav { display: flex; overflow-x: auto; border-bottom: 1px solid #f0f2f5; flex-shrink: 0; padding: 0 24px; }
+.cv-cfg-tab { height: 44px; padding: 0 14px; flex-shrink: 0; font-size: 13px; font-weight: 800; color: #64748b; border-bottom: 2px solid transparent; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none; }
+.cv-cfg-tab.active { color: #2094ff; border-bottom-color: #2094ff; }
+.cv-cfg-content { flex: 1; overflow-y: auto; padding: 20px 24px; }
+
+/* Fields */
+.cv-field { margin-bottom: 16px; }
+.cv-field label { display: block; font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+.cv-field input, .cv-field textarea, .cv-field select { width: 100%; border-radius: 10px; border: 1px solid #e2e8f0; padding: 0 12px; height: 40px; font-size: 13px; font-weight: 600; outline: none; box-sizing: border-box; }
+.cv-field textarea { height: 90px; padding: 8px 12px; resize: vertical; }
+.cv-field input:focus, .cv-field textarea:focus, .cv-field select:focus { border-color: #2094ff; box-shadow: 0 0 0 3px rgba(32,148,255,.1); }
+
+/* Trigger builder */
+.cv-trigger-builder { background: #f8fafc; border-radius: 14px; padding: 16px; border: 1px solid #edf1f5; }
+.cv-trigger-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.cv-trigger-label { font-size: 12px; font-weight: 900; color: #0f172a; min-width: 64px; }
+.cv-trigger-select { height: 36px; border-radius: 8px; border: 1px solid #e2e8f0; padding: 0 10px; font-size: 12px; font-weight: 700; background: #fff; }
+
+/* Presets panel */
+.cv-presets-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 420px; background: #fff; border-left: 1px solid #e2e8f0; box-shadow: -20px 0 60px rgba(0,0,0,.12); z-index: 200; transform: translateX(100%); transition: transform .3s cubic-bezier(.22,.68,0,1.2); display: flex; flex-direction: column; }
+.cv-presets-panel.open { transform: translateX(0); }
+.cv-preset-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px 20px; border-bottom: 1px solid #f5f7fa; cursor: pointer; }
+.cv-preset-item:hover { background: #f8fafc; }
+.cv-preset-icon { font-size: 28px; flex-shrink: 0; }
+.cv-preset-name { font-size: 14px; font-weight: 800; color: #0f172a; }
+.cv-preset-desc { font-size: 12px; color: #64748b; margin-top: 4px; }
+.cv-preset-use { margin-top: 8px; height: 30px; padding: 0 14px; border-radius: 8px; background: #2094ff; color: #fff; border: none; font-size: 12px; font-weight: 800; cursor: pointer; }
+
+/* Test panel */
+.cv-test-step { display: flex; align-items: flex-start; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #f5f7fa; }
+.cv-test-dot { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.cv-test-dot-ok   { background: #dcfce7; color: #16a34a; }
+.cv-test-dot-wait { background: #fef9c3; color: #ca8a04; }
+.cv-test-dot-err  { background: #fee2e2; color: #dc2626; }
+.cv-test-label { font-size: 13px; font-weight: 700; color: #1e293b; }
+.cv-test-sub { font-size: 11px; color: #64748b; margin-top: 3px; }
+
+/* Email preview */
+.cv-email-preview { border-radius: 14px; overflow: hidden; border: 1px solid #e2e8f0; margin-top: 12px; }
+.cv-email-banner { width: 100%; height: 120px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; font-weight: 900; }
+.cv-email-body { padding: 20px; background: #fff; }
+.cv-email-subject { font-size: 16px; font-weight: 900; color: #1e293b; margin-bottom: 8px; }
+.cv-email-text { font-size: 13px; color: #475569; line-height: 1.6; }
+.cv-email-cta { display: inline-block; margin-top: 14px; padding: 10px 24px; border-radius: 999px; background: #2094ff; color: #fff; font-size: 13px; font-weight: 800; text-decoration: none; }
+
+/* Action button */
+.cv-action-btn {
+  height: 44px; padding: 0 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e9ee;
+  background: linear-gradient(180deg, #fff, #f4f6f8);
+  color: #050505; font-size: 13px; font-weight: 800;
   cursor: pointer;
-  transition: .18s ease;
-  font-size: 14px;
-  font-weight: 900;
-  color: #20242b;
-  text-align: left;
+  box-shadow: 0 6px 16px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.95);
+  transition: .15s ease;
 }
-.module-app-item:hover { transform: translateX(2px); box-shadow: 0 14px 28px rgba(0,0,0,.08); }
-.module-app-item.active-app { border-color: #2094ff; background: rgba(32,148,255,.08); }
+.cv-action-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.1); }
 
-.module-app-icon {
-  width: 36px; height: 36px;
-  border-radius: 12px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-}
-.module-app-icon svg { width: 18px; height: 18px; stroke-width: 2.2; }
-
+/* Color helpers */
 .green  { background: #1fb96b; }
 .blue   { background: #2083ff; }
 .purple { background: #7c4dff; }
 .orange { background: #ff7b39; }
 .dark   { background: #050505; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* ── BOTTOM ACTIONS ── */
 .bottom-actions { margin-top: 22px; display: flex; justify-content: center; }
@@ -3123,62 +3128,91 @@ body {
   <section class="editor" id="editorView">
     <div class="editor-top">
       <div>
-        <div class="editor-title">Editor Visual do Funil</div>
-        <div class="editor-sub">O produto já vem com o funil pronto • personalize, aumente ou reduza etapas</div>
+        <div class="editor-title">Automações do Funil</div>
+        <div class="editor-sub">Monte seu fluxo visual • conecte módulos • automatize tudo</div>
       </div>
-      <button class="publish-btn">PUBLICAR FUNIL <span>↗</span></button>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="cvPresetsBtn" class="cv-action-btn">⚡ Presets</button>
+        <button id="cvTestBtn" class="cv-action-btn">▶ Testar Fluxo</button>
+        <button class="publish-btn">PUBLICAR FUNIL <span>↗</span></button>
+      </div>
     </div>
 
-    <div class="canvas" id="scenarioCanvas">
-      <div class="scenario-world" id="scenarioWorld">
-        <div class="flow-line"></div>
-        <button class="add-flow-node active" id="openModulePicker" type="button">
-          <span>+</span>
-        </button>
-      </div>
-
-      <aside class="module-picker open" id="modulePicker">
-        <div class="module-search">
-          <input type="text" placeholder="Pesquisar etapas do funil">
+    <div class="cv-layout">
+      <aside class="cv-library" id="cvLibrary">
+        <div class="cv-lib-head">
+          <div class="cv-lib-search">
+            <input type="text" id="cvLibSearch" placeholder="Buscar módulo do funil" />
+          </div>
         </div>
-        <div class="module-list-title">Adicione ou personalize etapas do funil</div>
-        <div class="module-list">
-          <button class="module-app-item active-app" type="button">
-            <div class="module-app-icon green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="5" width="16" height="14" rx="2"></rect><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
-            </div>
-            <span>Página de Vendas</span>
-          </button>
-          <button class="module-app-item" type="button">
-            <div class="module-app-icon dark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path></svg>
-            </div>
-            <span>Checkout da Plataforma</span>
-          </button>
-          <button class="module-app-item" type="button">
-            <div class="module-app-icon orange">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19V5"></path><path d="M7 10l5-5 5 5"></path></svg>
-            </div>
-            <span>Upsell &amp; Order Bump</span>
-          </button>
-          <button class="module-app-item" type="button">
-            <div class="module-app-icon purple">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 12c0 4.4-3.8 8-8.5 8a9 9 0 0 1-4-.9L4 20l1.1-3.2A7.7 7.7 0 0 1 3 12c0-4.4 3.8-8 8.5-8S20 7.6 20 12z"></path><path d="M9 10h6"></path><path d="M9 14h4"></path></svg>
-            </div>
-            <span>Agente de WhatsApp IA</span>
-          </button>
-          <button class="module-app-item" type="button">
-            <div class="module-app-icon blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
-            </div>
-            <span>E-mail Marketing</span>
-          </button>
-        </div>
+        <div class="cv-lib-cats" id="cvLibCats"></div>
+        <div class="cv-lib-list" id="cvLibList"></div>
       </aside>
+
+      <div class="canvas cv-canvas" id="scenarioCanvas">
+        <svg class="cv-svg" id="cvSvg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="cv-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8" />
+            </marker>
+          </defs>
+        </svg>
+        <div class="scenario-world" id="scenarioWorld"></div>
+        <div class="cv-empty" id="cvEmpty">
+          <div class="cv-empty-icon">⚡</div>
+          <div class="cv-empty-title">Adicione módulos para começar</div>
+          <div class="cv-empty-sub">Clique em um módulo na biblioteca à esquerda para adicioná-lo ao canvas</div>
+        </div>
+        <div class="cv-zoom-bar">
+          <button id="cvZoomIn" title="Aproximar">+</button>
+          <button id="cvZoomReset" title="Resetar zoom">⊙</button>
+          <button id="cvZoomOut" title="Afastar">−</button>
+        </div>
+      </div>
     </div>
 
-    <div class="bottom-actions">
-      <button class="test-flow-btn" type="button">▶ Testar Fluxo</button>
+    <div class="cv-suggest-bar" id="cvSuggestBar" style="display:none">
+      <span class="cv-suggest-label">💡 THAY Sugere:</span>
+      <div id="cvSuggestChips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+      <button class="cv-suggest-dismiss" id="cvSuggestDismiss">×</button>
+    </div>
+
+    <!-- Module config panel -->
+    <div class="fsp-overlay" id="cvCfgOverlay"></div>
+    <div class="cv-cfg-panel" id="cvCfgPanel">
+      <div class="cv-cfg-head">
+        <div class="cv-cfg-icon" id="cvCfgIcon"></div>
+        <div style="flex:1">
+          <div class="cv-cfg-title" id="cvCfgTitle"></div>
+          <div class="cv-cfg-sub" id="cvCfgSub"></div>
+        </div>
+        <button class="fsp-close" id="cvCfgClose">✕</button>
+      </div>
+      <nav class="cv-cfg-nav" id="cvCfgNav"></nav>
+      <div class="cv-cfg-content" id="cvCfgContent"></div>
+      <div class="fsp-save-bar">
+        <button class="fsp-save-btn" id="cvCfgSave">Salvar configuração</button>
+      </div>
+    </div>
+
+    <!-- Presets panel -->
+    <div class="fsp-overlay" id="cvPresetsOverlay"></div>
+    <div class="cv-presets-panel" id="cvPresetsPanel">
+      <div class="cv-cfg-head" style="border-bottom:1px solid #f0f2f5;padding:20px 24px 16px">
+        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">⚡ Automações Prontas</div>
+        <button class="fsp-close" id="cvPresetsClose">✕</button>
+      </div>
+      <div style="padding:8px 0;overflow-y:auto;flex:1" id="cvPresetsList"></div>
+    </div>
+
+    <!-- Test flow panel -->
+    <div class="fsp-overlay" id="cvTestOverlay"></div>
+    <div class="cv-presets-panel" id="cvTestPanel">
+      <div class="cv-cfg-head" style="border-bottom:1px solid #f0f2f5;padding:20px 24px 16px">
+        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">▶ Teste do Fluxo</div>
+        <button class="fsp-close" id="cvTestClose">✕</button>
+      </div>
+      <div style="overflow-y:auto;flex:1" id="cvTestContent"></div>
     </div>
   </section>
 
@@ -3293,7 +3327,7 @@ ThayApp.ViewManager = (function () {
 
 /**
  * THAY FUNNEL BUILDER — CANVAS EDITOR
- * Lógica do canvas estilo n8n: pan, zoom, drag de nós, module picker
+ * Visual automation builder for sales funnels
  */
 
 'use strict';
@@ -3301,124 +3335,852 @@ ThayApp.ViewManager = (function () {
 window.ThayApp = window.ThayApp || {};
 
 ThayApp.CanvasEditor = (function () {
-  let worldScale = 1;
-  let worldX = 0;
-  let worldY = 0;
+  'use strict';
 
-  let scenarioCanvas, scenarioWorld, openModulePicker, modulePicker;
+  /* ── MODULE DEFINITIONS ── */
+  const MODULES = [
+    { id:'page',     cat:'Páginas',      icon:'📄', name:'Página de Vendas',       desc:'Crie e publique sua página',              color:'#1fb96b', textColor:'#fff' },
+    { id:'checkout', cat:'Pagamento',    icon:'💳', name:'Checkout da Plataforma', desc:'Coleta pagamento com múltiplos métodos',  color:'#0f172a', textColor:'#fff' },
+    { id:'email',    cat:'Comunicação',  icon:'✉️', name:'E-mail Marketing',       desc:'Sequência automática de e-mails',         color:'#2083ff', textColor:'#fff' },
+    { id:'whatsapp', cat:'Comunicação',  icon:'💬', name:'WhatsApp IA',            desc:'Agente IA responde no WhatsApp',          color:'#25d366', textColor:'#fff' },
+    { id:'upsell',   cat:'Vendas',       icon:'⬆️', name:'Upsell / Order Bump',   desc:'Aumente o ticket após compra',            color:'#ff7b39', textColor:'#fff' },
+    { id:'pixel',    cat:'Rastreamento', icon:'📡', name:'Pixel',                 desc:'Dispara eventos de rastreamento',         color:'#7c4dff', textColor:'#fff' },
+    { id:'webhook',  cat:'Avançado',     icon:'🔗', name:'Webhook / API',          desc:'Integre com qualquer ferramenta',         color:'#475569', textColor:'#fff' },
+    { id:'members',  cat:'Pós-venda',    icon:'🎓', name:'Área do Aluno',         desc:'Libere acesso ao curso',                  color:'#f59e0b', textColor:'#fff' },
+  ];
 
+  const CATS = ['Todos','Páginas','Vendas','Pagamento','Comunicação','Rastreamento','Pós-venda','Avançado'];
+
+  /* Suggested connections when certain modules are added */
+  const SUGGESTIONS = {
+    checkout: ['E-mail Marketing','WhatsApp IA','Pixel','Upsell / Order Bump'],
+    page:     ['Checkout da Plataforma','Pixel'],
+    upsell:   ['Área do Aluno','E-mail Marketing'],
+    email:    [],
+    members:  [],
+    whatsapp: [],
+    pixel:    [],
+    webhook:  [],
+  };
+
+  /* Presets */
+  const PRESETS = [
+    { icon:'📧', name:'Recuperação de checkout por e-mail',  desc:'Detecta abandono e envia 3 e-mails em 10min / 2h / 24h',  mods:['checkout','email'] },
+    { icon:'📲', name:'Recuperação de Pix não pago',         desc:'Pix gerado mas não pago? WhatsApp IA entra em ação',       mods:['checkout','whatsapp'] },
+    { icon:'❌', name:'Pagamento recusado no cartão',        desc:'Cartão recusado → e-mail com link para outro método',      mods:['checkout','email'] },
+    { icon:'🎓', name:'Pós-compra com área do aluno',        desc:'Compra aprovada → libera acesso automaticamente',          mods:['checkout','members'] },
+    { icon:'⬆️', name:'Upsell após compra',                  desc:'Compra feita → oferta de upsell imediata',                 mods:['checkout','upsell'] },
+    { icon:'💡', name:'Lead entrou mas não comprou',          desc:'Lead capturado → sequência de e-mails de nutrição',        mods:['page','email'] },
+    { icon:'💬', name:'WhatsApp após abandono',              desc:'Abandono de checkout → WhatsApp IA em 5 minutos',          mods:['checkout','whatsapp'] },
+    { icon:'📨', name:'Sequência de 3 e-mails',              desc:'Automação completa: 3 e-mails em momentos estratégicos',    mods:['checkout','email','pixel'] },
+  ];
+
+  /* Module config tabs */
+  const CFG_TABS = ['Conteúdo','Gatilho','Integração','Teste','Logs'];
+
+  /* ── STATE ── */
+  let _nodes     = [];   // { id, moduleId, x, y, status, trigger, action }
+  let _conns     = [];   // { from, to }  (node ids)
+  let _nextId    = 1;
+  let _selNode   = null; // selected node id
+  let _cfgNode   = null; // node being configured
+  let _cfgTab    = 'Conteúdo';
+  let _drawing   = null; // { fromId } during connection drag
+  let _worldX = 0, _worldY = 0, _worldScale = 1;
+
+  /* ── DOM REFS ── */
+  let _canvas, _world, _svg, _empty, _suggestBar, _suggestChips;
+  let _cfgOverlay, _cfgPanel, _cfgClose, _cfgIcon, _cfgTitle, _cfgSub, _cfgNav, _cfgContent, _cfgSave;
+  let _presetsOverlay, _presetsPanel, _presetsClose, _presetsList;
+  let _testOverlay, _testPanel, _testClose, _testContent;
+  let _libSearch, _libCats, _libList;
+
+  /* ── INIT ── */
   function init() {
-    scenarioCanvas    = document.getElementById('scenarioCanvas');
-    scenarioWorld     = document.getElementById('scenarioWorld');
-    openModulePicker  = document.getElementById('openModulePicker');
-    modulePicker      = document.getElementById('modulePicker');
+    _canvas        = document.getElementById('scenarioCanvas');
+    _world         = document.getElementById('scenarioWorld');
+    _svg           = document.getElementById('cvSvg');
+    _empty         = document.getElementById('cvEmpty');
+    _suggestBar    = document.getElementById('cvSuggestBar');
+    _suggestChips  = document.getElementById('cvSuggestChips');
+    _cfgOverlay    = document.getElementById('cvCfgOverlay');
+    _cfgPanel      = document.getElementById('cvCfgPanel');
+    _cfgClose      = document.getElementById('cvCfgClose');
+    _cfgIcon       = document.getElementById('cvCfgIcon');
+    _cfgTitle      = document.getElementById('cvCfgTitle');
+    _cfgSub        = document.getElementById('cvCfgSub');
+    _cfgNav        = document.getElementById('cvCfgNav');
+    _cfgContent    = document.getElementById('cvCfgContent');
+    _cfgSave       = document.getElementById('cvCfgSave');
+    _presetsOverlay = document.getElementById('cvPresetsOverlay');
+    _presetsPanel  = document.getElementById('cvPresetsPanel');
+    _presetsClose  = document.getElementById('cvPresetsClose');
+    _presetsList   = document.getElementById('cvPresetsList');
+    _testOverlay   = document.getElementById('cvTestOverlay');
+    _testPanel     = document.getElementById('cvTestPanel');
+    _testClose     = document.getElementById('cvTestClose');
+    _testContent   = document.getElementById('cvTestContent');
+    _libSearch     = document.getElementById('cvLibSearch');
+    _libCats       = document.getElementById('cvLibCats');
+    _libList       = document.getElementById('cvLibList');
 
-    if (!scenarioCanvas || !scenarioWorld || !openModulePicker || !modulePicker) return;
+    if (!_canvas || !_world) return;
 
+    _renderLibrary();
+    _initCanvasEvents();
+    _initPanelEvents();
     _initZoom();
-    _initNodeDrag();
-    _initPickerToggle();
-    updateWorldTransform();
   }
 
-  /* ── PUBLIC ── */
-  function openPicker() {
-    modulePicker.classList.add('open');
-    openModulePicker.classList.add('active');
-    positionModulePicker();
+  /* ── LIBRARY ── */
+  function _renderLibrary(filterCat, filterText) {
+    // Render category tabs
+    _libCats.innerHTML = CATS.map(c =>
+      `<button class="cv-lib-cat${(!filterCat || filterCat===c) && c==='Todos' || filterCat===c ? ' active' : ''}" data-cat="${c}">${c}</button>`
+    ).join('');
+    _libCats.querySelectorAll('.cv-lib-cat').forEach(btn => {
+      btn.addEventListener('click', () => _renderLibrary(btn.dataset.cat, _libSearch.value));
+    });
+
+    // Filter modules
+    const txt = (filterText||'').toLowerCase();
+    const cat = filterCat === 'Todos' ? null : filterCat;
+    const filtered = MODULES.filter(m =>
+      (!cat || m.cat === cat) &&
+      (!txt || m.name.toLowerCase().includes(txt) || m.desc.toLowerCase().includes(txt))
+    );
+
+    _libList.innerHTML = filtered.map(m => `
+      <div class="cv-lib-item" data-mod="${m.id}">
+        <div class="cv-lib-icon" style="background:${m.color}">${m.icon}</div>
+        <div class="cv-lib-info">
+          <div class="cv-lib-name">${m.name}</div>
+          <div class="cv-lib-desc">${m.desc}</div>
+        </div>
+        <button class="cv-lib-add" data-add="${m.id}" title="Adicionar">+</button>
+      </div>
+    `).join('');
+
+    _libList.querySelectorAll('.cv-lib-add').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        _addNode(btn.dataset.add);
+      });
+    });
+    _libList.querySelectorAll('.cv-lib-item').forEach(item => {
+      item.addEventListener('click', () => _addNode(item.dataset.mod));
+    });
   }
 
-  /* ── PRIVATE ── */
-  function positionModulePicker() {
-    if (!openModulePicker || !modulePicker || !scenarioCanvas) return;
-    const canvasRect = scenarioCanvas.getBoundingClientRect();
-    const nodeRect   = openModulePicker.getBoundingClientRect();
-    const pickerW = 430;
-    const pickerH = 430;
-    const gap = 26;
+  /* ── ADD NODE ── */
+  function _addNode(moduleId) {
+    const mod = MODULES.find(m => m.id === moduleId);
+    if (!mod) return;
 
-    let left = nodeRect.right - canvasRect.left + gap;
-    let top  = nodeRect.top - canvasRect.top + nodeRect.height / 2 - pickerH / 2;
+    // Spread nodes in a grid pattern
+    const col   = _nodes.length % 3;
+    const row   = Math.floor(_nodes.length / 3);
+    const x     = 60 + col * 280;
+    const y     = 60 + row * 200;
 
-    const shouldOpenLeft = left + pickerW > canvasRect.width - 18;
-    modulePicker.classList.toggle('left-side', shouldOpenLeft);
-    if (shouldOpenLeft) left = nodeRect.left - canvasRect.left - pickerW - gap;
-
-    left = Math.max(18, Math.min(left, canvasRect.width  - pickerW - 18));
-    top  = Math.max(18, Math.min(top,  canvasRect.height - pickerH - 18));
-
-    modulePicker.style.left = `${left}px`;
-    modulePicker.style.top  = `${top}px`;
+    const node = {
+      id:       `n${_nextId++}`,
+      moduleId,
+      x, y,
+      status:   'cfg',   // 'ok' | 'cfg' | 'off'
+      trigger:  _defaultTrigger(moduleId),
+      action:   _defaultAction(moduleId),
+    };
+    _nodes.push(node);
+    _renderNode(node);
+    _updateEmpty();
+    _showSuggestions(moduleId);
+    _updateSvg();
   }
 
-  function updateWorldTransform() {
-    if (!scenarioWorld) return;
-    scenarioWorld.style.transform = `translate(${worldX}px, ${worldY}px) scale(${worldScale})`;
-    positionModulePicker();
+  function _defaultTrigger(id) {
+    const map = {
+      page:     'Página visitada',
+      checkout: 'Checkout iniciado',
+      email:    'Checkout abandonado',
+      whatsapp: 'Checkout abandonado',
+      upsell:   'Compra aprovada',
+      pixel:    'Qualquer evento',
+      webhook:  'Compra aprovada',
+      members:  'Compra aprovada',
+    };
+    return map[id] || '—';
   }
 
-  function _initZoom() {
-    scenarioCanvas.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const rect   = scenarioCanvas.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      const oldScale = worldScale;
-
-      worldScale += e.deltaY < 0 ? 0.08 : -0.08;
-      worldScale  = Math.max(0.55, Math.min(worldScale, 2.2));
-
-      worldX = mouseX - ((mouseX - worldX) / oldScale) * worldScale;
-      worldY = mouseY - ((mouseY - worldY) / oldScale) * worldScale;
-
-      updateWorldTransform();
-    }, { passive: false });
+  function _defaultAction(id) {
+    const map = {
+      page:     'Exibir página de vendas',
+      checkout: 'Coletar pagamento',
+      email:    'Enviar e-mail após 10 min',
+      whatsapp: 'Enviar mensagem IA em 5 min',
+      upsell:   'Exibir oferta de upsell',
+      pixel:    'Disparar Purchase + PageView',
+      webhook:  'POST para URL configurada',
+      members:  'Liberar acesso ao curso',
+    };
+    return map[id] || '—';
   }
 
-  function _initNodeDrag() {
-    let nodeDragging = false;
-    let nodeOffsetX  = 0;
-    let nodeOffsetY  = 0;
-    let nodeMoved    = false;
+  /* ── RENDER NODE ── */
+  function _renderNode(node) {
+    const mod = MODULES.find(m => m.id === node.moduleId);
+    const el  = document.createElement('div');
+    el.className = 'cv-node';
+    el.dataset.nodeId = node.id;
+    el.style.left = node.x + 'px';
+    el.style.top  = node.y + 'px';
 
-    openModulePicker.addEventListener('mousedown', (e) => {
-      nodeDragging = true;
-      nodeMoved    = false;
-      const nodeRect = openModulePicker.getBoundingClientRect();
-      nodeOffsetX = e.clientX - nodeRect.left;
-      nodeOffsetY = e.clientY - nodeRect.top;
-      e.preventDefault();
+    const statusLabel = { ok:'● Ativo', cfg:'⚙ Configurar', off:'○ Inativo' }[node.status] || '';
+    const statusClass = 'cv-status-' + node.status;
+
+    el.innerHTML = `
+      <div class="cv-node-head" style="background:${mod.color}">
+        <span class="cv-node-icon">${mod.icon}</span>
+        <span class="cv-node-name">${mod.name}</span>
+        <span class="cv-node-status ${statusClass}">${statusLabel}</span>
+      </div>
+      <div class="cv-node-body">
+        <div class="cv-node-row"><span>Gatilho: </span>${node.trigger}</div>
+        <div class="cv-node-row"><span>Ação: </span>${node.action}</div>
+      </div>
+      <div class="cv-node-footer">
+        <button class="cv-btn cv-btn-primary cv-do-cfg" data-nid="${node.id}">Configurar</button>
+        <button class="cv-btn cv-do-test" data-nid="${node.id}">Testar</button>
+        <button class="cv-btn cv-do-logs" data-nid="${node.id}">Logs</button>
+        <button class="cv-btn cv-btn-danger cv-do-del" data-nid="${node.id}" style="margin-left:auto">✕</button>
+      </div>
+      <div class="cv-port cv-port-in" data-port="in" data-nid="${node.id}"></div>
+      <div class="cv-port cv-port-out" data-port="out" data-nid="${node.id}"></div>
+    `;
+
+    // Node drag
+    _initNodeDrag(el, node);
+
+    // Buttons
+    el.querySelector('.cv-do-cfg').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Conteúdo'); });
+    el.querySelector('.cv-do-test').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Teste'); });
+    el.querySelector('.cv-do-logs').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Logs'); });
+    el.querySelector('.cv-do-del').addEventListener('click', e => {
+      e.stopPropagation();
+      _nodes = _nodes.filter(n => n.id !== node.id);
+      _conns = _conns.filter(c => c.from !== node.id && c.to !== node.id);
+      el.remove();
+      _updateEmpty();
+      _updateSvg();
+    });
+
+    // Port connection drag
+    el.querySelector('.cv-port-out').addEventListener('mousedown', e => {
+      e.stopPropagation();
+      _drawing = { fromId: node.id };
+    });
+
+    _world.appendChild(el);
+  }
+
+  /* ── NODE DRAG ── */
+  function _initNodeDrag(el, node) {
+    let dragging = false, startX, startY, startNodeX, startNodeY;
+
+    el.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.cv-btn') || e.target.closest('.cv-port')) return;
+      dragging   = true;
+      startX     = e.clientX;
+      startY     = e.clientY;
+      startNodeX = node.x;
+      startNodeY = node.y;
+      el.classList.add('selected');
+      _selNode = node.id;
       e.stopPropagation();
     });
 
     window.addEventListener('mousemove', (e) => {
-      if (!nodeDragging) return;
-      nodeMoved = true;
-      const canvasRect = scenarioCanvas.getBoundingClientRect();
-      const x = (e.clientX - canvasRect.left - worldX - nodeOffsetX + openModulePicker.offsetWidth  / 2) / worldScale;
-      const y = (e.clientY - canvasRect.top  - worldY - nodeOffsetY + openModulePicker.offsetHeight / 2) / worldScale;
-      openModulePicker.style.left = `${x}px`;
-      openModulePicker.style.top  = `${y}px`;
-      positionModulePicker();
+      if (!dragging) return;
+      const dx = (e.clientX - startX) / _worldScale;
+      const dy = (e.clientY - startY) / _worldScale;
+      node.x = startNodeX + dx;
+      node.y = startNodeY + dy;
+      el.style.left = node.x + 'px';
+      el.style.top  = node.y + 'px';
+      _updateSvg();
     });
 
     window.addEventListener('mouseup', () => {
-      if (nodeDragging && nodeMoved) openModulePicker.dataset.dragged = 'true';
-      nodeDragging = false;
+      if (dragging) { dragging = false; el.classList.remove('selected'); }
     });
   }
 
-  function _initPickerToggle() {
-    openModulePicker.addEventListener('click', (e) => {
-      if (openModulePicker.dataset.dragged === 'true') {
-        openModulePicker.dataset.dragged = 'false';
-        return;
-      }
-      openModulePicker.classList.toggle('active');
-      modulePicker.classList.toggle('open');
-      positionModulePicker();
-      e.stopPropagation();
+  /* ── CANVAS PAN / ZOOM ── */
+  function _initCanvasEvents() {
+    let panStart = null;
+
+    _canvas.addEventListener('mousedown', (e) => {
+      if (e.target !== _canvas && e.target !== _world && e.target !== _svg) return;
+      panStart = { x: e.clientX - _worldX, y: e.clientY - _worldY };
     });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!panStart) return;
+      _worldX = e.clientX - panStart.x;
+      _worldY = e.clientY - panStart.y;
+      _applyTransform();
+
+      // Connection line preview
+      if (_drawing) _updateSvg(e);
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      panStart = null;
+      // Complete connection
+      if (_drawing) {
+        const portEl = document.elementFromPoint(e.clientX, e.clientY);
+        const inPort = portEl && portEl.closest('.cv-port-in');
+        if (inPort) {
+          const toId = inPort.dataset.nid;
+          if (toId !== _drawing.fromId && !_conns.find(c => c.from === _drawing.fromId && c.to === toId)) {
+            _conns.push({ from: _drawing.fromId, to: toId });
+          }
+        }
+        _drawing = null;
+        _updateSvg();
+      }
+    });
+  }
+
+  function _initZoom() {
+    _canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const rect   = _canvas.getBoundingClientRect();
+      const mx     = e.clientX - rect.left;
+      const my     = e.clientY - rect.top;
+      const old    = _worldScale;
+      _worldScale += e.deltaY < 0 ? 0.08 : -0.08;
+      _worldScale  = Math.max(0.4, Math.min(_worldScale, 2.5));
+      _worldX = mx - ((mx - _worldX) / old) * _worldScale;
+      _worldY = my - ((my - _worldY) / old) * _worldScale;
+      _applyTransform();
+    }, { passive: false });
+
+    document.getElementById('cvZoomIn').addEventListener('click',    () => _zoom(0.15));
+    document.getElementById('cvZoomOut').addEventListener('click',   () => _zoom(-0.15));
+    document.getElementById('cvZoomReset').addEventListener('click', () => { _worldX=0; _worldY=0; _worldScale=1; _applyTransform(); });
+  }
+
+  function _zoom(delta) {
+    const rect = _canvas.getBoundingClientRect();
+    const cx = rect.width / 2, cy = rect.height / 2;
+    const old = _worldScale;
+    _worldScale = Math.max(0.4, Math.min(_worldScale + delta, 2.5));
+    _worldX = cx - ((cx - _worldX) / old) * _worldScale;
+    _worldY = cy - ((cy - _worldY) / old) * _worldScale;
+    _applyTransform();
+  }
+
+  function _applyTransform() {
+    _world.style.transform = `translate(${_worldX}px,${_worldY}px) scale(${_worldScale})`;
+    _svg.style.transform   = `translate(${_worldX}px,${_worldY}px) scale(${_worldScale})`;
+  }
+
+  /* ── SVG CONNECTIONS ── */
+  function _updateSvg(mouseEvent) {
+    // Clear existing lines
+    _svg.querySelectorAll('.cv-conn, .cv-conn-preview').forEach(el => el.remove());
+
+    // Draw established connections
+    _conns.forEach(conn => {
+      const fromNode = _nodes.find(n => n.id === conn.from);
+      const toNode   = _nodes.find(n => n.id === conn.to);
+      if (!fromNode || !toNode) return;
+
+      const x1 = fromNode.x + 240; // right port of from node
+      const y1 = fromNode.y + 72;
+      const x2 = toNode.x;         // left port of to node
+      const y2 = toNode.y + 72;
+
+      _svg.insertAdjacentHTML('beforeend', _pathHTML(x1, y1, x2, y2, 'cv-conn', '#94a3b8'));
+    });
+
+    // Draw preview line while drawing connection
+    if (_drawing && mouseEvent) {
+      const fromNode = _nodes.find(n => n.id === _drawing.fromId);
+      if (fromNode) {
+        const canvasRect = _canvas.getBoundingClientRect();
+        const x1 = fromNode.x + 240;
+        const y1 = fromNode.y + 72;
+        const x2 = (mouseEvent.clientX - canvasRect.left - _worldX) / _worldScale;
+        const y2 = (mouseEvent.clientY - canvasRect.top  - _worldY) / _worldScale;
+        _svg.insertAdjacentHTML('beforeend', _pathHTML(x1, y1, x2, y2, 'cv-conn-preview', '#2094ff'));
+      }
+    }
+  }
+
+  function _pathHTML(x1, y1, x2, y2, cls, color) {
+    const cx = (x1 + x2) / 2;
+    return `<path class="${cls}" d="M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}"
+      stroke="${color}" stroke-width="2.5" fill="none" stroke-dasharray="${cls==='cv-conn-preview'?'6,4':''}"
+      marker-end="url(#cv-arrow)" />`;
+  }
+
+  /* ── EMPTY STATE ── */
+  function _updateEmpty() {
+    _empty.style.display = _nodes.length === 0 ? 'flex' : 'none';
+  }
+
+  /* ── SUGGESTIONS ── */
+  function _showSuggestions(moduleId) {
+    const sug = SUGGESTIONS[moduleId] || [];
+    if (!sug.length) { _suggestBar.style.display = 'none'; return; }
+    const alreadyAdded = _nodes.map(n => MODULES.find(m => m.id === n.moduleId) && MODULES.find(m => m.id === n.moduleId).name);
+    const filtered = sug.filter(s => !alreadyAdded.includes(s));
+    if (!filtered.length) { _suggestBar.style.display = 'none'; return; }
+
+    _suggestChips.innerHTML = filtered.map(s =>
+      `<button class="cv-suggest-chip" data-sug="${s}">${s}</button>`
+    ).join('');
+    _suggestChips.querySelectorAll('.cv-suggest-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mod = MODULES.find(m => m.name === btn.dataset.sug);
+        if (mod) _addNode(mod.id);
+        _suggestBar.style.display = 'none';
+      });
+    });
+    _suggestBar.style.display = 'flex';
+  }
+
+  /* ── CONFIG PANEL ── */
+  function _openCfg(nodeId, tab) {
+    _cfgNode = _nodes.find(n => n.id === nodeId);
+    if (!_cfgNode) return;
+    const mod = MODULES.find(m => m.id === _cfgNode.moduleId);
+    _cfgTab = tab || 'Conteúdo';
+
+    _cfgIcon.style.background  = mod.color;
+    _cfgIcon.textContent       = mod.icon;
+    _cfgTitle.textContent      = mod.name;
+    _cfgSub.textContent        = mod.desc;
+
+    _cfgNav.innerHTML = CFG_TABS.map(t =>
+      `<button class="cv-cfg-tab${t === _cfgTab ? ' active' : ''}" data-tab="${t}">${t}</button>`
+    ).join('');
+    _cfgNav.querySelectorAll('.cv-cfg-tab').forEach(btn => {
+      btn.addEventListener('click', () => { _cfgTab = btn.dataset.tab; _openCfg(nodeId, _cfgTab); });
+    });
+
+    _cfgContent.innerHTML = _renderCfgTab(_cfgNode, _cfgTab);
+    _bindCfgToggle();
+
+    _cfgOverlay.classList.add('open');
+    _cfgPanel.classList.add('open');
+  }
+
+  function _closeCfg() {
+    _cfgOverlay.classList.remove('open');
+    _cfgPanel.classList.remove('open');
+    _cfgNode = null;
+  }
+
+  function _renderCfgTab(node, tab) {
+    const mod = MODULES.find(m => m.id === node.moduleId);
+    if (tab === 'Conteúdo') return _cfgContent_conteudo(node, mod);
+    if (tab === 'Gatilho')  return _cfgContent_gatilho(node, mod);
+    if (tab === 'Integração') return _cfgContent_integracao(node, mod);
+    if (tab === 'Teste')    return _cfgContent_teste(node, mod);
+    if (tab === 'Logs')     return _cfgContent_logs(node, mod);
+    return '';
+  }
+
+  function _field(label, type, placeholder, value, inputId) {
+    const id = inputId || ('f_' + Math.random().toString(36).slice(2));
+    return `<div class="cv-field"><label for="${id}">${label}</label>
+      <input type="${type}" id="${id}" placeholder="${placeholder}" value="${value||''}" /></div>`;
+  }
+
+  function _select(label, options, selected) {
+    const opts = options.map(o => `<option${o===selected?' selected':''}>${o}</option>`).join('');
+    return `<div class="cv-field"><label>${label}</label><select><option value="">Selecionar...</option>${opts}</select></div>`;
+  }
+
+  function _textarea(label, placeholder, value) {
+    return `<div class="cv-field"><label>${label}</label><textarea placeholder="${placeholder}">${value||''}</textarea></div>`;
+  }
+
+  /* ── CONTEÚDO TAB ── */
+  function _cfgContent_conteudo(node, mod) {
+    if (mod.id === 'email') return _emailEditor();
+    if (mod.id === 'checkout') return _checkoutEditor();
+    if (mod.id === 'whatsapp') return _whatsappEditor();
+    if (mod.id === 'pixel')    return _pixelEditor();
+    if (mod.id === 'webhook')  return _webhookEditor();
+    if (mod.id === 'page')     return _pageEditor();
+    if (mod.id === 'upsell')   return _upsellEditor();
+    if (mod.id === 'members')  return _membersEditor();
+    return `<div style="color:#94a3b8;font-size:13px">Nenhuma configuração específica disponível.</div>`;
+  }
+
+  function _emailEditor() {
+    return `
+      ${_field('Nome da sequência','text','Ex: Recuperação de carrinho','')}
+      ${_field('Remetente','text','Seu Nome <email@dominio.com>','')}
+      ${_field('Assunto do e-mail','text','Ex: Ei, você esqueceu algo...','')}
+      <div class="cv-field"><label>Banner / Imagem do topo</label>
+        <div style="border:2px dashed #e2e8f0;border-radius:10px;padding:20px;text-align:center;color:#94a3b8;font-size:12px;cursor:pointer">
+          📷 Clique para enviar imagem ou cole URL
+        </div>
+      </div>
+      ${_field('Título no e-mail','text','Ex: Última chance para garantir sua vaga','')}
+      ${_textarea('Texto do e-mail','Escreva o corpo do e-mail aqui...','')}
+      ${_field('Texto do botão CTA','text','Ex: Quero garantir minha vaga','')}
+      ${_field('Link do botão/checkout','url','https://...','')}
+      <div class="cv-email-preview">
+        <div class="cv-email-banner">📧 Preview do E-mail</div>
+        <div class="cv-email-body">
+          <div class="cv-email-subject">Assunto: Ei, você esqueceu algo...</div>
+          <div class="cv-email-text">Olá! Vimos que você visitou nossa página mas não finalizou sua compra. Que tal dar uma segunda chance?</div>
+          <a href="#" class="cv-email-cta" onclick="return false">Quero garantir minha vaga →</a>
+        </div>
+      </div>`;
+  }
+
+  function _checkoutEditor() {
+    return `
+      ${_field('Nome do produto','text','Ex: Curso Marketing Digital','')}
+      ${_field('Preço','text','R$ 297,00','')}
+      ${_field('Descrição curta','text','Ex: Acesso vitalício + bônus','')}
+      ${_select('Método de pagamento',['Cartão + Pix + Boleto','Apenas Cartão','Apenas Pix'],'Cartão + Pix + Boleto')}
+      ${_field('Domínio do checkout','text','checkout.seudominio.com.br','')}
+      ${_field('E-mail de suporte','email','suporte@seudominio.com.br','')}
+      ${_field('Garantia','text','Ex: 7 dias de garantia incondicional','')}
+      <div style="margin-top:8px;font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Eventos gerados</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${['checkout visitado','checkout iniciado','pagamento tentado','pagamento recusado','pix gerado','pix expirado','compra aprovada','checkout abandonado']
+          .map(e => `<span style="padding:4px 10px;border-radius:999px;background:#f1f5f9;font-size:11px;font-weight:700;color:#475569">${e}</span>`).join('')}
+      </div>`;
+  }
+
+  function _whatsappEditor() {
+    return `
+      ${_field('Nome do agente IA','text','Ex: Sofia — Assistente THAY','')}
+      ${_field('Número / API Token','text','Ex: +55 11 9 0000-0000','')}
+      ${_textarea('Mensagem inicial','Olá! Vi que você estava interessado em...','')}
+      ${_select('Tom de voz',['Profissional','Amigável','Urgente','Consultivo'],'Amigável')}
+      ${_field('Produto que está vendendo','text','Ex: Curso de Marketing Digital','')}
+      ${_select('Horário de envio',['Imediato','06h–22h','08h–20h','09h–18h'],'Imediato')}`;
+  }
+
+  function _pixelEditor() {
+    return `
+      <div style="margin-bottom:16px;font-size:12px;color:#64748b">Cole os IDs abaixo. A THAY cuida de disparar os eventos automaticamente.</div>
+      ${_field('Meta Pixel ID','text','Ex: 1234567890','')}
+      ${_field('TikTok Pixel ID','text','Ex: C4ABCD1234','')}
+      ${_field('Google Ads Conversion ID','text','Ex: AW-123456789','')}
+      ${_field('Kwai Pixel ID','text','Ex: kwai_...','')}
+      <div style="margin-top:8px;font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Eventos disparados</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${['PageView','ViewContent','Lead','InitiateCheckout','Purchase']
+          .map(e => `<span style="padding:4px 10px;border-radius:999px;background:#f0fdf4;font-size:11px;font-weight:700;color:#16a34a">● ${e}</span>`).join('')}
+      </div>`;
+  }
+
+  function _webhookEditor() {
+    return `
+      ${_field('URL do webhook','url','https://...','')}
+      ${_select('Método HTTP',['POST','GET','PUT','PATCH'],'POST')}
+      ${_textarea('Headers (JSON)','{"Content-Type": "application/json"}','')}
+      ${_textarea('Payload personalizado (opcional)','{"order_id": "{{order_id}}", "email": "{{email}}"}','')}
+      ${_select('Evento que dispara',['Compra aprovada','Checkout abandonado','Lead criado','Pix gerado'],'Compra aprovada')}`;
+  }
+
+  function _pageEditor() {
+    return `
+      ${_field('Título da página','text','Ex: Descubra o Método Que...','')}
+      ${_field('Domínio','text','minhapagina.com.br','')}
+      ${_field('URL da página','url','https://...','')}
+      <div style="margin-top:4px">
+        <button class="fsp-connect-btn" style="font-size:12px">✏️ Abrir editor da página</button>
+      </div>`;
+  }
+
+  function _upsellEditor() {
+    return `
+      ${_field('Nome da oferta de upsell','text','Ex: VIP — Acesso Premium','')}
+      ${_field('Preço do upsell','text','R$ 97,00','')}
+      ${_textarea('Descrição curta','O que o cliente ganha com este upsell?','')}
+      ${_field('Texto do botão SIM','text','Sim! Quero adicionar','')}
+      ${_field('Texto do botão NÃO','text','Não, obrigado','')}
+      ${_select('Quando exibir',['Imediatamente após compra','Após confirmação do e-mail','30 segundos após compra'],'Imediatamente após compra')}`;
+  }
+
+  function _membersEditor() {
+    return `
+      ${_select('Plataforma de membros',['Área THAY','Hotmart Club','Teachable','Kiwify','Personalizado'],'Área THAY')}
+      ${_field('URL da área de membros','url','https://...','')}
+      ${_field('Token de integração','text','Cole seu token aqui','')}
+      ${_select('Produto/Curso para liberar',['Selecionar produto...'],'Selecionar produto...')}`;
+  }
+
+  /* ── GATILHO TAB ── */
+  function _cfgContent_gatilho(node, mod) {
+    const events = {
+      email:    ['Checkout abandonado','Lead criado','Compra aprovada','Pix não pago'],
+      whatsapp: ['Checkout abandonado','Pix gerado não pago','Pagamento recusado','Compra aprovada','Lead criado'],
+      pixel:    ['PageView','Lead','InitiateCheckout','Purchase'],
+      webhook:  ['Compra aprovada','Checkout abandonado','Lead criado','Pagamento recusado'],
+      upsell:   ['Compra aprovada'],
+      members:  ['Compra aprovada'],
+      page:     ['Clique no botão CTA'],
+      checkout: [],
+    };
+    const evts = events[mod.id] || [];
+
+    return `
+      <div class="cv-trigger-builder">
+        <div style="font-weight:800;font-size:13px;color:#0f172a;margin-bottom:14px">Lógica do gatilho</div>
+        <div class="cv-trigger-row">
+          <span class="cv-trigger-label">QUANDO</span>
+          <select class="cv-trigger-select">
+            ${evts.map(e => `<option${e===node.trigger?' selected':''}>${e}</option>`).join('')}
+          </select>
+        </div>
+        <div class="cv-trigger-row">
+          <span class="cv-trigger-label">ESPERAR</span>
+          <select class="cv-trigger-select">
+            <option>Imediatamente</option>
+            <option>5 minutos</option>
+            <option selected>10 minutos</option>
+            <option>30 minutos</option>
+            <option>1 hora</option>
+            <option>2 horas</option>
+            <option>24 horas</option>
+          </select>
+        </div>
+        <div class="cv-trigger-row">
+          <span class="cv-trigger-label">SE</span>
+          <select class="cv-trigger-select">
+            <option>Ainda não comprou</option>
+            <option>Comprou</option>
+            <option>Pix pendente</option>
+            <option>Qualquer condição</option>
+          </select>
+        </div>
+        <div class="cv-trigger-row">
+          <span class="cv-trigger-label">ENTÃO</span>
+          <input class="cv-trigger-select" style="flex:1" type="text" value="${node.action}" />
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:#94a3b8">Exemplo: Checkout abandonado → esperar 10 min → se não comprou → enviar e-mail</div>`;
+  }
+
+  /* ── INTEGRAÇÃO TAB ── */
+  function _cfgContent_integracao(node, mod) {
+    return `
+      <div style="display:flex;flex-direction:column;gap:12px">
+        ${_integRow('Conta conectada','Não conectado','Conectar conta')}
+        ${_integRow('Status','Aguardando configuração','—')}
+        ${_integRow('Última sincronização','—','Sincronizar')}
+      </div>
+      <div style="margin-top:20px;font-size:13px;font-weight:700;color:#0f172a">Documentação da integração</div>
+      <div style="margin-top:6px;font-size:12px;color:#64748b;line-height:1.6">
+        Configure as credenciais da integração e conecte sua conta para ativar este módulo.
+      </div>`;
+  }
+
+  function _integRow(label, value, btnLabel) {
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;background:#f8fafc;border:1px solid #f0f2f5">
+      <div><div style="font-size:12px;font-weight:800;color:#64748b">${label}</div>
+      <div style="font-size:13px;font-weight:700;color:#1e293b;margin-top:2px">${value}</div></div>
+      ${btnLabel !== '—' ? `<button class="fsp-connect-btn" style="font-size:11px;padding:4px 12px">${btnLabel}</button>` : ''}
+    </div>`;
+  }
+
+  /* ── TESTE TAB ── */
+  function _cfgContent_teste(node, mod) {
+    return `
+      <div style="margin-bottom:14px;font-size:13px;color:#64748b">Simule o disparo deste módulo com dados de teste.</div>
+      <button class="fsp-connect-btn" style="width:100%;justify-content:center;font-size:13px;padding:12px" id="cvRunModuleTest">
+        ▶ Executar teste
+      </button>
+      <div id="cvModuleTestResult" style="margin-top:16px"></div>`;
+  }
+
+  /* ── LOGS TAB ── */
+  function _cfgContent_logs(node, mod) {
+    const logs = [
+      { time:'13/05 14:32', event:'Gatilho disparado', status:'ok' },
+      { time:'13/05 14:32', event:'Condição verificada: não comprou = true', status:'ok' },
+      { time:'13/05 14:33', event:'Ação executada com sucesso', status:'ok' },
+      { time:'12/05 09:14', event:'Gatilho disparado', status:'ok' },
+      { time:'12/05 09:14', event:'Ação executada com sucesso', status:'ok' },
+      { time:'11/05 21:03', event:'Falha na integração — token inválido', status:'err' },
+    ];
+    return `
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:10px">Últimas execuções do módulo</div>
+      <table class="fsp-log-table">
+        <thead><tr><th>Horário</th><th>Evento</th><th>Status</th></tr></thead>
+        <tbody>
+          ${logs.map(l => `<tr>
+            <td style="white-space:nowrap">${l.time}</td>
+            <td>${l.event}</td>
+            <td>${l.status==='ok'?'<span class="fsp-badge-ok">OK</span>':'<span class="fsp-badge-off">Erro</span>'}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function _bindCfgToggle() {
+    const runTest = document.getElementById('cvRunModuleTest');
+    if (runTest) {
+      runTest.addEventListener('click', () => {
+        const res = document.getElementById('cvModuleTestResult');
+        res.innerHTML = '<div style="font-size:13px;color:#94a3b8">Executando...</div>';
+        setTimeout(() => {
+          res.innerHTML = `
+            <div class="cv-test-step"><div class="cv-test-dot cv-test-dot-ok">✓</div><div><div class="cv-test-label">Gatilho recebido</div><div class="cv-test-sub">Evento detectado com dados de teste</div></div></div>
+            <div class="cv-test-step"><div class="cv-test-dot cv-test-dot-ok">✓</div><div><div class="cv-test-label">Condição verificada</div><div class="cv-test-sub">Condição satisfeita — ação será executada</div></div></div>
+            <div class="cv-test-step"><div class="cv-test-dot cv-test-dot-ok">✓</div><div><div class="cv-test-label">Ação executada</div><div class="cv-test-sub">Módulo respondeu em 142ms</div></div></div>`;
+        }, 1200);
+      });
+    }
+
+    // Mini-toggles
+    _cfgContent.querySelectorAll('.fsp-mini-toggle').forEach(t => {
+      t.addEventListener('click', () => t.classList.toggle('on'));
+    });
+  }
+
+  /* ── PANEL EVENTS ── */
+  function _initPanelEvents() {
+    // Config panel
+    _cfgClose.addEventListener('click', _closeCfg);
+    _cfgOverlay.addEventListener('click', _closeCfg);
+    _cfgSave.addEventListener('click', () => {
+      if (_cfgNode) {
+        _cfgNode.status = 'ok';
+        const nodeEl = _world.querySelector(`[data-node-id="${_cfgNode.id}"]`);
+        if (nodeEl) {
+          const statusEl = nodeEl.querySelector('.cv-node-status');
+          if (statusEl) { statusEl.textContent = '● Ativo'; statusEl.className = 'cv-node-status cv-status-ok'; }
+        }
+      }
+      _cfgSave.textContent = 'Salvo ✓';
+      _cfgSave.style.background = '#22c55e';
+      setTimeout(() => { _cfgSave.textContent = 'Salvar configuração'; _cfgSave.style.background = ''; }, 2000);
+    });
+
+    // Presets panel
+    document.getElementById('cvPresetsBtn').addEventListener('click', _openPresets);
+    _presetsClose.addEventListener('click', _closePresets);
+    _presetsOverlay.addEventListener('click', _closePresets);
+
+    // Test panel
+    document.getElementById('cvTestBtn').addEventListener('click', _openTest);
+    _testClose.addEventListener('click', _closeTest);
+    _testOverlay.addEventListener('click', _closeTest);
+
+    // Suggest dismiss
+    document.getElementById('cvSuggestDismiss').addEventListener('click', () => { _suggestBar.style.display = 'none'; });
+
+    // Library search
+    _libSearch.addEventListener('input', () => _renderLibrary(null, _libSearch.value));
+
+    // Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { _closeCfg(); _closePresets(); _closeTest(); }
+    });
+  }
+
+  /* ── PRESETS ── */
+  function _openPresets() {
+    _presetsList.innerHTML = PRESETS.map((p, i) => `
+      <div class="cv-preset-item">
+        <div class="cv-preset-icon">${p.icon}</div>
+        <div style="flex:1">
+          <div class="cv-preset-name">${p.name}</div>
+          <div class="cv-preset-desc">${p.desc}</div>
+          <button class="cv-preset-use" data-preset="${i}">Usar este preset →</button>
+        </div>
+      </div>
+    `).join('');
+    _presetsList.querySelectorAll('.cv-preset-use').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const preset = PRESETS[+btn.dataset.preset];
+        _loadPreset(preset);
+        _closePresets();
+      });
+    });
+    _presetsOverlay.classList.add('open');
+    _presetsPanel.classList.add('open');
+  }
+
+  function _closePresets() {
+    _presetsOverlay.classList.remove('open');
+    _presetsPanel.classList.remove('open');
+  }
+
+  function _loadPreset(preset) {
+    // Clear canvas
+    _nodes = [];
+    _conns = [];
+    _world.querySelectorAll('.cv-node').forEach(el => el.remove());
+    _updateSvg();
+
+    // Add nodes from preset with a short delay for UX
+    preset.mods.forEach((modId, i) => {
+      setTimeout(() => {
+        _addNode(modId);
+        // Auto-connect sequential nodes
+        if (i > 0 && _nodes.length >= 2) {
+          const fromNode = _nodes[_nodes.length - 2];
+          const toNode   = _nodes[_nodes.length - 1];
+          if (fromNode && toNode) {
+            _conns.push({ from: fromNode.id, to: toNode.id });
+            _updateSvg();
+          }
+        }
+      }, i * 120);
+    });
+  }
+
+  /* ── TEST FLOW ── */
+  function _openTest() {
+    const steps = _nodes.length === 0
+      ? [{ icon:'⚡', label:'Nenhum módulo adicionado', sub:'Adicione módulos ao canvas primeiro', cls:'cv-test-dot-wait' }]
+      : [
+          { icon:'✓', label:'Evento de teste criado', sub:'Simulando: Checkout abandonado por lead@teste.com', cls:'cv-test-dot-ok' },
+          ..._nodes.map(n => {
+            const mod = MODULES.find(m => m.id === n.moduleId);
+            return { icon:'✓', label:`${mod.icon} ${mod.name}`, sub:`Gatilho: ${n.trigger} → ${n.action}`, cls:'cv-test-dot-ok' };
+          }),
+          { icon:'✓', label:'Fluxo concluído', sub:`${_nodes.length} módulo(s) executados com sucesso`, cls:'cv-test-dot-ok' },
+        ];
+
+    _testContent.innerHTML = `
+      <div style="padding:16px 20px 8px;font-size:12px;color:#94a3b8">Simulação do fluxo com dados de teste</div>
+      ${steps.map((s, i) => `
+        <div class="cv-test-step" style="opacity:0;animation:fadeInUp .3s ease ${i*120}ms forwards">
+          <div class="cv-test-dot ${s.cls}">${s.icon}</div>
+          <div>
+            <div class="cv-test-label">${s.label}</div>
+            <div class="cv-test-sub">${s.sub}</div>
+          </div>
+        </div>`).join('')}`;
+
+    _testOverlay.classList.add('open');
+    _testPanel.classList.add('open');
+  }
+
+  function _closeTest() {
+    _testOverlay.classList.remove('open');
+    _testPanel.classList.remove('open');
+  }
+
+  /* ── PUBLIC ── */
+  function openPicker() {
+    // Legacy stub — library sidebar is always visible in the new layout
   }
 
   return { init, openPicker };
