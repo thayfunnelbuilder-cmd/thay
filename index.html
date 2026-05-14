@@ -1757,20 +1757,88 @@ body {
 /* ── BOTTOM ACTIONS ── */
 .bottom-actions { margin-top: 22px; display: flex; justify-content: center; }
 .test-flow-btn {
-  height: 52px;
-  padding: 0 26px;
-  border: 1px solid #e5e9ee;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #fff, #f4f6f8);
-  color: #050505;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: .6px;
-  cursor: pointer;
-  box-shadow: 0 18px 36px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.95);
-  transition: .18s ease;
+  height: 52px; padding: 0 26px; border: 1px solid #e5e9ee; border-radius: 18px;
+  background: linear-gradient(180deg, #fff, #f4f6f8); color: #050505; font-size: 13px;
+  font-weight: 900; letter-spacing: .6px; cursor: pointer;
+  box-shadow: 0 18px 36px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.95); transition: .18s ease;
 }
 .test-flow-btn:hover { transform: translateY(-1px); box-shadow: 0 22px 44px rgba(0,0,0,.12); }
+
+/* ── GUIDED FLOW — STARTER + NEXT STEP PICKER ── */
+
+/* "Iniciar Fluxo" center button */
+.cv-start-wrap {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  pointer-events: auto; z-index: 5;
+}
+.cv-start-inner {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: linear-gradient(180deg,#fff,#f4f6f8);
+  border: 2px dashed #c8d4e0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.09); transition: .18s ease;
+}
+.cv-start-inner:hover { border-color: #2094ff; border-style: solid; box-shadow: 0 14px 36px rgba(32,148,255,.18); }
+.cv-start-plus { font-size: 34px; font-weight: 300; color: #2094ff; line-height: 1; }
+.cv-start-label { font-size: 10px; font-weight: 900; color: #64748b; text-align: center; letter-spacing: .04em; }
+.cv-start-sub { font-size: 12px; color: #94a3b8; text-align: center; max-width: 200px; line-height: 1.4; }
+
+/* Starter module modal */
+.cv-starter-modal {
+  position: absolute; width: 380px;
+  background: #fff; border-radius: 20px;
+  border: 1px solid #e2e8f0; box-shadow: 0 24px 60px rgba(0,0,0,.18);
+  z-index: 60; overflow: hidden; animation: fadeInUp .2s ease;
+}
+.cv-starter-head { padding: 16px 18px 12px; border-bottom: 1px solid #f0f2f5; }
+.cv-starter-title { font-size: 14px; font-weight: 900; color: #0f172a; }
+.cv-starter-sub { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+.cv-starter-list { padding: 10px 12px 14px; display: flex; flex-direction: column; gap: 7px; }
+.cv-starter-item {
+  display: flex; align-items: center; gap: 12px; padding: 11px 13px;
+  border-radius: 13px; border: 1px solid #edf1f5; cursor: pointer; transition: .14s; background: #fff;
+}
+.cv-starter-item:hover { border-color: #2094ff; background: #eff6ff; transform: translateX(2px); }
+.cv-starter-icon { width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 19px; }
+.cv-starter-name { font-size: 13px; font-weight: 800; color: #1e293b; }
+.cv-starter-desc { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+/* "+ próximo" button on right edge of each node */
+.cv-next-btn {
+  position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #2094ff; color: #fff; border: 3px solid #fff;
+  font-size: 19px; font-weight: 300; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(32,148,255,.35); z-index: 15; transition: .15s;
+}
+.cv-next-btn:hover { background: #0077ef; transform: translateY(-50%) scale(1.15); }
+
+/* Floating next-step picker (positioned near the node) */
+.cv-next-picker {
+  position: absolute; width: 300px; background: #fff;
+  border-radius: 16px; border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 50px rgba(0,0,0,.16); z-index: 65; overflow: hidden;
+  animation: fadeInUp .16s ease;
+}
+.cv-next-picker-head { padding: 13px 15px 9px; border-bottom: 1px solid #f0f2f5; display: flex; align-items: center; justify-content: space-between; }
+.cv-next-picker-title { font-size: 12px; font-weight: 900; color: #0f172a; }
+.cv-next-picker-close { font-size: 16px; color: #94a3b8; background: none; border: none; cursor: pointer; line-height: 1; }
+.cv-next-picker-search { padding: 8px 12px; border-bottom: 1px solid #f0f2f5; }
+.cv-next-picker-search input { width: 100%; height: 32px; border-radius: 8px; border: 1px solid #dde2e8; padding: 0 10px; font-size: 12px; font-weight: 600; outline: none; box-sizing: border-box; }
+.cv-next-picker-list { max-height: 260px; overflow-y: auto; padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 5px; }
+.cv-next-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 11px; cursor: pointer; transition: .13s; border: 1px solid transparent; }
+.cv-next-item:hover { background: #f8fafc; border-color: #e2e8f0; }
+.cv-next-item-icon { width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.cv-next-item-name { font-size: 12px; font-weight: 800; color: #1e293b; }
+.cv-next-item-reason { font-size: 10px; color: #94a3b8; margin-top: 1px; }
+.cv-next-all-btn { width: 100%; padding: 9px; text-align: center; font-size: 11px; font-weight: 800; color: #2094ff; background: none; border: none; border-top: 1px solid #f0f2f5; cursor: pointer; margin-top: 4px; }
+.cv-next-all-btn:hover { background: #f8fafc; }
+
+/* Connection label on SVG */
+.cv-conn-label { font-size: 10px; fill: #94a3b8; font-weight: 700; pointer-events: none; }
 
 /* ============================================================
    SALES PAGE EDITOR — split layout (chat | preview)
@@ -3339,28 +3407,82 @@ ThayApp.CanvasEditor = (function () {
 
   /* ── MODULE DEFINITIONS ── */
   const MODULES = [
-    { id:'page',     cat:'Páginas',      icon:'📄', name:'Página de Vendas',       desc:'Crie e publique sua página',              color:'#1fb96b', textColor:'#fff' },
-    { id:'checkout', cat:'Pagamento',    icon:'💳', name:'Checkout da Plataforma', desc:'Coleta pagamento com múltiplos métodos',  color:'#0f172a', textColor:'#fff' },
-    { id:'email',    cat:'Comunicação',  icon:'✉️', name:'E-mail Marketing',       desc:'Sequência automática de e-mails',         color:'#2083ff', textColor:'#fff' },
-    { id:'whatsapp', cat:'Comunicação',  icon:'💬', name:'WhatsApp IA',            desc:'Agente IA responde no WhatsApp',          color:'#25d366', textColor:'#fff' },
-    { id:'upsell',   cat:'Vendas',       icon:'⬆️', name:'Upsell / Order Bump',   desc:'Aumente o ticket após compra',            color:'#ff7b39', textColor:'#fff' },
-    { id:'pixel',    cat:'Rastreamento', icon:'📡', name:'Pixel',                 desc:'Dispara eventos de rastreamento',         color:'#7c4dff', textColor:'#fff' },
-    { id:'webhook',  cat:'Avançado',     icon:'🔗', name:'Webhook / API',          desc:'Integre com qualquer ferramenta',         color:'#475569', textColor:'#fff' },
-    { id:'members',  cat:'Pós-venda',    icon:'🎓', name:'Área do Aluno',         desc:'Libere acesso ao curso',                  color:'#f59e0b', textColor:'#fff' },
+    { id:'page',     cat:'Páginas',      icon:'📄', name:'Página de Vendas',       desc:'Crie e publique sua página de oferta',    color:'#1fb96b' },
+    { id:'lead',     cat:'Páginas',      icon:'📋', name:'Captura de Lead',        desc:'Coleta nome, e-mail ou WhatsApp',         color:'#0ea5e9' },
+    { id:'checkout', cat:'Pagamento',    icon:'💳', name:'Checkout da Plataforma', desc:'Coleta pagamento com múltiplos métodos',  color:'#0f172a' },
+    { id:'email',    cat:'Comunicação',  icon:'✉️', name:'E-mail Marketing',       desc:'Sequência automática de e-mails',         color:'#2083ff' },
+    { id:'whatsapp', cat:'Comunicação',  icon:'💬', name:'WhatsApp IA',            desc:'Agente IA responde no WhatsApp',          color:'#25d366' },
+    { id:'upsell',   cat:'Vendas',       icon:'⬆️', name:'Upsell / Order Bump',   desc:'Aumente o ticket após compra',            color:'#ff7b39' },
+    { id:'pixel',    cat:'Rastreamento', icon:'📡', name:'Pixel',                 desc:'Dispara eventos de rastreamento',         color:'#7c4dff' },
+    { id:'webhook',  cat:'Avançado',     icon:'🔗', name:'Webhook / API',          desc:'Integre com qualquer ferramenta',         color:'#475569' },
+    { id:'members',  cat:'Pós-venda',    icon:'🎓', name:'Área do Aluno',         desc:'Libera acesso ao curso automaticamente',  color:'#f59e0b' },
   ];
 
   const CATS = ['Todos','Páginas','Vendas','Pagamento','Comunicação','Rastreamento','Pós-venda','Avançado'];
 
-  /* Suggested connections when certain modules are added */
-  const SUGGESTIONS = {
-    checkout: ['E-mail Marketing','WhatsApp IA','Pixel','Upsell / Order Bump'],
-    page:     ['Checkout da Plataforma','Pixel'],
-    upsell:   ['Área do Aluno','E-mail Marketing'],
-    email:    [],
-    members:  [],
-    whatsapp: [],
-    pixel:    [],
-    webhook:  [],
+  /* Starter modules shown in "Iniciar Fluxo" modal */
+  const STARTERS = [
+    { id:'page',     startDesc:'Apresente sua oferta com uma página de vendas.' },
+    { id:'lead',     startDesc:'Comece coletando nome, e-mail ou WhatsApp.' },
+    { id:'checkout', startDesc:'Comece direto pelo pagamento.' },
+    { id:'whatsapp', startDesc:'Comece a conversa pelo agente de WhatsApp.' },
+    { id:'webhook',  startDesc:'Comece recebendo dados de outro sistema.' },
+  ];
+
+  /* Next step suggestions per module — shown in "+" floating picker */
+  const NEXT_STEPS = {
+    page:     [{ id:'checkout',reason:'Para receber pagamento direto'         },
+               { id:'lead',    reason:'Para capturar o contato primeiro'      },
+               { id:'pixel',   reason:'Para rastrear visitas à página'        },
+               { id:'email',   reason:'Para nutrir quem não comprou'          },
+               { id:'whatsapp',reason:'Para conversar antes de vender'        }],
+    lead:     [{ id:'checkout',reason:'Quando lead optar pela oferta'         },
+               { id:'email',   reason:'Para nutrição por e-mail'              },
+               { id:'whatsapp',reason:'Para contato imediato'                 },
+               { id:'pixel',   reason:'Para rastrear o lead'                  }],
+    checkout: [{ id:'upsell',  reason:'Para aumentar o ticket médio'          },
+               { id:'email',   reason:'Para recuperar abandono'               },
+               { id:'whatsapp',reason:'Para recuperar Pix não pago'           },
+               { id:'pixel',   reason:'Para disparar Purchase event'          },
+               { id:'members', reason:'Para liberar acesso após compra'       }],
+    email:    [{ id:'checkout',reason:'Link de checkout no e-mail'            },
+               { id:'whatsapp',reason:'Para quem não abriu o e-mail'          }],
+    whatsapp: [{ id:'checkout',reason:'Quando interesse confirmado'           },
+               { id:'email',   reason:'Para lead qualificado'                 },
+               { id:'webhook', reason:'Para integrar com CRM'                 }],
+    upsell:   [{ id:'members', reason:'Para liberar acesso ao curso'          },
+               { id:'email',   reason:'Para e-mail de boas-vindas'            }],
+    pixel:    [{ id:'email',   reason:'Para retargeting por e-mail'           }],
+    webhook:  [{ id:'email',   reason:'Para notificar por e-mail'             },
+               { id:'checkout',reason:'Para redirecionar ao checkout'         }],
+    members:  [{ id:'email',   reason:'Para e-mail de boas-vindas'            }],
+  };
+
+  /* Connection reason text rendered on SVG lines */
+  const CONN_REASONS = {
+    'page→checkout':    'Clique no CTA principal',
+    'page→lead':        'Preenchimento do formulário',
+    'page→email':       'Lead capturado na página',
+    'page→pixel':       'Visita à página',
+    'page→whatsapp':    'Lead capturado na página',
+    'lead→checkout':    'Lead optou pela oferta',
+    'lead→email':       'Lead capturado',
+    'lead→whatsapp':    'Lead capturado',
+    'checkout→email':   'Checkout abandonado',
+    'checkout→whatsapp':'Pix gerado e não pago',
+    'checkout→upsell':  'Compra aprovada',
+    'checkout→members': 'Compra aprovada',
+    'checkout→pixel':   'Purchase event',
+    'whatsapp→checkout':'Interesse confirmado',
+    'whatsapp→email':   'Lead qualificado',
+    'upsell→members':   'Upsell aceito',
+    'upsell→email':     'Upsell aceito',
+    'webhook→email':    'Evento recebido',
+    'webhook→checkout': 'Lead externo recebido',
+    'email→checkout':   'Link no e-mail clicado',
+    'email→whatsapp':   'E-mail não aberto',
+    'pixel→email':      'Pixel disparado',
+    'members→email':    'Acesso liberado',
   };
 
   /* Presets */
@@ -3379,13 +3501,12 @@ ThayApp.CanvasEditor = (function () {
   const CFG_TABS = ['Conteúdo','Gatilho','Integração','Teste','Logs'];
 
   /* ── STATE ── */
-  let _nodes     = [];   // { id, moduleId, x, y, status, trigger, action }
-  let _conns     = [];   // { from, to }  (node ids)
-  let _nextId    = 1;
-  let _selNode   = null; // selected node id
-  let _cfgNode   = null; // node being configured
-  let _cfgTab    = 'Conteúdo';
-  let _drawing   = null; // { fromId } during connection drag
+  let _nodes   = [];   // { id, moduleId, x, y, status, trigger, action }
+  let _conns   = [];   // { from, to, reason }
+  let _nextId  = 1;
+  let _cfgNode = null, _cfgTab = 'Conteúdo';
+  let _drawing = null;           // { fromId } during port-drag
+  let _nextPickerFromId = null;  // node id for the floating next-step picker
   let _worldX = 0, _worldY = 0, _worldScale = 1;
 
   /* ── DOM REFS ── */
@@ -3430,6 +3551,16 @@ ThayApp.CanvasEditor = (function () {
     _initCanvasEvents();
     _initPanelEvents();
     _initZoom();
+    _updateEmpty();
+
+    // Close next-step picker when clicking outside
+    document.addEventListener('click', e => {
+      const picker = _world.querySelector('.cv-next-picker');
+      if (picker && !picker.contains(e.target) && !e.target.closest('.cv-next-btn')) {
+        picker.remove();
+        _nextPickerFromId = null;
+      }
+    });
   }
 
   /* ── LIBRARY ── */
@@ -3473,34 +3604,50 @@ ThayApp.CanvasEditor = (function () {
   }
 
   /* ── ADD NODE ── */
-  function _addNode(moduleId) {
+  function _addNode(moduleId, fromNodeId) {
     const mod = MODULES.find(m => m.id === moduleId);
     if (!mod) return;
 
-    // Spread nodes in a grid pattern
-    const col   = _nodes.length % 3;
-    const row   = Math.floor(_nodes.length / 3);
-    const x     = 60 + col * 280;
-    const y     = 60 + row * 200;
+    let x, y;
+    if (fromNodeId) {
+      // Position to the right of the source node
+      const from = _nodes.find(n => n.id === fromNodeId);
+      x = from ? from.x + 300 : 60;
+      y = from ? from.y : 60;
+    } else {
+      // Grid fallback (library sidebar adds)
+      const col = _nodes.length % 3;
+      const row = Math.floor(_nodes.length / 3);
+      x = 60 + col * 300;
+      y = 60 + row * 200;
+    }
 
-    const node = {
-      id:       `n${_nextId++}`,
-      moduleId,
-      x, y,
-      status:   'cfg',   // 'ok' | 'cfg' | 'off'
-      trigger:  _defaultTrigger(moduleId),
-      action:   _defaultAction(moduleId),
-    };
+    const node = { id:`n${_nextId++}`, moduleId, x, y, status:'cfg',
+                   trigger:_defaultTrigger(moduleId), action:_defaultAction(moduleId) };
     _nodes.push(node);
     _renderNode(node);
     _updateEmpty();
-    _showSuggestions(moduleId);
+
+    if (fromNodeId) {
+      // Auto-connect with reason label
+      const fromNode = _nodes.find(n => n.id === fromNodeId);
+      const fromMod  = fromNode ? MODULES.find(m => m.id === fromNode.moduleId) : null;
+      const reason   = fromMod ? (CONN_REASONS[`${fromMod.id}→${moduleId}`] || '') : '';
+      _conns.push({ from: fromNodeId, to: node.id, reason });
+    }
+
+    // Remove any existing next-picker
+    _world.querySelector('.cv-next-picker')?.remove();
+    _nextPickerFromId = null;
+    _suggestBar.style.display = 'none';
     _updateSvg();
+    return node;
   }
 
   function _defaultTrigger(id) {
     const map = {
       page:     'Página visitada',
+      lead:     'Formulário preenchido',
       checkout: 'Checkout iniciado',
       email:    'Checkout abandonado',
       whatsapp: 'Checkout abandonado',
@@ -3515,6 +3662,7 @@ ThayApp.CanvasEditor = (function () {
   function _defaultAction(id) {
     const map = {
       page:     'Exibir página de vendas',
+      lead:     'Capturar dados do lead',
       checkout: 'Coletar pagamento',
       email:    'Enviar e-mail após 10 min',
       whatsapp: 'Enviar mensagem IA em 5 min',
@@ -3552,32 +3700,28 @@ ThayApp.CanvasEditor = (function () {
         <button class="cv-btn cv-btn-primary cv-do-cfg" data-nid="${node.id}">Configurar</button>
         <button class="cv-btn cv-do-test" data-nid="${node.id}">Testar</button>
         <button class="cv-btn cv-do-logs" data-nid="${node.id}">Logs</button>
-        <button class="cv-btn cv-btn-danger cv-do-del" data-nid="${node.id}" style="margin-left:auto">✕</button>
+        <button class="cv-btn cv-btn-danger cv-do-del" data-nid="${node.id}" style="margin-left:auto" title="Remover">✕</button>
       </div>
-      <div class="cv-port cv-port-in" data-port="in" data-nid="${node.id}"></div>
-      <div class="cv-port cv-port-out" data-port="out" data-nid="${node.id}"></div>
+      <div class="cv-port cv-port-in"  data-nid="${node.id}"></div>
+      <div class="cv-port cv-port-out" data-nid="${node.id}"></div>
+      <button class="cv-next-btn" data-nid="${node.id}" title="Adicionar próximo módulo">+</button>
     `;
 
-    // Node drag
     _initNodeDrag(el, node);
-
-    // Buttons
-    el.querySelector('.cv-do-cfg').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Conteúdo'); });
+    el.querySelector('.cv-do-cfg').addEventListener('click',  e => { e.stopPropagation(); _openCfg(node.id, 'Conteúdo'); });
     el.querySelector('.cv-do-test').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Teste'); });
     el.querySelector('.cv-do-logs').addEventListener('click', e => { e.stopPropagation(); _openCfg(node.id, 'Logs'); });
-    el.querySelector('.cv-do-del').addEventListener('click', e => {
+    el.querySelector('.cv-do-del').addEventListener('click',  e => {
       e.stopPropagation();
       _nodes = _nodes.filter(n => n.id !== node.id);
       _conns = _conns.filter(c => c.from !== node.id && c.to !== node.id);
-      el.remove();
-      _updateEmpty();
-      _updateSvg();
+      el.remove(); _updateEmpty(); _updateSvg();
     });
-
-    // Port connection drag
     el.querySelector('.cv-port-out').addEventListener('mousedown', e => {
-      e.stopPropagation();
-      _drawing = { fromId: node.id };
+      e.stopPropagation(); _drawing = { fromId: node.id };
+    });
+    el.querySelector('.cv-next-btn').addEventListener('click', e => {
+      e.stopPropagation(); _showNextPicker(node.id, el);
     });
 
     _world.appendChild(el);
@@ -3688,68 +3832,182 @@ ThayApp.CanvasEditor = (function () {
 
   /* ── SVG CONNECTIONS ── */
   function _updateSvg(mouseEvent) {
-    // Clear existing lines
-    _svg.querySelectorAll('.cv-conn, .cv-conn-preview').forEach(el => el.remove());
+    _svg.querySelectorAll('.cv-conn,.cv-conn-preview,.cv-conn-label-g').forEach(el => el.remove());
 
-    // Draw established connections
     _conns.forEach(conn => {
-      const fromNode = _nodes.find(n => n.id === conn.from);
-      const toNode   = _nodes.find(n => n.id === conn.to);
-      if (!fromNode || !toNode) return;
-
-      const x1 = fromNode.x + 240; // right port of from node
-      const y1 = fromNode.y + 72;
-      const x2 = toNode.x;         // left port of to node
-      const y2 = toNode.y + 72;
-
-      _svg.insertAdjacentHTML('beforeend', _pathHTML(x1, y1, x2, y2, 'cv-conn', '#94a3b8'));
+      const f = _nodes.find(n => n.id === conn.from);
+      const t = _nodes.find(n => n.id === conn.to);
+      if (!f || !t) return;
+      const x1 = f.x + 240, y1 = f.y + 72;
+      const x2 = t.x,       y2 = t.y + 72;
+      _svg.insertAdjacentHTML('beforeend', _pathHTML(x1, y1, x2, y2, 'cv-conn', '#94a3b8', ''));
+      if (conn.reason) {
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2 - 8;
+        _svg.insertAdjacentHTML('beforeend',
+          `<g class="cv-conn-label-g">
+            <rect x="${mx-42}" y="${my-11}" width="84" height="16" rx="4" fill="#fff" fill-opacity=".9" stroke="#e2e8f0" stroke-width="1"/>
+            <text class="cv-conn-label" x="${mx}" y="${my+2}" text-anchor="middle">${conn.reason}</text>
+          </g>`);
+      }
     });
 
-    // Draw preview line while drawing connection
     if (_drawing && mouseEvent) {
-      const fromNode = _nodes.find(n => n.id === _drawing.fromId);
-      if (fromNode) {
-        const canvasRect = _canvas.getBoundingClientRect();
-        const x1 = fromNode.x + 240;
-        const y1 = fromNode.y + 72;
-        const x2 = (mouseEvent.clientX - canvasRect.left - _worldX) / _worldScale;
-        const y2 = (mouseEvent.clientY - canvasRect.top  - _worldY) / _worldScale;
-        _svg.insertAdjacentHTML('beforeend', _pathHTML(x1, y1, x2, y2, 'cv-conn-preview', '#2094ff'));
+      const f = _nodes.find(n => n.id === _drawing.fromId);
+      if (f) {
+        const r = _canvas.getBoundingClientRect();
+        _svg.insertAdjacentHTML('beforeend', _pathHTML(
+          f.x+240, f.y+72,
+          (mouseEvent.clientX - r.left - _worldX) / _worldScale,
+          (mouseEvent.clientY - r.top  - _worldY) / _worldScale,
+          'cv-conn-preview', '#2094ff', '6,4'));
       }
     }
   }
 
-  function _pathHTML(x1, y1, x2, y2, cls, color) {
-    const cx = (x1 + x2) / 2;
+  function _pathHTML(x1, y1, x2, y2, cls, color, dash) {
+    const cx = (x1+x2)/2;
     return `<path class="${cls}" d="M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}"
-      stroke="${color}" stroke-width="2.5" fill="none" stroke-dasharray="${cls==='cv-conn-preview'?'6,4':''}"
+      stroke="${color}" stroke-width="2.5" fill="none"${dash?` stroke-dasharray="${dash}"`:''}
       marker-end="url(#cv-arrow)" />`;
   }
 
   /* ── EMPTY STATE ── */
+  /* ── EMPTY STATE / STARTER BUTTON ── */
   function _updateEmpty() {
-    _empty.style.display = _nodes.length === 0 ? 'flex' : 'none';
+    if (_nodes.length === 0) {
+      _empty.innerHTML = `
+        <div class="cv-start-wrap" id="cvStartWrap">
+          <button class="cv-start-inner" id="cvStartBtn">
+            <span class="cv-start-plus">+</span>
+            <span class="cv-start-label">INICIAR FLUXO</span>
+          </button>
+          <div class="cv-start-sub">Escolha por onde seu funil começa.</div>
+        </div>`;
+      _empty.style.display = 'flex';
+      document.getElementById('cvStartBtn').addEventListener('click', e => {
+        e.stopPropagation(); _showStarterModal();
+      });
+    } else {
+      _empty.style.display = 'none';
+      _empty.innerHTML = '';
+    }
   }
 
-  /* ── SUGGESTIONS ── */
-  function _showSuggestions(moduleId) {
-    const sug = SUGGESTIONS[moduleId] || [];
-    if (!sug.length) { _suggestBar.style.display = 'none'; return; }
-    const alreadyAdded = _nodes.map(n => MODULES.find(m => m.id === n.moduleId) && MODULES.find(m => m.id === n.moduleId).name);
-    const filtered = sug.filter(s => !alreadyAdded.includes(s));
-    if (!filtered.length) { _suggestBar.style.display = 'none'; return; }
+  function _showStarterModal() {
+    // Remove any existing
+    _world.querySelector('.cv-starter-modal')?.remove();
 
-    _suggestChips.innerHTML = filtered.map(s =>
-      `<button class="cv-suggest-chip" data-sug="${s}">${s}</button>`
-    ).join('');
-    _suggestChips.querySelectorAll('.cv-suggest-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mod = MODULES.find(m => m.name === btn.dataset.sug);
-        if (mod) _addNode(mod.id);
-        _suggestBar.style.display = 'none';
+    const modal = document.createElement('div');
+    modal.className = 'cv-starter-modal';
+    // Position near center of canvas
+    const cRect = _canvas.getBoundingClientRect();
+    modal.style.left = Math.max(20, (cRect.width - 380) / 2 - _worldX) / _worldScale + 'px';
+    modal.style.top  = Math.max(20, (cRect.height - 380) / 2 - _worldY) / _worldScale + 'px';
+
+    modal.innerHTML = `
+      <div class="cv-starter-head">
+        <div class="cv-starter-title">Como seu funil começa?</div>
+        <div class="cv-starter-sub">Escolha o primeiro módulo do seu fluxo de vendas.</div>
+      </div>
+      <div class="cv-starter-list">
+        ${STARTERS.map(s => {
+          const mod = MODULES.find(m => m.id === s.id);
+          return `<div class="cv-starter-item" data-start="${mod.id}">
+            <div class="cv-starter-icon" style="background:${mod.color}">${mod.icon}</div>
+            <div>
+              <div class="cv-starter-name">${mod.name}</div>
+              <div class="cv-starter-desc">${s.startDesc}</div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
+
+    modal.querySelectorAll('.cv-starter-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.stopPropagation();
+        modal.remove();
+        // Place first node near canvas center
+        const cx = (cRect.width  / 2 - _worldX) / _worldScale - 120;
+        const cy = (cRect.height / 2 - _worldY) / _worldScale - 60;
+        const node = { id:`n${_nextId++}`, moduleId: item.dataset.start,
+          x: Math.max(20, cx), y: Math.max(20, cy),
+          status:'cfg', trigger:_defaultTrigger(item.dataset.start), action:_defaultAction(item.dataset.start) };
+        _nodes.push(node);
+        _renderNode(node);
+        _updateEmpty();
+        _updateSvg();
       });
     });
-    _suggestBar.style.display = 'flex';
+
+    _world.appendChild(modal);
+  }
+
+  /* ── NEXT STEP PICKER (floating near node) ── */
+  function _showNextPicker(nodeId, nodeEl) {
+    // Remove existing picker
+    _world.querySelector('.cv-next-picker')?.remove();
+    _nextPickerFromId = nodeId;
+
+    const fromNode = _nodes.find(n => n.id === nodeId);
+    const fromMod  = MODULES.find(m => m.id === fromNode.moduleId);
+    const steps    = NEXT_STEPS[fromMod.id] || [];
+    const allOthers = MODULES.filter(m => !steps.find(s => s.id === m.id) && m.id !== fromMod.id);
+
+    function _buildList(items, allMode) {
+      return items.map(item => {
+        const mod    = MODULES.find(m => m.id === (item.id || item));
+        const reason = item.reason || '';
+        return `<div class="cv-next-item" data-pick="${mod.id}">
+          <div class="cv-next-item-icon" style="background:${mod.color}">${mod.icon}</div>
+          <div>
+            <div class="cv-next-item-name">${mod.name}</div>
+            ${reason ? `<div class="cv-next-item-reason">${reason}</div>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    const picker = document.createElement('div');
+    picker.className = 'cv-next-picker';
+    // Position to right of the node
+    picker.style.left = (fromNode.x + 260) + 'px';
+    picker.style.top  = (fromNode.y - 10)  + 'px';
+
+    picker.innerHTML = `
+      <div class="cv-next-picker-head">
+        <div class="cv-next-picker-title">Escolha o próximo passo</div>
+        <button class="cv-next-picker-close">×</button>
+      </div>
+      <div class="cv-next-picker-search">
+        <input type="text" placeholder="Buscar módulo..." id="cvNextSearch" />
+      </div>
+      <div class="cv-next-picker-list" id="cvNextList">
+        ${steps.length ? _buildList(steps) : ''}
+        ${allOthers.length ? `<div class="cv-next-picker-divider">Outros módulos</div>${_buildList(allOthers.map(m=>({id:m.id,reason:''})))}` : ''}
+      </div>`;
+
+    picker.querySelector('.cv-next-picker-close').addEventListener('click', e => {
+      e.stopPropagation(); picker.remove(); _nextPickerFromId = null;
+    });
+
+    picker.querySelector('#cvNextSearch').addEventListener('input', function() {
+      const txt = this.value.toLowerCase();
+      picker.querySelectorAll('.cv-next-item').forEach(item => {
+        const name = item.querySelector('.cv-next-item-name').textContent.toLowerCase();
+        item.style.display = name.includes(txt) ? '' : 'none';
+      });
+    });
+
+    picker.querySelectorAll('.cv-next-item').forEach(item => {
+      item.addEventListener('click', e => {
+        e.stopPropagation();
+        picker.remove();
+        _nextPickerFromId = null;
+        _addNode(item.dataset.pick, nodeId);
+      });
+    });
+
+    _world.appendChild(picker);
   }
 
   /* ── CONFIG PANEL ── */
@@ -3811,12 +4069,13 @@ ThayApp.CanvasEditor = (function () {
 
   /* ── CONTEÚDO TAB ── */
   function _cfgContent_conteudo(node, mod) {
-    if (mod.id === 'email') return _emailEditor();
+    if (mod.id === 'email')    return _emailEditor();
     if (mod.id === 'checkout') return _checkoutEditor();
     if (mod.id === 'whatsapp') return _whatsappEditor();
     if (mod.id === 'pixel')    return _pixelEditor();
     if (mod.id === 'webhook')  return _webhookEditor();
     if (mod.id === 'page')     return _pageEditor();
+    if (mod.id === 'lead')     return _leadEditor();
     if (mod.id === 'upsell')   return _upsellEditor();
     if (mod.id === 'members')  return _membersEditor();
     return `<div style="color:#94a3b8;font-size:13px">Nenhuma configuração específica disponível.</div>`;
@@ -3896,13 +4155,20 @@ ThayApp.CanvasEditor = (function () {
   }
 
   function _pageEditor() {
-    return `
-      ${_field('Título da página','text','Ex: Descubra o Método Que...','')}
-      ${_field('Domínio','text','minhapagina.com.br','')}
-      ${_field('URL da página','url','https://...','')}
-      <div style="margin-top:4px">
-        <button class="fsp-connect-btn" style="font-size:12px">✏️ Abrir editor da página</button>
-      </div>`;
+    return _field('Título da página','text','Ex: Descubra o Método Que...','')
+      + _field('Domínio','text','minhapagina.com.br','')
+      + _field('URL da página','url','https://...','')
+      + `<div style="margin-top:4px"><button class="fsp-connect-btn" style="font-size:12px">✏️ Abrir editor da página</button></div>`;
+  }
+
+  function _leadEditor() {
+    return `<div style="margin-bottom:14px;font-size:12px;color:#64748b">Configure o formulário de captura de lead.</div>`
+      + _field('Título do formulário','text','Ex: Garanta sua vaga gratuita','')
+      + _field('Subtítulo','text','Ex: Preencha abaixo e acesse agora','')
+      + _select('Campos do formulário',['Nome + E-mail','Nome + E-mail + WhatsApp','Apenas E-mail','Apenas WhatsApp'],'Nome + E-mail')
+      + _field('Texto do botão','text','Quero acessar agora →','')
+      + _field('Página de destino após captura','url','https://...','')
+      + _select('Integração com e-mail',['Nenhuma','ActiveCampaign','Mailchimp','RD Station','Personalizado'],'Nenhuma');
   }
 
   function _upsellEditor() {
@@ -3933,7 +4199,8 @@ ThayApp.CanvasEditor = (function () {
       upsell:   ['Compra aprovada'],
       members:  ['Compra aprovada'],
       page:     ['Clique no botão CTA'],
-      checkout: [],
+      lead:     ['Formulário enviado','Lead capturado'],
+      checkout: ['Checkout visitado','Checkout iniciado','Pagamento tentado'],
     };
     const evts = events[mod.id] || [];
 
@@ -4122,26 +4389,23 @@ ThayApp.CanvasEditor = (function () {
   }
 
   function _loadPreset(preset) {
-    // Clear canvas
-    _nodes = [];
-    _conns = [];
-    _world.querySelectorAll('.cv-node').forEach(el => el.remove());
+    _nodes = []; _conns = [];
+    _world.querySelectorAll('.cv-node,.cv-starter-modal,.cv-next-picker').forEach(el => el.remove());
+    _updateEmpty();
     _updateSvg();
 
-    // Add nodes from preset with a short delay for UX
     preset.mods.forEach((modId, i) => {
       setTimeout(() => {
-        _addNode(modId);
-        // Auto-connect sequential nodes
-        if (i > 0 && _nodes.length >= 2) {
-          const fromNode = _nodes[_nodes.length - 2];
-          const toNode   = _nodes[_nodes.length - 1];
-          if (fromNode && toNode) {
-            _conns.push({ from: fromNode.id, to: toNode.id });
-            _updateSvg();
-          }
+        // First node: place in canvas center area; subsequent: pass fromNodeId to auto-connect
+        if (i === 0) {
+          const node = { id:`n${_nextId++}`, moduleId:modId, x:60, y:80,
+                         status:'cfg', trigger:_defaultTrigger(modId), action:_defaultAction(modId) };
+          _nodes.push(node); _renderNode(node); _updateEmpty();
+        } else {
+          _addNode(modId, _nodes[i-1].id);
         }
-      }, i * 120);
+        _updateSvg();
+      }, i * 130);
     });
   }
 
