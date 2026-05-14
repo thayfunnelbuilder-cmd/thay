@@ -1156,35 +1156,48 @@ body {
 
 /* Hero */
 .prl-hero-block {
-  padding: 28px 32px;
+  padding: 32px 36px;
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, #fff 50%, #f2f8ff 100%);
+  background: linear-gradient(135deg, #fff 55%, #f0f7ff 100%);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   margin-bottom: 20px;
+  display: flex; align-items: center; gap: 32px;
   position: relative; overflow: hidden;
 }
 .prl-hero-block::before {
   content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,119,255,.06) 0%, transparent 70%);
+  position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,119,255,.07) 0%, transparent 70%);
   pointer-events: none;
 }
-.prl-hero-block h1 { font-size: 28px; font-weight: 950; letter-spacing: -.9px; color: #0a0a0a; margin: 0 0 6px; position: relative; }
-.prl-hero-block p  { font-size: 13px; color: #6b7280; max-width: 560px; line-height: 1.6; margin: 0; position: relative; }
+.prl-hero-text { flex: 1; min-width: 0; position: relative; }
+.prl-hero-visual { flex-shrink: 0; display: flex; align-items: center; }
+@media (max-width: 680px) { .prl-hero-visual { display: none; } }
+.prl-hero-block h1 { font-size: 26px; font-weight: 950; letter-spacing: -.8px; color: #0a0a0a; margin: 0 0 6px; }
+.prl-hero-block p  { font-size: 13px; color: #6b7280; max-width: 480px; line-height: 1.6; margin: 0; }
 
 /* Trust bar */
-.prl-trust-bar { display: flex; gap: 8px; flex-wrap: wrap; padding: 16px 20px 0; }
-.prl-trust-item {
-  display: inline-flex; align-items: center; gap: 6px;
-  height: 34px; padding: 0 13px; border-radius: 99px;
-  background: #f8fafb; border: 1px solid #e8edf3;
-  font-size: 11.5px; font-weight: 800; color: #374151; white-space: nowrap;
+.prl-trust-bar {
+  display: flex; gap: 0; margin-bottom: 24px;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm); overflow: hidden;
 }
+.prl-trust-item {
+  flex: 1; display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px; border-right: 1px solid var(--border-light);
+}
+.prl-trust-item:last-child { border-right: none; }
+.prl-trust-icon {
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(0,119,255,.07); display: flex; align-items: center; justify-content: center;
+}
+.prl-trust-label { font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: .2px; }
+.prl-trust-val { font-size: 12px; font-weight: 950; color: #0a0a0a; margin-top: 1px; }
 
 /* Filter bar */
-.prl-fbar { display: flex; gap: 8px; flex-wrap: wrap; padding: 20px 20px 0; margin-bottom: 4px; }
+.prl-fbar { display: flex; gap: 8px; flex-wrap: wrap; padding: 0; margin-bottom: 20px; }
 .prl-fc {
   height: 34px; padding: 0 16px; border-radius: 99px;
   border: 1px solid #e5eaef; background: #fff;
@@ -1192,41 +1205,48 @@ body {
   cursor: pointer; font-family: inherit; white-space: nowrap; transition: .13s ease;
 }
 .prl-fc:hover { border-color: #0077ff; color: #0077ff; }
-.prl-fc.active { background: #050505; color: #fff; border-color: #050505; }
+.prl-fc.active { background: linear-gradient(135deg, #0077ff, #45adff); color: #fff; border-color: transparent; box-shadow: 0 2px 8px rgba(0,119,255,.28); }
 
 /* Grid */
-.prl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(276px, 1fr)); gap: 20px; padding: 20px 20px 48px; }
+.prl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 0 0 48px; }
 
 /* Card */
 .prl-card {
-  background: #fff; border: 1px solid #edf0f5; border-radius: 20px;
-  overflow: hidden; transition: box-shadow .18s, border-color .18s; display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; transition: box-shadow .2s var(--ease-out), border-color .15s, transform .2s var(--ease-out);
+  display: flex; flex-direction: column;
 }
-.prl-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.09); border-color: #d8dfe8; }
-.prl-cover { position: relative; aspect-ratio: 2/1; background: #0d0d0d; overflow: hidden; }
+.prl-card:hover { box-shadow: var(--shadow-lg); border-color: #c8d4e2; transform: translateY(-3px); }
+.prl-cover { position: relative; aspect-ratio: 2/1; overflow: hidden; }
+.prl-cover-mockup { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 .prl-cover img { width: 100%; height: 100%; object-fit: cover; opacity: .88; }
-.prl-cover-tags { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; }
+.prl-cover-tags { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; flex-wrap: wrap; }
 .prl-cover-status { position: absolute; top: 9px; right: 9px; }
 .prl-garantia-pill {
   position: absolute; bottom: 8px; right: 8px;
-  background: rgba(16,185,129,.92); color: #fff;
+  background: rgba(5,150,105,.92); color: #fff;
   font-size: 9.5px; font-weight: 950; height: 20px; padding: 0 8px;
-  border-radius: 99px; display: flex; align-items: center;
+  border-radius: 99px; display: flex; align-items: center; gap: 4px;
 }
 .prl-excl-badge {
   display: inline-flex; align-items: center;
   height: 21px; padding: 0 9px; border-radius: 99px;
   font-size: 9.5px; font-weight: 950; white-space: nowrap;
 }
-.prl-excl-comum     { background: rgba(255,255,255,.88); color: #374151; }
+.prl-excl-comum     { background: rgba(255,255,255,.88); color: #374151; border: 1px solid rgba(0,0,0,.08); }
 .prl-excl-limitado  { background: rgba(245,158,11,.92);  color: #fff; }
 .prl-excl-exclusivo { background: rgba(99,102,241,.92);  color: #fff; }
 .prl-tipo-pill {
   display: inline-flex; align-items: center;
   height: 21px; padding: 0 9px; border-radius: 99px;
-  background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
-  font-size: 9.5px; font-weight: 900; color: #fff; white-space: nowrap;
+  background: rgba(0,119,255,.12);
+  font-size: 9.5px; font-weight: 900; color: #0077ff; white-space: nowrap;
 }
+
+/* Empty state */
+.prl-empty-state { grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 64px 24px; text-align: center; }
+.prl-empty-title { font-size: 16px; font-weight: 950; color: #111; }
+.prl-empty-sub { font-size: 13px; color: #9ca3af; max-width: 300px; line-height: 1.5; }
 .prl-card-body { padding: 14px 16px 12px; flex: 1; display: flex; flex-direction: column; gap: 0; }
 .prl-card-nome  { font-size: 13.5px; font-weight: 900; color: #111; line-height: 1.35; margin-bottom: 3px; }
 .prl-card-nicho { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 10px; }
@@ -1248,9 +1268,10 @@ body {
 .prl-score-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .prl-sbar-mini  { flex: 1; height: 5px; border-radius: 99px; background: #f0f3f6; overflow: hidden; }
 .prl-sbar-fill  { height: 100%; border-radius: 99px; }
-.prl-sbar-fill.high { background: #10b981; }
-.prl-sbar-fill.mid  { background: #f59e0b; }
-.prl-sbar-fill.low  { background: #ef4444; }
+.prl-sbar-fill.high { background: linear-gradient(90deg, #10b981, #34d399); }
+.prl-sbar-fill.mid  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.prl-sbar-fill.warn { background: linear-gradient(90deg, #fb923c, #f97316); }
+.prl-sbar-fill.low  { background: linear-gradient(90deg, #ef4444, #f87171); }
 .prl-score-lbl { font-size: 10px; font-weight: 800; color: #9ca3af; }
 .prl-score-num { font-size: 12px; font-weight: 950; color: #111; }
 .prl-card-compradores { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 12px; }
@@ -1263,10 +1284,12 @@ body {
 .prl-btn-preview:hover { border-color: #0077ff; color: #0077ff; }
 .prl-btn-comprar {
   flex: 1; height: 38px; border-radius: 10px; border: none;
-  background: #0077ff; color: #fff;
-  font-size: 11.5px; font-weight: 900; font-family: inherit; cursor: pointer; transition: opacity .15s;
+  background: linear-gradient(135deg, #0077ff, #45adff); color: #fff;
+  font-size: 11.5px; font-weight: 900; font-family: inherit; cursor: pointer;
+  transition: opacity .15s, box-shadow .15s;
+  box-shadow: 0 2px 8px rgba(0,119,255,.22);
 }
-.prl-btn-comprar:hover { opacity: .85; }
+.prl-btn-comprar:hover { opacity: .88; box-shadow: 0 4px 16px rgba(0,119,255,.34); }
 
 /* Product detail overlay */
 .prl-detail {
@@ -1288,7 +1311,7 @@ body {
 .prl-detail-back:hover { background: #f5f7f9; }
 .prl-detail-title { font-size: 16px; font-weight: 950; color: #111; flex: 1; }
 .prl-detail-body { max-width: 920px; margin: 0 auto; padding: 28px 24px 80px; display: flex; flex-direction: column; gap: 28px; }
-.prl-ds-title { font-size: 12px; font-weight: 950; color: #050505; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px; }
+.prl-ds-title { font-size: 11px; font-weight: 950; color: #8892a0; letter-spacing: .8px; text-transform: uppercase; margin-bottom: 14px; }
 
 /* License toggles */
 .prl-lic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(198px, 1fr)); gap: 8px; }
@@ -1298,7 +1321,7 @@ body {
 }
 .prl-lic-item.yes { border-color: #d1fae5; background: #f0fdf4; }
 .prl-lic-item.no  { border-color: #fee2e2; background: #fff5f5; }
-.prl-lic-icon { font-size: 14px; flex-shrink: 0; }
+.prl-lic-icon { flex-shrink: 0; display: flex; align-items: center; }
 .prl-lic-text { font-size: 12px; font-weight: 800; color: #374151; }
 
 /* Preview modal */
@@ -1354,7 +1377,8 @@ body {
 .prl-orders-list { display: flex; flex-direction: column; gap: 10px; }
 .prl-order-card { background: #fff; border: 1px solid #edf0f5; border-radius: 16px; padding: 16px 18px; }
 .prl-order-top  { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-.prl-order-emoji { font-size: 24px; flex-shrink: 0; width: 44px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.prl-order-icon { flex-shrink: 0; width: 44px; height: 36px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; border-radius: 10px; }
+.prl-order-emoji { flex-shrink: 0; width: 44px; height: 36px; display: flex; align-items: center; justify-content: center; background: #f3f4f6; border-radius: 10px; }
 .prl-order-info { flex: 1; }
 .prl-order-nome { font-size: 14px; font-weight: 900; color: #111; }
 .prl-order-sub  { font-size: 11px; color: #9ca3af; margin-top: 2px; }
@@ -1387,6 +1411,7 @@ body {
   padding: 12px 16px; background: #f9fafb; border-radius: 12px;
   border: 1px solid #e5eaef; margin-bottom: 8px;
 }
+.prl-admin-icon { flex-shrink: 0; width: 36px; height: 36px; border-radius: 9px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; }
 .prl-admin-emoji { font-size: 20px; flex-shrink: 0; }
 .prl-admin-nome  { font-size: 13px; font-weight: 900; color: #111; flex: 1; }
 .prl-admin-sub   { font-size: 11px; color: #9ca3af; }
@@ -1409,35 +1434,43 @@ body {
 .prl-wallet-val { font-size: 20px; font-weight: 950; }
 
 .product-detail-hero {
-  min-height: 360px;
-  border-radius: 38px;
-  background: linear-gradient(135deg, #101418, #050505);
-  color: #fff;
-  padding: 34px;
+  min-height: 280px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, #fff 55%, #f0f7ff 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  color: #0a0a0a;
+  padding: 32px 36px;
   display: grid;
   grid-template-columns: 1.1fr .9fr;
   gap: 28px;
   overflow: hidden;
-  box-shadow: 0 28px 70px rgba(0,0,0,.20);
+  position: relative;
 }
-.product-detail-hero h1 { font-size: 42px; font-weight: 950; letter-spacing: -1.4px; line-height: 1.05; }
+.product-detail-hero::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,119,255,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.product-detail-hero h1 { font-size: 32px; font-weight: 950; letter-spacing: -1px; line-height: 1.1; color: #0a0a0a; }
 .product-detail-hero p {
-  margin-top: 16px;
-  color: rgba(255,255,255,.68);
-  font-size: 14px;
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 1.8;
-  max-width: 720px;
+  line-height: 1.75;
+  max-width: 560px;
 }
 .product-detail-cover {
-  min-height: 290px;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #45adff, #0077ff);
+  min-height: 200px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #e8f3ff, #c7dffe);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 70px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+  box-shadow: 0 4px 24px rgba(0,119,255,.12);
+  position: relative;
 }
 
 .product-detail-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
@@ -1461,7 +1494,7 @@ body {
   box-shadow: 0 14px 28px rgba(0,119,255,.28);
 }
 .product-edit-funnel-btn { background: #fff; color: #050505; }
-.product-back-btn { background: rgba(255,255,255,.10); color: #fff; border: 1px solid rgba(255,255,255,.16); }
+.product-back-btn { background: #f5f7f9; color: #374151; border: 1px solid var(--border); }
 
 .product-info-grid {
   display: grid;
@@ -3504,26 +3537,112 @@ body {
 
     <!-- Sub navigation -->
     <nav class="prl-subnav" id="prlSubnav">
-      <button class="prl-snav-btn active" data-tab="main">🛒 Marketplace</button>
-      <button class="prl-snav-btn" data-tab="buyer">📦 Meus PRLs</button>
-      <button class="prl-snav-btn" data-tab="seller">📤 Meus Produtos</button>
-      <button class="prl-snav-btn" data-tab="admin">🔑 Admin THAY</button>
+      <button class="prl-snav-btn active" data-tab="main">Marketplace</button>
+      <button class="prl-snav-btn" data-tab="buyer">Meus PRLs</button>
+      <button class="prl-snav-btn" data-tab="seller">Meus Produtos</button>
+      <button class="prl-snav-btn" data-tab="admin">Admin THAY</button>
     </nav>
 
     <!-- Tab: Main marketplace -->
     <div id="prlTabMain">
       <div class="prl-hero-block">
-        <h1>Marketplace PRL</h1>
-        <p>Compre produtos digitais prontos com licença clara, preview protegido e pagamento seguro pela THAY.</p>
+        <div class="prl-hero-text">
+          <h1>Marketplace PRL</h1>
+          <p>Compre produtos digitais prontos com licença clara, preview protegido, garantia de 7 dias e pagamento seguro pela THAY.</p>
+        </div>
+        <div class="prl-hero-visual" aria-hidden="true">
+          <svg width="220" height="130" viewBox="0 0 220 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ebook/product card -->
+            <rect x="14" y="18" width="68" height="88" rx="10" fill="#fff" stroke="#d0ddf0" stroke-width="1.2"/>
+            <rect x="14" y="18" width="7" height="88" rx="10" fill="#2094ff" opacity=".3"/>
+            <rect x="28" y="30" width="44" height="5" rx="2.5" fill="#c7d7f7"/>
+            <rect x="28" y="40" width="36" height="3.5" rx="1.8" fill="#dde8f5"/>
+            <rect x="28" y="48" width="40" height="3.5" rx="1.8" fill="#dde8f5"/>
+            <rect x="28" y="56" width="32" height="3.5" rx="1.8" fill="#dde8f5"/>
+            <rect x="28" y="68" width="44" height="18" rx="5" fill="#e8f3ff"/>
+            <!-- Padlock -->
+            <rect x="95" y="42" width="28" height="20" rx="6" fill="#d1fae5" stroke="#a7f3d0" stroke-width="1.2"/>
+            <path d="M99 42V37a7 7 0 0 1 14 0v5" stroke="#2094ff" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="109" cy="51" r="3" fill="#059669"/>
+            <rect x="107.5" y="53" width="3" height="4" rx="1.2" fill="#059669"/>
+            <!-- License document -->
+            <rect x="138" y="14" width="62" height="82" rx="8" fill="#fff" stroke="#d0ddf0" stroke-width="1.2"/>
+            <rect x="148" y="26" width="42" height="5" rx="2.5" fill="#c7d7f7"/>
+            <rect x="148" y="35" width="34" height="3" rx="1.5" fill="#dde8f5"/>
+            <rect x="148" y="42" width="38" height="3" rx="1.5" fill="#dde8f5"/>
+            <rect x="148" y="49" width="30" height="3" rx="1.5" fill="#dde8f5"/>
+            <circle cx="152" cy="63" r="5" fill="#d1fae5"/>
+            <polyline points="149,63 151.5,65.5 156,60" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="152" cy="75" r="5" fill="#d1fae5"/>
+            <polyline points="149,75 151.5,77.5 156,72" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Verified seal -->
+            <circle cx="193" cy="22" r="13" fill="#d1fae5" stroke="#a7f3d0" stroke-width="1.2"/>
+            <polyline points="187,22 191,26 200,15" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Payment card / wallet -->
+            <rect x="54" y="88" width="92" height="36" rx="9" fill="#fff" stroke="#d0ddf0" stroke-width="1.2"/>
+            <rect x="60" y="96" width="32" height="7" rx="3.5" fill="#2094ff" opacity=".2"/>
+            <circle cx="130" cy="99" r="9" fill="#fde68a" opacity=".8"/>
+            <circle cx="139" cy="99" r="9" fill="#fb923c" opacity=".55"/>
+            <!-- 7-day badge -->
+            <rect x="68" y="108" width="48" height="12" rx="6" fill="#d1fae5"/>
+            <text x="92" y="117" text-anchor="middle" font-size="7" font-weight="800" fill="#059669" font-family="system-ui,sans-serif">Garantia 7 dias</text>
+            <!-- Sparkles -->
+            <circle cx="8" cy="52" r="3" fill="#45adff" opacity=".38"/>
+            <circle cx="212" cy="88" r="2.5" fill="#f59e0b" opacity=".4"/>
+            <circle cx="6" cy="100" r="2" fill="#2094ff" opacity=".25"/>
+          </svg>
+        </div>
       </div>
+
+      <!-- Trust bar -->
       <div class="prl-trust-bar">
-        <span class="prl-trust-item">🔒 Preview protegido</span>
-        <span class="prl-trust-item">📜 Licença verificada</span>
-        <span class="prl-trust-item">💳 Pagamento seguro</span>
-        <span class="prl-trust-item">✅ Garantia 7 dias</span>
-        <span class="prl-trust-item">⭐ Score do vendedor</span>
-        <span class="prl-trust-item">🏦 Entrega pela THAY</span>
+        <div class="prl-trust-item">
+          <div class="prl-trust-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="14" height="9" rx="2.5"/><path d="M5 8V5.5a4 4 0 0 1 8 0V8"/><circle cx="9" cy="12.5" r="1.2" fill="#0077ff" stroke="none"/></svg>
+          </div>
+          <div>
+            <div class="prl-trust-label">Preview protegido</div>
+            <div class="prl-trust-val">Veja sem baixar</div>
+          </div>
+        </div>
+        <div class="prl-trust-item">
+          <div class="prl-trust-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="12" rx="2.5"/><path d="M2 7h14"/><path d="M6 11h3"/><polyline points="12,10 13.5,11.5 16,9"/></svg>
+          </div>
+          <div>
+            <div class="prl-trust-label">Licença verificada</div>
+            <div class="prl-trust-val">Termos claros</div>
+          </div>
+        </div>
+        <div class="prl-trust-item">
+          <div class="prl-trust-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="16" height="12" rx="3"/><path d="M1 8h16"/><rect x="3.5" y="11" width="4" height="2" rx="1"/></svg>
+          </div>
+          <div>
+            <div class="prl-trust-label">Pagamento seguro</div>
+            <div class="prl-trust-val">Pela THAY</div>
+          </div>
+        </div>
+        <div class="prl-trust-item">
+          <div class="prl-trust-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2L2 5v4c0 3.3 2.5 6 7 7 4.5-1 7-3.7 7-7V5L9 2z"/><polyline points="6,9 8.2,11.2 12.5,6.5"/></svg>
+          </div>
+          <div>
+            <div class="prl-trust-label">Garantia de 7 dias</div>
+            <div class="prl-trust-val">Reembolso garantido</div>
+          </div>
+        </div>
+        <div class="prl-trust-item">
+          <div class="prl-trust-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h12l-1.5 9H4.5L3 3z"/><path d="M1 3h16"/><path d="M7 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="#0077ff" stroke="none"/><path d="M12 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="#0077ff" stroke="none"/></svg>
+          </div>
+          <div>
+            <div class="prl-trust-label">Entrega pela THAY</div>
+            <div class="prl-trust-val">Liberado na hora</div>
+          </div>
+        </div>
       </div>
+
       <div class="prl-fbar" id="prlFilterBar"></div>
       <div class="prl-grid" id="prlGrid"></div>
     </div>
@@ -3555,7 +3674,7 @@ body {
     <!-- Preview modal -->
     <div class="ugc-modal-backdrop" id="prlPreviewModal" style="display:none">
       <div class="ugc-modal" style="max-width:640px">
-        <h3>👁 Preview Protegido</h3>
+        <h3>Preview Protegido</h3>
         <p class="ugc-modal-sub">Visualize o produto antes de comprar. Arquivos completos disponíveis somente após pagamento.</p>
         <div id="prlPreviewContent"></div>
         <div class="ugc-modal-footer">
@@ -3576,9 +3695,9 @@ body {
     <!-- WhatsApp warning modal -->
     <div class="ugc-modal-backdrop" id="prlWaModal" style="display:none">
       <div class="ugc-modal">
-        <h3>💬 Conversar com o vendedor</h3>
+        <h3>Conversar com o vendedor</h3>
         <div class="ugc-modal-warn">
-          ⚠️ A conversa pode acontecer no WhatsApp, mas para sua segurança a <strong>compra deve ser feita pela THAY</strong>. Pagamentos fora da plataforma não têm garantia.
+          A conversa pode acontecer no WhatsApp, mas para sua segurança a <strong>compra deve ser feita pela THAY</strong>. Pagamentos fora da plataforma não têm garantia.
         </div>
         <p class="ugc-modal-sub">Ao continuar, você será direcionado ao WhatsApp do vendedor.</p>
         <div class="ugc-modal-footer">
@@ -3591,7 +3710,7 @@ body {
     <!-- Dispute modal -->
     <div class="ugc-modal-backdrop" id="prlDisputeModal" style="display:none">
       <div class="ugc-modal">
-        <h3>⚠ Reportar problema</h3>
+        <h3>Reportar problema</h3>
         <p class="ugc-modal-sub">O valor da compra ficará congelado até a resolução pela THAY.</p>
         <div class="ugc-modal-field">
           <label>Motivo *</label>
@@ -3620,7 +3739,7 @@ body {
     <!-- Refund modal -->
     <div class="ugc-modal-backdrop" id="prlRefundModal" style="display:none">
       <div class="ugc-modal">
-        <h3>↩ Solicitar reembolso</h3>
+        <h3>Solicitar reembolso</h3>
         <div class="ugc-modal-warn">Você tem garantia de 7 dias. Seu acesso ao produto será suspenso após aprovação.</div>
         <div class="ugc-modal-field">
           <label>Motivo do reembolso *</label>
@@ -3640,7 +3759,7 @@ body {
     <!-- Register product modal -->
     <div class="ugc-modal-backdrop" id="prlRegModal" style="display:none">
       <div class="ugc-modal" style="max-width:580px">
-        <h3>📦 Cadastrar produto PRL</h3>
+        <h3>Cadastrar produto PRL</h3>
         <p class="ugc-modal-sub">Todos os campos obrigatórios. Seu produto entrará como "em análise" antes de ser publicado.</p>
         <div class="ugc-modal-field">
           <label>Nome do produto *</label>
@@ -6689,7 +6808,7 @@ ThayApp.PrlMarket = (function () {
   /* ─── PRODUTOS ─── */
   const PRODUCTS = [
     {
-      id: 'shape-prl', emoji: '🏋️',
+      id: 'shape-prl',
       nome: 'Método Shape em Casa — PRL Completo',
       nicho: 'Saúde & Emagrecimento', tipo: 'Curso',
       preco: 497, exclusividade: 'limitado', maxVagas: 50, vagas: 23,
@@ -6708,7 +6827,7 @@ ThayApp.PrlMarket = (function () {
       reclamacoes: [],
     },
     {
-      id: 'funil-lancamento', emoji: '🚀',
+      id: 'funil-lancamento',
       nome: 'Funil de Lançamento Perfeito',
       nicho: 'Marketing Digital', tipo: 'Funil Pronto',
       preco: 297, exclusividade: 'comum', maxVagas: null, vagas: null,
@@ -6726,7 +6845,7 @@ ThayApp.PrlMarket = (function () {
       reclamacoes: [],
     },
     {
-      id: 'vsl-alta-conv', emoji: '🎥',
+      id: 'vsl-alta-conv',
       nome: 'Pack VSL Alta Conversão — 3 Modelos',
       nicho: 'Marketing Digital', tipo: 'VSL',
       preco: 1497, exclusividade: 'exclusivo', maxVagas: 10, vagas: 4,
@@ -6744,7 +6863,7 @@ ThayApp.PrlMarket = (function () {
       reclamacoes: [],
     },
     {
-      id: 'ebook-copy', emoji: '📖',
+      id: 'ebook-copy',
       nome: 'E-book Copywriting Mastery',
       nicho: 'Copywriting', tipo: 'Ebook',
       preco: 97, exclusividade: 'comum', maxVagas: null, vagas: null,
@@ -6762,7 +6881,7 @@ ThayApp.PrlMarket = (function () {
       reclamacoes: [{ motivo:'Arquivos incompletos', status:'resolvido', data:'2024-12', desc:'Faltava 1 template. Vendedor enviou na hora.' }],
     },
     {
-      id: 'pack-criativos', emoji: '🎯',
+      id: 'pack-criativos',
       nome: 'Pack Criativos Meta Ads Pro — 50 peças',
       nicho: 'Tráfego Pago', tipo: 'Pack de Criativos',
       preco: 347, exclusividade: 'limitado', maxVagas: 20, vagas: 12,
@@ -6780,7 +6899,7 @@ ThayApp.PrlMarket = (function () {
       reclamacoes: [],
     },
     {
-      id: 'area-membros-kit', emoji: '🎓',
+      id: 'area-membros-kit',
       nome: 'Kit Área de Membros Pronto — Em análise',
       nicho: 'Infoprodutos', tipo: 'Área de Membros',
       preco: 697, exclusividade: 'limitado', maxVagas: 15, vagas: 0,
@@ -6886,7 +7005,7 @@ ThayApp.PrlMarket = (function () {
     document.getElementById('prlWaConfirm')?.addEventListener('click', () => {
       _waModal.style.display='none';
       const p = PRODUCTS.find(x => x.id === _state.openId);
-      _showToast('🔗 Abrindo WhatsApp — lembre-se: pague sempre pela THAY.');
+      _showToast('Abrindo WhatsApp — lembre-se: pague sempre pela THAY.');
     });
 
     /* Dispute modal */
@@ -6894,9 +7013,9 @@ ThayApp.PrlMarket = (function () {
     document.getElementById('prlDisputeSubmit')?.addEventListener('click', () => {
       const mot = document.getElementById('prlDisputeMotivo').value;
       const desc= document.getElementById('prlDisputeDesc').value.trim();
-      if (!mot||!desc) { _showToast('⚠️ Preencha todos os campos.'); return; }
+      if (!mot||!desc) { _showToast('Preencha todos os campos.'); return; }
       _disputeModal.style.display='none';
-      _showToast('📋 Disputa aberta. Valor congelado até resolução pela THAY.');
+      _showToast('Disputa aberta. Valor congelado até resolução pela THAY.');
     });
 
     /* Refund modal */
@@ -6904,10 +7023,10 @@ ThayApp.PrlMarket = (function () {
     document.getElementById('prlRefundSubmit')?.addEventListener('click', () => {
       const mot  = document.getElementById('prlRefundMotivo').value.trim();
       const conf = document.getElementById('prlRefundConfirm').checked;
-      if (!mot)  { _showToast('⚠️ Descreva o motivo do reembolso.'); return; }
-      if (!conf) { _showToast('⚠️ Confirme que aceita perder o acesso.'); return; }
+      if (!mot)  { _showToast('Descreva o motivo do reembolso.'); return; }
+      if (!conf) { _showToast('Confirme que aceita perder o acesso.'); return; }
       _refundModal.style.display='none';
-      _showToast('↩ Reembolso solicitado. Análise em até 2 dias úteis.');
+      _showToast('Reembolso solicitado. Análise em até 2 dias úteis.');
     });
 
     /* Register modal */
@@ -6918,9 +7037,9 @@ ThayApp.PrlMarket = (function () {
       const preco= document.getElementById('prlRegPreco').value;
       const lic  = document.getElementById('prlRegLic').value;
       const wa   = document.getElementById('prlRegWa').value.trim();
-      if (!nome||!tipo||!preco||!lic||!wa) { _showToast('⚠️ Preencha todos os campos obrigatórios.'); return; }
+      if (!nome||!tipo||!preco||!lic||!wa) { _showToast('Preencha todos os campos obrigatórios.'); return; }
       _regModal.style.display='none';
-      _showToast('✅ Produto enviado para análise. Publicação em até 3 dias úteis.');
+      _showToast('Produto enviado para análise. Publicação em até 3 dias úteis.');
     });
 
     /* Close modals on backdrop */
@@ -6967,30 +7086,65 @@ ThayApp.PrlMarket = (function () {
     else list = list.filter(p=>p.tipo===f);
 
     if (!list.length) {
-      _grid.innerHTML=`<div class="mkt-empty"><div class="mkt-empty-icon">🔍</div><div class="mkt-empty-text">Nenhum produto neste filtro</div></div>`;
+      _grid.innerHTML=`<div class="mkt-empty"><div class="mkt-empty-icon"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#c8d0da" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><line x1="24" y1="24" x2="32" y2="32"/></svg></div><div class="mkt-empty-text">Nenhum produto neste filtro</div></div>`;
       return;
     }
     _grid.innerHTML = list.map(_buildCard).join('');
   }
 
+  /* ─── COVER SVG MOCKUPS ─── */
+  const _COVER_SVGS = {
+    'Curso': ['linear-gradient(135deg,#e8f3ff,#c7dffe)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="14" y="10" width="44" height="52" rx="6" fill="#fff" stroke="#b8d4f0" stroke-width="1.5"/><rect x="14" y="10" width="6" height="52" rx="6" fill="#2094ff" opacity=".4"/><rect x="26" y="20" width="26" height="4" rx="2" fill="#c7d7f7"/><rect x="26" y="28" width="20" height="3" rx="1.5" fill="#dde8f5"/><rect x="26" y="34" width="22" height="3" rx="1.5" fill="#dde8f5"/><circle cx="44" cy="48" r="10" fill="#2094ff" opacity=".15"/><polygon points="41,44 49,48 41,52" fill="#2094ff"/></svg>`],
+    'Funil Pronto': ['linear-gradient(135deg,#f5f3ff,#ede9fe)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><path d="M16 18h40l-14 16v14l-12-4V34L16 18z" fill="#7c3aed" opacity=".15" stroke="#7c3aed" stroke-width="1.5" stroke-linejoin="round"/><rect x="26" y="50" width="20" height="8" rx="4" fill="#7c3aed" opacity=".2"/><rect x="30" y="56" width="12" height="6" rx="3" fill="#7c3aed" opacity=".2"/></svg>`],
+    'VSL': ['linear-gradient(135deg,#fce7f3,#fbcfe8)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="10" y="18" width="52" height="32" rx="7" fill="#fff" stroke="#f9a8d4" stroke-width="1.5"/><rect x="10" y="18" width="52" height="6" rx="7" fill="#ec4899" opacity=".15"/><circle cx="36" cy="36" r="10" fill="#ec4899" opacity=".15"/><polygon points="33,31 42,36 33,41" fill="#ec4899"/><rect x="18" y="54" width="36" height="4" rx="2" fill="#f9a8d4"/></svg>`],
+    'Ebook': ['linear-gradient(135deg,#ecfdf5,#d1fae5)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="16" y="10" width="40" height="52" rx="6" fill="#fff" stroke="#a7f3d0" stroke-width="1.5"/><rect x="16" y="10" width="6" height="52" rx="6" fill="#059669" opacity=".3"/><rect x="28" y="20" width="22" height="4" rx="2" fill="#bbf7d0"/><rect x="28" y="28" width="18" height="3" rx="1.5" fill="#d1fae5"/><rect x="28" y="34" width="20" height="3" rx="1.5" fill="#d1fae5"/><rect x="28" y="40" width="16" height="3" rx="1.5" fill="#d1fae5"/><rect x="28" y="48" width="20" height="8" rx="3" fill="#059669" opacity=".1"/></svg>`],
+    'Pack de Criativos': ['linear-gradient(135deg,#fffbeb,#fef3c7)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="10" y="10" width="22" height="22" rx="5" fill="#fde68a" stroke="#f59e0b" stroke-width="1.2"/><rect x="36" y="10" width="26" height="12" rx="4" fill="#fde68a" stroke="#f59e0b" stroke-width="1.2"/><rect x="36" y="26" width="26" height="18" rx="4" fill="#fde68a" stroke="#f59e0b" stroke-width="1.2"/><rect x="10" y="36" width="22" height="26" rx="5" fill="#fde68a" stroke="#f59e0b" stroke-width="1.2"/><polygon points="20,16 15.5,21 24.5,21" fill="#f59e0b"/></svg>`],
+    'Copy': ['linear-gradient(135deg,#f0f7ff,#dbeafe)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="14" y="12" width="44" height="50" rx="7" fill="#fff" stroke="#bfdbfe" stroke-width="1.5"/><rect x="22" y="22" width="28" height="3.5" rx="1.8" fill="#93c5fd"/><rect x="22" y="30" width="24" height="3" rx="1.5" fill="#bfdbfe"/><rect x="22" y="37" width="28" height="3" rx="1.5" fill="#bfdbfe"/><rect x="22" y="44" width="20" height="3" rx="1.5" fill="#bfdbfe"/><rect x="22" y="51" width="24" height="3" rx="1.5" fill="#bfdbfe"/><rect x="36" y="6" width="14" height="16" rx="4" fill="#3b82f6" opacity=".15"/><path d="M40 10h6M40 14h4" stroke="#3b82f6" stroke-width="1.2" stroke-linecap="round"/></svg>`],
+    'Área de Membros': ['linear-gradient(135deg,#f0fdf4,#dcfce7)', `<svg width="72" height="72" viewBox="0 0 72 72" fill="none"><rect x="10" y="16" width="52" height="40" rx="8" fill="#fff" stroke="#a7f3d0" stroke-width="1.5"/><rect x="10" y="16" width="52" height="12" rx="8" fill="#059669" opacity=".12"/><circle cx="24" cy="22" r="4" fill="#059669" opacity=".4"/><rect x="32" y="20" width="20" height="3" rx="1.5" fill="#a7f3d0"/><rect x="18" y="36" width="36" height="12" rx="5" fill="#059669" opacity=".08"/><rect x="22" y="40" width="20" height="3" rx="1.5" fill="#a7f3d0"/></svg>`],
+  };
+
+  function _coverFor(tipo) {
+    const c = _COVER_SVGS[tipo] || _COVER_SVGS['Ebook'];
+    return { bg: c[0], svg: c[1] };
+  }
+
+  const _PRL_STAR_F = `<svg width="11" height="11" viewBox="0 0 12 12" fill="#f59e0b"><path d="M6 1l1.4 2.9 3.2.5L8.3 6.6l.5 3.2L6 8.3 3.2 9.8l.5-3.2L1.4 4.4l3.2-.5z"/></svg>`;
+  const _PRL_STAR_E = `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#e5e7eb" stroke-width="1.2"><path d="M6 1l1.4 2.9 3.2.5L8.3 6.6l.5 3.2L6 8.3 3.2 9.8l.5-3.2L1.4 4.4l3.2-.5z"/></svg>`;
+  function _prlStars(n) { let h=''; for(let i=0;i<Math.floor(n);i++) h+=_PRL_STAR_F; for(let i=Math.floor(n);i<5;i++) h+=_PRL_STAR_E; return h; }
+
+  const _PRL_BOX = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6L10 2 3 6v8l7 4 7-4V6z"/><line x1="10" y1="18" x2="10" y2="11"/><polyline points="3.27,5.96 10,10 16.73,5.96"/></svg>`;
+  const _PRL_LIC_YES = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg>`;
+  const _PRL_LIC_NO  = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l8 8M11 3l-8 8"/></svg>`;
+  const _PRL_LOCK_SM = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="1.5" y="5.5" width="9" height="6" rx="1.5"/><path d="M3.5 5.5V4A2.5 2.5 0 0 1 8.5 4v1.5"/></svg>`;
+  const _PRL_EYE_SM  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><ellipse cx="6" cy="6" rx="4.5" ry="3"/><circle cx="6" cy="6" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+  const _PRL_CARD_SM = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x=".5" y="2.5" width="11" height="8" rx="1.5"/><path d=".5 5.5h11"/></svg>`;
+  const _PRL_MSG_SM  = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 1.5h-9a.75.75 0 0 0-.75.75v6a.75.75 0 0 0 .75.75h2.25l2.25 1.5 2.25-1.5h2.25a.75.75 0 0 0 .75-.75v-6a.75.75 0 0 0-.75-.75z"/></svg>`;
+  const _PRL_REC_OK  = `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 4.5,9 10,3"/></svg>`;
+  const _PRL_REC_NO2 = `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>`;
+
   /* ─── CARD ─── */
   function _buildCard(p) {
     const blocked = p.status==='analise';
-    const scoreClass = p.vendedor.score>=80?'high':p.vendedor.score>=60?'mid':'low';
+    const sc = p.vendedor.score;
+    const scoreClass = sc>=90?'high':sc>=70?'mid':sc>=50?'warn':'low';
     const vagasPct = p.maxVagas ? Math.round((p.vagas/p.maxVagas)*100) : 0;
     const licClass = p.licenca==='completa'?'prl-lic-completa':p.licenca==='revenda'?'prl-lic-revenda':'prl-lic-uso';
-    const licLabel = p.licenca==='completa'?'✅ Revenda Completa':p.licenca==='revenda'?'↗ Revenda Simples':'🔒 Uso Pessoal';
-    const exclClass= `prl-excl-${p.exclusividade}`;
-    const exclLabel= p.exclusividade==='exclusivo'?'★ Exclusivo':p.exclusividade==='limitado'?'◆ Limitado':'· Comum';
+    const licLabel = p.licenca==='completa'?'Revenda Completa':p.licenca==='revenda'?'Revenda Simples':'Uso Pessoal';
+    const exclClass = `prl-excl-${p.exclusividade}`;
+    const exclLabel = p.exclusividade==='exclusivo'?'Exclusivo':p.exclusividade==='limitado'?'Limitado':'Comum';
+    const cover = _coverFor(p.tipo);
     return `<div class="prl-card">
       <div class="prl-cover">
-        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d0d14,#1a1a2e);display:flex;align-items:center;justify-content:center;font-size:52px">${p.emoji}</div>
+        <div class="prl-cover-mockup" style="background:${cover.bg}">${cover.svg}</div>
         <div class="prl-cover-tags">
           <span class="prl-tipo-pill">${_e(p.tipo)}</span>
           <span class="prl-excl-badge ${exclClass}">${exclLabel}</span>
         </div>
-        ${blocked?'<div class="prl-cover-status"><span class="ugc-badge ugc-badge-analise">⚠ Em análise</span></div>':''}
-        <div class="prl-garantia-pill">✅ Garantia 7 dias</div>
+        ${blocked?`<div class="prl-cover-status"><span class="ugc-badge ugc-badge-analise">Em análise</span></div>`:''}
+        <div class="prl-garantia-pill">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 1L1.5 2.5v2.5c0 1.9 1.5 3.5 3.5 4 2-0.5 3.5-2.1 3.5-4V2.5L5 1z"/><polyline points="3.2,5 4.3,6.1 6.8,3.5"/></svg>
+          Garantia 7 dias
+        </div>
       </div>
       <div class="prl-card-body">
         <div class="prl-card-nome">${_e(p.nome)}</div>
@@ -6999,10 +7153,10 @@ ThayApp.PrlMarket = (function () {
         <div class="prl-lic-row"><span class="prl-lic-badge ${licClass}">${licLabel}</span></div>
         ${p.maxVagas?`<div class="prl-vagas-row"><span class="prl-vagas-lbl">VAGAS</span><div class="prl-vagas-track"><div class="prl-vagas-fill" style="width:${vagasPct}%"></div></div><span class="prl-vagas-val">${p.vagas}/${p.maxVagas}</span></div>`:''}
         <div class="prl-score-row"><span class="prl-score-lbl">SCORE VENDEDOR</span><div class="prl-sbar-mini"><div class="prl-sbar-fill ${scoreClass}" style="width:${p.vendedor.score}%"></div></div><span class="prl-score-num">${p.vendedor.score}</span></div>
-        <div class="prl-card-compradores">👥 ${p.vendas} compradores</div>
+        <div class="prl-card-compradores">${p.vendas} compradores</div>
       </div>
       <div class="prl-card-ctas">
-        <button class="prl-btn-preview" data-preview="${_e(p.id)}">👁 Ver por dentro</button>
+        <button class="prl-btn-preview" data-preview="${_e(p.id)}" style="display:flex;align-items:center;justify-content:center;gap:5px">${_PRL_EYE_SM} Ver por dentro</button>
         <button class="prl-btn-comprar" data-buy="${_e(p.id)}"${blocked?' disabled style="opacity:.4;cursor:not-allowed"':''}>Comprar</button>
       </div>
     </div>`;
@@ -7027,15 +7181,21 @@ ThayApp.PrlMarket = (function () {
     _state.openId = null;
   }
 
+  const _SVG_LOCK_NOTICE = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="6.5" width="10" height="7" rx="2"/><path d="M4.5 6.5V4.5a2.5 2.5 0 0 1 5 0v2"/></svg>`;
+  const _SVG_CHECK_INCL = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5.5,10.5 12,4"/></svg>`;
+  const _SVG_WARN_NOTICE = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1L13.5 12H.5L7 1z"/><line x1="7" y1="5" x2="7" y2="8.5"/><circle cx="7" cy="10.5" r=".8" fill="#d97706" stroke="none"/></svg>`;
+
   function _buildDetailBody(p) {
-    const scoreClass = p.vendedor.score>=80?'high':p.vendedor.score>=60?'mid':'low';
-    const scoreColor = p.vendedor.score>=80?'#059669':p.vendedor.score>=60?'#d97706':'#dc2626';
+    const sc = p.vendedor.score;
+    const scoreClass = sc>=90?'high':sc>=70?'mid':sc>=50?'warn':'low';
+    const scoreColor = sc>=90?'#059669':sc>=70?'#d97706':sc>=50?'#fb923c':'#dc2626';
     const licClass = p.licenca==='completa'?'prl-lic-completa':p.licenca==='revenda'?'prl-lic-revenda':'prl-lic-uso';
-    const licLabel = p.licenca==='completa'?'✅ Revenda Completa':p.licenca==='revenda'?'↗ Revenda Simples':'🔒 Uso Pessoal';
+    const licLabel = p.licenca==='completa'?'Revenda Completa':p.licenca==='revenda'?'Revenda Simples':'Uso Pessoal';
+    const cover = _coverFor(p.tipo);
     return `
       <!-- Hero -->
       <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
-        <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#0d0d14,#1a1a2e);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0">${p.emoji}</div>
+        <div style="width:72px;height:72px;border-radius:20px;background:${cover.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden">${cover.svg}</div>
         <div style="flex:1;min-width:200px">
           <h2 style="font-size:22px;font-weight:950;margin:0 0 6px">${_e(p.nome)}</h2>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
@@ -7043,19 +7203,24 @@ ThayApp.PrlMarket = (function () {
             ${_vendorBadge(p.vendedor.status)}
           </div>
           <p style="font-size:13.5px;color:#444;line-height:1.65;margin:0">${_e(p.descLonga)}</p>
-          <div style="margin-top:8px;font-size:12px;color:#9ca3af">📦 ${_e(p.nicho)} · ${_e(p.tipo)} · 👥 ${p.vendas} compradores · ⏱ Vendedor ativo há ${_e(p.vendedor.tempo)}</div>
+          <div style="margin-top:8px;font-size:12px;color:#9ca3af;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span style="font-weight:700;color:#374151">${_e(p.nicho)}</span><span style="color:#d0d5de">·</span>
+            <span>${_e(p.tipo)}</span><span style="color:#d0d5de">·</span>
+            <span>${p.vendas} compradores</span><span style="color:#d0d5de">·</span>
+            <span>Ativo há ${_e(p.vendedor.tempo)}</span>
+          </div>
         </div>
       </div>
 
       <!-- Action buttons -->
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="prl-btn-comprar" id="prlDtlBtnBuy" style="height:44px;padding:0 28px;border-radius:12px;font-size:13px;border:none;background:#0077ff;color:#fff;font-family:inherit;cursor:pointer;font-weight:900">💳 Comprar pela THAY — R$ ${p.preco.toLocaleString('pt-BR')}</button>
-        <button class="prl-btn-preview" id="prlDtlBtnPreview" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px">👁 Ver preview protegido</button>
-        <button class="ugc-btn-avaliar" id="prlDtlBtnWa" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px;border:1px solid #e5eaef;background:#fff;font-family:inherit;cursor:pointer;font-weight:900">💬 WhatsApp</button>
+        <button class="prl-btn-comprar" id="prlDtlBtnBuy" style="height:44px;padding:0 28px;border-radius:12px;font-size:13px;border:none;background:#0077ff;color:#fff;font-family:inherit;cursor:pointer;font-weight:900;display:flex;align-items:center;gap:7px">${_PRL_CARD_SM} Comprar pela THAY — R$ ${p.preco.toLocaleString('pt-BR')}</button>
+        <button class="prl-btn-preview" id="prlDtlBtnPreview" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px;display:flex;align-items:center;gap:6px">${_PRL_EYE_SM} Ver preview protegido</button>
+        <button class="ugc-btn-avaliar" id="prlDtlBtnWa" style="height:44px;padding:0 18px;border-radius:12px;font-size:12px;border:1px solid #e5eaef;background:#fff;font-family:inherit;cursor:pointer;font-weight:900;display:flex;align-items:center;gap:6px">${_PRL_MSG_SM} WhatsApp</button>
       </div>
 
       <!-- Security notice -->
-      <div class="prl-security-notice">🔒 <span>Para manter sua compra protegida, pague apenas pela THAY. A plataforma só libera o produto após pagamento aprovado e registra sua licença de uso.</span></div>
+      <div class="prl-security-notice" style="display:flex;align-items:center;gap:8px">${_SVG_LOCK_NOTICE} <span>Para manter sua compra protegida, pague apenas pela THAY. A plataforma só libera o produto após pagamento aprovado e registra sua licença de uso.</span></div>
 
       <!-- Price & guarantee -->
       <div style="background:#f9fafb;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
@@ -7077,7 +7242,7 @@ ThayApp.PrlMarket = (function () {
       <div>
         <div class="prl-ds-title">O que vem incluso</div>
         <div style="display:flex;flex-direction:column;gap:6px">
-          ${p.incluso.map(i=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f9fafb;border-radius:10px"><span style="color:#059669;font-size:14px">✓</span><span style="font-size:13px;font-weight:800;color:#374151">${_e(i)}</span></div>`).join('')}
+          ${p.incluso.map(i=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f9fafb;border-radius:10px">${_SVG_CHECK_INCL}<span style="font-size:13px;font-weight:800;color:#374151">${_e(i)}</span></div>`).join('')}
         </div>
       </div>
 
@@ -7085,7 +7250,7 @@ ThayApp.PrlMarket = (function () {
       <div>
         <div class="prl-ds-title">Termos da licença</div>
         <div class="prl-lic-grid">${_buildLicToggles(p.licTermos)}</div>
-        ${p.licenca==='uso'?`<div style="margin-top:12px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;font-size:12px;color:#92400e">⚠️ Esta é uma Licença de Uso Pessoal. A revenda não é permitida.</div>`:''}
+        ${p.licenca==='uso'?`<div style="margin-top:12px;padding:12px 16px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;font-size:12px;color:#92400e;display:flex;align-items:center;gap:8px">${_SVG_WARN_NOTICE} Esta é uma Licença de Uso Pessoal. A revenda não é permitida.</div>`:''}
       </div>
 
       <!-- Vendor score -->
@@ -7100,7 +7265,7 @@ ThayApp.PrlMarket = (function () {
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
           ${Object.entries(p.scoreDetalhe).map(([k,v])=>{
-            const fc=v>=80?'#10b981':v>=60?'#f59e0b':'#ef4444';
+            const fc=v>=90?'#10b981':v>=70?'#f59e0b':v>=50?'#fb923c':'#ef4444';
             return `<div style="background:#f9fafb;border-radius:12px;padding:12px 16px"><div style="font-size:11px;font-weight:700;color:#6b7280;margin-bottom:4px">${_e(k)}</div><div style="height:5px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-bottom:3px"><div style="width:${v}%;height:100%;background:${fc};border-radius:99px"></div></div><div style="font-size:13px;font-weight:950;color:#111">${v}</div></div>`;
           }).join('')}
         </div>
@@ -7110,7 +7275,7 @@ ThayApp.PrlMarket = (function () {
       ${p.avaliacoes.length?`<div>
         <div class="prl-ds-title">Avaliações (${p.avaliacoes.length})</div>
         <div class="ugc-reviews-list">
-          ${p.avaliacoes.map(av=>`<div class="ugc-review-item"><div class="ugc-review-top"><span class="ugc-review-author">${_e(av.autor)}</span><span>${'⭐'.repeat(av.nota)}</span></div><p class="ugc-review-text">${_e(av.texto)}</p><div class="ugc-review-rec ${av.rec==='nao'?'no':''}">${av.rec==='sim'?'👍 Recomenda':'👎 Não recomenda'}</div></div>`).join('')}
+          ${p.avaliacoes.map(av=>`<div class="ugc-review-item"><div class="ugc-review-top"><span class="ugc-review-author">${_e(av.autor)}</span><span style="display:flex;gap:2px">${_prlStars(av.nota)}</span><span style="font-size:12px;font-weight:900;color:#111">${av.nota}.0</span></div><p class="ugc-review-text">${_e(av.texto)}</p><div class="ugc-review-rec ${av.rec==='nao'?'no':''}">${av.rec==='sim'?_PRL_REC_OK+' Recomenda':_PRL_REC_NO2+' Não recomenda'}</div></div>`).join('')}
         </div>
       </div>`:''}
 
@@ -7134,7 +7299,7 @@ ThayApp.PrlMarket = (function () {
     ];
     return items.map(([k,label]) => {
       const ok = t[k];
-      return `<div class="prl-lic-item ${ok?'yes':'no'}"><span class="prl-lic-icon">${ok?'✅':'❌'}</span><span class="prl-lic-text">${_e(label)}</span></div>`;
+      return `<div class="prl-lic-item ${ok?'yes':'no'}"><span class="prl-lic-icon">${ok?_PRL_LIC_YES:_PRL_LIC_NO}</span><span class="prl-lic-text">${_e(label)}</span></div>`;
     }).join('');
   }
 
@@ -7143,20 +7308,20 @@ ThayApp.PrlMarket = (function () {
     const p = PRODUCTS.find(x=>x.id===_state.openId);
     if (!p) return;
     document.getElementById('prlPreviewContent').innerHTML = `
-      <div class="prl-preview-warn">🔒 <strong>Prévia protegida.</strong> Os arquivos completos são liberados apenas após o pagamento aprovado. Esta visualização é registrada.</div>
+      <div class="prl-preview-warn" style="display:flex;align-items:center;gap:8px">${_PRL_LOCK_SM} <span><strong>Prévia protegida.</strong> Os arquivos completos são liberados apenas após o pagamento aprovado. Esta visualização é registrada.</span></div>
       <div class="prl-preview-section">
-        <div class="prl-preview-sec-head"><span>📋 Índice / módulos</span><span style="font-size:11px;color:#9ca3af">PRÉVIA</span></div>
+        <div class="prl-preview-sec-head"><span>Índice / módulos</span><span style="font-size:11px;color:#9ca3af">PRÉVIA</span></div>
         <div style="padding:12px 16px">
           ${p.incluso.map((inc,i)=>`<div style="padding:6px 0;border-bottom:1px solid #f4f5f7;font-size:13px;color:#374151;font-weight:700">${i+1}. ${_e(inc)}</div>`).join('')}
         </div>
       </div>
       <div class="prl-preview-section">
-        <div class="prl-preview-sec-head"><span>📄 Amostra de conteúdo</span><span style="font-size:11px;color:#9ca3af">3 de ${p.incluso.length} itens</span></div>
+        <div class="prl-preview-sec-head"><span>Amostra de conteúdo</span><span style="font-size:11px;color:#9ca3af">3 de ${p.incluso.length} itens</span></div>
         <div style="padding:12px 16px;font-size:13px;color:#444;line-height:1.65">${_e(p.descCurta)}</div>
-        <div class="prl-preview-locked">🔒 Conteúdo completo disponível após compra</div>
+        <div class="prl-preview-locked" style="display:flex;align-items:center;gap:6px">${_PRL_LOCK_SM} Conteúdo completo disponível após compra</div>
       </div>
       <div class="prl-preview-section">
-        <div class="prl-preview-sec-head"><span>📜 Licença resumida</span></div>
+        <div class="prl-preview-sec-head"><span>Licença resumida</span></div>
         <div style="padding:12px 16px">
           <div class="prl-lic-grid">${_buildLicToggles(p.licTermos)}</div>
         </div>
@@ -7181,7 +7346,7 @@ ThayApp.PrlMarket = (function () {
     if (!p) return;
     if (_state.checkoutStep===1) {
       const cb = document.getElementById('prlCoLicCb');
-      if (!cb?.checked) { _showToast('⚠️ Você precisa aceitar os termos da licença para continuar.'); return; }
+      if (!cb?.checked) { _showToast('Você precisa aceitar os termos da licença para continuar.'); return; }
       _state.licAceita=true;
       _state.checkoutStep=2;
     } else if (_state.checkoutStep===2) {
@@ -7194,7 +7359,7 @@ ThayApp.PrlMarket = (function () {
     const steps=[{num:1,label:'Licença'},{num:2,label:'Pagamento'},{num:3,label:'Confirmação'}];
     document.getElementById('prlCheckoutSteps').innerHTML = steps.map((s,i)=>`
       <div class="prl-co-step ${_state.checkoutStep>s.num?'done':_state.checkoutStep===s.num?'active':''}">
-        <span class="prl-co-num">${_state.checkoutStep>s.num?'✓':s.num}</span>${s.label}
+        <span class="prl-co-num">${_state.checkoutStep>s.num?'&#10003;':s.num}</span>${s.label}
       </div>${i<steps.length-1?'<div class="prl-co-sep"></div>':''}`).join('');
 
     let html='';
@@ -7214,14 +7379,14 @@ ThayApp.PrlMarket = (function () {
           <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#9ca3af">Licença</span><span style="font-size:12px;font-weight:800;color:#374151">${p.licenca==='completa'?'Revenda Completa':p.licenca==='revenda'?'Revenda Simples':'Uso Pessoal'}</span></div>
           <div style="display:flex;justify-content:space-between;border-top:1px solid #e5eaef;padding-top:8px;margin-top:4px"><span style="font-size:12px;color:#9ca3af">Garantia</span><span style="font-size:12px;font-weight:800;color:#059669">7 dias</span></div>
         </div>
-        <div class="ugc-modal-warn" style="margin-bottom:16px">💳 O pagamento é processado pela THAY. O dinheiro fica retido por 7 dias antes de ser liberado ao vendedor.</div>
+        <div class="ugc-modal-warn" style="margin-bottom:16px;display:flex;align-items:center;gap:8px">${_PRL_CARD_SM} O pagamento é processado pela THAY. O dinheiro fica retido por 7 dias antes de ser liberado ao vendedor.</div>
         <div class="ugc-modal-footer"><button class="ugc-modal-cancel" id="prlCoClose">Cancelar</button><button class="ugc-modal-submit" id="prlCoNext">Confirmar pagamento →</button></div>`;
     } else {
       html=`<div style="text-align:center;padding:8px 0 4px">
-        <div style="font-size:48px;margin-bottom:8px">🎉</div>
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f0fdf4,#d1fae5);display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,14 10,20 24,8"/></svg></div>
         <h3 style="margin:0 0 8px;font-size:20px">Compra realizada!</h3>
         <p style="font-size:13px;color:#6b7280;line-height:1.65;margin:0 0 18px">Seu produto foi desbloqueado. O dinheiro ficará retido por 7 dias. Você pode solicitar reembolso até <strong>${_guaranteeDate(7)}</strong>.</p>
-        <div style="background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:14px;font-size:12.5px;color:#059669;margin-bottom:18px">✅ Licença registrada · 📦 Produto liberado · 🔒 Pagamento seguro pela THAY</div>
+        <div style="background:#f0fdf4;border:1px solid #d1fae5;border-radius:12px;padding:14px;font-size:12.5px;color:#059669;margin-bottom:18px">Licença registrada · Produto liberado · Pagamento seguro pela THAY</div>
         <div class="ugc-modal-footer" style="justify-content:center">
           <button class="ugc-modal-submit" id="prlCoBuyerArea">Acessar meus PRLs →</button>
           <button class="ugc-modal-cancel" id="prlCoClose">Fechar</button>
@@ -7248,16 +7413,17 @@ ThayApp.PrlMarket = (function () {
       <div class="prl-section-hdr"><span class="prl-section-title">Meus PRLs</span></div>
       <div class="prl-orders-list">
         ${PURCHASES.map(pu=>{
-          const p=PRODUCTS.find(x=>x.id===pu.prodId)||{nome:'Produto',emoji:'📦'};
+          const p=PRODUCTS.find(x=>x.id===pu.prodId)||{nome:'Produto'};
           const statusCls=pu.status==='garantia'?'prl-os-garantia':pu.status==='disponivel'?'prl-os-disponivel':'prl-os-disputa';
           const statusLabel=pu.status==='garantia'?'Em garantia':pu.status==='disponivel'?'Garantia encerrada':'Em disputa';
+          const pCover=_coverFor((p.tipo)||'Ebook');
           return `<div class="prl-order-card">
             <div class="prl-order-top">
-              <div class="prl-order-emoji">${p.emoji||'📦'}</div>
+              <div class="prl-order-emoji" style="background:${pCover.bg};border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden">${pCover.svg}</div>
               <div class="prl-order-info"><div class="prl-order-nome">${_e(p.nome||'')}</div><div class="prl-order-sub">Comprado em ${pu.dataCompra}</div></div>
               <div class="prl-order-price">R$ ${pu.valor.toLocaleString('pt-BR')}</div>
             </div>
-            <div class="prl-order-status-row"><span class="prl-ostatus ${statusCls}">${statusLabel}</span>${pu.status==='garantia'?`<span style="font-size:11px;color:#d97706">⏱ Garantia até ${pu.garantiaAte}</span>`:''}</div>
+            <div class="prl-order-status-row"><span class="prl-ostatus ${statusCls}">${statusLabel}</span>${pu.status==='garantia'?`<span style="font-size:11px;color:#d97706">Garantia até ${pu.garantiaAte}</span>`:''}</div>
             <div class="prl-order-actions">
               <button class="prl-obtn prl-obtn-primary" data-action="access" data-prod="${_e(pu.prodId)}">Acessar produto</button>
               ${pu.status==='garantia'?`<button class="prl-obtn prl-obtn-danger" data-action="refund" data-prod="${_e(pu.prodId)}">Solicitar reembolso</button><button class="prl-obtn prl-obtn-ghost" data-action="dispute" data-prod="${_e(pu.prodId)}">Reportar problema</button>`:''}
@@ -7271,7 +7437,7 @@ ThayApp.PrlMarket = (function () {
     const btn=e.target.closest('[data-action]');
     if (!btn) return;
     _state.openId=btn.dataset.prod||_state.openId;
-    if (btn.dataset.action==='access')  _showToast('📦 Produto acessado. Verifique seus arquivos.');
+    if (btn.dataset.action==='access')  _showToast('Produto acessado. Verifique seus arquivos.');
     if (btn.dataset.action==='refund')  _refundModal.style.display='flex';
     if (btn.dataset.action==='dispute') _disputeModal.style.display='flex';
   }
@@ -7289,18 +7455,19 @@ ThayApp.PrlMarket = (function () {
         <div class="prl-wallet-card" style="background:#fffbeb;border-color:#fde68a"><div class="prl-wallet-lbl" style="color:#d97706">SALDO PENDENTE (7 dias)</div><div class="prl-wallet-val" style="color:#d97706">R$ ${totalPendente.toLocaleString('pt-BR')}</div></div>
         <div class="prl-wallet-card"><div class="prl-wallet-lbl" style="color:#9ca3af">TOTAL DE VENDAS</div><div class="prl-wallet-val">${totalVendas}</div></div>
       </div>
-      <div class="ugc-modal-warn" style="margin-bottom:24px">💡 O saldo fica retido 7 dias após cada venda. Taxa da THAY descontada automaticamente antes do repasse.</div>
+      <div class="ugc-modal-warn" style="margin-bottom:24px">O saldo fica retido 7 dias após cada venda. Taxa da THAY descontada automaticamente antes do repasse.</div>
       <div class="prl-section-hdr">
         <span class="prl-section-title">Meus produtos à venda</span>
         <button class="prl-section-btn" id="prlSellerAddBtn">+ Cadastrar PRL</button>
       </div>
       <div class="prl-orders-list">
         ${MY_PRODUCTS_SELLER.map(sp=>{
-          const p=PRODUCTS.find(x=>x.id===sp.prodId)||{nome:'Produto',emoji:'📦'};
+          const p=PRODUCTS.find(x=>x.id===sp.prodId)||{nome:'Produto'};
           const stCls=sp.status==='ativo'?'prl-os-disponivel':'prl-os-analise';
+          const spCover=_coverFor((p.tipo)||'Ebook');
           return `<div class="prl-order-card">
             <div class="prl-order-top">
-              <div class="prl-order-emoji">${p.emoji||'📦'}</div>
+              <div class="prl-order-emoji" style="background:${spCover.bg};border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden">${spCover.svg}</div>
               <div class="prl-order-info"><div class="prl-order-nome">${_e(p.nome||'')}</div><div class="prl-order-sub">Desde ${sp.dataEnvio} · ${sp.vendas} vendas</div></div>
             </div>
             <div class="prl-order-status-row"><span class="prl-ostatus ${stCls}">${sp.status==='ativo'?'Ativo':'Em análise'}</span></div>
@@ -7331,28 +7498,28 @@ ThayApp.PrlMarket = (function () {
         <div class="prl-stat-card"><div class="prl-stat-lbl">RECLAMAÇÕES ABERTAS</div><div class="prl-stat-val" style="color:#dc2626">0</div></div>
       </div>
       <div class="prl-section-hdr"><span class="prl-section-title">Produtos aguardando aprovação</span></div>
-      ${pendentes.length?pendentes.map(p=>`
+      ${pendentes.length?pendentes.map(p=>{const aC=_coverFor(p.tipo);return`
         <div class="prl-admin-row">
-          <div class="prl-admin-emoji">${p.emoji}</div>
+          <div class="prl-admin-emoji" style="background:${aC.bg};border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden">${aC.svg}</div>
           <div>
             <div class="prl-admin-nome">${_e(p.nome)}</div>
             <div class="prl-admin-sub">${_e(p.tipo)} · ${_e(p.nicho)} · R$ ${p.preco}</div>
           </div>
           <div class="prl-admin-actions">
-            <button class="prl-admin-btn prl-admin-btn-ok"  data-admin-action="approve" data-id="${_e(p.id)}">✓ Aprovar</button>
-            <button class="prl-admin-btn prl-admin-btn-blk" data-admin-action="block"   data-id="${_e(p.id)}">✕ Reprovar</button>
+            <button class="prl-admin-btn prl-admin-btn-ok"  data-admin-action="approve" data-id="${_e(p.id)}">Aprovar</button>
+            <button class="prl-admin-btn prl-admin-btn-blk" data-admin-action="block"   data-id="${_e(p.id)}">Reprovar</button>
           </div>
-        </div>`).join(''):`<div style="padding:32px;text-align:center;color:#9ca3af;font-weight:800;font-size:13px">✅ Nenhum produto aguardando análise</div>`}
+        </div>`}).join(''):`<div style="padding:32px;text-align:center;color:#9ca3af;font-weight:800;font-size:13px">Nenhum produto aguardando análise</div>`}
       <div class="prl-section-hdr" style="margin-top:24px"><span class="prl-section-title">Todos os produtos</span></div>
-      ${PRODUCTS.map(p=>`
+      ${PRODUCTS.map(p=>{const bC=_coverFor(p.tipo);return`
         <div class="prl-admin-row">
-          <div class="prl-admin-emoji">${p.emoji}</div>
+          <div class="prl-admin-emoji" style="background:${bC.bg};border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden">${bC.svg}</div>
           <div style="flex:1">
             <div class="prl-admin-nome">${_e(p.nome)}</div>
             <div class="prl-admin-sub">${_e(p.tipo)} · Score vendedor: ${p.vendedor.score} · ${p.vendas} vendas</div>
           </div>
           <span class="prl-ostatus ${p.status==='ativo'?'prl-os-disponivel':p.status==='analise'?'prl-os-analise':'prl-os-reembolso'}">${p.status}</span>
-        </div>`).join('')}`;
+        </div>`}).join('')}`;
   }
 
   function _handleAdminActions(e) {
@@ -7360,23 +7527,23 @@ ThayApp.PrlMarket = (function () {
     if (!btn) return;
     const action=btn.dataset.adminAction;
     const id=btn.dataset.id;
-    if (action==='approve') _showToast(`✅ Produto aprovado e publicado.`);
-    if (action==='block')   _showToast(`✕ Produto reprovado.`);
+    if (action==='approve') _showToast('Produto aprovado e publicado.');
+    if (action==='block')   _showToast('Produto reprovado.');
     setTimeout(()=>_renderAdminTab(), 400);
   }
 
   /* ─── HELPERS ─── */
   function _vendorBadge(status) {
-    const map={verificado:['ugc-badge-verificado','✔ Verificado'],destaque:['ugc-badge-destaque','★ Destaque'],novo:['ugc-badge-novo','✦ Novo'],analise:['ugc-badge-analise','⚠ Em análise']};
+    const map={verificado:['ugc-badge-verificado','Verificado'],destaque:['ugc-badge-destaque','Destaque'],novo:['ugc-badge-novo','Novo'],analise:['ugc-badge-analise','Em análise']};
     const [cls,label]=map[status]||map.verificado;
     return `<span class="ugc-badge ${cls}">${label}</span>`;
   }
 
   function _scoreLevel(score) {
-    if (score>=90) return '🟢 Alta confiança (90–100)';
-    if (score>=70) return '🟡 Bom (70–89)';
-    if (score>=50) return '🟠 Atenção (50–69)';
-    return '🔴 Risco alto (abaixo de 50)';
+    if (score>=90) return 'Alta confiança (90–100)';
+    if (score>=70) return 'Bom (70–89)';
+    if (score>=50) return 'Atenção (50–69)';
+    return 'Risco alto (abaixo de 50)';
   }
 
   function _guaranteeDate(days) {
