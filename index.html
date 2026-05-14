@@ -325,6 +325,285 @@ body {
 .side-stat button:hover { background: rgba(0,119,255,.12); }
 
 /* ============================================================
+   THAY — FINANCIAL DASHBOARD REDESIGN
+   ============================================================ */
+
+.fin-head {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:20px; padding:26px 30px; margin:0 0 20px;
+  border-radius:var(--radius-xl);
+  background:linear-gradient(135deg,#fff 60%,#f0f7ff 100%);
+  border:1px solid var(--border); box-shadow:var(--shadow-sm);
+  position:relative; overflow:hidden; flex-wrap:wrap;
+}
+.fin-head::before {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle,rgba(0,119,255,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.fin-head h1 { font-size:26px; font-weight:950; letter-spacing:-1px; color:#0a0a0a; line-height:1.1; }
+.fin-head p  { margin-top:6px; color:var(--text-muted); font-size:13px; font-weight:700; line-height:1.5; max-width:480px; }
+.fin-head-right { display:flex; align-items:center; gap:10px; flex-shrink:0; flex-wrap:wrap; }
+
+.fin-filters {
+  display:flex; align-items:center; gap:4px; padding:4px;
+  border-radius:14px; background:var(--surface);
+  border:1px solid var(--border); box-shadow:var(--shadow-sm);
+}
+.fin-filter-btn {
+  height:34px; padding:0 14px; border:none; border-radius:10px;
+  background:transparent; color:var(--text-muted);
+  font-size:11.5px; font-weight:850; cursor:pointer;
+  transition:background .12s,color .12s; font-family:inherit;
+}
+.fin-filter-btn:hover { background:#f5f7fa; color:#111; }
+.fin-filter-btn.active {
+  background:linear-gradient(135deg,#0077ff,#45adff);
+  color:#fff; box-shadow:0 2px 8px var(--blue-glow);
+}
+.fin-saque-btn {
+  height:42px; padding:0 20px; border:none; border-radius:14px;
+  background:linear-gradient(135deg,#0077ff,#45adff);
+  color:#fff; font-size:13px; font-weight:900; cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,119,255,.3);
+  transition:transform .12s,box-shadow .12s; font-family:inherit;
+  display:flex; align-items:center; gap:8px;
+}
+.fin-saque-btn:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,119,255,.4); }
+
+/* Cards grid */
+.fin-cards-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:18px;
+}
+@media(max-width:900px){ .fin-cards-grid { grid-template-columns:repeat(2,1fr); } }
+@media(max-width:560px){ .fin-cards-grid { grid-template-columns:1fr; } }
+
+.fin-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:20px 22px;
+  box-shadow:var(--shadow-sm); transition:transform .15s,box-shadow .15s;
+  position:relative; overflow:hidden;
+}
+.fin-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.fin-card-icon {
+  width:34px; height:34px; border-radius:10px;
+  background:rgba(0,119,255,.07);
+  display:flex; align-items:center; justify-content:center; margin-bottom:11px;
+}
+.fin-card-label { font-size:10.5px; font-weight:800; color:var(--text-muted); letter-spacing:.5px; text-transform:uppercase; margin-bottom:5px; }
+.fin-card-value { font-size:26px; font-weight:950; letter-spacing:-1px; color:#0a0a0a; line-height:1; }
+.fin-card-sub  { margin-top:8px; font-size:11.5px; font-weight:700; color:var(--text-muted); display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.fin-up { color:#10b981; } .fin-dn { color:#ef4444; } .fin-am { color:#d97706; }
+.fin-card-primary { border-color:rgba(0,119,255,.2); background:linear-gradient(135deg,#fff 60%,#f0f7ff 100%); }
+.fin-card-primary .fin-card-value { color:#0077ff; }
+.fin-card-saque {
+  display:inline-flex; align-items:center; gap:5px;
+  margin-top:10px; height:28px; padding:0 12px;
+  border:none; border-radius:8px; background:#0077ff; color:#fff;
+  font-size:11px; font-weight:900; cursor:pointer; font-family:inherit; transition:opacity .12s;
+}
+.fin-card-saque:hover { opacity:.88; }
+
+/* Main layout */
+.fin-main-layout {
+  display:grid; grid-template-columns:1fr 300px; gap:16px; margin-bottom:18px;
+}
+@media(max-width:960px){ .fin-main-layout { grid-template-columns:1fr; } }
+
+/* Chart card */
+.fin-chart-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:24px 26px;
+  box-shadow:var(--shadow-sm);
+}
+.fin-chart-head {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  margin-bottom:16px; gap:12px; flex-wrap:wrap;
+}
+.fin-chart-head h3 { font-size:17px; font-weight:950; }
+.fin-chart-head p  { margin-top:4px; color:var(--text-muted); font-size:12px; font-weight:700; }
+.fin-chart-controls { display:flex; gap:8px; align-items:center; }
+.fin-chart-tabs {
+  display:flex; gap:3px; padding:3px;
+  background:#f4f6f9; border-radius:10px;
+}
+.fin-chart-tab {
+  height:30px; padding:0 11px; border:none; border-radius:7px;
+  background:transparent; color:var(--text-muted);
+  font-size:11px; font-weight:850; cursor:pointer; font-family:inherit;
+  transition:background .1s,color .1s;
+}
+.fin-chart-tab.active { background:#fff; color:#111; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.fin-export-btn {
+  height:32px; padding:0 12px; border:1px solid var(--border); border-radius:10px;
+  background:#fff; color:#374151; font-size:11px; font-weight:850; cursor:pointer;
+  font-family:inherit; display:flex; align-items:center; gap:5px; transition:background .12s;
+}
+.fin-export-btn:hover { background:#f4f6f9; }
+
+/* Funnel SVG */
+.fin-funnel-svg { width:100%; height:auto; display:block; overflow:visible; }
+.fin-funnel-stages {
+  display:flex; gap:0; margin-top:8px; border-top:1px solid var(--border-light); padding-top:10px;
+}
+.fin-stage-col { flex:1; text-align:center; padding:0 4px; }
+.fin-stage-val { font-size:14px; font-weight:950; color:#0a0a0a; letter-spacing:-.3px; line-height:1; }
+.fin-stage-lbl { font-size:9.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.2px; margin-top:2px; }
+.fin-stage-conv { font-size:10.5px; font-weight:800; margin-top:3px; }
+
+/* Sidebar */
+.fin-sidebar { display:flex; flex-direction:column; gap:10px; }
+.fin-side-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:13px 15px;
+  box-shadow:var(--shadow-sm); display:flex; align-items:center; gap:11px;
+  transition:box-shadow .15s,border-color .15s;
+}
+.fin-side-card:hover { box-shadow:var(--shadow-md); border-color:#d4dde8; }
+.fin-side-icon {
+  width:36px; height:36px; border-radius:10px; background:rgba(0,119,255,.07);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.fin-side-info { flex:1; min-width:0; }
+.fin-side-lbl { font-size:10px; font-weight:800; color:var(--text-muted); letter-spacing:.3px; }
+.fin-side-val { font-size:17px; font-weight:950; color:#0a0a0a; letter-spacing:-.4px; margin-top:1px; }
+.fin-side-sub { font-size:10px; font-weight:700; margin-top:2px; }
+.fin-side-btn {
+  height:26px; padding:0 10px; border:1px solid var(--border); border-radius:8px;
+  background:#fff; color:#374151; font-size:10px; font-weight:850; cursor:pointer;
+  font-family:inherit; flex-shrink:0; transition:background .1s;
+}
+.fin-side-btn:hover { background:#f4f6f9; }
+
+/* Pix block */
+.fin-pix-block {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:24px 26px;
+  box-shadow:var(--shadow-sm); margin-bottom:18px;
+}
+.fin-pix-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:20px; }
+.fin-pix-head h3 { font-size:17px; font-weight:950; }
+.fin-pix-head p  { margin-top:3px; color:var(--text-muted); font-size:12px; font-weight:700; }
+.fin-pix-layout { display:grid; grid-template-columns:1fr 320px; gap:24px; }
+@media(max-width:860px){ .fin-pix-layout { grid-template-columns:1fr; } }
+
+.fin-pix-key-block {
+  background:#f9fbff; border:1px solid rgba(0,119,255,.12);
+  border-radius:var(--radius-md); padding:14px 16px; margin-bottom:14px;
+  display:flex; align-items:center; gap:12px;
+}
+.fin-pix-key-info { flex:1; }
+.fin-pix-key-lbl { font-size:10px; font-weight:800; color:var(--text-muted); letter-spacing:.4px; margin-bottom:3px; text-transform:uppercase; }
+.fin-pix-key-val { font-size:14px; font-weight:900; color:#0a0a0a; }
+.fin-pix-key-sub { font-size:11px; color:var(--text-muted); font-weight:700; margin-top:2px; }
+
+.fin-pix-amount-lbl { font-size:10.5px; font-weight:800; color:var(--text-muted); letter-spacing:.3px; text-transform:uppercase; margin-bottom:6px; }
+.fin-pix-amount-wrap { position:relative; margin-bottom:14px; }
+.fin-pix-pfx { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:14px; font-weight:800; color:#6b7280; pointer-events:none; }
+.fin-pix-input {
+  width:100%; height:50px; padding:0 14px 0 40px;
+  border:1.5px solid var(--border); border-radius:14px;
+  font-size:22px; font-weight:950; color:#0a0a0a; font-family:inherit;
+  outline:none; box-sizing:border-box; transition:border-color .15s;
+}
+.fin-pix-input:focus { border-color:var(--blue); }
+
+.fin-pix-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:9px 0; border-bottom:1px solid var(--border-light);
+  font-size:12.5px;
+}
+.fin-pix-row:last-child { border-bottom:none; }
+.fin-pix-row-lbl { font-weight:700; color:var(--text-muted); }
+.fin-pix-row-val { font-weight:900; color:#0a0a0a; }
+.fin-pix-row-green { color:#059669; }
+
+.fin-security {
+  display:flex; align-items:flex-start; gap:9px;
+  background:#f0f7ff; border:1px solid rgba(0,119,255,.15);
+  border-radius:12px; padding:11px 13px;
+  font-size:11.5px; font-weight:700; color:#374151; line-height:1.5; margin:12px 0;
+}
+.fin-security svg { flex-shrink:0; margin-top:1px; }
+
+.fin-pix-submit {
+  width:100%; height:48px; border:none; border-radius:14px;
+  background:linear-gradient(135deg,#0077ff,#45adff);
+  color:#fff; font-size:14px; font-weight:900; cursor:pointer;
+  font-family:inherit; box-shadow:0 4px 16px rgba(0,119,255,.28);
+  transition:transform .12s,box-shadow .12s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.fin-pix-submit:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,119,255,.36); }
+.fin-pix-submit:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.fin-pix-preview-box {
+  background:#f9fbff; border:1px solid rgba(0,119,255,.1);
+  border-radius:var(--radius-md); padding:16px 18px;
+}
+.fin-pix-preview-ttl { font-size:10.5px; font-weight:800; color:var(--text-muted); letter-spacing:.4px; text-transform:uppercase; margin-bottom:12px; }
+.fin-pix-avail { font-size:28px; font-weight:950; color:#059669; letter-spacing:-1px; margin:6px 0 4px; }
+
+/* Guarantee block */
+.fin-guarantee-block {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:22px 24px;
+  box-shadow:var(--shadow-sm); margin-bottom:18px;
+}
+.fin-block-head { margin-bottom:16px; }
+.fin-block-head h3 { font-size:17px; font-weight:950; }
+.fin-block-head p  { margin-top:3px; font-size:12px; color:var(--text-muted); font-weight:700; }
+.fin-guarantee-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+@media(max-width:680px){ .fin-guarantee-grid { grid-template-columns:repeat(2,1fr); } }
+.fin-g-card { border-radius:var(--radius-md); padding:13px 15px; border:1px solid var(--border-light); }
+.fin-g-lbl { font-size:10px; font-weight:800; color:var(--text-muted); letter-spacing:.3px; margin-bottom:5px; text-transform:uppercase; }
+.fin-g-val { font-size:19px; font-weight:950; letter-spacing:-.4px; }
+.fin-g-sub { font-size:10.5px; font-weight:700; color:var(--text-muted); margin-top:2px; }
+
+/* History */
+.fin-history-block {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-xl); padding:22px 24px;
+  box-shadow:var(--shadow-sm);
+}
+.fin-history-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.fin-history-head h3 { font-size:17px; font-weight:950; }
+.fin-history-tbl { width:100%; border-collapse:collapse; }
+.fin-history-tbl th {
+  text-align:left; font-size:10px; font-weight:800; color:var(--text-muted);
+  letter-spacing:.4px; text-transform:uppercase; padding:0 0 9px;
+  border-bottom:1px solid var(--border);
+}
+.fin-history-tbl td {
+  padding:11px 0; border-bottom:1px solid var(--border-light);
+  font-size:13px; font-weight:800; color:#374151; vertical-align:middle;
+}
+.fin-history-tbl tr:last-child td { border-bottom:none; }
+.fin-history-tbl td.fin-td-date { color:#9ca3af; font-size:11.5px; font-weight:700; }
+.fin-st { display:inline-flex; align-items:center; gap:4px; padding:3px 9px; border-radius:99px; font-size:10.5px; font-weight:850; }
+.fin-st-paid     { background:#d1fae5; color:#059669; }
+.fin-st-pending  { background:#fef3c7; color:#d97706; }
+.fin-st-analysis { background:#dbeafe; color:#2563eb; }
+.fin-st-refused  { background:#fee2e2; color:#dc2626; }
+.fin-st-cancel   { background:#f3f4f6; color:#6b7280; }
+.fin-comprovante-btn {
+  height:24px; padding:0 9px; border:1px solid var(--border); border-radius:7px;
+  background:#fff; color:#374151; font-size:10px; font-weight:850; cursor:pointer;
+  font-family:inherit; transition:background .1s;
+}
+.fin-comprovante-btn:hover { background:#f4f6f9; }
+
+/* Funnel tooltip */
+.fin-tooltip {
+  position:fixed; z-index:9999; background:#0a0a0a; color:#fff;
+  border-radius:10px; padding:8px 12px; font-size:12px; font-weight:800;
+  pointer-events:none; opacity:0; transition:opacity .15s; line-height:1.5;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.fin-tooltip.show { opacity:1; }
+
+/* ============================================================
    THAY FUNNEL BUILDER — AFFILIATE MARKETPLACE
    ============================================================ */
 
@@ -3070,67 +3349,462 @@ body {
        DASHBOARD VIEW
   ══════════════════════════════════════════════════ -->
   <section class="dashboard-view" id="dashboardView">
-    <div class="dashboard-head">
-      <div>
-        <h1>Dashboard Financeiro <span class="head-badge">↑ 30% este mês</span></h1>
-        <p>Visão geral do faturamento total da plataforma e performance financeira</p>
-      </div>
-      <div class="dashboard-filters">
-        <button class="filter-pill active">Hoje</button>
-        <button class="filter-pill">7 dias</button>
-        <button class="filter-pill">30 dias</button>
-        <button class="filter-pill">Este mês</button>
-      </div>
-    </div>
 
-    <div class="dashboard-grid">
-      <article class="metric-card black-card">
-        <span>Faturamento do mês</span>
-        <h2>R$ 27.900</h2>
-        <small><span style="color:#03c765">↑ 30%</span> comparado ao mês passado</small>
-      </article>
-      <article class="metric-card">
-        <span>Saldo disponível</span>
-        <h2>R$ 12.840</h2>
-        <small>Disponível para saque</small>
-      </article>
-      <article class="metric-card">
-        <span>Recebimentos pendentes</span>
-        <h2>R$ 8.420</h2>
-        <small><span style="color:#f59e0b">⏳</span> Próximos 7 dias</small>
-      </article>
-      <article class="metric-card">
-        <span>Assinaturas ativas</span>
-        <h2>1.284</h2>
-        <small><span style="color:#03c765">↑ 12%</span> este mês</small>
-      </article>
-    </div>
-
-    <div class="dashboard-main">
-      <section class="sales-chart-card">
-        <div class="card-head">
-          <div>
-            <h3>Fluxo financeiro da plataforma</h3>
-            <p>Entrada financeira dos últimos 30 dias</p>
-          </div>
-          <button class="mini-cta">Exportar</button>
+    <!-- ── HEADER ── -->
+    <div class="fin-head">
+      <div style="position:relative;z-index:1">
+        <h1>Dashboard Financeiro</h1>
+        <p>Veja seu faturamento, saldo disponível, repasses, taxas e desempenho financeiro.</p>
+      </div>
+      <div class="fin-head-right">
+        <div class="fin-filters" id="finFilterBar">
+          <button class="fin-filter-btn active" data-period="hoje">Hoje</button>
+          <button class="fin-filter-btn" data-period="7d">7 dias</button>
+          <button class="fin-filter-btn" data-period="30d">30 dias</button>
+          <button class="fin-filter-btn" data-period="mes">Este mês</button>
         </div>
-        <div class="chart-bars">
-          <span style="height:42%"></span><span style="height:55%"></span>
-          <span style="height:37%"></span><span style="height:72%"></span>
-          <span style="height:48%"></span><span style="height:64%"></span>
-          <span style="height:78%"></span><span style="height:58%"></span>
-          <span style="height:88%"></span><span style="height:69%"></span>
-          <span style="height:76%"></span><span style="height:92%"></span>
+        <button class="fin-saque-btn" id="finSaqueHeaderBtn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v8M4 6l3 3 3-3"/><path d="M1 10v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1"/></svg>
+          Sacar dinheiro
+        </button>
+      </div>
+    </div>
+
+    <!-- ── 6 METRIC CARDS ── -->
+    <div class="fin-cards-grid">
+
+      <!-- 1 Faturamento -->
+      <article class="fin-card">
+        <div class="fin-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="16" height="12" rx="2"/><path d="M1 8h16"/><circle cx="5" cy="12" r="1" fill="#0077ff" stroke="none"/></svg>
+        </div>
+        <div class="fin-card-label">Faturamento do mês</div>
+        <div class="fin-card-value">R$ 27.900</div>
+        <div class="fin-card-sub"><span class="fin-up">↑ 30%</span> comparado ao mês anterior</div>
+      </article>
+
+      <!-- 2 Saldo disponível -->
+      <article class="fin-card fin-card-primary">
+        <div class="fin-card-icon" style="background:rgba(0,119,255,.1)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7.5"/><path d="M9 5v8M7 7h3a1 1 0 0 1 0 2H8a1 1 0 0 0 0 2h3"/></svg>
+        </div>
+        <div class="fin-card-label">Saldo disponível</div>
+        <div class="fin-card-value">R$ 12.840</div>
+        <div class="fin-card-sub">Disponível para saque imediato</div>
+        <button class="fin-card-saque" id="finCardSaqueBtn">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 1v6M2.5 4.5l2.5 2.5 2.5-2.5"/><path d="M1 8.5h8"/></svg>
+          Sacar
+        </button>
+      </article>
+
+      <!-- 3 Saldo pendente -->
+      <article class="fin-card">
+        <div class="fin-card-icon" style="background:rgba(245,158,11,.08)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="7.5"/><path d="M9 5v4l2.5 2.5"/></svg>
+        </div>
+        <div class="fin-card-label">Saldo pendente</div>
+        <div class="fin-card-value" style="color:#d97706">R$ 8.420</div>
+        <div class="fin-card-sub"><span class="fin-am">Previsão:</span> libera em até 7 dias</div>
+      </article>
+
+      <!-- 4 Recebimentos futuros -->
+      <article class="fin-card">
+        <div class="fin-card-icon" style="background:rgba(16,185,129,.08)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 14L6 9l4 4L16 5"/><polyline points="11,5 16,5 16,10"/></svg>
+        </div>
+        <div class="fin-card-label">Recebimentos futuros</div>
+        <div class="fin-card-value" style="color:#059669">R$ 5.230</div>
+        <div class="fin-card-sub">Próximos 30 dias</div>
+      </article>
+
+      <!-- 5 Assinaturas ativas -->
+      <article class="fin-card">
+        <div class="fin-card-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10a6 6 0 1 1-7.5-5.8"/><polyline points="15,2 15,6 11,6"/></svg>
+        </div>
+        <div class="fin-card-label">Assinaturas ativas</div>
+        <div class="fin-card-value">1.284</div>
+        <div class="fin-card-sub"><span class="fin-up">↑ 12%</span> este mês</div>
+      </article>
+
+      <!-- 6 Taxas processadas -->
+      <article class="fin-card">
+        <div class="fin-card-icon" style="background:rgba(239,68,68,.07)">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15L15 3"/><circle cx="5" cy="5" r="1.5"/><circle cx="13" cy="13" r="1.5"/></svg>
+        </div>
+        <div class="fin-card-label">Taxas processadas</div>
+        <div class="fin-card-value" style="color:#374151">R$ 3.842</div>
+        <div class="fin-card-sub">Gateway + plataforma</div>
+      </article>
+
+    </div>
+
+    <!-- ── FUNNEL CHART + SIDEBAR ── -->
+    <div class="fin-main-layout">
+
+      <!-- Funnel chart -->
+      <section class="fin-chart-card">
+        <div class="fin-chart-head">
+          <div>
+            <h3>Funil Financeiro</h3>
+            <p>Fluxo do visitante até o saque realizado</p>
+          </div>
+          <div class="fin-chart-controls">
+            <div class="fin-chart-tabs" id="finChartTabs">
+              <button class="fin-chart-tab active" data-chart="funil">Funil</button>
+              <button class="fin-chart-tab" data-chart="receita">Receita</button>
+              <button class="fin-chart-tab" data-chart="conversao">Conversão</button>
+              <button class="fin-chart-tab" data-chart="saques">Saques</button>
+            </div>
+            <button class="fin-export-btn">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 1v7M2.5 5l3 3 3-3"/><path d="M1 9.5h9"/></svg>
+              Exportar
+            </button>
+          </div>
+        </div>
+
+        <!-- SVG funnel chart -->
+        <div class="fin-funnel-wrap" id="finFunnelWrap">
+          <svg id="finFunnelSvg" class="fin-funnel-svg" viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="fgOuter" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#14b8a6" stop-opacity=".28"/>
+                <stop offset="100%" stop-color="#0077ff" stop-opacity=".18"/>
+              </linearGradient>
+              <linearGradient id="fgMid" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0077ff" stop-opacity=".48"/>
+                <stop offset="100%" stop-color="#45adff" stop-opacity=".42"/>
+              </linearGradient>
+              <linearGradient id="fgInner" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#10b981" stop-opacity=".95"/>
+                <stop offset="100%" stop-color="#0077ff" stop-opacity=".88"/>
+              </linearGradient>
+            </defs>
+            <!-- Stage dividers -->
+            <line x1="170" y1="8" x2="170" y2="192" stroke="#e8edf2" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="330" y1="8" x2="330" y2="192" stroke="#e8edf2" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="490" y1="8" x2="490" y2="192" stroke="#e8edf2" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="650" y1="8" x2="650" y2="192" stroke="#e8edf2" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="810" y1="8" x2="810" y2="192" stroke="#e8edf2" stroke-width="1" stroke-dasharray="4 3"/>
+            <!-- Outer layer (all traffic) -->
+            <path d="M 10,8 C 90,8 90,55 170,55 C 250,55 250,80 330,80 C 410,80 410,107 490,107 C 570,107 570,111 650,111 C 730,111 730,116 810,116 L 810,134 C 730,134 730,139 650,139 C 570,139 570,143 490,143 C 410,143 410,170 330,170 C 250,170 250,195 170,195 C 90,195 90,242 10,242 Z" fill="url(#fgOuter)"/>
+            <!-- Middle layer -->
+            <path d="M 10,55 C 90,55 90,78 170,78 C 250,78 250,95 330,95 C 410,95 410,113 490,113 C 570,113 570,116 650,116 C 730,116 730,120 810,120 L 810,130 C 730,130 730,134 650,134 C 570,134 570,137 490,137 C 410,137 410,155 330,155 C 250,155 250,172 170,172 C 90,172 90,195 10,195 Z" fill="url(#fgMid)"/>
+            <!-- Inner layer (conversions) -->
+            <path d="M 10,95 C 90,95 90,108 170,108 C 250,108 250,116 330,116 C 410,116 410,122 490,122 C 570,122 570,125 650,125 C 730,125 730,127 810,127 L 810,123 C 730,123 730,125 650,125 C 570,125 570,128 490,128 C 410,128 410,134 330,134 C 250,134 250,142 170,142 C 90,142 90,155 10,155 Z" fill="url(#fgInner)"/>
+          </svg>
+
+          <!-- Stage labels row -->
+          <div class="fin-funnel-stages" id="finFunnelStages">
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">32.342</div>
+              <div class="fin-stage-lbl">Visitantes</div>
+              <div class="fin-stage-conv" style="color:#9ca3af">Base 100%</div>
+            </div>
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">12.400</div>
+              <div class="fin-stage-lbl">Leads</div>
+              <div class="fin-stage-conv fin-dn">38.3%</div>
+            </div>
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">5.103</div>
+              <div class="fin-stage-lbl">Checkout</div>
+              <div class="fin-stage-conv fin-dn">41.2%</div>
+            </div>
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">793</div>
+              <div class="fin-stage-lbl">Aprovados</div>
+              <div class="fin-stage-conv fin-dn">15.5%</div>
+            </div>
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">R$12.840</div>
+              <div class="fin-stage-lbl">S. Disponível</div>
+              <div class="fin-stage-conv fin-up">100%</div>
+            </div>
+            <div class="fin-stage-col">
+              <div class="fin-stage-val">154</div>
+              <div class="fin-stage-lbl">Saques</div>
+              <div class="fin-stage-conv fin-dn">19.4%</div>
+            </div>
+          </div>
         </div>
       </section>
-      <aside class="dashboard-side">
-        <div class="side-stat"><span>Taxas processadas</span><strong>R$ 3.842</strong><button>Ver</button></div>
-        <div class="side-stat"><span>Saques realizados</span><strong>230</strong><button>Abrir</button></div>
-        <div class="side-stat"><span>Assinaturas premium</span><strong>1.580</strong><button>Detalhes</button></div>
-        <div class="side-stat"><span>Usuários ativos</span><strong>32.342</strong><button>Ver</button></div>
+
+      <!-- Right sidebar -->
+      <aside class="fin-sidebar">
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#dc2626" stroke-width="1.7" stroke-linecap="round"><path d="M1 1l14 14M15 5l-4 4-2-2"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Taxas processadas</div>
+            <div class="fin-side-val">R$ 3.842</div>
+            <div class="fin-side-sub" style="color:#dc2626">↑ 8% este mês</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4 7l4 4 4-4"/><path d="M2 13h12"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Saques realizados</div>
+            <div class="fin-side-val">230</div>
+            <div class="fin-side-sub fin-up">↑ 5% este mês</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#7c3aed" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="14" height="10" rx="2"/><path d="M5 4V3a2 2 0 0 1 4 0v1"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Assinaturas premium</div>
+            <div class="fin-side-val">1.580</div>
+            <div class="fin-side-sub fin-up">↑ 12% este mês</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#059669" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Usuários ativos</div>
+            <div class="fin-side-val">32.342</div>
+            <div class="fin-side-sub fin-up">↑ 9% este mês</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#d97706" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4 7l4 4 4-4"/><rect x="1" y="12" width="14" height="2.5" rx="1"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Reembolsos</div>
+            <div class="fin-side-val">R$ 640</div>
+            <div class="fin-side-sub fin-dn">↑ 2% este mês</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
+        <div class="fin-side-card">
+          <div class="fin-side-icon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#dc2626" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8.5"/><circle cx="8" cy="11" r=".8" fill="#dc2626" stroke="none"/></svg>
+          </div>
+          <div class="fin-side-info">
+            <div class="fin-side-lbl">Disputas abertas</div>
+            <div class="fin-side-val">3</div>
+            <div class="fin-side-sub" style="color:#dc2626">Aguardando análise</div>
+          </div>
+          <button class="fin-side-btn">Ver</button>
+        </div>
+
       </aside>
     </div>
+
+    <!-- ── PIX WITHDRAWAL BLOCK ── -->
+    <div class="fin-pix-block" id="finPixBlock">
+      <div class="fin-pix-head">
+        <div>
+          <h3>Saque via Pix</h3>
+          <p>Solicite transferência para sua chave Pix cadastrada</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="fin-st fin-st-paid" style="font-size:11px">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="#059669"><circle cx="4" cy="4" r="4"/></svg>
+            Chave ativa
+          </span>
+        </div>
+      </div>
+
+      <div class="fin-pix-layout">
+        <!-- Left: form -->
+        <div>
+          <!-- Key info -->
+          <div class="fin-pix-key-block">
+            <div style="width:38px;height:38px;border-radius:10px;background:rgba(0,119,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5l5 5"/><path d="M5 7h4M7 5v4"/></svg>
+            </div>
+            <div class="fin-pix-key-info">
+              <div class="fin-pix-key-lbl">Chave Pix cadastrada · CPF</div>
+              <div class="fin-pix-key-val">123.456.789-00</div>
+              <div class="fin-pix-key-sub">João Silva · Nubank · Conta corrente</div>
+            </div>
+          </div>
+
+          <!-- Amount -->
+          <div class="fin-pix-amount-lbl">Valor do saque</div>
+          <div class="fin-pix-amount-wrap">
+            <span class="fin-pix-pfx">R$</span>
+            <input class="fin-pix-input" id="finPixAmount" type="number" min="1" max="12840" step="0.01" placeholder="0,00">
+          </div>
+
+          <!-- Quick amounts -->
+          <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+            <button class="fin-quick-amt" data-amt="500" style="height:30px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#374151;font-size:11.5px;font-weight:850;cursor:pointer;font-family:inherit;transition:background .1s">R$ 500</button>
+            <button class="fin-quick-amt" data-amt="1000" style="height:30px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#374151;font-size:11.5px;font-weight:850;cursor:pointer;font-family:inherit;transition:background .1s">R$ 1.000</button>
+            <button class="fin-quick-amt" data-amt="5000" style="height:30px;padding:0 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:#374151;font-size:11.5px;font-weight:850;cursor:pointer;font-family:inherit;transition:background .1s">R$ 5.000</button>
+            <button class="fin-quick-amt" data-amt="12840" style="height:30px;padding:0 12px;border:1px solid rgba(0,119,255,.25);border-radius:8px;background:rgba(0,119,255,.06);color:#0077ff;font-size:11.5px;font-weight:850;cursor:pointer;font-family:inherit;transition:background .1s">Tudo (R$ 12.840)</button>
+          </div>
+
+          <!-- Info rows -->
+          <div style="background:#f9fafb;border-radius:12px;padding:4px 14px;margin-bottom:14px">
+            <div class="fin-pix-row"><span class="fin-pix-row-lbl">Saldo disponível</span><span class="fin-pix-row-val fin-pix-row-green">R$ 12.840,00</span></div>
+            <div class="fin-pix-row"><span class="fin-pix-row-lbl">Taxa de saque</span><span class="fin-pix-row-val">Isento</span></div>
+            <div class="fin-pix-row"><span class="fin-pix-row-lbl">Prazo estimado</span><span class="fin-pix-row-val">Até 30 minutos</span></div>
+            <div class="fin-pix-row"><span class="fin-pix-row-lbl">Valor líquido</span><span class="fin-pix-row-val fin-pix-row-green" id="finPixLiquido">—</span></div>
+          </div>
+
+          <!-- Security notice -->
+          <div class="fin-security">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#0077ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1L1.5 3.5v3C1.5 9.7 4 12.2 7 13c3-0.8 5.5-3.3 5.5-6.5v-3L7 1z"/><polyline points="4.5,7 6,8.5 9.5,5"/></svg>
+            Por segurança, saques só podem ser feitos para uma chave Pix vinculada ao titular da conta.
+          </div>
+
+          <button class="fin-pix-submit" id="finPixSubmitBtn" disabled>
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 2v9M4 8l3.5 3.5L11 8"/><path d="M1.5 13h12"/></svg>
+            Solicitar saque
+          </button>
+        </div>
+
+        <!-- Right: preview panel -->
+        <div class="fin-pix-preview-box">
+          <div class="fin-pix-preview-ttl">Resumo do saldo</div>
+          <div style="font-size:10.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.3px">Disponível para saque</div>
+          <div class="fin-pix-avail">R$ 12.840</div>
+          <div style="font-size:11.5px;color:var(--text-muted);font-weight:700;margin-bottom:18px">Atualizado agora</div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:#fff;border-radius:10px;padding:11px 13px;border:1px solid var(--border-light)">
+              <div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:.3px;margin-bottom:3px">PENDENTE (7 dias)</div>
+              <div style="font-size:16px;font-weight:950;color:#d97706;letter-spacing:-.4px">R$ 8.420</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:11px 13px;border:1px solid var(--border-light)">
+              <div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:.3px;margin-bottom:3px">LIBERANDO HOJE</div>
+              <div style="font-size:16px;font-weight:950;color:#059669;letter-spacing:-.4px">R$ 1.240</div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:11px 13px;border:1px solid var(--border-light)">
+              <div style="font-size:10px;font-weight:800;color:var(--text-muted);letter-spacing:.3px;margin-bottom:3px">PRÓXIMOS 7 DIAS</div>
+              <div style="font-size:16px;font-weight:950;color:#374151;letter-spacing:-.4px">R$ 4.320</div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;padding:11px 13px;background:#f0f7ff;border-radius:10px;border:1px solid rgba(0,119,255,.12)">
+            <div style="font-size:10px;font-weight:800;color:#0077ff;letter-spacing:.3px;margin-bottom:4px">SAQUES ESTE MÊS</div>
+            <div style="font-size:18px;font-weight:950;color:#0077ff;letter-spacing:-.4px">R$ 9.320</div>
+            <div style="font-size:10.5px;color:#6b7280;font-weight:700;margin-top:2px">4 transações realizadas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GUARANTEE BLOCK ── -->
+    <div class="fin-guarantee-block">
+      <div class="fin-block-head">
+        <h3>Valores em garantia e retenção</h3>
+        <p>Acompanhe os valores bloqueados por garantia, disputa ou retenção de plataforma</p>
+      </div>
+      <div class="fin-guarantee-grid">
+        <div class="fin-g-card" style="background:#fffbeb;border-color:#fde68a">
+          <div class="fin-g-lbl">Garantia 7 dias</div>
+          <div class="fin-g-val" style="color:#d97706">R$ 8.420</div>
+          <div class="fin-g-sub">Compras em período de garantia</div>
+        </div>
+        <div class="fin-g-card" style="background:#fee2e2;border-color:#fca5a5">
+          <div class="fin-g-lbl">Em disputa</div>
+          <div class="fin-g-val" style="color:#dc2626">R$ 240</div>
+          <div class="fin-g-sub">Aguardando resolução</div>
+        </div>
+        <div class="fin-g-card" style="background:#d1fae5;border-color:#a7f3d0">
+          <div class="fin-g-lbl">Liberando hoje</div>
+          <div class="fin-g-val" style="color:#059669">R$ 1.240</div>
+          <div class="fin-g-sub">Entra no saldo disponível</div>
+        </div>
+        <div class="fin-g-card" style="background:#f0f7ff;border-color:rgba(0,119,255,.2)">
+          <div class="fin-g-lbl">Próximos 7 dias</div>
+          <div class="fin-g-val" style="color:#0077ff">R$ 4.320</div>
+          <div class="fin-g-sub">Previsão de liberação</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── WITHDRAWAL HISTORY ── -->
+    <div class="fin-history-block">
+      <div class="fin-history-head">
+        <div>
+          <h3>Histórico de saques</h3>
+        </div>
+        <button class="fin-export-btn">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 1v7M2.5 5l3 3 3-3"/><path d="M1 9.5h9"/></svg>
+          Exportar
+        </button>
+      </div>
+      <table class="fin-history-tbl">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Chave Pix</th>
+            <th>Status</th>
+            <th>Comprovante</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="fin-td-date">12/05/2025 14:32</td>
+            <td>R$ 3.200,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-paid">Pago</span></td>
+            <td><button class="fin-comprovante-btn">Ver</button></td>
+          </tr>
+          <tr>
+            <td class="fin-td-date">05/05/2025 09:15</td>
+            <td>R$ 2.180,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-paid">Pago</span></td>
+            <td><button class="fin-comprovante-btn">Ver</button></td>
+          </tr>
+          <tr>
+            <td class="fin-td-date">28/04/2025 11:48</td>
+            <td>R$ 1.940,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-analysis">Em análise</span></td>
+            <td><span style="color:#9ca3af;font-size:11.5px;font-weight:700">—</span></td>
+          </tr>
+          <tr>
+            <td class="fin-td-date">20/04/2025 16:02</td>
+            <td>R$ 2.000,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-paid">Pago</span></td>
+            <td><button class="fin-comprovante-btn">Ver</button></td>
+          </tr>
+          <tr>
+            <td class="fin-td-date">10/04/2025 08:30</td>
+            <td>R$ 750,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-refused">Recusado</span></td>
+            <td><span style="color:#9ca3af;font-size:11.5px;font-weight:700">—</span></td>
+          </tr>
+          <tr>
+            <td class="fin-td-date">01/04/2025 13:20</td>
+            <td>R$ 1.250,00</td>
+            <td style="color:#6b7280;font-size:12px;font-weight:700">123.456.789-00 (CPF)</td>
+            <td><span class="fin-st fin-st-cancel">Cancelado</span></td>
+            <td><span style="color:#9ca3af;font-size:11.5px;font-weight:700">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="fin-tooltip" id="finTooltip"></div>
+
   </section>
 
   <!-- ══════════════════════════════════════════════════
@@ -8279,8 +8953,156 @@ document.addEventListener('DOMContentLoaded', () => {
   ThayApp.PrlMarket.init();
   ThayApp.FunnelSettings.init();
   ThayApp.AccountSettings.init();
+  ThayApp.FinanceDash.init();
 });
 
+/* ─────────────────────────────────────────────────────────────
+   THAY — FINANCIAL DASHBOARD
+   ───────────────────────────────────────────────────────────── */
+window.ThayApp = window.ThayApp || {};
+ThayApp.FinanceDash = (function () {
+  'use strict';
+
+  const AVAIL = 12840;
+
+  function init() {
+    const section = document.getElementById('dashboardView');
+    if (!section) return;
+
+    /* ── Filter bar ── */
+    document.getElementById('finFilterBar')?.addEventListener('click', e => {
+      const btn = e.target.closest('.fin-filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.fin-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+
+    /* ── Chart tabs ── */
+    document.getElementById('finChartTabs')?.addEventListener('click', e => {
+      const tab = e.target.closest('.fin-chart-tab');
+      if (!tab) return;
+      document.querySelectorAll('.fin-chart-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      _switchChart(tab.dataset.chart);
+    });
+
+    /* ── Scroll-to-pix buttons ── */
+    const pixBlock = document.getElementById('finPixBlock');
+    document.getElementById('finSaqueHeaderBtn')?.addEventListener('click', () => {
+      pixBlock?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('finCardSaqueBtn')?.addEventListener('click', () => {
+      pixBlock?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    /* ── Quick amount buttons ── */
+    section.addEventListener('click', e => {
+      const qa = e.target.closest('.fin-quick-amt');
+      if (!qa) return;
+      const inp = document.getElementById('finPixAmount');
+      if (inp) { inp.value = qa.dataset.amt; _onAmountChange(inp.value); }
+    });
+
+    /* ── Pix amount input ── */
+    document.getElementById('finPixAmount')?.addEventListener('input', e => {
+      _onAmountChange(e.target.value);
+    });
+
+    /* ── Funnel SVG hover tooltip ── */
+    _bindFunnelTooltip();
+  }
+
+  function _onAmountChange(raw) {
+    const val = parseFloat(raw) || 0;
+    const submit = document.getElementById('finPixSubmitBtn');
+    const liquido = document.getElementById('finPixLiquido');
+    if (liquido) liquido.textContent = val > 0 ? 'R$ ' + val.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) : '—';
+    if (submit) submit.disabled = val <= 0 || val > AVAIL;
+  }
+
+  const CHART_DATA = {
+    funil: {
+      stages: [
+        { val: '32.342',   lbl: 'Visitantes',    conv: 'Base 100%', cls: '' },
+        { val: '12.400',   lbl: 'Leads',          conv: '38.3%',     cls: 'fin-dn' },
+        { val: '5.103',    lbl: 'Checkout',       conv: '41.2%',     cls: 'fin-dn' },
+        { val: '793',      lbl: 'Aprovados',      conv: '15.5%',     cls: 'fin-dn' },
+        { val: 'R$12.840', lbl: 'S. Disponível',  conv: '100%',      cls: 'fin-up' },
+        { val: '154',      lbl: 'Saques',         conv: '19.4%',     cls: 'fin-dn' },
+      ]
+    },
+    receita: {
+      stages: [
+        { val: 'R$27.900', lbl: 'Faturamento', conv: 'Total',  cls: '' },
+        { val: 'R$3.842',  lbl: 'Taxas',       conv: '-13.7%', cls: 'fin-dn' },
+        { val: 'R$640',    lbl: 'Reembolsos',  conv: '-2.3%',  cls: 'fin-dn' },
+        { val: 'R$23.418', lbl: 'Líquido',     conv: '83.9%',  cls: 'fin-up' },
+        { val: 'R$12.840', lbl: 'Disponível',  conv: '54.8%',  cls: 'fin-up' },
+        { val: 'R$9.320',  lbl: 'Sacado',      conv: '72.6%',  cls: 'fin-up' },
+      ]
+    },
+    conversao: {
+      stages: [
+        { val: '32.342', lbl: 'Visitantes',   conv: 'Base',  cls: '' },
+        { val: '12.400', lbl: 'Leads',        conv: '38.3%', cls: 'fin-am' },
+        { val: '5.103',  lbl: 'Checkout',     conv: '41.2%', cls: 'fin-am' },
+        { val: '2.891',  lbl: 'Pag. tentado', conv: '56.7%', cls: 'fin-up' },
+        { val: '793',    lbl: 'Aprovados',    conv: '27.4%', cls: 'fin-dn' },
+        { val: '154',    lbl: 'Saques',       conv: '19.4%', cls: 'fin-dn' },
+      ]
+    },
+    saques: {
+      stages: [
+        { val: '230',     lbl: 'Solicitados', conv: 'Total', cls: '' },
+        { val: '218',     lbl: 'Aprovados',   conv: '94.8%', cls: 'fin-up' },
+        { val: '210',     lbl: 'Pagos',       conv: '96.3%', cls: 'fin-up' },
+        { val: '4',       lbl: 'Em análise',  conv: '1.7%',  cls: 'fin-am' },
+        { val: '5',       lbl: 'Recusados',   conv: '2.2%',  cls: 'fin-dn' },
+        { val: 'R$9.320', lbl: 'Vol. pago',   conv: '100%',  cls: 'fin-up' },
+      ]
+    }
+  };
+
+  function _switchChart(key) {
+    const data = CHART_DATA[key];
+    if (!data) return;
+    const el = document.getElementById('finFunnelStages');
+    if (!el) return;
+    el.innerHTML = data.stages.map(s => `
+      <div class="fin-stage-col">
+        <div class="fin-stage-val">${s.val}</div>
+        <div class="fin-stage-lbl">${s.lbl}</div>
+        <div class="fin-stage-conv ${s.cls}">${s.conv}</div>
+      </div>`).join('');
+  }
+
+  function _bindFunnelTooltip() {
+    const svg = document.getElementById('finFunnelSvg');
+    const tip = document.getElementById('finTooltip');
+    if (!svg || !tip) return;
+
+    const TIPS = [
+      'Camada externa\nTodo o tráfego capturado',
+      'Camada intermediária\nLeads qualificados',
+      'Camada central\nConversões aprovadas',
+    ];
+
+    svg.querySelectorAll('path').forEach((path, i) => {
+      path.style.cursor = 'crosshair';
+      path.addEventListener('mouseenter', () => {
+        tip.innerHTML = (TIPS[i] || TIPS[0]).replace('\n', '<br>');
+        tip.classList.add('show');
+      });
+      path.addEventListener('mousemove', e => {
+        tip.style.left = (e.clientX + 14) + 'px';
+        tip.style.top  = (e.clientY - 8) + 'px';
+      });
+      path.addEventListener('mouseleave', () => tip.classList.remove('show'));
+    });
+  }
+
+  return { init };
+})();
 
 </script>
 </body>
