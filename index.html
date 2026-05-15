@@ -5919,27 +5919,137 @@ ThayApp.CanvasEditor = (function () {
   }
 
   function _pageEditor() {
-    // Close cfg panel and open full page builder instead
-    setTimeout(() => { _closeCfg(); _openPageBuilder(); }, 50);
+    // Capture node context before cfg panel closes
+    const funnelId  = _cfgNode ? _cfgNode.id       : 'default';
+    const moduleId  = _cfgNode ? _cfgNode.moduleId  : 'page';
+    setTimeout(() => { _closeCfg(); _openPageBuilder(funnelId, moduleId); }, 50);
     return `<div style="color:#64748b;font-size:13px;padding:12px 0">Abrindo construtor de página...</div>`;
   }
 
-  function _openPageBuilder() {
+  /* ── PAGE BUILDER ── */
+
+  const _PAGE_STATE_DEFAULT = {
+    heroTitle:   'Descubra o Método que Transformou 2.300 Alunos em 90 Dias',
+    heroSub:     'Resultados reais. Método comprovado. Acesso imediato. Sem enrolação.',
+    ctaText:     'Quero garantir minha vaga agora',
+    featTitle:   'O que está incluso',
+    features: [
+      { name:'Acesso vitalício',  desc:'Assista quando e onde quiser, sem prazo de validade' },
+      { name:'Suporte premium',   desc:'Acompanhamento da equipe durante todo o processo' },
+      { name:'Garantia de 7 dias',desc:'Reembolso total sem perguntas dentro do prazo' },
+    ],
+    footerGuarantee: 'Garantia de 7 dias · Acesso imediato · Pagamento seguro',
+  };
+
+  function _pbStorageKey(funnelId, moduleId) {
+    return `thay_page_builder_${funnelId}_${moduleId}`;
+  }
+
+  function _pbLoadState(funnelId, moduleId) {
+    try {
+      const raw = localStorage.getItem(_pbStorageKey(funnelId, moduleId));
+      return raw ? Object.assign({}, _PAGE_STATE_DEFAULT, JSON.parse(raw)) : Object.assign({}, _PAGE_STATE_DEFAULT);
+    } catch (e) { return Object.assign({}, _PAGE_STATE_DEFAULT); }
+  }
+
+  function _pbSaveState(funnelId, moduleId, state) {
+    try { localStorage.setItem(_pbStorageKey(funnelId, moduleId), JSON.stringify(state)); } catch (e) {}
+  }
+
+  function _pbApplyState(state) {
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('cvPbHeroTitle', state.heroTitle);
+    set('cvPbHeroSub',   state.heroSub);
+    set('cvPbFeatTitle', state.featTitle);
+
+    // CTA buttons (two instances — hero + bottom)
+    document.querySelectorAll('.cv-pb-hero-cta').forEach(btn => {
+      // preserve child SVG node if present
+      const svg = btn.querySelector('svg');
+      btn.textContent = state.ctaText;
+      if (svg) btn.prepend(svg);
+    });
+
+    // Features grid
+    const grid = document.getElementById('cvPbFeatures');
+    if (grid && Array.isArray(state.features)) {
+      const cards = grid.querySelectorAll('.cv-pb-feature-card');
+      state.features.forEach((f, i) => {
+        if (!cards[i]) return;
+        const nameEl = cards[i].querySelector('.cv-pb-feature-name');
+        const descEl = cards[i].querySelector('.cv-pb-feature-desc');
+        if (nameEl) nameEl.textContent = f.name;
+        if (descEl) descEl.textContent = f.desc;
+      });
+    }
+
+    // Footer guarantee line
+    const foot = document.querySelector('.cv-pb-page-body > div:last-child > div');
+    if (foot && state.footerGuarantee) foot.textContent = state.footerGuarantee;
+  }
+
+  async function _callPageEditAPI(userMessage, pageState, funnelId, moduleId) {
+    const res = await fetch('https://thay-green.vercel.app/api/page-edit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userMessage, pageState, funnelId, moduleId }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  }
+
+  function _pbShowToast(text) {
+    let toast = document.getElementById('cvPbToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'cvPbToast';
+      toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;font-size:13px;font-weight:700;padding:10px 22px;border-radius:99px;z-index:9999;box-shadow:0 4px 18px rgba(0,0,0,.22);pointer-events:none;opacity:0;transition:opacity .2s';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    toast.style.opacity = '1';
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => { toast.style.opacity = '0'; }, 2600);
+  }
+
+  function _openPageBuilder(funnelId, moduleId) {
+    funnelId = funnelId || 'default';
+    moduleId = moduleId || 'page';
+
     const pb = document.getElementById('cvPageBuilder');
     if (!pb) return;
     pb.classList.add('open');
-    const sendBtn  = document.getElementById('cvPbSend');
-    const backBtn  = document.getElementById('cvPbBack');
-    const saveBtn  = document.getElementById('cvPbSave');
-    const input    = document.getElementById('cvPbInput');
-    const msgs     = document.getElementById('cvPbMessages');
-    const chips    = pb.querySelectorAll('.cv-pb-qa');
-    const devBtns  = pb.querySelectorAll('.cv-pb-device-btn');
 
-    if (backBtn) backBtn.addEventListener('click', _closePageBuilder);
-    if (saveBtn) saveBtn.addEventListener('click', () => {
-      saveBtn.textContent = 'Salvo!';
-      setTimeout(() => { saveBtn.textContent = 'Salvar página'; }, 1800);
+    // Load or initialise pageState
+    const pageState = _pbLoadState(funnelId, moduleId);
+    _pbApplyState(pageState);
+
+    const sendBtn = document.getElementById('cvPbSend');
+    const backBtn = document.getElementById('cvPbBack');
+    const saveBtn = document.getElementById('cvPbSave');
+    const input   = document.getElementById('cvPbInput');
+    const msgs    = document.getElementById('cvPbMessages');
+    const chips   = pb.querySelectorAll('.cv-pb-qa');
+    const devBtns = pb.querySelectorAll('.cv-pb-device-btn');
+
+    // Clone nodes to remove stale listeners from previous opens
+    function _rebind(el, events) {
+      const fresh = el.cloneNode(true);
+      el.parentNode.replaceChild(fresh, el);
+      return fresh;
+    }
+    const freshSend = _rebind(sendBtn, []);
+    const freshBack = _rebind(backBtn, []);
+    const freshSave = _rebind(saveBtn, []);
+    const freshInput = document.getElementById('cvPbInput'); // textarea cloneNode loses value binding, get by id after rebind
+
+    freshBack.addEventListener('click', _closePageBuilder);
+
+    freshSave.addEventListener('click', () => {
+      _pbSaveState(funnelId, moduleId, pageState);
+      _pbShowToast('Página salva com sucesso');
+      freshSave.textContent = 'Salvo!';
+      setTimeout(() => { freshSave.textContent = 'Salvar página'; }, 1800);
     });
 
     devBtns.forEach(btn => {
@@ -5954,31 +6064,63 @@ ThayApp.CanvasEditor = (function () {
       });
     });
 
-    function _pbSend(text) {
+    async function _pbSend(text) {
       if (!text.trim()) return;
+
+      // Show user message
       const userMsg = document.createElement('div');
       userMsg.className = 'cv-pb-msg cv-pb-msg-user';
       userMsg.textContent = text;
       msgs.appendChild(userMsg);
-      if (input) input.value = '';
+      const currentInput = document.getElementById('cvPbInput');
+      if (currentInput) currentInput.value = '';
       msgs.scrollTop = msgs.scrollHeight;
 
-      setTimeout(() => {
-        const botMsg = document.createElement('div');
-        botMsg.className = 'cv-pb-msg cv-pb-msg-bot';
-        botMsg.textContent = 'Entendido! Aplicando sua sugestão na página...';
-        msgs.appendChild(botMsg);
-        msgs.scrollTop = msgs.scrollHeight;
-      }, 700);
+      // Typing indicator
+      const typing = document.createElement('div');
+      typing.className = 'cv-pb-msg cv-pb-msg-bot';
+      typing.style.color = '#9ca3af';
+      typing.textContent = 'Processando...';
+      msgs.appendChild(typing);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      try {
+        const data = await _callPageEditAPI(text, pageState, funnelId, moduleId);
+
+        // Apply changes to pageState and re-render preview
+        if (data.changes && typeof data.changes === 'object') {
+          if (data.changes.features && Array.isArray(data.changes.features)) {
+            pageState.features = data.changes.features;
+            delete data.changes.features;
+          }
+          Object.assign(pageState, data.changes);
+          _pbApplyState(pageState);
+        }
+
+        // Replace typing indicator with real reply
+        typing.style.color = '';
+        typing.textContent = data.message || 'Alteração aplicada com sucesso!';
+      } catch (err) {
+        typing.style.color = '#dc2626';
+        typing.textContent = 'Erro ao conectar com a IA. Tente novamente.';
+      }
+
+      msgs.scrollTop = msgs.scrollHeight;
     }
 
-    if (sendBtn && input) {
-      sendBtn.addEventListener('click', () => _pbSend(input.value));
-      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _pbSend(input.value); } });
+    const freshSendFinal = document.getElementById('cvPbSend');
+    if (freshSendFinal) {
+      freshSendFinal.addEventListener('click', () => _pbSend(document.getElementById('cvPbInput')?.value || ''));
+    }
+    const freshInputFinal = document.getElementById('cvPbInput');
+    if (freshInputFinal) {
+      freshInputFinal.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _pbSend(freshInputFinal.value); }
+      });
     }
 
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => _pbSend(chip.dataset.prompt || chip.textContent));
+    pb.querySelectorAll('.cv-pb-qa').forEach(chip => {
+      chip.addEventListener('click', () => _pbSend(chip.dataset.prompt || chip.textContent.trim()));
     });
   }
 
