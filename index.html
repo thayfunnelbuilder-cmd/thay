@@ -603,6 +603,108 @@ body {
 }
 .fin-tooltip.show { opacity:1; }
 
+/* ── PAGE BUILDER (fullscreen, launched from Página de Vendas cfg) ── */
+.cv-page-builder {
+  position: fixed; inset: 0; z-index: 600;
+  background: #fff; display: none; flex-direction: column;
+}
+.cv-page-builder.open { display: flex; }
+.cv-pb-header {
+  height: 56px; flex-shrink: 0;
+  background: #fff; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 18px; gap: 12px;
+}
+.cv-pb-back {
+  height: 34px; padding: 0 14px; border: 1px solid var(--border); border-radius: 10px;
+  background: #fff; color: #374151; font-size: 12px; font-weight: 850; cursor: pointer;
+  font-family: inherit; display: flex; align-items: center; gap: 6px; transition: background .1s;
+}
+.cv-pb-back:hover { background: #f4f6f9; }
+.cv-pb-title { font-size: 15px; font-weight: 950; flex: 1; color: #0a0a0a; }
+.cv-pb-save {
+  height: 34px; padding: 0 18px; border: none; border-radius: 10px;
+  background: linear-gradient(135deg,#0077ff,#45adff);
+  color: #fff; font-size: 12px; font-weight: 900; cursor: pointer;
+  font-family: inherit; box-shadow: 0 2px 8px rgba(0,119,255,.3); transition: opacity .12s;
+}
+.cv-pb-save:hover { opacity: .9; }
+.cv-pb-body { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+/* Chat sidebar */
+.cv-pb-chat {
+  width: 360px; flex-shrink: 0; display: flex; flex-direction: column;
+  border-right: 1px solid var(--border); background: #fff;
+}
+.cv-pb-chat-head {
+  padding: 14px 16px 12px; border-bottom: 1px solid var(--border-light); flex-shrink: 0;
+}
+.cv-pb-chat-head h4 { font-size: 13px; font-weight: 950; margin: 0 0 2px; }
+.cv-pb-chat-head p  { font-size: 11px; color: var(--text-muted); font-weight: 700; margin: 0; }
+.cv-pb-messages { flex: 1; overflow-y: auto; padding: 14px 14px 6px; display: flex; flex-direction: column; gap: 10px; }
+.cv-pb-msg { max-width: 88%; border-radius: 14px; padding: 10px 13px; font-size: 12.5px; font-weight: 700; line-height: 1.5; }
+.cv-pb-msg-bot { background: #f4f6f9; color: #374151; align-self: flex-start; border-bottom-left-radius: 4px; }
+.cv-pb-msg-user { background: linear-gradient(135deg,#0077ff,#45adff); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.cv-pb-quick-actions { padding: 8px 14px; display: flex; gap: 6px; flex-wrap: wrap; border-top: 1px solid var(--border-light); }
+.cv-pb-qa {
+  height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; color: #374151; font-size: 11px; font-weight: 800; cursor: pointer;
+  font-family: inherit; transition: background .1s, border-color .1s; white-space: nowrap;
+}
+.cv-pb-qa:hover { background: #f0f7ff; border-color: rgba(0,119,255,.3); color: #0077ff; }
+.cv-pb-input-row { padding: 10px 12px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-end; }
+.cv-pb-textarea {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 12px; padding: 8px 12px;
+  font-size: 12.5px; font-family: inherit; font-weight: 600; color: #0a0a0a; resize: none;
+  outline: none; min-height: 38px; max-height: 120px; transition: border-color .15s;
+}
+.cv-pb-textarea:focus { border-color: #0077ff; }
+.cv-pb-send {
+  width: 36px; height: 36px; border: none; border-radius: 10px;
+  background: #0077ff; color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: opacity .12s;
+}
+.cv-pb-send:hover { opacity: .85; }
+
+/* Page preview */
+.cv-pb-preview { flex: 1; background: #f4f6f9; display: flex; flex-direction: column; }
+.cv-pb-preview-toolbar {
+  height: 46px; background: #fff; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 16px; gap: 10px; flex-shrink: 0;
+}
+.cv-pb-device-btn {
+  height: 30px; padding: 0 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; color: #6b7280; font-size: 11px; font-weight: 800; cursor: pointer;
+  font-family: inherit; display: flex; align-items: center; gap: 5px; transition: background .1s;
+}
+.cv-pb-device-btn.active, .cv-pb-device-btn:hover { background: #f0f7ff; border-color: rgba(0,119,255,.3); color: #0077ff; }
+.cv-pb-preview-frame { flex: 1; padding: 20px; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; }
+.cv-pb-page-mock {
+  background: #fff; border-radius: 12px; border: 1px solid var(--border);
+  box-shadow: 0 4px 24px rgba(0,0,0,.08); width: 100%; max-width: 960px;
+  min-height: 600px; overflow: hidden;
+}
+.cv-pb-page-hero {
+  background: linear-gradient(135deg, #0a0a14 0%, #1a1a30 100%);
+  padding: 60px 48px 52px; color: #fff;
+}
+.cv-pb-page-hero h1 { font-size: 34px; font-weight: 950; line-height: 1.15; margin: 0 0 14px; max-width: 600px; }
+.cv-pb-page-hero p  { font-size: 15px; color: rgba(255,255,255,.7); line-height: 1.6; max-width: 520px; margin: 0 0 28px; }
+.cv-pb-hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 32px; border: none; border-radius: 14px;
+  background: linear-gradient(135deg,#0077ff,#45adff);
+  color: #fff; font-size: 15px; font-weight: 900; cursor: pointer; font-family: inherit;
+  box-shadow: 0 6px 20px rgba(0,119,255,.4);
+}
+.cv-pb-page-body { padding: 40px 48px; }
+.cv-pb-section-title { font-size: 22px; font-weight: 950; margin: 0 0 20px; }
+.cv-pb-feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 36px; }
+.cv-pb-feature-card { border-radius: 12px; border: 1px solid var(--border); padding: 18px; }
+.cv-pb-feature-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(0,119,255,.08); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+.cv-pb-feature-name { font-size: 13px; font-weight: 850; margin-bottom: 4px; }
+.cv-pb-feature-desc { font-size: 11.5px; color: var(--text-muted); font-weight: 700; line-height: 1.4; }
+
 /* ============================================================
    THAY FUNNEL BUILDER — AFFILIATE MARKETPLACE
    ============================================================ */
@@ -2355,44 +2457,46 @@ body {
 /* Make-style module picker — fixed overlay */
 .cv-picker-overlay {
   position: fixed; inset: 0;
-  background: rgba(10,14,23,.52); backdrop-filter: blur(3px);
-  z-index: 400; opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  background: transparent;
+  z-index: 400; opacity: 0; pointer-events: none; transition: opacity .12s;
 }
 .cv-picker-overlay.open { opacity: 1; pointer-events: auto; }
 
 .cv-picker-modal {
-  position: fixed; top: 50%; left: 50%;
-  transform: translate(-50%,-50%) scale(.95);
-  width: 580px; max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 60px);
-  background: var(--surface); border-radius: 26px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.18), 0 60px 120px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.05);
+  position: fixed;
+  width: 380px; max-width: calc(100vw - 20px);
+  max-height: 72vh;
+  background: var(--surface); border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.13), 0 2px 8px rgba(0,0,0,.06), 0 0 0 1px rgba(0,0,0,.05);
   z-index: 401; display: flex; flex-direction: column; overflow: hidden;
   opacity: 0; pointer-events: none;
-  transition: opacity .2s ease, transform .26s var(--ease-spring);
+  transform: scale(.95) translateY(-6px);
+  transition: opacity .15s, transform .18s var(--ease-spring);
+  /* JS sets top/left at runtime */
+  top: 80px; left: 0;
 }
-.cv-picker-modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) scale(1); }
+.cv-picker-modal.open { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
 
 /* No sidebar — full-width layout */
 .cv-picker-sidebar { display: none; }
 
 .cv-picker-main { display: flex; flex-direction: column; flex: 1; min-width: 0; min-height: 0; }
-.cv-picker-top { padding: 22px 24px 16px; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
-.cv-picker-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.cv-picker-top-title { font-size: 17px; font-weight: 950; color: #0a0a0a; letter-spacing: -.4px; }
+.cv-picker-top { padding: 14px 16px 12px; border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
+.cv-picker-top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.cv-picker-top-title { font-size: 14px; font-weight: 950; color: #0a0a0a; letter-spacing: -.3px; }
 .cv-picker-close {
-  width: 32px; height: 32px; border-radius: 10px;
+  width: 28px; height: 28px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--surface);
-  font-size: 15px; cursor: pointer; color: #94a3b8;
+  cursor: pointer; color: #94a3b8;
   display: flex; align-items: center; justify-content: center;
   transition: background .12s, color .12s;
 }
 .cv-picker-close:hover { background: #f3f6f9; color: #1e293b; }
 .cv-picker-search-wrap { position: relative; }
-.cv-picker-search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; pointer-events: none; }
+.cv-picker-search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; display:flex; }
 .cv-picker-search {
-  width: 100%; height: 46px; border-radius: 14px; border: 1.5px solid var(--border);
-  padding: 0 14px 0 40px; font-size: 13px; font-weight: 600; outline: none; box-sizing: border-box;
+  width: 100%; height: 38px; border-radius: 10px; border: 1.5px solid var(--border);
+  padding: 0 12px 0 34px; font-size: 12.5px; font-weight: 600; outline: none; box-sizing: border-box;
   background: #f8fafb; transition: border-color .15s, box-shadow .15s, background .15s;
   font-family: inherit; color: #0a0a0a;
 }
@@ -2402,36 +2506,35 @@ body {
 }
 .cv-picker-search::placeholder { color: #b0bac5; }
 
-/* Module grid — single column */
-.cv-picker-body { flex: 1; overflow-y: auto; padding: 16px 22px 22px; }
+/* Module list — compact single column */
+.cv-picker-body { flex: 1; overflow-y: auto; padding: 10px 12px 14px; }
 .cv-picker-section-label {
-  font-size: 10.5px; font-weight: 950; color: #94a3b8; text-transform: uppercase;
-  letter-spacing: .1em; margin-bottom: 10px; padding-top: 4px;
+  font-size: 9.5px; font-weight: 950; color: #94a3b8; text-transform: uppercase;
+  letter-spacing: .12em; margin-bottom: 6px; padding-top: 4px;
 }
-.cv-picker-grid { display: flex; flex-direction: column; gap: 7px; margin-bottom: 10px; }
+.cv-picker-grid { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
 .cv-picker-item {
-  display: flex; align-items: center; gap: 14px; padding: 13px 16px;
-  border-radius: 16px; border: 1.5px solid var(--border-light); cursor: pointer;
-  transition: border-color .14s, background .14s, box-shadow .14s, transform .14s var(--ease-spring);
-  background: var(--surface); position: relative; text-align: left; width: 100%;
+  display: flex; align-items: center; gap: 11px; padding: 9px 12px;
+  border-radius: 12px; border: 1px solid transparent; cursor: pointer;
+  transition: border-color .12s, background .12s, box-shadow .12s;
+  background: transparent; position: relative; text-align: left; width: 100%;
   font-family: inherit;
 }
 .cv-picker-item:hover {
-  border-color: #2094ff; background: #f5f9ff;
-  box-shadow: 0 4px 18px rgba(32,148,255,.12);
-  transform: translateX(3px);
+  border-color: rgba(32,148,255,.25); background: #f5f9ff;
+  box-shadow: 0 2px 8px rgba(32,148,255,.08);
 }
-.cv-picker-item.cv-recommended { border-color: #bfdbfe; background: #f0f7ff; }
-.cv-picker-item.cv-recommended:hover { background: #e8f2ff; border-color: #93c5fd; }
+.cv-picker-item.cv-recommended { background: #f8fbff; border-color: rgba(32,148,255,.18); }
+.cv-picker-item.cv-recommended:hover { background: #f0f7ff; border-color: rgba(32,148,255,.35); }
 .cv-picker-item-icon {
-  width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.07);
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+  color: #fff;
 }
-.cv-picker-item-name { font-size: 13.5px; font-weight: 850; color: #0f172a; line-height: 1.3; }
-.cv-picker-item-desc { font-size: 12px; color: #94a3b8; margin-top: 3px; line-height: 1.4; }
-.cv-picker-item-reason { font-size: 11px; color: #2563eb; margin-top: 4px; font-weight: 750; display: flex; align-items: center; gap: 4px; }
+.cv-picker-item-name { font-size: 13px; font-weight: 850; color: #0f172a; line-height: 1.2; }
+.cv-picker-item-desc { font-size: 11px; color: #94a3b8; margin-top: 2px; line-height: 1.3; }
+.cv-picker-item-reason { font-size: 10.5px; color: #2563eb; margin-top: 3px; font-weight: 750; display: flex; align-items: center; gap: 3px; }
 .cv-picker-badge {
   position: absolute; top: 50%; right: 14px; transform: translateY(-50%);
   font-size: 9.5px; font-weight: 950; padding: 3px 9px; border-radius: 999px;
@@ -4790,8 +4893,8 @@ body {
         <div class="editor-sub">Monte seu fluxo visual • conecte módulos • automatize tudo</div>
       </div>
       <div style="display:flex;gap:10px;align-items:center">
-        <button id="cvPresetsBtn" class="cv-action-btn">⚡ Presets</button>
-        <button id="cvTestBtn" class="cv-action-btn">▶ Testar Fluxo</button>
+        <button id="cvPresetsBtn" class="cv-action-btn">Presets</button>
+        <button id="cvTestBtn" class="cv-action-btn">Testar Fluxo</button>
         <button class="publish-btn">PUBLICAR FUNIL <span>↗</span></button>
       </div>
     </div>
@@ -4816,18 +4919,22 @@ body {
       </div>
     </div>
 
-    <!-- Make-style module picker modal -->
+    <!-- Compact floating module picker -->
     <div class="cv-picker-overlay" id="cvPickerOverlay"></div>
     <div class="cv-picker-modal" id="cvPickerModal">
       <div class="cv-picker-main">
         <div class="cv-picker-top">
           <div class="cv-picker-top-row">
             <div class="cv-picker-top-title" id="cvPickerTitle">Escolha um módulo</div>
-            <button class="cv-picker-close" id="cvPickerClose">✕</button>
+            <button class="cv-picker-close" id="cvPickerClose">
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="10" y2="10"/><line x1="10" y1="1" x2="1" y2="10"/></svg>
+            </button>
           </div>
           <div class="cv-picker-search-wrap">
-            <span class="cv-picker-search-icon">🔍</span>
-            <input class="cv-picker-search" id="cvPickerSearch" type="text" placeholder="Buscar módulos ou ações do funil" />
+            <span class="cv-picker-search-icon">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="#94a3b8" stroke-width="1.7" stroke-linecap="round"><circle cx="5.5" cy="5.5" r="4"/><line x1="8.9" y1="8.9" x2="12" y2="12"/></svg>
+            </span>
+            <input class="cv-picker-search" id="cvPickerSearch" type="text" placeholder="Buscar módulo..." />
           </div>
         </div>
         <div class="cv-picker-body" id="cvPickerBody"></div>
@@ -4843,7 +4950,9 @@ body {
           <div class="cv-cfg-title" id="cvCfgTitle"></div>
           <div class="cv-cfg-sub" id="cvCfgSub"></div>
         </div>
-        <button class="fsp-close" id="cvCfgClose">✕</button>
+        <button class="fsp-close" id="cvCfgClose">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="10" y2="10"/><line x1="10" y1="1" x2="1" y2="10"/></svg>
+        </button>
       </div>
       <nav class="cv-cfg-nav" id="cvCfgNav"></nav>
       <div class="cv-cfg-content" id="cvCfgContent"></div>
@@ -4856,8 +4965,10 @@ body {
     <div class="fsp-overlay" id="cvPresetsOverlay"></div>
     <div class="cv-presets-panel" id="cvPresetsPanel">
       <div class="cv-cfg-head" style="border-bottom:1px solid #f0f2f5;padding:20px 24px 16px">
-        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">⚡ Automações Prontas</div>
-        <button class="fsp-close" id="cvPresetsClose">✕</button>
+        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">Automações Prontas</div>
+        <button class="fsp-close" id="cvPresetsClose">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="10" y2="10"/><line x1="10" y1="1" x2="1" y2="10"/></svg>
+        </button>
       </div>
       <div style="padding:8px 0;overflow-y:auto;flex:1" id="cvPresetsList"></div>
     </div>
@@ -4866,12 +4977,109 @@ body {
     <div class="fsp-overlay" id="cvTestOverlay"></div>
     <div class="cv-presets-panel" id="cvTestPanel">
       <div class="cv-cfg-head" style="border-bottom:1px solid #f0f2f5;padding:20px 24px 16px">
-        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">▶ Teste do Fluxo</div>
-        <button class="fsp-close" id="cvTestClose">✕</button>
+        <div style="flex:1;font-weight:800;font-size:16px;color:#0f172a">Teste do Fluxo</div>
+        <button class="fsp-close" id="cvTestClose">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="10" y2="10"/><line x1="10" y1="1" x2="1" y2="10"/></svg>
+        </button>
       </div>
       <div style="overflow-y:auto;flex:1" id="cvTestContent"></div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════
+       PAGE BUILDER (launched from Página de Vendas)
+  ════════════════════════════════════════ -->
+  <div class="cv-page-builder" id="cvPageBuilder">
+    <div class="cv-pb-header">
+      <button class="cv-pb-back" id="cvPbBack">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8,1 3,6 8,11"/></svg>
+        Voltar ao funil
+      </button>
+      <div class="cv-pb-title">Construtor de Página — Página de Vendas</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="cv-pb-device-btn active" data-device="desktop" id="cvPbDesktop">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x=".5" y="1" width="11" height="8" rx="1.5"/><line x1="4" y1="11" x2="8" y2="11"/><line x1="6" y1="9" x2="6" y2="11"/></svg>
+          Desktop
+        </button>
+        <button class="cv-pb-device-btn" data-device="mobile" id="cvPbMobile">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x=".5" y=".5" width="9" height="11" rx="2"/><circle cx="5" cy="9.5" r=".7" fill="currentColor" stroke="none"/></svg>
+          Mobile
+        </button>
+        <button class="cv-pb-save" id="cvPbSave">Salvar página</button>
+      </div>
+    </div>
+    <div class="cv-pb-body">
+      <!-- Chat -->
+      <div class="cv-pb-chat">
+        <div class="cv-pb-chat-head">
+          <h4>Editor com IA</h4>
+          <p>Peça alterações e a IA aplica na página</p>
+        </div>
+        <div class="cv-pb-messages" id="cvPbMessages">
+          <div class="cv-pb-msg cv-pb-msg-bot">Olá! Sou seu assistente de criação de páginas. O que deseja alterar nesta página?</div>
+          <div class="cv-pb-msg cv-pb-msg-bot">Você pode me pedir para: alterar o headline, trocar o banner, mudar o CTA, ajustar cores ou reescrever qualquer seção.</div>
+        </div>
+        <div class="cv-pb-quick-actions">
+          <button class="cv-pb-qa" data-prompt="Melhore o headline para ser mais persuasivo">Melhorar headline</button>
+          <button class="cv-pb-qa" data-prompt="Escreva um subtítulo mais atraente">Novo subtítulo</button>
+          <button class="cv-pb-qa" data-prompt="Torne o CTA mais urgente e convincente">Melhorar CTA</button>
+          <button class="cv-pb-qa" data-prompt="Adicione uma seção de benefícios com 3 itens">+ Benefícios</button>
+          <button class="cv-pb-qa" data-prompt="Adicione depoimentos de clientes">+ Depoimentos</button>
+        </div>
+        <div class="cv-pb-input-row">
+          <textarea class="cv-pb-textarea" id="cvPbInput" placeholder="Peça uma alteração na página..." rows="1"></textarea>
+          <button class="cv-pb-send" id="cvPbSend">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="13" y1="1" x2="1" y2="7"/><line x1="13" y1="1" x2="8" y2="13"/><line x1="1" y1="7" x2="8" y2="13"/></svg>
+          </button>
+        </div>
+      </div>
+      <!-- Preview -->
+      <div class="cv-pb-preview">
+        <div class="cv-pb-preview-toolbar">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#94a3b8" stroke-width="1.7" stroke-linecap="round"><circle cx="6" cy="6" r="5"/><path d="M4.5 6a1.5 1.5 0 0 0 3 0c0-1-.5-2.5-1.5-2.5S4.5 5 4.5 6z"/></svg>
+          <span style="font-size:11px;font-weight:800;color:#6b7280">Preview ao vivo</span>
+          <div style="flex:1"></div>
+          <span style="font-size:11px;font-weight:700;color:#9ca3af">minhapagina.thay.com</span>
+        </div>
+        <div class="cv-pb-preview-frame" id="cvPbPreviewFrame">
+          <div class="cv-pb-page-mock" id="cvPbPageMock">
+            <div class="cv-pb-page-hero">
+              <h1 id="cvPbHeroTitle">Descubra o Método que Transformou 2.300 Alunos em 90 Dias</h1>
+              <p id="cvPbHeroSub">Resultados reais. Método comprovado. Acesso imediato. Sem enrolação.</p>
+              <button class="cv-pb-hero-cta" id="cvPbHeroCta">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,1 13,7 7,13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+                Quero garantir minha vaga agora
+              </button>
+            </div>
+            <div class="cv-pb-page-body">
+              <div class="cv-pb-section-title" id="cvPbFeatTitle">O que está incluso</div>
+              <div class="cv-pb-feature-grid" id="cvPbFeatures">
+                <div class="cv-pb-feature-card">
+                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><polyline points="5,8 7,10 11,6"/></svg></div>
+                  <div class="cv-pb-feature-name">Acesso vitalício</div>
+                  <div class="cv-pb-feature-desc">Assista quando e onde quiser, sem prazo de validade</div>
+                </div>
+                <div class="cv-pb-feature-card">
+                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L9.6 5.8H14.7L10.5 8.6l1.5 4.8L8 11l-4 2.4 1.5-4.8L1.3 5.8H6.4z"/></svg></div>
+                  <div class="cv-pb-feature-name">Suporte premium</div>
+                  <div class="cv-pb-feature-desc">Acompanhamento da equipe durante todo o processo</div>
+                </div>
+                <div class="cv-pb-feature-card">
+                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1l1.2 4.1h4.3l-3.5 2.5 1.3 4.1L8 9.2l-3.3 2.5 1.3-4.1L2.5 5.1h4.3z"/></svg></div>
+                  <div class="cv-pb-feature-name">Garantia de 7 dias</div>
+                  <div class="cv-pb-feature-desc">Reembolso total sem perguntas dentro do prazo</div>
+                </div>
+              </div>
+              <div style="text-align:center;padding:20px 0 10px">
+                <button class="cv-pb-hero-cta" style="font-size:16px">Quero garantir minha vaga agora</button>
+                <div style="font-size:12px;color:#9ca3af;margin-top:10px;font-weight:700">Garantia de 7 dias · Acesso imediato · Pagamento seguro</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════
        AI FLOATING ORBS
@@ -4995,16 +5203,29 @@ ThayApp.CanvasEditor = (function () {
   'use strict';
 
   /* ── MODULE DEFINITIONS ── */
+
+  const MOD_SVGS = {
+    page:     `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="14" height="14" rx="2.5"/><line x1="5" y1="6" x2="13" y2="6"/><line x1="5" y1="9" x2="11" y2="9"/><line x1="5" y1="12" x2="9" y2="12"/></svg>`,
+    lead:     `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z"/><path d="M2 16c0-3.3 3.1-6 7-6s7 2.7 7 6"/></svg>`,
+    checkout: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="4" width="15" height="11" rx="2"/><path d="M1.5 7.5h15"/><line x1="5" y1="11" x2="8" y2="11"/></svg>`,
+    email:    `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="10" rx="2"/><polyline points="2,4 9,10.5 16,4"/></svg>`,
+    whatsapp: `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2a7 7 0 0 1 6.07 10.47L16 16l-3.53-.93A7 7 0 1 1 9 2z"/><path d="M6.5 7.5c.5 1 1.5 2 2.5 2.5" stroke-width="1.4"/></svg>`,
+    upsell:   `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,12 9,5 14,12"/><line x1="9" y1="5" x2="9" y2="16"/></svg>`,
+    pixel:    `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="3"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="9" y1="14" x2="9" y2="17"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="14" y1="9" x2="17" y2="9"/></svg>`,
+    webhook:  `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9a2 2 0 0 1 4 0v1a2 2 0 0 1-4 0V9z"/><path d="M5 7.3A5 5 0 1 0 13 7.3"/><line x1="9" y1="14" x2="9" y2="17"/></svg>`,
+    members:  `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1"/><circle cx="9" cy="6" r="3"/><polyline points="7,15.5 9,17.5 11,15.5"/></svg>`,
+  };
+
   const MODULES = [
-    { id:'page',     cat:'Páginas',      icon:'📄', name:'Página de Vendas',       desc:'Crie e publique sua página de oferta',    color:'#1fb96b' },
-    { id:'lead',     cat:'Páginas',      icon:'📋', name:'Captura de Lead',        desc:'Coleta nome, e-mail ou WhatsApp',         color:'#0ea5e9' },
-    { id:'checkout', cat:'Pagamento',    icon:'💳', name:'Checkout da Plataforma', desc:'Coleta pagamento com múltiplos métodos',  color:'#0f172a' },
-    { id:'email',    cat:'Comunicação',  icon:'✉️', name:'E-mail Marketing',       desc:'Sequência automática de e-mails',         color:'#2083ff' },
-    { id:'whatsapp', cat:'Comunicação',  icon:'💬', name:'WhatsApp IA',            desc:'Agente IA responde no WhatsApp',          color:'#25d366' },
-    { id:'upsell',   cat:'Vendas',       icon:'⬆️', name:'Upsell / Order Bump',   desc:'Aumente o ticket após compra',            color:'#ff7b39' },
-    { id:'pixel',    cat:'Rastreamento', icon:'📡', name:'Pixel',                 desc:'Dispara eventos de rastreamento',         color:'#7c4dff' },
-    { id:'webhook',  cat:'Avançado',     icon:'🔗', name:'Webhook / API',          desc:'Integre com qualquer ferramenta',         color:'#475569' },
-    { id:'members',  cat:'Pós-venda',    icon:'🎓', name:'Área do Aluno',         desc:'Libera acesso ao curso automaticamente',  color:'#f59e0b' },
+    { id:'page',     cat:'Páginas',      name:'Página de Vendas',       desc:'Crie e publique sua página de oferta',    color:'#1fb96b' },
+    { id:'lead',     cat:'Páginas',      name:'Captura de Lead',        desc:'Coleta nome, e-mail ou WhatsApp',         color:'#0ea5e9' },
+    { id:'checkout', cat:'Pagamento',    name:'Checkout da Plataforma', desc:'Coleta pagamento com múltiplos métodos',  color:'#0f172a' },
+    { id:'email',    cat:'Comunicação',  name:'E-mail Marketing',       desc:'Sequência automática de e-mails',         color:'#2083ff' },
+    { id:'whatsapp', cat:'Comunicação',  name:'WhatsApp IA',            desc:'Agente IA responde no WhatsApp',          color:'#25d366' },
+    { id:'upsell',   cat:'Vendas',       name:'Upsell / Order Bump',    desc:'Aumente o ticket após compra',            color:'#ff7b39' },
+    { id:'pixel',    cat:'Rastreamento', name:'Pixel',                  desc:'Dispara eventos de rastreamento',         color:'#7c4dff' },
+    { id:'webhook',  cat:'Avançado',     name:'Webhook / API',          desc:'Integre com qualquer ferramenta',         color:'#475569' },
+    { id:'members',  cat:'Pós-venda',    name:'Área do Aluno',          desc:'Libera acesso ao curso automaticamente',  color:'#f59e0b' },
   ];
 
   const CATS = ['Todos','Páginas','Vendas','Pagamento','Comunicação','Rastreamento','Pós-venda','Avançado'];
@@ -5076,14 +5297,14 @@ ThayApp.CanvasEditor = (function () {
 
   /* Presets */
   const PRESETS = [
-    { icon:'📧', name:'Recuperação de checkout por e-mail',  desc:'Detecta abandono e envia 3 e-mails em 10min / 2h / 24h',  mods:['checkout','email'] },
-    { icon:'📲', name:'Recuperação de Pix não pago',         desc:'Pix gerado mas não pago? WhatsApp IA entra em ação',       mods:['checkout','whatsapp'] },
-    { icon:'❌', name:'Pagamento recusado no cartão',        desc:'Cartão recusado → e-mail com link para outro método',      mods:['checkout','email'] },
-    { icon:'🎓', name:'Pós-compra com área do aluno',        desc:'Compra aprovada → libera acesso automaticamente',          mods:['checkout','members'] },
-    { icon:'⬆️', name:'Upsell após compra',                  desc:'Compra feita → oferta de upsell imediata',                 mods:['checkout','upsell'] },
-    { icon:'💡', name:'Lead entrou mas não comprou',          desc:'Lead capturado → sequência de e-mails de nutrição',        mods:['page','email'] },
-    { icon:'💬', name:'WhatsApp após abandono',              desc:'Abandono de checkout → WhatsApp IA em 5 minutos',          mods:['checkout','whatsapp'] },
-    { icon:'📨', name:'Sequência de 3 e-mails',              desc:'Automação completa: 3 e-mails em momentos estratégicos',    mods:['checkout','email','pixel'] },
+    { name:'Recuperação de checkout por e-mail',  desc:'Detecta abandono e envia 3 e-mails em 10min / 2h / 24h',  mods:['checkout','email'] },
+    { name:'Recuperação de Pix não pago',         desc:'Pix gerado mas não pago? WhatsApp IA entra em ação',       mods:['checkout','whatsapp'] },
+    { name:'Pagamento recusado no cartão',        desc:'Cartão recusado → e-mail com link para outro método',      mods:['checkout','email'] },
+    { name:'Pós-compra com área do aluno',        desc:'Compra aprovada → libera acesso automaticamente',          mods:['checkout','members'] },
+    { name:'Upsell após compra',                  desc:'Compra feita → oferta de upsell imediata',                 mods:['checkout','upsell'] },
+    { name:'Lead entrou mas não comprou',          desc:'Lead capturado → sequência de e-mails de nutrição',        mods:['page','email'] },
+    { name:'WhatsApp após abandono',              desc:'Abandono de checkout → WhatsApp IA em 5 minutos',          mods:['checkout','whatsapp'] },
+    { name:'Sequência de 3 e-mails',              desc:'Automação completa: 3 e-mails em momentos estratégicos',    mods:['checkout','email','pixel'] },
   ];
 
   /* Module config tabs */
@@ -5108,16 +5329,16 @@ ThayApp.CanvasEditor = (function () {
 
   /* ── PICKER CATEGORIES ── */
   const PICKER_CATS = [
-    { id:'Todos',       icon:'🔍' },
-    { id:'Páginas',     icon:'📄' },
-    { id:'Vendas',      icon:'💰' },
-    { id:'Pagamento',   icon:'💳' },
-    { id:'Comunicação', icon:'💬' },
-    { id:'Rastreamento',icon:'📡' },
-    { id:'Pós-venda',   icon:'🎓' },
-    { id:'Avançado',    icon:'🔧' },
-    { id:'Mais usados', icon:'⭐' },
-    { id:'Presets',     icon:'⚡' },
+    { id:'Todos' },
+    { id:'Páginas' },
+    { id:'Vendas' },
+    { id:'Pagamento' },
+    { id:'Comunicação' },
+    { id:'Rastreamento' },
+    { id:'Pós-venda' },
+    { id:'Avançado' },
+    { id:'Mais usados' },
+    { id:'Presets' },
   ];
 
   const MOST_USED = ['checkout','email','pixel','whatsapp'];
@@ -5168,11 +5389,11 @@ ThayApp.CanvasEditor = (function () {
     _pickerClose.addEventListener('click', _closePicker);
     _pickerOverlay.addEventListener('click', _closePicker);
     _pickerSearch.addEventListener('input', () => _renderPickerBody());
-    if (_addFloat) _addFloat.addEventListener('click', () => _openPicker(null));
+    if (_addFloat) _addFloat.addEventListener('click', e => _openPicker(null, e.currentTarget));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') _closePicker(); });
   }
 
-  function _openPicker(fromNodeId) {
+  function _openPicker(fromNodeId, triggerEl) {
     _pickerFromId = fromNodeId;
     _pickerCat    = 'Todos';
     _pickerSearch.value = '';
@@ -5181,6 +5402,23 @@ ThayApp.CanvasEditor = (function () {
     _pickerTitle.textContent = hasFrom
       ? 'Escolha o próximo módulo'
       : _nodes.length === 0 ? 'Como seu funil começa?' : 'Adicionar módulo';
+
+    // Position picker near trigger element (no inline transform — CSS handles animation)
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const pw = 380, ph = Math.min(0.72 * vh, 520);
+    if (triggerEl) {
+      const rect = triggerEl.getBoundingClientRect();
+      let top = rect.bottom + 8, left = rect.left;
+      if (left + pw > vw - 12) left = vw - pw - 12;
+      if (left < 12) left = 12;
+      if (top + ph > vh - 12) top = rect.top - ph - 8;
+      if (top < 60) top = 60;
+      _pickerModal.style.top  = top + 'px';
+      _pickerModal.style.left = left + 'px';
+    } else {
+      _pickerModal.style.top  = '80px';
+      _pickerModal.style.left = Math.max(12, (vw - pw) / 2) + 'px';
+    }
 
     _renderPickerBody();
     _pickerOverlay.classList.add('open');
@@ -5216,7 +5454,7 @@ ThayApp.CanvasEditor = (function () {
     if (recIds.length && !txt) {
       const recMods = recIds.map(id => MODULES.find(m => m.id === id)).filter(Boolean);
       const rest    = mods.filter(m => !recIds.includes(m.id));
-      html += `<div class="cv-picker-section-label">⭐ Recomendado</div>`
+      html += `<div class="cv-picker-section-label">Recomendado</div>`
              + `<div class="cv-picker-grid">${recMods.map(m => _pickerItemHTML(m, nextSteps.find(s=>s.id===m.id)?.reason, true)).join('')}</div>`;
       if (rest.length) {
         html += `<div class="cv-picker-section-label">Todos os módulos</div>`
@@ -5237,7 +5475,7 @@ ThayApp.CanvasEditor = (function () {
 
   function _pickerItemHTML(mod, reason, recommended) {
     return `<div class="cv-picker-item${recommended?' cv-recommended':''}" data-pick="${mod.id}">
-      <div class="cv-picker-item-icon" style="background:${mod.color}">${mod.icon}</div>
+      <div class="cv-picker-item-icon" style="background:${mod.color}">${MOD_SVGS[mod.id]||''}</div>
       <div>
         <div class="cv-picker-item-name">${mod.name}</div>
         <div class="cv-picker-item-desc">${mod.desc}</div>
@@ -5323,12 +5561,12 @@ ThayApp.CanvasEditor = (function () {
     el.style.left = node.x + 'px';
     el.style.top  = node.y + 'px';
 
-    const statusLabel = { ok:'● Ativo', cfg:'⚙ Configurar', off:'○ Inativo' }[node.status] || '';
+    const statusLabel = { ok:'● Ativo', cfg:'Configurar', off:'○ Inativo' }[node.status] || '';
     const statusClass = 'cv-status-' + node.status;
 
     el.innerHTML = `
       <div class="cv-node-head" style="background:${mod.color}">
-        <span class="cv-node-icon">${mod.icon}</span>
+        <span class="cv-node-icon">${MOD_SVGS[mod.id]||''}</span>
         <span class="cv-node-name">${mod.name}</span>
         <span class="cv-node-status ${statusClass}">${statusLabel}</span>
       </div>
@@ -5361,7 +5599,7 @@ ThayApp.CanvasEditor = (function () {
       e.stopPropagation(); _drawing = { fromId: node.id };
     });
     el.querySelector('.cv-next-btn').addEventListener('click', e => {
-      e.stopPropagation(); _openPicker(node.id);
+      e.stopPropagation(); _openPicker(node.id, e.currentTarget);
     });
 
     _world.appendChild(el);
@@ -5526,7 +5764,7 @@ ThayApp.CanvasEditor = (function () {
         </div>`;
       _empty.style.display = 'flex';
       document.getElementById('cvStartBtn').addEventListener('click', e => {
-        e.stopPropagation(); _openPicker(null);
+        e.stopPropagation(); _openPicker(null, e.currentTarget);
       });
       if (_addFloat) _addFloat.style.display = 'none';
     } else {
@@ -5544,7 +5782,7 @@ ThayApp.CanvasEditor = (function () {
     _cfgTab = tab || 'Conteúdo';
 
     _cfgIcon.style.background  = mod.color;
-    _cfgIcon.textContent       = mod.icon;
+    _cfgIcon.innerHTML         = MOD_SVGS[mod.id] || '';
     _cfgTitle.textContent      = mod.name;
     _cfgSub.textContent        = mod.desc;
 
@@ -5614,7 +5852,7 @@ ThayApp.CanvasEditor = (function () {
       ${_field('Assunto do e-mail','text','Ex: Ei, você esqueceu algo...','')}
       <div class="cv-field"><label>Banner / Imagem do topo</label>
         <div style="border:2px dashed #e2e8f0;border-radius:10px;padding:20px;text-align:center;color:#94a3b8;font-size:12px;cursor:pointer">
-          📷 Clique para enviar imagem ou cole URL
+          Clique para enviar imagem ou cole URL
         </div>
       </div>
       ${_field('Título no e-mail','text','Ex: Última chance para garantir sua vaga','')}
@@ -5622,7 +5860,7 @@ ThayApp.CanvasEditor = (function () {
       ${_field('Texto do botão CTA','text','Ex: Quero garantir minha vaga','')}
       ${_field('Link do botão/checkout','url','https://...','')}
       <div class="cv-email-preview">
-        <div class="cv-email-banner">📧 Preview do E-mail</div>
+        <div class="cv-email-banner">Preview do E-mail</div>
         <div class="cv-email-body">
           <div class="cv-email-subject">Assunto: Ei, você esqueceu algo...</div>
           <div class="cv-email-text">Olá! Vimos que você visitou nossa página mas não finalizou sua compra. Que tal dar uma segunda chance?</div>
@@ -5681,10 +5919,72 @@ ThayApp.CanvasEditor = (function () {
   }
 
   function _pageEditor() {
-    return _field('Título da página','text','Ex: Descubra o Método Que...','')
-      + _field('Domínio','text','minhapagina.com.br','')
-      + _field('URL da página','url','https://...','')
-      + `<div style="margin-top:4px"><button class="fsp-connect-btn" style="font-size:12px">✏️ Abrir editor da página</button></div>`;
+    // Close cfg panel and open full page builder instead
+    setTimeout(() => { _closeCfg(); _openPageBuilder(); }, 50);
+    return `<div style="color:#64748b;font-size:13px;padding:12px 0">Abrindo construtor de página...</div>`;
+  }
+
+  function _openPageBuilder() {
+    const pb = document.getElementById('cvPageBuilder');
+    if (!pb) return;
+    pb.classList.add('open');
+    const sendBtn  = document.getElementById('cvPbSend');
+    const backBtn  = document.getElementById('cvPbBack');
+    const saveBtn  = document.getElementById('cvPbSave');
+    const input    = document.getElementById('cvPbInput');
+    const msgs     = document.getElementById('cvPbMessages');
+    const chips    = pb.querySelectorAll('.cv-pb-qa');
+    const devBtns  = pb.querySelectorAll('.cv-pb-device-btn');
+
+    if (backBtn) backBtn.addEventListener('click', _closePageBuilder);
+    if (saveBtn) saveBtn.addEventListener('click', () => {
+      saveBtn.textContent = 'Salvo!';
+      setTimeout(() => { saveBtn.textContent = 'Salvar página'; }, 1800);
+    });
+
+    devBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        devBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const mock = document.getElementById('cvPbPageMock');
+        if (mock) {
+          mock.style.maxWidth = btn.dataset.device === 'mobile' ? '390px' : '100%';
+          mock.style.margin   = btn.dataset.device === 'mobile' ? '0 auto' : '';
+        }
+      });
+    });
+
+    function _pbSend(text) {
+      if (!text.trim()) return;
+      const userMsg = document.createElement('div');
+      userMsg.className = 'cv-pb-msg cv-pb-msg-user';
+      userMsg.textContent = text;
+      msgs.appendChild(userMsg);
+      if (input) input.value = '';
+      msgs.scrollTop = msgs.scrollHeight;
+
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'cv-pb-msg cv-pb-msg-bot';
+        botMsg.textContent = 'Entendido! Aplicando sua sugestão na página...';
+        msgs.appendChild(botMsg);
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 700);
+    }
+
+    if (sendBtn && input) {
+      sendBtn.addEventListener('click', () => _pbSend(input.value));
+      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _pbSend(input.value); } });
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => _pbSend(chip.dataset.prompt || chip.textContent));
+    });
+  }
+
+  function _closePageBuilder() {
+    const pb = document.getElementById('cvPageBuilder');
+    if (pb) pb.classList.remove('open');
   }
 
   function _leadEditor() {
@@ -5886,7 +6186,7 @@ ThayApp.CanvasEditor = (function () {
   function _openPresets() {
     _presetsList.innerHTML = PRESETS.map((p, i) => `
       <div class="cv-preset-item">
-        <div class="cv-preset-icon">${p.icon}</div>
+        <div class="cv-preset-icon" style="background:${(MODULES.find(m=>m.id===p.mods[0])||{color:'#0077ff'}).color}">${p.mods.map(id=>MOD_SVGS[id]||'').slice(0,1).join('')}</div>
         <div style="flex:1">
           <div class="cv-preset-name">${p.name}</div>
           <div class="cv-preset-desc">${p.desc}</div>
@@ -5934,12 +6234,12 @@ ThayApp.CanvasEditor = (function () {
   /* ── TEST FLOW ── */
   function _openTest() {
     const steps = _nodes.length === 0
-      ? [{ icon:'⚡', label:'Nenhum módulo adicionado', sub:'Adicione módulos ao canvas primeiro', cls:'cv-test-dot-wait' }]
+      ? [{ icon:'—', label:'Nenhum módulo adicionado', sub:'Adicione módulos ao canvas primeiro', cls:'cv-test-dot-wait' }]
       : [
           { icon:'✓', label:'Evento de teste criado', sub:'Simulando: Checkout abandonado por lead@teste.com', cls:'cv-test-dot-ok' },
           ..._nodes.map(n => {
             const mod = MODULES.find(m => m.id === n.moduleId);
-            return { icon:'✓', label:`${mod.icon} ${mod.name}`, sub:`Gatilho: ${n.trigger} → ${n.action}`, cls:'cv-test-dot-ok' };
+            return { icon:'✓', label:mod.name, sub:`Gatilho: ${n.trigger} → ${n.action}`, cls:'cv-test-dot-ok' };
           }),
           { icon:'✓', label:'Fluxo concluído', sub:`${_nodes.length} módulo(s) executados com sucesso`, cls:'cv-test-dot-ok' },
         ];
