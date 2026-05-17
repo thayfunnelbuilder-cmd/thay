@@ -5107,6 +5107,49 @@ body {
 
 'use strict';
 
+
+  /* ── THAY PAGE BUILDER — Schema Version & Cache Buster ── */
+  const THAY_BUILD_ID = "2026-05-17-v3";
+  window.THAY_BUILD_ID = THAY_BUILD_ID;
+  console.log("[THAY] BUILD_ID:", THAY_BUILD_ID);
+
+  const PB_SCHEMA_VERSION     = "2026-05-17-v3";
+  const PB_STORAGE_VERSION_KEY = "thay_pb_schema_v";
+
+  function pbEnsureFreshState() {
+    try {
+      const current = localStorage.getItem(PB_STORAGE_VERSION_KEY);
+      if (current !== PB_SCHEMA_VERSION) {
+        // Limpar TODAS as chaves do page builder
+        const toRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith('thay_page_builder_') || k === 'pageState' || k === 'pb_state' || k === 'cvPageBuilderState')) {
+            toRemove.push(k);
+          }
+        }
+        toRemove.forEach(k => localStorage.removeItem(k));
+        localStorage.setItem(PB_STORAGE_VERSION_KEY, PB_SCHEMA_VERSION);
+        console.warn("[THAY] localStorage antigo limpo. Versão atualizada para:", PB_SCHEMA_VERSION);
+      }
+    } catch(e) { console.warn("[THAY] Erro ao limpar localStorage:", e); }
+  }
+
+  // Rodar IMEDIATAMENTE ao carregar a página
+  pbEnsureFreshState();
+
+  /* ── ETAPA 4: Bloquear template antigo ── */
+  function pbAssertNoOldTemplate(html) {
+    const forbidden = ["Acesso vitalício", "Suporte premium", "Garantia de 7 dias", "O Método que Transformou", "Descubra o Método"];
+    const found = forbidden.find(t => String(html || "").includes(t));
+    if (found) {
+      console.error("[THAY] Template antigo detectado:", found);
+      try { localStorage.clear(); } catch(e) {}
+      return false;
+    }
+    return true;
+  }
+
 window.ThayApp = window.ThayApp || {};
 
 ThayApp.ViewManager = (function () {
@@ -6008,19 +6051,23 @@ ThayApp.CanvasEditor = (function () {
     funnelId = funnelId || 'default';
     moduleId = moduleId || 'page';
 
+    // ── Garantir localStorage limpo antes de qualquer coisa ──
+    if (typeof pbEnsureFreshState === 'function') pbEnsureFreshState();
+
     const pb = document.getElementById('cvPageBuilder');
     if (!pb) return;
     pb.classList.add('open');
 
-    // Load or initialise pageState
+    // Load or initialise pageState (vazio por padrão após limpeza)
     const pageState = _pbLoadState(funnelId, moduleId);
-    // NÃO chamar _pbApplyState — evita template genérico ao abrir
 
-    // Restaurar HTML gerado anteriormente no iframe (se houver)
+    // Restaurar HTML gerado NESTA sessão (se foi salvo explicitamente pelo usuário)
     const savedHtml = (() => {
       try { return localStorage.getItem(_pbStorageKey(funnelId, moduleId) + '_html') || ''; } catch(e) { return ''; }
     })();
-    if (savedHtml) {
+
+    if (savedHtml && typeof pbAssertNoOldTemplate === 'function' && pbAssertNoOldTemplate(savedHtml)) {
+      // HTML salvo é válido (não é template antigo) — restaurar
       const restoredIframe = document.createElement('iframe');
       restoredIframe.id = 'cvPbIframe';
       restoredIframe.style.cssText = 'width:100%;min-height:600px;border:none;display:block;';
@@ -6165,6 +6212,16 @@ ThayApp.CanvasEditor = (function () {
           const mock = document.getElementById('cvPbPageMock');
           if (mock) { mock.innerHTML = ''; mock.style.padding = '0'; mock.appendChild(liveIframe); }
         }
+        // Validar que não é template antigo antes de renderizar
+        if (typeof pbAssertNoOldTemplate === 'function' && !pbAssertNoOldTemplate(data.html)) {
+          botMsg.style.color = '#dc2626';
+          botMsg.textContent = '❌ A IA retornou conteúdo inválido. Tente novamente com um prompt mais detalhado.';
+          if (idleEl) { idleEl.style.display = 'flex'; }
+          if (loadingEl) loadingEl.style.display = 'none';
+          msgs.scrollTop = msgs.scrollHeight;
+          return;
+        }
+
         liveIframe.srcdoc = data.html;
 
         // Ocultar loading — iframe já vai mostrar a página
@@ -7129,6 +7186,9 @@ body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#f
 <div class="odesc">${e(copy.offer.description)}</div>
 <span class="btn">${e(copy.offer.cta)} →</span>
 </div></div></section>
+
+  <!-- THAY BUILD ID — prova qual código está rodando -->
+  <div id="thayBuildBadge" style="position:fixed;bottom:8px;left:8px;z-index:99999;background:rgba(0,0,0,0.7);color:#7c6af7;font-size:9px;font-weight:700;font-family:monospace;padding:3px 7px;border-radius:4px;pointer-events:none;letter-spacing:.03em;">Build: 2026-05-17-v3</div>
 </body></html>`;
   }
 
