@@ -5043,13 +5043,15 @@ body {
         </div>
         <div class="cv-pb-preview-frame" id="cvPbPreviewFrame">
           <div class="cv-pb-page-mock" id="cvPbPageMock">
-            <div class="cv-pb-page-hero">
-              <h1 id="cvPbHeroTitle">Descubra o Método que Transformou 2.300 Alunos em 90 Dias</h1>
-              <p id="cvPbHeroSub">Resultados reais. Método comprovado. Acesso imediato. Sem enrolação.</p>
-              <button class="cv-pb-hero-cta" id="cvPbHeroCta">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,1 13,7 7,13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-                Quero garantir minha vaga agora
-              </button>
+            <div id="cvPbEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;padding:48px 32px;text-align:center;background:#f8fafc;">
+              <div style="font-size:40px;margin-bottom:16px;">✦</div>
+              <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:8px;letter-spacing:-0.3px;">Sua página aparece aqui</div>
+              <div style="font-size:14px;color:#64748b;line-height:1.6;max-width:340px;">Descreva seu produto no chat ao lado e a IA cria a página completa em segundos.</div>
+              <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                <div style="padding:6px 14px;background:#e0f2fe;border-radius:100px;font-size:12px;font-weight:600;color:#0369a1;">Rosa / Beleza</div>
+                <div style="padding:6px 14px;background:#fce7f3;border-radius:100px;font-size:12px;font-weight:600;color:#9d174d;">Fitness / Saúde</div>
+                <div style="padding:6px 14px;background:#dcfce7;border-radius:100px;font-size:12px;font-weight:600;color:#166534;">Negócios / SaaS</div>
+              </div>
             </div>
             <div class="cv-pb-page-body">
               <div class="cv-pb-section-title" id="cvPbFeatTitle">O que está incluso</div>
@@ -5929,16 +5931,13 @@ ThayApp.CanvasEditor = (function () {
   /* ── PAGE BUILDER ── */
 
   const _PAGE_STATE_DEFAULT = {
-    heroTitle:   'Descubra o Método que Transformou 2.300 Alunos em 90 Dias',
-    heroSub:     'Resultados reais. Método comprovado. Acesso imediato. Sem enrolação.',
-    ctaText:     'Quero garantir minha vaga agora',
-    featTitle:   'O que está incluso',
-    features: [
-      { name:'Acesso vitalício',  desc:'Assista quando e onde quiser, sem prazo de validade' },
-      { name:'Suporte premium',   desc:'Acompanhamento da equipe durante todo o processo' },
-      { name:'Garantia de 7 dias',desc:'Reembolso total sem perguntas dentro do prazo' },
-    ],
-    footerGuarantee: 'Garantia de 7 dias · Acesso imediato · Pagamento seguro',
+    heroTitle:   '',
+    heroSub:     '',
+    ctaText:     '',
+    featTitle:   '',
+    features:    [],
+    footerGuarantee: '',
+    _generatedHtml: '',
   };
 
   function _pbStorageKey(funnelId, moduleId) {
@@ -5988,14 +5987,15 @@ ThayApp.CanvasEditor = (function () {
     if (foot && state.footerGuarantee) foot.textContent = state.footerGuarantee;
   }
 
-  async function _callPageEditAPI(userMessage, pageState, funnelId, moduleId) {
-    const res = await fetch('https://thay-green.vercel.app/api/page-edit', {
+  async function _callPageEditAPI(userMessage, currentHtml) {
+    const res = await fetch('/api/page-edit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userMessage, pageState, funnelId, moduleId }),
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ userMessage, currentHtml }),
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
+    // Sempre parsear — até erros HTTP retornam JSON com { ok, message }
+    const data = await res.json().catch(() => ({ ok: false, message: `HTTP ${res.status}` }));
+    return data;
   }
 
   function _pbShowToast(text) {
@@ -6024,6 +6024,20 @@ ThayApp.CanvasEditor = (function () {
     const pageState = _pbLoadState(funnelId, moduleId);
     _pbApplyState(pageState);
 
+    // Restaurar HTML gerado anteriormente no iframe (se houver)
+    const savedHtml = (() => {
+      try { return localStorage.getItem(_pbStorageKey(funnelId, moduleId) + '_html') || ''; } catch(e) { return ''; }
+    })();
+    if (savedHtml) {
+      const restoredIframe = document.createElement('iframe');
+      restoredIframe.id = 'cvPbIframe';
+      restoredIframe.style.cssText = 'width:100%;min-height:600px;border:none;display:block;';
+      restoredIframe.srcdoc = savedHtml;
+      const mock = document.getElementById('cvPbPageMock');
+      if (mock) { mock.innerHTML = ''; mock.style.padding = '0'; mock.appendChild(restoredIframe); }
+      pageState._generatedHtml = savedHtml;
+    }
+
     const sendBtn = document.getElementById('cvPbSend');
     const backBtn = document.getElementById('cvPbBack');
     const saveBtn = document.getElementById('cvPbSave');
@@ -6046,7 +6060,16 @@ ThayApp.CanvasEditor = (function () {
     freshBack.addEventListener('click', _closePageBuilder);
 
     freshSave.addEventListener('click', () => {
+      // Salvar pageState (compatibilidade)
       _pbSaveState(funnelId, moduleId, pageState);
+
+      // Também salvar HTML gerado pela IA se existir
+      if (pageState._generatedHtml) {
+        try {
+          localStorage.setItem(_pbStorageKey(funnelId, moduleId) + '_html', pageState._generatedHtml);
+        } catch(e) {}
+      }
+
       _pbShowToast('Página salva com sucesso');
       freshSave.textContent = 'Salvo!';
       setTimeout(() => { freshSave.textContent = 'Salvar página'; }, 1800);
@@ -6067,7 +6090,7 @@ ThayApp.CanvasEditor = (function () {
     async function _pbSend(text) {
       if (!text.trim()) return;
 
-      // Show user message
+      // Bubble do usuário
       const userMsg = document.createElement('div');
       userMsg.className = 'cv-pb-msg cv-pb-msg-user';
       userMsg.textContent = text;
@@ -6076,33 +6099,59 @@ ThayApp.CanvasEditor = (function () {
       if (currentInput) currentInput.value = '';
       msgs.scrollTop = msgs.scrollHeight;
 
-      // Typing indicator
-      const typing = document.createElement('div');
-      typing.className = 'cv-pb-msg cv-pb-msg-bot';
-      typing.style.color = '#9ca3af';
-      typing.textContent = 'Processando...';
-      msgs.appendChild(typing);
+      // Bubble de loading
+      const botMsg = document.createElement('div');
+      botMsg.className = 'cv-pb-msg cv-pb-msg-bot';
+      botMsg.style.color = '#9ca3af';
+      botMsg.textContent = '✦ Gerando com IA… aguarde até 30s';
+      msgs.appendChild(botMsg);
       msgs.scrollTop = msgs.scrollHeight;
 
-      try {
-        const data = await _callPageEditAPI(text, pageState, funnelId, moduleId);
+      // Pegar HTML atual do iframe (se já existe página gerada)
+      const iframe = document.getElementById('cvPbIframe');
+      const currentHtml = iframe ? (iframe.srcdoc || '') : '';
 
-        // Apply changes to pageState and re-render preview
-        if (data.changes && typeof data.changes === 'object') {
-          if (data.changes.features && Array.isArray(data.changes.features)) {
-            pageState.features = data.changes.features;
-            delete data.changes.features;
+      try {
+        const data = await _callPageEditAPI(text, currentHtml);
+
+        if (!data.ok) {
+          // Erro real — mostrar no chat, NÃO alterar preview
+          botMsg.style.color = '#dc2626';
+          botMsg.textContent = '❌ ' + (data.message || 'Erro desconhecido.');
+          if (data.message && data.message.includes('CLAUDE_API_KEY')) {
+            const hint = document.createElement('div');
+            hint.className = 'cv-pb-msg cv-pb-msg-bot';
+            hint.style.color = '#f59e0b';
+            hint.style.fontSize = '12px';
+            hint.textContent = '💡 Configure CLAUDE_API_KEY em Vercel → Project → Settings → Environment Variables, depois faça redeploy.';
+            msgs.appendChild(hint);
           }
-          Object.assign(pageState, data.changes);
-          _pbApplyState(pageState);
+          msgs.scrollTop = msgs.scrollHeight;
+          return;
         }
 
-        // Replace typing indicator with real reply
-        typing.style.color = '';
-        typing.textContent = data.message || 'Alteração aplicada com sucesso!';
+        // Renderizar HTML real no iframe
+        let liveIframe = document.getElementById('cvPbIframe');
+        if (!liveIframe) {
+          liveIframe = document.createElement('iframe');
+          liveIframe.id = 'cvPbIframe';
+          liveIframe.style.cssText = 'width:100%;min-height:600px;border:none;display:block;';
+          const mock = document.getElementById('cvPbPageMock');
+          if (mock) { mock.innerHTML = ''; mock.style.padding = '0'; mock.appendChild(liveIframe); }
+        }
+        liveIframe.srcdoc = data.html;
+
+        // Salvar HTML no pageState para o botão Salvar
+        pageState._generatedHtml = data.html;
+
+        console.log('[thay] HTML renderizado, tamanho:', data.html.length);
+
+        botMsg.style.color = '';
+        botMsg.textContent = '✦ ' + (data.message || 'Página atualizada!');
+
       } catch (err) {
-        typing.style.color = '#dc2626';
-        typing.textContent = 'Erro ao conectar com a IA. Tente novamente.';
+        botMsg.style.color = '#dc2626';
+        botMsg.textContent = '❌ Erro de rede: ' + err.message;
       }
 
       msgs.scrollTop = msgs.scrollHeight;
