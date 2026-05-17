@@ -1,170 +1,139 @@
 /**
  * THAY Funnel Builder — POST /api/page-edit
- *
- * Recebe { userMessage, currentHtml, pageState, mode }
- * Chama Claude com CLAUDE_API_KEY (ou ANTHROPIC_API_KEY como fallback)
- * Retorna { ok, message, html }
- *
- * Variável obrigatória na Vercel:
- *   CLAUDE_API_KEY   (ou ANTHROPIC_API_KEY)
+ * Usa OPENAI_API_KEY (GPT-4o) — fallback para CLAUDE_API_KEY se existir
  */
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') return res.status(204).end();
-  if (req.method !== 'POST')
-    return res.status(405).json({ ok: false, message: 'Método não permitido. Use POST.' });
+  if (req.method !== 'POST') return res.status(405).json({ ok: false, message: 'Use POST.' });
 
-  const { userMessage, currentHtml, pageState } = req.body || {};
+  const { userMessage, currentHtml } = req.body || {};
+  if (!userMessage?.trim()) return res.status(400).json({ ok: false, message: 'userMessage é obrigatório.' });
 
-  if (!userMessage || !userMessage.trim())
-    return res.status(400).json({ ok: false, message: 'userMessage é obrigatório.' });
+  const openaiKey  = process.env.OPENAI_API_KEY;
+  const claudeKey  = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
 
-  // Aceita CLAUDE_API_KEY ou ANTHROPIC_API_KEY
-  const apiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
-
-  console.log('[page-edit] chamada recebida');
   console.log('[page-edit] userMessage:', userMessage.slice(0, 80));
-  console.log('[page-edit] tem apiKey:', !!apiKey);
-  console.log('[page-edit] currentHtml:', currentHtml ? `${currentHtml.length} chars` : 'nenhum');
+  console.log('[page-edit] openaiKey:', !!openaiKey, '| claudeKey:', !!claudeKey);
 
-  if (!apiKey) {
+  if (!openaiKey && !claudeKey) {
     return res.status(503).json({
       ok: false,
-      message: 'Chave de IA não configurada no servidor. Adicione CLAUDE_API_KEY nas variáveis de ambiente da Vercel (Settings → Environment Variables) e faça redeploy.'
+      message: 'Nenhuma chave de IA configurada. Adicione OPENAI_API_KEY nas variáveis de ambiente da Vercel e faça redeploy.'
     });
   }
 
-  const systemPrompt = `Você é o motor real de criação e edição de páginas da THAY Funnel Builder.
+  const systemPrompt = `Você é o motor de criação de páginas de vendas da THAY Funnel Builder.
 
-Sua tarefa é gerar ou editar páginas de vendas em HTML/CSS com qualidade premium.
+REGRAS:
+- Responda SOMENTE JSON válido. Zero texto fora do JSON. Zero markdown.
+- NUNCA use "O Método que Transformou 2.300 Alunos".
+- NUNCA use "Descubra o Método que Transformou".
+- Se não houver HTML atual: crie página completa do zero.
+- Se houver HTML atual: edite conforme o pedido, mantenha o restante.
+- Adapte ao nicho, público e produto do pedido.
+- Use português brasileiro.
+- HTML completo com CSS dentro de <style>.
+- Sem imagens externas, CDN ou libs externas.
+- Design premium: gradientes, cards, animações CSS, responsivo.
 
-REGRAS ABSOLUTAS:
-- Responda somente JSON válido. Sem markdown. Sem texto fora do JSON.
-- Nunca use "O Método que Transformou 2.300 Alunos em 90 Dias".
-- Nunca use "O Método que Está Transformando Resultados em 90 Dias".
-- Nunca use "Descubra o Método que Transformou".
-- Nunca use template genérico.
-- Se não houver HTML atual: crie página completa do zero baseada no pedido.
-- Se houver HTML atual: edite conforme o pedido, mantendo o restante intacto.
-- Adapte ao nicho, público, tom, promessa e produto do pedido.
-- Use português brasileiro coloquial e profissional.
-- Gere HTML completo com CSS dentro de <style> no <head>.
-- Não use imagens externas, CDN ou bibliotecas externas.
-- Use gradientes, cards, formas CSS, emojis e animações CSS.
-- A página deve ser responsiva (mobile-first).
-- Design premium: tipografia forte, espaçamento generoso, cores do nicho pedido.
-
-ESTRUTURA MÍNIMA PARA PÁGINA NOVA (não pule nenhuma seção):
-1. Hero com headline forte e CTA
-2. Barra de prova social (números)
-3. Benefícios em grid de cards
-4. Como funciona (3 passos)
-5. Depoimentos (3 cards)
-6. Oferta com preço e bônus
+ESTRUTURA MÍNIMA (página nova):
+1. Hero — headline forte + CTA
+2. Prova social — números
+3. Benefícios — grid de cards com emoji
+4. Como funciona — 3 passos
+5. Depoimentos — 3 cards
+6. Oferta — preço + bônus
 7. Garantia
-8. FAQ (4 perguntas com details/summary)
+8. FAQ — details/summary
 9. CTA final
 
-RESPOSTA OBRIGATÓRIA (JSON puro, sem markdown):
-{
-  "ok": true,
-  "message": "mensagem curta para o usuário",
-  "html": "<!DOCTYPE html>..."
-}
-
-Em caso de erro:
-{
-  "ok": false,
-  "message": "descrição do erro"
-}`;
+RESPOSTA (JSON puro):
+{"ok":true,"message":"mensagem curta","html":"<!DOCTYPE html>..."}`;
 
   const userContent = currentHtml
-    ? `HTML atual da página:\n${currentHtml.slice(0, 12000)}\n\nPedido do usuário: ${userMessage.trim()}`
-    : `Pedido do usuário: ${userMessage.trim()}\n\nNão há página atual — crie uma página completa do zero.`;
+    ? `HTML atual:\n${currentHtml.slice(0, 12000)}\n\nPedido: ${userMessage.trim()}`
+    : `Pedido: ${userMessage.trim()}\n\nNão há página atual — crie do zero.`;
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 55000);
+    setTimeout(() => controller.abort(), 55000);
 
-    console.log('[page-edit] chamando Anthropic API...');
+    let raw = '';
 
-    const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-5',
-        max_tokens: 8000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userContent }]
-      }),
-      signal: controller.signal
-    });
-
-    clearTimeout(timeout);
-    console.log('[page-edit] status Anthropic:', anthropicRes.status);
-
-    if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text();
-      console.log('[page-edit] erro Anthropic:', errText.slice(0, 200));
-      return res.status(502).json({
-        ok: false,
-        message: `Erro na API Anthropic (${anthropicRes.status}): ${errText.slice(0, 150)}`
+    // ── Tenta OpenAI primeiro ──────────────────────────────────
+    if (openaiKey) {
+      console.log('[page-edit] usando OpenAI GPT-4o...');
+      const r = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'authorization': `Bearer ${openaiKey}` },
+        body: JSON.stringify({
+          model: 'gpt-4o',
+          max_tokens: 8000,
+          response_format: { type: 'json_object' },
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user',   content: userContent }
+          ]
+        }),
+        signal: controller.signal
       });
-    }
-
-    const anthropicData = await anthropicRes.json();
-    const raw = anthropicData.content?.[0]?.text || '';
-
-    console.log('[page-edit] resposta recebida, tamanho:', raw.length);
-
-    // Limpar markdown residual
-    const cleaned = raw
-      .replace(/^```json\s*/i, '')
-      .replace(/^```\s*/i, '')
-      .replace(/\s*```\s*$/i, '')
-      .trim();
-
-    let parsed;
-    try {
-      parsed = JSON.parse(cleaned);
-    } catch {
-      // Tentar extrair JSON do meio da resposta
-      const match = cleaned.match(/\{[\s\S]*\}/);
-      if (match) {
-        try { parsed = JSON.parse(match[0]); } catch {}
+      console.log('[page-edit] OpenAI status:', r.status);
+      if (r.ok) {
+        const d = await r.json();
+        raw = d.choices?.[0]?.message?.content || '';
+      } else {
+        const err = await r.text();
+        console.log('[page-edit] OpenAI erro:', err.slice(0, 200));
+        if (!claudeKey) return res.status(502).json({ ok: false, message: `Erro OpenAI ${r.status}: ${err.slice(0, 100)}` });
       }
     }
 
-    if (!parsed) {
-      console.log('[page-edit] JSON inválido, raw:', raw.slice(0, 200));
-      return res.status(502).json({
-        ok: false,
-        message: 'A IA não retornou JSON válido. Tente novamente.'
+    // ── Fallback: Claude ───────────────────────────────────────
+    if (!raw && claudeKey) {
+      console.log('[page-edit] usando Claude...');
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': claudeKey, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-5',
+          max_tokens: 8000,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: userContent }]
+        }),
+        signal: controller.signal
       });
+      console.log('[page-edit] Claude status:', r.status);
+      if (r.ok) {
+        const d = await r.json();
+        raw = d.content?.[0]?.text || '';
+      } else {
+        const err = await r.text();
+        return res.status(502).json({ ok: false, message: `Erro Claude ${r.status}: ${err.slice(0, 100)}` });
+      }
     }
 
-    if (!parsed.html) {
-      return res.status(502).json({
-        ok: false,
-        message: parsed.message || 'A IA não gerou HTML. Tente um prompt mais específico.'
-      });
+    if (!raw) return res.status(502).json({ ok: false, message: 'IA não retornou resposta.' });
+
+    // Limpar markdown residual
+    const cleaned = raw.replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+    let parsed;
+    try { parsed = JSON.parse(cleaned); }
+    catch { const m = cleaned.match(/\{[\s\S]*\}/); if (m) try { parsed = JSON.parse(m[0]); } catch {} }
+
+    if (!parsed?.html) {
+      console.log('[page-edit] sem HTML na resposta, raw:', raw.slice(0, 200));
+      return res.status(502).json({ ok: false, message: parsed?.message || 'IA não gerou HTML. Tente novamente.' });
     }
 
     console.log('[page-edit] sucesso, HTML:', parsed.html.length, 'chars');
     return res.status(200).json({ ok: true, message: parsed.message || 'Página atualizada!', html: parsed.html });
 
   } catch (err) {
-    if (err.name === 'AbortError')
-      return res.status(504).json({ ok: false, message: 'Timeout: a IA demorou mais de 55s. Tente um prompt mais curto.' });
-
-    console.log('[page-edit] erro inesperado:', err.message);
-    return res.status(500).json({ ok: false, message: `Erro interno: ${err.message}` });
+    if (err.name === 'AbortError') return res.status(504).json({ ok: false, message: 'Timeout (55s). Tente um prompt mais curto.' });
+    console.log('[page-edit] erro:', err.message);
+    return res.status(500).json({ ok: false, message: err.message });
   }
 }
