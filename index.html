@@ -5043,38 +5043,30 @@ body {
         </div>
         <div class="cv-pb-preview-frame" id="cvPbPreviewFrame">
           <div class="cv-pb-page-mock" id="cvPbPageMock">
-            <div id="cvPbEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;padding:48px 32px;text-align:center;background:#f8fafc;">
-              <div style="font-size:40px;margin-bottom:16px;">✦</div>
-              <div style="font-size:18px;font-weight:800;color:#1e293b;margin-bottom:8px;letter-spacing:-0.3px;">Sua página aparece aqui</div>
-              <div style="font-size:14px;color:#64748b;line-height:1.6;max-width:340px;">Descreva seu produto no chat ao lado e a IA cria a página completa em segundos.</div>
-              <div style="margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
-                <div style="padding:6px 14px;background:#e0f2fe;border-radius:100px;font-size:12px;font-weight:600;color:#0369a1;">Rosa / Beleza</div>
-                <div style="padding:6px 14px;background:#fce7f3;border-radius:100px;font-size:12px;font-weight:600;color:#9d174d;">Fitness / Saúde</div>
-                <div style="padding:6px 14px;background:#dcfce7;border-radius:100px;font-size:12px;font-weight:600;color:#166534;">Negócios / SaaS</div>
-              </div>
-            </div>
-            <div class="cv-pb-page-body">
-              <div class="cv-pb-section-title" id="cvPbFeatTitle">O que está incluso</div>
-              <div class="cv-pb-feature-grid" id="cvPbFeatures">
-                <div class="cv-pb-feature-card">
-                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><polyline points="5,8 7,10 11,6"/></svg></div>
-                  <div class="cv-pb-feature-name">Acesso vitalício</div>
-                  <div class="cv-pb-feature-desc">Assista quando e onde quiser, sem prazo de validade</div>
-                </div>
-                <div class="cv-pb-feature-card">
-                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1L9.6 5.8H14.7L10.5 8.6l1.5 4.8L8 11l-4 2.4 1.5-4.8L1.3 5.8H6.4z"/></svg></div>
-                  <div class="cv-pb-feature-name">Suporte premium</div>
-                  <div class="cv-pb-feature-desc">Acompanhamento da equipe durante todo o processo</div>
-                </div>
-                <div class="cv-pb-feature-card">
-                  <div class="cv-pb-feature-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0077ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1l1.2 4.1h4.3l-3.5 2.5 1.3 4.1L8 9.2l-3.3 2.5 1.3-4.1L2.5 5.1h4.3z"/></svg></div>
-                  <div class="cv-pb-feature-name">Garantia de 7 dias</div>
-                  <div class="cv-pb-feature-desc">Reembolso total sem perguntas dentro do prazo</div>
+            <div id="cvPbEmptyState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:500px;padding:48px 32px;text-align:center;background:#0f0f1a;">
+              <style>
+                @keyframes thay-pulse{0%,100%{opacity:.3;transform:scale(.95)}50%{opacity:1;transform:scale(1)}}
+                @keyframes thay-bar{0%{width:0}100%{width:100%}}
+                @keyframes thay-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+                .thay-step{animation:thay-fade .4s ease both}
+              </style>
+              <div id="cvPbIdleState">
+                <div style="font-size:36px;margin-bottom:20px;animation:thay-pulse 2s ease-in-out infinite">✦</div>
+                <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:10px;letter-spacing:-0.4px;">Descreva seu produto</div>
+                <div style="font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;max-width:320px;margin:0 auto 28px;">A IA cria sua página de vendas completa em segundos — hero, benefícios, depoimentos, oferta e muito mais.</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                  <div style="padding:7px 16px;background:rgba(255,192,203,.12);border:1px solid rgba(255,192,203,.25);border-radius:100px;font-size:12px;font-weight:700;color:#ffb6c1;cursor:pointer" onclick="document.getElementById('cvPbInput').value='Crie uma página rosa premium para curso de design de unhas';document.getElementById('cvPbInput').focus()">💅 Unhas / Beleza</div>
+                  <div style="padding:7px 16px;background:rgba(99,255,132,.1);border:1px solid rgba(99,255,132,.2);border-radius:100px;font-size:12px;font-weight:700;color:#86efac;cursor:pointer" onclick="document.getElementById('cvPbInput').value='Crie uma página dark premium para consultoria de tráfego pago';document.getElementById('cvPbInput').focus()">📊 Marketing</div>
+                  <div style="padding:7px 16px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.25);border-radius:100px;font-size:12px;font-weight:700;color:#c4b5fd;cursor:pointer" onclick="document.getElementById('cvPbInput').value='Crie uma página vibrante para programa de emagrecimento feminino';document.getElementById('cvPbInput').focus()">💪 Fitness</div>
                 </div>
               </div>
-              <div style="text-align:center;padding:20px 0 10px">
-                <button class="cv-pb-hero-cta" style="font-size:16px">Quero garantir minha vaga agora</button>
-                <div style="font-size:12px;color:#9ca3af;margin-top:10px;font-weight:700">Garantia de 7 dias · Acesso imediato · Pagamento seguro</div>
+              <div id="cvPbLoadingState" style="display:none;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:360px;">
+                <div style="font-size:28px;animation:thay-pulse 1s ease-in-out infinite">✦</div>
+                <div id="cvPbLoadingTitle" style="font-size:16px;font-weight:800;color:#fff;letter-spacing:-.3px">Criando sua página...</div>
+                <div style="width:100%;height:3px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden">
+                  <div id="cvPbProgressBar" style="height:100%;background:linear-gradient(90deg,#7c6af7,#f72585);border-radius:100px;width:0;transition:width .4s ease"></div>
+                </div>
+                <div id="cvPbLoadingSteps" style="display:flex;flex-direction:column;gap:8px;width:100%"></div>
               </div>
             </div>
           </div>
@@ -6103,7 +6095,7 @@ ThayApp.CanvasEditor = (function () {
       const botMsg = document.createElement('div');
       botMsg.className = 'cv-pb-msg cv-pb-msg-bot';
       botMsg.style.color = '#9ca3af';
-      botMsg.textContent = '✦ Gerando com IA… aguarde até 50s';
+      botMsg.textContent = '✦ Gerando com IA…';
       msgs.appendChild(botMsg);
       msgs.scrollTop = msgs.scrollHeight;
 
@@ -6111,8 +6103,42 @@ ThayApp.CanvasEditor = (function () {
       const iframe = document.getElementById('cvPbIframe');
       const currentHtml = iframe ? (iframe.srcdoc || '') : '';
 
+      // Animar loading state no preview
+      const idleEl    = document.getElementById('cvPbIdleState');
+      const loadingEl = document.getElementById('cvPbLoadingState');
+      const progressEl = document.getElementById('cvPbProgressBar');
+      const stepsEl   = document.getElementById('cvPbLoadingSteps');
+      const titleEl   = document.getElementById('cvPbLoadingTitle');
+
+      if (idleEl)    idleEl.style.display    = 'none';
+      if (loadingEl) loadingEl.style.display = 'flex';
+
+      const steps = [
+        { label: '✦ Analisando seu produto...', pct: 15 },
+        { label: '✦ Definindo estrutura e seções...', pct: 35 },
+        { label: '✦ Escrevendo copy persuasiva...', pct: 60 },
+        { label: '✦ Aplicando design premium...', pct: 85 },
+        { label: '✦ Finalizando página...', pct: 95 },
+      ];
+      let stepIdx = 0;
+      const stepInterval = setInterval(() => {
+        if (stepIdx >= steps.length) { clearInterval(stepInterval); return; }
+        const s = steps[stepIdx++];
+        if (progressEl) progressEl.style.width = s.pct + '%';
+        if (titleEl) titleEl.textContent = s.label;
+        if (stepsEl) {
+          const el = document.createElement('div');
+          el.className = 'thay-step';
+          el.style.cssText = 'font-size:12px;color:rgba(255,255,255,.4);font-weight:500;animation-delay:' + (stepIdx * 0.05) + 's';
+          el.textContent = s.label;
+          stepsEl.appendChild(el);
+        }
+      }, 2800);
+
       try {
         const data = await _callPageEditAPI(text, currentHtml);
+        clearInterval(stepInterval);
+        if (progressEl) progressEl.style.width = '100%';
 
         if (!data.ok) {
           // Erro real — mostrar no chat, NÃO alterar preview
@@ -6141,17 +6167,24 @@ ThayApp.CanvasEditor = (function () {
         }
         liveIframe.srcdoc = data.html;
 
+        // Ocultar loading — iframe já vai mostrar a página
+        if (idleEl)    idleEl.style.display    = 'none';
+        if (loadingEl) loadingEl.style.display = 'none';
+
         // Salvar HTML no pageState para o botão Salvar
         pageState._generatedHtml = data.html;
 
         console.log('[thay] HTML renderizado, tamanho:', data.html.length);
 
         botMsg.style.color = '';
-        botMsg.textContent = '✦ ' + (data.message || 'Página atualizada!');
+        botMsg.textContent = '✦ ' + (data.message || 'Página criada! Peça ajustes no chat.');
 
       } catch (err) {
+        clearInterval(stepInterval);
+        if (idleEl)    idleEl.style.display    = 'flex';
+        if (loadingEl) loadingEl.style.display = 'none';
         botMsg.style.color = '#dc2626';
-        botMsg.textContent = '❌ Erro de rede: ' + err.message;
+        botMsg.textContent = '❌ Erro: ' + err.message;
       }
 
       msgs.scrollTop = msgs.scrollHeight;
