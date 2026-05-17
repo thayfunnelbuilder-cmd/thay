@@ -6022,7 +6022,7 @@ ThayApp.CanvasEditor = (function () {
 
     // Load or initialise pageState
     const pageState = _pbLoadState(funnelId, moduleId);
-    _pbApplyState(pageState);
+    // NÃO chamar _pbApplyState — evita template genérico ao abrir
 
     // Restaurar HTML gerado anteriormente no iframe (se houver)
     const savedHtml = (() => {
@@ -6103,7 +6103,7 @@ ThayApp.CanvasEditor = (function () {
       const botMsg = document.createElement('div');
       botMsg.className = 'cv-pb-msg cv-pb-msg-bot';
       botMsg.style.color = '#9ca3af';
-      botMsg.textContent = '✦ Gerando com IA… aguarde até 30s';
+      botMsg.textContent = '✦ Gerando com IA… aguarde até 50s';
       msgs.appendChild(botMsg);
       msgs.scrollTop = msgs.scrollHeight;
 
